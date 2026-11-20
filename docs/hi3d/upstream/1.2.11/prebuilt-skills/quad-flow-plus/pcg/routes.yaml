@@ -1,0 +1,119 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "先按可用后端四选一。所选后端缺失时列出全部适用安装来源，用户选定后才安装。保形减密与边链预算重建按授权分支执行。"
+checkpoints:
+  - id: inspect_route
+    say: "检查输入并选方案"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-initial-remesh.md
+      - references/hi3d-install.md
+      - references/hi3d-routing.md
+    irreversible: []
+  - id: establish_base
+    say: "建立或复用基线"
+    rollback_to: inspect_route
+    load:
+      - SKILL.md
+      - references/hi3d-initial-remesh.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: adjust_feedback
+    say: "按反馈调整初版"
+    rollback_to: establish_base
+    load:
+      - SKILL.md
+      - references/hi3d-remesh-parameters.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: freeze_and_partition
+    say: "冻结基线并分区"
+    rollback_to: establish_base
+    load:
+      - SKILL.md
+      - references/hi3d-routing.md
+      - references/hi3d-budget-rebuild.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: plan_and_optimize
+    say: "执行减密或重建"
+    rollback_to: freeze_and_partition
+    load:
+      - SKILL.md
+      - references/hi3d-budget-rebuild.md
+      - references/hi3d-tests.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: verify_deliver
+    say: "验收并交付"
+    rollback_to: plan_and_optimize
+    load:
+      - SKILL.md
+      - references/hi3d-scope.md
+      - references/hi3d-workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: qremeshify
+    summary: "用 QRemeshify 建立基线，再按授权做保形或预算重建"
+    nodes:
+      - inspect_route
+      - establish_base
+      - freeze_and_partition
+      - plan_and_optimize
+      - verify_deliver
+    rollback_to: establish_base
+  - id: autoremersher
+    summary: "用 AutoRemesher 建立基线，再按授权做保形或预算重建"
+    nodes:
+      - inspect_route
+      - establish_base
+      - freeze_and_partition
+      - plan_and_optimize
+      - verify_deliver
+    rollback_to: establish_base
+  - id: instant_meshes
+    summary: "用 Instant Meshes 与用户布线建立基线，再按授权继续"
+    nodes:
+      - inspect_route
+      - establish_base
+      - freeze_and_partition
+      - plan_and_optimize
+      - verify_deliver
+    rollback_to: establish_base
+  - id: legacy_quad
+    summary: "走原四边通的标准体或保形基线，再做分区与验收"
+    nodes:
+      - inspect_route
+      - establish_base
+      - freeze_and_partition
+      - plan_and_optimize
+      - verify_deliver
+    rollback_to: establish_base
+choices_example:
+  - id: qremeshify
+    title: "QRemeshify，硬表面优先"
+    route: qremeshify
+    confirm: false
+  - id: autoremersher
+    title: "AutoRemesher，尽量少干预"
+    route: autoremersher
+    confirm: false
+  - id: instant_meshes
+    title: "Instant Meshes，自控边流"
+    route: instant_meshes
+    confirm: false
+  - id: legacy_quad
+    title: "原四边通流程兜底"
+    route: legacy_quad
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

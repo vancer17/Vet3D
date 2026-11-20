@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Reference files are selected by immutable manifests. Allow their original
+# dist/lib layouts despite the generic Python packaging rules above.
+!vendor/
+!vendor/hi3d/
+!vendor/hi3d/1.2.11/
+!vendor/hi3d/1.2.11/raw/
+!vendor/hi3d/1.2.11/raw/**
+!vendor/hi3d/1.2.11/packages/
+!vendor/hi3d/1.2.11/packages/**
+
+# Never retain newly generated caches inside immutable reference trees.
+vendor/hi3d/**/__pycache__/
+vendor/hi3d/**/*.pyc
+vendor/hi3d/**/*.pyo

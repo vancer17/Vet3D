@@ -1,0 +1,698 @@
+{
+  "extraction_sha256": "0750bf381c9d76052aa01713d8eaef03c41014659023a10c64420dc8b632cdfc",
+  "p0_priority_sha256": "c273624ad288025ba3f6ae3dd2323892f029b10a3bc08766eefa59bc0bf3ce03",
+  "p1": {
+    "files": {
+      "runtime/prebuilt-skills/.dependency-blender-tools/references/asset-scene.md": {
+        "basis": "原始重开契约区分 native BLEND 工程与独立 GLB 回读，并给出载入参数、坏输入与异常边界。",
+        "kind": "evidence",
+        "pending": "真实资产的外部依赖、非预期场景残留和帧语义需按实际模型核对。",
+        "requires": [],
+        "sha256": "79cf3b558b17716c81357ebf541b8bbdb8fa46aff7fb9c2d10d3640e1a3a8b98",
+        "size": 1236,
+        "source_path": "tools/blender-tools/references/asset-scene.md"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/references/cycles-device.md": {
+        "basis": "上游设备选择契约记录 CPU、后端枚举及设备状态恢复。纹理烘焙通过同目录的脚本物化副本消费该实现。",
+        "kind": "evidence",
+        "pending": "设备报告需配合真实目标平台上的 GPU 执行和产物验证。",
+        "requires": [],
+        "sha256": "4cdb7ba44ba3d4bf14996b25b0386c9ede1c3b0e76eb6afc2cb05777c2c0d0b4",
+        "size": 1378,
+        "source_path": "tools/blender-tools/references/cycles-device.md"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/references/material-nodes.md": {
+        "basis": "上游材料节点接口记录线性颜色、socket 覆盖、材质创建与失败清理。",
+        "kind": "evidence",
+        "pending": "用于核对 helper 契约。保留材质节点和颜色还需实际导出、重开与视觉验收。",
+        "requires": [],
+        "sha256": "f3d532949f3cd0484933800b088bddf11eba176dcefa429879621cca0c586921",
+        "size": 721,
+        "source_path": "tools/blender-tools/references/material-nodes.md"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/references/mesh-snapshot.md": {
+        "basis": "固定网格快照的世界与局部坐标、原始与求值网格、属性及临时数据所有权约定。",
+        "kind": "evidence",
+        "pending": "需验证目标动物模型所需的字段、坐标和 Blender 版本。",
+        "requires": [],
+        "sha256": "225d00d92cc2db184c90018344388878f8d078c9977d064e22f86addb7803d7e",
+        "size": 1826,
+        "source_path": "tools/blender-tools/references/mesh-snapshot.md"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/references/scene-io.md": {
+        "basis": "原始场景 IO 契约记录层级、选择与网格写入边界。",
+        "kind": "evidence",
+        "pending": "实际外部几何导入与保留策略待按入口场景验证。",
+        "requires": [],
+        "sha256": "c7d46fc48bb5dd34c94765c5a23b52cb578691825753c0deefc72b45ec0bbf37",
+        "size": 1588,
+        "source_path": "tools/blender-tools/references/scene-io.md"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/scripts/asset_scene.py": {
+        "basis": "第 4 行导入同目录 scene_io。完整 BLEND 用 open_mainfile 禁止内嵌脚本并跳过 UI 装载，GLB 走 reset=True。随包合成夹具在 Blender 4.5.16 LTS 已验证完整场景、帧选择、GLB 动作与源 SHA 保持。",
+        "kind": "archive",
+        "pending": "坏文件和导入算子异常后的部分场景需丢弃或复核。真实犬猫模型的外观、资源链接、蒙皮与动作回读待验证。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-blender-tools/scripts/scene_io.py"
+        ],
+        "sha256": "a7b661c221f436f1eece117b2724f48747824160ef43427aa0154daac5941f6d",
+        "size": 1219,
+        "source_path": "tools/blender-tools/scripts/asset_scene.py"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/scripts/material_nodes.py": {
+        "basis": "Blender 4.5.16 LTS 已用此确切路径实测创建 Principled 材质并覆盖 Coat Weight。调用接收线性 RGB/RGBA，设置基础颜色、金属度与粗糙度，未知 socket 失败时释放本次创建材质。",
+        "kind": "archive",
+        "pending": "真实犬猫毛发、眼睛与皮肤材质的配方、颜色空间和多材质绑定由领域调用方验收。",
+        "requires": [],
+        "sha256": "1d12412503f0d6c6d04e655a5a08cba652643152e4768867bed397a1e2ceefc5",
+        "size": 777,
+        "source_path": "tools/blender-tools/scripts/material_nodes.py"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/scripts/mesh_snapshot.py": {
+        "basis": "随包网格快照测试使用此路径，覆盖形态键、骨骼、UV、材质和失败清理。它与 P1 已选平级预览包中的 mesh_snapshot.py 同源码同 SHA-256。",
+        "kind": "evidence",
+        "pending": "若以后有入口显式要求 Blender 工具包下的此布局，届时按确切消费路径纳入。",
+        "requires": [],
+        "sha256": "2a073c84a13a945bd83effd3d6c15f5bb4ad218d2a9cb0c3025e36149d32d8f2",
+        "size": 3825,
+        "source_path": "tools/blender-tools/scripts/mesh_snapshot.py"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/scripts/scene_io.py": {
+        "basis": "提供 GLB/GLTF、OBJ、PLY 与 BLEND 对象导入，并可按显式参数清场、保留网格或创建集合内网格。条件分支的 bmesh 由 Blender 提供。GLB 清场导入已由同版合成夹具经过。",
+        "kind": "archive",
+        "pending": "需按实际资产验证 OBJ/PLY 版本兼容、BLEND 追加、形态键与共享网格处置及可选重算法线。",
+        "requires": [],
+        "sha256": "1436a037311c8f6b84c24c225aa434d1bc6046a060c7764e611f9aae4f962939",
+        "size": 3910,
+        "source_path": "tools/blender-tools/scripts/scene_io.py"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_asset_scene.py": {
+        "basis": "锁定测试在本机 Blender 4.5.16 LTS 通过 2 项，验证完整 BLEND、GLB 动作、错误参数保留当前场景及源文件指纹。",
+        "kind": "evidence",
+        "pending": "合成资产的通过范围以夹具为准。产物视觉、真实蒙皮和完整桌面视窗仍待实测。",
+        "requires": [],
+        "sha256": "e8062adaec75f22ed05f90623e3b08e7bfeab2ef4e8938d2f4581d2c8b441a1b",
+        "size": 2930,
+        "source_path": "tools/blender-tools/tests/test_asset_scene.py"
+      },
+      "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_mesh_snapshot.py": {
+        "basis": "随包测试在本机 Blender 4.5.16 LTS 通过 3 项，覆盖 shape key、UV、材质、骨骼姿态与失败清理。",
+        "kind": "evidence",
+        "pending": "当前证据来自合成对象，真实动物动画或完整材质输出来回转换待验证。",
+        "requires": [],
+        "sha256": "7ee8f2d1faeb66cfad336ccdfa430b2f45cf8441d5c7969dddaef779e64caa4b",
+        "size": 3476,
+        "source_path": "tools/blender-tools/tests/test_mesh_snapshot.py"
+      },
+      "runtime/prebuilt-skills/.dependency-glb-clips/references/contract.md": {
+        "basis": "GLB 通用工具合同支持已有同时间坐标片段的合并与容器复读。网格审计闭包中的 glb_clips.py 是同源同摘要的实际物化副本。",
+        "kind": "evidence",
+        "pending": "播放器需要实测同播和动作片段可见性。恢复已有动画、动作重定向与四足运动生成各有独立验收。",
+        "requires": [],
+        "sha256": "cfcc56b546828808a33a8d4e55a651642bfe67438a0991d031fa1ef02f5c6fa5",
+        "size": 3618,
+        "source_path": "skills/glb-clips/references/contract.md"
+      },
+      "runtime/prebuilt-skills/.dependency-hi3d-api-source/REFERENCE.md": {
+        "basis": "独立 Hi3D API 参考声明 AK/SK 方案、客户端计划和受理不明约束。用于与桌面 Runtime 账号下的接口区分。",
+        "kind": "evidence",
+        "pending": "独立服务鉴权、端点和功能以所选服务当前版本及授权测试核实。",
+        "requires": [],
+        "sha256": "c613aafc1d83a146bd4a7fce2a4069ec6fe9ee7bc2c0ae5be714a0337901d853",
+        "size": 8752,
+        "source_path": "tools/hi3d-api/SKILL.md"
+      },
+      "runtime/prebuilt-skills/.dependency-image-sheet/REFERENCE.md": {
+        "basis": "给出独立拼版入口、格位映射及依赖边界，明确输入排序和标签交由调用方安排。",
+        "kind": "evidence",
+        "pending": "不同环境的图像解码、所选字体和图片质量需按实际样本验证。",
+        "requires": [],
+        "sha256": "2b2edb100c51cea1501d24b20be0254fa0efde1ab173b8560a4956a8b4f10939",
+        "size": 1419,
+        "source_path": "skills/image-sheet/SKILL.md"
+      },
+      "runtime/prebuilt-skills/.dependency-image-sheet/references/contract.md": {
+        "basis": "固定 CLI 清单、可选来源哈希和覆盖条件。外部字体由清单相对路径或绝对路径给出，默认字体由 Pillow 提供。",
+        "kind": "evidence",
+        "pending": "需实测输出图已写入而映射写盘失败时的恢复方式。",
+        "requires": [],
+        "sha256": "88d34fe5c6bb6b6d603a6818ff6b4f940b8f0365ff14b93951f1b5375d6fc751",
+        "size": 2917,
+        "source_path": "skills/image-sheet/references/contract.md"
+      },
+      "runtime/prebuilt-skills/.dependency-image-sheet/scripts/image_sheet.py": {
+        "basis": "第 2–5 行导入标准库及 Pillow。按调用方顺序将照片与标签组为 PNG 或 JPEG，输出记录每格来源及像素范围的 JSON。已用随包 Pillow 12.3.0 验证带来源哈希的两张合成图片、像素与格位对应和来源字节保持。",
+        "kind": "archive",
+        "pending": "需用目标环境的 Pillow、字体和手机照片验证 EXIF 方位、色彩解释、非 ASCII 标签及大图资源占用。验收图像内容由调用方完成。",
+        "requires": [],
+        "sha256": "731506e21b8a53d04f409cf2a6ae3afc5cd5f6f4bc1079d62f5bf7c2b79361c0",
+        "size": 5639,
+        "source_path": "skills/image-sheet/scripts/image_sheet.py"
+      },
+      "runtime/prebuilt-skills/.dependency-mesh-audit/references/code-contract.md": {
+        "basis": "原始契约明确 glb_bounds 只解析支持的顶点存储，glb_clips.read_glb 只提供有限容器检查。",
+        "kind": "evidence",
+        "pending": "真实资产中遇到压缩、蒙皮或不支持的文件时，另选被支持的回读和几何验收入口。",
+        "requires": [],
+        "sha256": "3cdd0141c08a2d4136db927b28c5b38663f4fbe9837d4cc9bd50120e8e157442",
+        "size": 4118,
+        "source_path": "skills/mesh-audit/references/code-contract.md"
+      },
+      "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_bounds.py": {
+        "basis": "第 12 行导入同目录 read_glb。inspect 累积默认场景节点的世界变换，在真实 POSITION 字节上计算包围盒。随包 NumPy 2.5.3 上通过世界矩阵、交错读取、未知 chunk 及坏数据拒绝。",
+        "kind": "archive",
+        "pending": "只支持单个嵌入 BIN 的非 sparse float VEC3 位置。压缩、量化、形态键、蒙皮求值、动态姿态与语义验收须走独立路径。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_clips.py"
+        ],
+        "sha256": "3431b26d8238ba6448b7efc28099f911b3f98e1fc7e6bb94fbb9b416a0b8a6b4",
+        "size": 3945,
+        "source_path": "skills/mesh-audit/scripts/glb_bounds.py"
+      },
+      "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_clips.py": {
+        "basis": "glb_bounds 直接导入同目录 read_glb。核心读取验证 GLB 2.0 首部、总长、chunk 对齐、唯一首个 JSON 及对象类型，保留后续 chunk 内容。",
+        "kind": "archive",
+        "pending": "此处只验证给包围盒使用的 read_glb。片段合并、多轨与来源动画语义需单独实测。",
+        "requires": [],
+        "sha256": "9a6be55268d9156efcccbd9572206cbbc4ffef4a462d1615e89e1560ecd89412",
+        "size": 9243,
+        "source_path": "skills/glb-clips/scripts/glb_clips.py"
+      },
+      "runtime/prebuilt-skills/.dependency-mesh-audit/tests/test_glb_bounds.py": {
+        "basis": "随包测试以 Python 3.12.14 和 NumPy 2.5.3 实测通过 3 项，包括 transform、交错顶点、坏 range、外部 buffer 和坏容器拒绝。",
+        "kind": "evidence",
+        "pending": "测试夹具保留静态测量证据。真实目标压缩、几何或动画质量各自验证。",
+        "requires": [],
+        "sha256": "f553775c7d0fe460293f3e6d6493c1fff9a987b6e76f0df592408c5ad6ee73f7",
+        "size": 3176,
+        "source_path": "skills/mesh-audit/tests/test_glb_bounds.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/references/preview-atoms.md": {
+        "basis": "记录相机投影、构图取样、面积灯及 GLB 导出原子语义。展示文档引用 product 子目录的同摘要物化副本。",
+        "kind": "evidence",
+        "pending": "需要用真实动物评估视野、遮挡、光照和导出保存的内容。",
+        "requires": [],
+        "sha256": "d514809cc5ab8b060bd7cd29d0ea3e5499c6443bc3b2c630a3a8abe7cc553762",
+        "size": 3757,
+        "source_path": "skills/model-preview/references/preview-atoms.md"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/references/source-views.md": {
+        "basis": "记录米制场景、归一化高度、固定正交方向、Cycles CPU、相机和灯光增设及场景状态副作用。",
+        "kind": "evidence",
+        "pending": "需确定 Vet3D 的动物坐标系、取景配方和输出设置。",
+        "requires": [],
+        "sha256": "0cf647d7c9e9374e10a617456b31577b25fee4d2e9af88927916713b0db14e82",
+        "size": 1352,
+        "source_path": "skills/model-preview/references/source-views.md"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/glb_export.py": {
+        "basis": "选择文档与实测可追溯的平铺物化路径。随包 test_preview_atoms.py 和 web_derivative.py 从此脚本名导入。已实测显式对象导出、隐藏或曲线转换、动画参数透传及结束后状态恢复。",
+        "kind": "archive",
+        "pending": "真实动物材质、蒙皮、动作、压缩和量化兼容性按目标样本及 Blender 版本验证。输出目录与覆盖策略由调用方明确。",
+        "requires": [],
+        "sha256": "8f92bd1c2c0664febbd8f7c841531c546c4feb34e52e088b39ca40a9529069a4",
+        "size": 2272,
+        "source_path": "skills/model-preview/scripts/glb_export.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/mesh_snapshot.py": {
+        "basis": "从显式原始或求值对象取得独立顶点、三角索引及包围盒，并释放临时网格。第 3 行依赖 NumPy，三角化分支按需调用 Blender bmesh。 与 Blender 工具包的同源同摘要副本共用形态键、骨骼、UV 与材质夹具证据。此物化路径已通过预览包的 frame sampling 闭包验证。",
+        "kind": "archive",
+        "pending": "材质名称、三角材质编号与 UV 等可选字段须用目标模型验证。快照结果由记入相应诊断的调用方解释。",
+        "requires": [],
+        "sha256": "2a073c84a13a945bd83effd3d6c15f5bb4ad218d2a9cb0c3025e36149d32d8f2",
+        "size": 3825,
+        "source_path": "tools/blender-tools/scripts/mesh_snapshot.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/preview_scene.py": {
+        "basis": "同目录预览计算、相机定位和灯光入口。第 84–96 行仅在调用 check_framing 时加载 scene_samples。已分别用平级脚本和 scripts 命名空间验证导入及构图采样。",
+        "kind": "archive",
+        "pending": "需在真实动物姿态和构图条件下验证评估包围盒、裁切空间及遮挡。六视图渲染仅调用此模块的 area_light。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/scene_samples.py"
+        ],
+        "sha256": "63fcd07dc3b6f025cc0fd88bd9ce56cafb42dc50044307abfe5c0710e403abb8",
+        "size": 5899,
+        "source_path": "skills/model-preview/scripts/preview_scene.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/__init__.py": {
+        "basis": "仅含产品预览的单位说明，为 product 命名空间初始化文件。",
+        "kind": "evidence",
+        "pending": "当前精简路由从平级脚本导入。",
+        "requires": [],
+        "sha256": "eda431f47d889829c5de0a6c56b4b93b30c9e8decf85f008aa0694bb45046c66",
+        "size": 79,
+        "source_path": "skills/model-preview/scripts/product/__init__.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/glb_export.py": {
+        "basis": "与选定平铺 glb_export.py 的发行 SHA-256 和源码映射完全相同。参考页链接此投放路径，平铺测试导入另一确切路径。",
+        "kind": "evidence",
+        "pending": "当实际消费者选择 product 位置时，再复核 package 初始化、导入和相对文件布局。",
+        "requires": [],
+        "sha256": "8f92bd1c2c0664febbd8f7c841531c546c4feb34e52e088b39ca40a9529069a4",
+        "size": 2272,
+        "source_path": "skills/model-preview/scripts/glb_export.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/mesh_snapshot.py": {
+        "basis": "与平级 mesh_snapshot.py 字节一致。product 的合成网格快照已通过。",
+        "kind": "evidence",
+        "pending": "真实业务对属性、拓扑及场景坐标的要求待按入口验证。",
+        "requires": [],
+        "sha256": "2a073c84a13a945bd83effd3d6c15f5bb4ad218d2a9cb0c3025e36149d32d8f2",
+        "size": 3825,
+        "source_path": "tools/blender-tools/scripts/mesh_snapshot.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/preview_scene.py": {
+        "basis": "与平级 preview_scene.py 字节一致的安装别名。已独立验证 product 命名空间触发该目录内的 scene_samples。作为现有产品调用的路径证据。",
+        "kind": "evidence",
+        "pending": "若后续选用 product 媒体调用方，再以其可达接口扩展原件范围。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/__init__.py",
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/scene_samples.py"
+        ],
+        "sha256": "63fcd07dc3b6f025cc0fd88bd9ce56cafb42dc50044307abfe5c0710e403abb8",
+        "size": 5899,
+        "source_path": "skills/model-preview/scripts/preview_scene.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/scene_samples.py": {
+        "basis": "与平级 scene_samples.py 字节一致，已核实 product 路由实际解析到同目录 mesh_snapshot。",
+        "kind": "evidence",
+        "pending": "后续实际产品入口及其选用条件另行核验。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/mesh_snapshot.py"
+        ],
+        "sha256": "c0db727254739247e0069f2379133f5bd7f3d8462f7761f6f755f27dc21aafb5",
+        "size": 1439,
+        "source_path": "skills/motion-check/scripts/scene_samples.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/scene_samples.py": {
+        "basis": "第 5–8 行按导入方式选择同目录 mesh_snapshot。已实测合成对象的整数及小数帧采样、恢复原帧与子帧和世界网格读出。",
+        "kind": "archive",
+        "pending": "需在含骨骼、形状键及复杂修改器的四足样本上验证采样结果与实际动作表现。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/mesh_snapshot.py"
+        ],
+        "sha256": "c0db727254739247e0069f2379133f5bd7f3d8462f7761f6f755f27dc21aafb5",
+        "size": 1439,
+        "source_path": "skills/motion-check/scripts/scene_samples.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/scripts/source_views.py": {
+        "basis": "第 5 行导入同目录 preview_scene.area_light。第 18–47 行以已摆正的单个对象、米制场景和显式取景灯光参数生成前、后、左、右、顶及 hero 图。已用 Blender 4.5.16 LTS 的居中合成立方体生成六张 600×600 PNG。",
+        "kind": "archive",
+        "pending": "需用带明确头尾及左右地标的四足 GLB 验证标准化中心、顶视滚转和实际可见性。路径固定为 .png，编码取自场景图像设置。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/preview_scene.py"
+        ],
+        "sha256": "0eca3af57e2ee647b96dba759c57ba4add06388080967982ef0ae9bd187056f6",
+        "size": 2253,
+        "source_path": "skills/model-preview/scripts/source_views.py"
+      },
+      "runtime/prebuilt-skills/.dependency-model-preview/tests/test_preview_atoms.py": {
+        "basis": "锁定测试在本机 Blender 4.5.16 LTS 通过 5 项。GLB 分支验证曲线转换、显式选择、动画标记及失败时临时对象和选择帧还原。",
+        "kind": "evidence",
+        "pending": "测试中渲染与合成曲线相关组件用于验证。真实动物皮毛纹理、动画轨道及跨查看器一致性待验证。",
+        "requires": [],
+        "sha256": "85c1f043bd9266e73d178e0aeb06807078eb982ef848db74eea0567612f048b8",
+        "size": 7400,
+        "source_path": "skills/model-preview/tests/test_preview_atoms.py"
+      },
+      "runtime/prebuilt-skills/.dependency-motion-check/references/scene-samples.md": {
+        "basis": "作为帧取样和世界空间网格读出的上游契约证据，区分时刻测量、网格数据和调用方判据。",
+        "kind": "evidence",
+        "pending": "连续运动、真实四足骨骼和采样间变化需另行校验。",
+        "requires": [],
+        "sha256": "af1b6972e6cbaf6645238ef8484c32ea6c9d54e19164353a464b58dcea82188f",
+        "size": 2192,
+        "source_path": "skills/motion-check/references/scene-samples.md"
+      },
+      "runtime/prebuilt-skills/.dependency-motion-retarget/REFERENCE.md": {
+        "basis": "说明基于校准过的休止矩阵、骨骼层级、显式映射及已有动作样本的重定向入口。外部依赖为 NumPy 和 Blender mathutils。",
+        "kind": "evidence",
+        "pending": "四足前后肢、脊柱、尾巴、根位移和落足约束需使用目标骨架与真实动作验证。",
+        "requires": [],
+        "sha256": "fa4a72bb3109a6db9bfa7f53a88758692062a75066aa773518542c078e624654",
+        "size": 1069,
+        "source_path": "skills/motion-retarget/SKILL.md"
+      },
+      "runtime/prebuilt-skills/.dependency-skin-weights/REFERENCE.md": {
+        "basis": "上游区分显式分区修复和权重图求解。作为 NumPy 验收片段和另行选用的 SciPy 求解路径的边界证据。",
+        "kind": "evidence",
+        "pending": "求解器依赖、动物网格分区与动作形变验收随实际需要另行复核。",
+        "requires": [],
+        "sha256": "a231bf118b1f96d47262f20852f7af1ce1d34cda7383c62ae3cecb9de4134913",
+        "size": 1118,
+        "source_path": "skills/skin-weights/SKILL.md"
+      },
+      "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/__init__.py": {
+        "basis": "保留安装包中的 rigging 包入口，独立加载采用 from rigging.skin_weights import 的原路径形式。入口文件只有说明字符串。",
+        "kind": "archive",
+        "pending": "目标工作区的模块搜索路径和 NumPy 运行环境待确定。",
+        "requires": [],
+        "sha256": "87619a7714a1f9926ac07089f8a9da8a5b361367a3f13647c716ffabfda11166",
+        "size": 63,
+        "source_path": "skills/skin-weights/scripts/rigging/__init__.py"
+      },
+      "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/skin_weights.py": {
+        "basis": "check_weights 检查有限、非负和逐行归一化。repair_regions 消费显式骨骼名和坐标盒，stretch_metrics 在同拓扑的静止与姿态三角网格间检测相对与绝对拉伸。已用 Blender 4.5.16 LTS 随带的 NumPy 1.26.4，在合成四组权重上验证校验、局部修复、范围外保持及拉伸告警。",
+        "kind": "archive",
+        "pending": "动物骨骼语义、跨侧权重泄漏、皮肤接缝、真实肌肉变形、步态与筛查阈值仍待在四足样本上核对。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/__init__.py"
+        ],
+        "sha256": "07668c30ed37172c5b0babf053eefc206a3fcc6077ff3ba901aee9b68a1c11e4",
+        "size": 6016,
+        "source_path": "skills/skin-weights/scripts/rigging/skin_weights.py"
+      },
+      "runtime/prebuilt-skills/.dependency-texture-bake/references/contract.md": {
+        "basis": "上游烘焙核心契约记录 CPU、GPU 回退、源材质、目标 UV、通道、PNG 和状态恢复的边界。",
+        "kind": "evidence",
+        "pending": "工作流角色、通道是否齐备和质量判定须按实际模型验证。",
+        "requires": [],
+        "sha256": "7aa4ea36fb5fee7fed74028dc21f07587e60e40bdfd757df7eb2d7a358564153",
+        "size": 3101,
+        "source_path": "skills/texture-bake/references/contract.md"
+      },
+      "runtime/prebuilt-skills/.dependency-texture-bake/scripts/cycles_device.py": {
+        "basis": "纹理烘焙同目录实际消费的已物化设备适配器。选择 Cycles 后端并在上下文退出时恢复 scene device、compute backend 和设备启用标记。随包 CPU 烘焙夹具已覆盖场景与设备状态恢复。",
+        "kind": "archive",
+        "pending": "CUDA、OPTIX、METAL、HIP、ONEAPI 的设备实际枚举、失败回退和烘焙产物质量待目标平台实测。",
+        "requires": [],
+        "sha256": "51dfc0d8d42285f8bdea0be92ed9d2b615e058fcc71216a953be711338674a6e",
+        "size": 2342,
+        "source_path": "tools/blender-tools/scripts/cycles_device.py"
+      },
+      "runtime/prebuilt-skills/.dependency-texture-bake/scripts/texture_bake.py": {
+        "basis": "第 7 行从同目录导入 Cycles 设备适配器。显式区分源网格、目标 UV 与材质槽，执行 selected-to-active。随包夹具在 Blender 4.5.16 LTS 上实测 CPU 的 DIFFUSE、EMIT、切线 NORMAL、16 位 PNG 及场景恢复。",
+        "kind": "archive",
+        "pending": "真实犬猫网格的 cage/ray、薄片遮挡、接缝和纹理语义需用目标样本验证。多通道批次交接与贴图回绑由调用方负责。",
+        "requires": [
+          "runtime/prebuilt-skills/.dependency-texture-bake/scripts/cycles_device.py"
+        ],
+        "sha256": "af6018e9708b459448fd01485b3a5e88acc32d7b360803ba3a8798e7f94347d9",
+        "size": 6625,
+        "source_path": "skills/texture-bake/scripts/texture_bake.py"
+      },
+      "runtime/prebuilt-skills/.dependency-texture-bake/tests/test_device_context.py": {
+        "basis": "随包夹具在 Blender 4.5.16 LTS 用合成平面跑通 CPU 烘焙三通道、16 位法线 PNG 和异常后的状态恢复。",
+        "kind": "evidence",
+        "pending": "测试文件是隔离验证证据。真实动物 UV、GPU 后端和失败重试待业务实测。",
+        "requires": [],
+        "sha256": "551ea5d10624080bd419d90650967e2f138c051c2da45877418b05fee5b3f697",
+        "size": 3109,
+        "source_path": "skills/texture-bake/tests/test_device_context.py"
+      },
+      "runtime/prebuilt-skills/head-reference/references/review-base.json": {
+        "basis": "专项人像政策记录头发、面部、颈部及四视图一致性，用于界定当前政策适用范围。",
+        "kind": "evidence",
+        "pending": "需用动物全身多视图校准头尾、四肢、遮挡和姿态变化的验收标准。",
+        "requires": [],
+        "sha256": "82a6fda8c6e3cdb41a0cb1f86f7b43dd6f6a4fe1be09e29b2dcfbc4d1c0850d3",
+        "size": 5651,
+        "source_path": "skills/head-reference/references/review-base.json"
+      },
+      "runtime/prebuilt-skills/head-reference/references/review.md": {
+        "basis": "专项参考图评审参考。记录图片、提示词及规则的版本绑定、失败与人工确认语义。",
+        "kind": "evidence",
+        "pending": "待建立全身四足标准和真实人工确认轨迹。",
+        "requires": [],
+        "sha256": "d539bba129a9b73de9453396365f81a1e3f6e28fe4de592366ab6d68019618f7",
+        "size": 9664,
+        "source_path": "skills/head-reference/references/review.md"
+      },
+      "runtime/prebuilt-skills/hi3d-model-gpt-animation/references/rigging.md": {
+        "basis": "人形动画交付使用显式 rig-retarget 入口做绑骨与后续动作，提供上游模型和已有绑定工程的交接依据。",
+        "kind": "evidence",
+        "pending": "动物模型的绑骨交付字段、布料等次级动作及过程验收仍待选择目标管线。",
+        "requires": [],
+        "sha256": "11aa514142b9ae002d9c76a76a75b4d0073303016d2a7c3b6f7940067b17cc71",
+        "size": 2805,
+        "source_path": "workflows/hi3d-model-gpt-animation/references/rigging.md"
+      },
+      "runtime/prebuilt-skills/hi3d/SKILL.md": {
+        "basis": "桌面普通图生 3D 入口记录 Runtime 路由、参考图角色及同任务续查约定。",
+        "kind": "evidence",
+        "pending": "该入口的真实工具暴露、服务当前能力和产物质量须用对应会话及供应商样本核查。",
+        "requires": [],
+        "sha256": "4c268ae14ece561234682d564cdfa6264c1f121a9ea118137c0388a9240c217d",
+        "size": 17360,
+        "source_path": "tools/hi3d-api/references/runtime/entry.md"
+      },
+      "runtime/prebuilt-skills/hi3d/references/desktop-parameters.md": {
+        "basis": "记录桌面预检与原生模型请求映射。双向追溯业务参数和供应商字段时使用。",
+        "kind": "evidence",
+        "pending": "服务选项以实际环境为准。Vet3D 的顶视输入和视角语义仍需与所选服务实测。",
+        "requires": [],
+        "sha256": "3356a41bb4a3fdbea1485db1b64c7f4351f4e260f5d74e2389cfe0babd0ce863",
+        "size": 8698,
+        "source_path": "tools/hi3d-api/references/runtime/desktop-parameters.md"
+      },
+      "runtime/prebuilt-skills/hi3d/scripts/hi3d_generation_workflow.py": {
+        "basis": "generate_task 复用原任务并编排等待和下载。源码连接 hi3d_artifacts.py、hi3d_jobs.py、hi3d_progress.py、hi3d_storage.py 与 hi3d_client.py，可定位客户端下载错误和失败返回。",
+        "kind": "evidence",
+        "pending": "实际下载授权、资产可用性及业务验收需随服务结果独立验证。",
+        "requires": [],
+        "sha256": "a5ca10fe31cb42f4d1a546c1bdc4ef0e053c9f0fbbda0aa99d485a57b13fd725",
+        "size": 6031,
+        "source_path": "tools/hi3d-api/scripts/runtime/hi3d_generation_workflow.py"
+      },
+      "runtime/prebuilt-skills/hi3d/scripts/hi3d_image_workflow.py": {
+        "basis": "image_plan 合并图像动作、模式和模型别名后委托 hi3d_parameters.py 解析主图与补充参考。generate_image 别名复用 hi3d_generation_workflow.py 的提交、等待和下载，组包沿用 hi3d_storage.py。离线确认 EDIT 的首图为 baseImage，附图为 referenceImages，参考模式的文件均为 referenceImages。",
+        "kind": "evidence",
+        "pending": "只核对供应商本地组包和同一流程入口。新视角画质、续查中断和主体外观一致性待用实际服务验证。",
+        "requires": [],
+        "sha256": "ca5af11f0b8a50846bc779b2d7375ff70b98769539136468f1d06d9baeccbca3",
+        "size": 1445,
+        "source_path": "tools/hi3d-api/scripts/runtime/hi3d_image_workflow.py"
+      },
+      "runtime/prebuilt-skills/hi3d/scripts/hi3d_jobs.py": {
+        "basis": "锁定的 Python 账本实现包含同路径作业复用、提交不明保护、任务 ID 校验、查询及轮询。运行入口关联 hi3d_client.py、hi3d_parameters.py、hi3d_progress.py 与 hi3d_storage.py。",
+        "kind": "evidence",
+        "pending": "真实服务的限流、受理不明、免费重试、账号切换及重启续接需要逐分支实测。",
+        "requires": [],
+        "sha256": "9ba53e77bfb957cb8d48df7fc86391ab756e0daa79190588662ca75dad86b762",
+        "size": 15672,
+        "source_path": "tools/hi3d-api/scripts/runtime/hi3d_jobs.py"
+      },
+      "runtime/prebuilt-skills/hi3d/scripts/hi3d_parameters.py": {
+        "basis": "build_plan 将四个方向映射到数字槽位并生成输入指纹。multipart 组包时复查文件字节。离线实测 right/front/back/left 产出 3/0/1/2，拒绝 top 和计划后改变的输入。部署运行还取用 hi3d_client.py、hi3d_storage.py 和同目录 defaults.json。",
+        "kind": "evidence",
+        "pending": "离线检查覆盖计划和 multipart 字段。服务是否接受、生成质量、多视图一致性和新供应商顶视均待实际验证。",
+        "requires": [],
+        "sha256": "9d2fc9a0d2cffda7145ff40cf0de3afc3c9ee78841f049148b2c423ee302b50e",
+        "size": 12480,
+        "source_path": "tools/hi3d-api/scripts/runtime/hi3d_parameters.py"
+      },
+      "runtime/prebuilt-skills/image-to-assembly/assets/views-manifest.example.json": {
+        "basis": "锁定四个方向的相机向量、画面证据字段、相对路径和摘要占位，作为安装版清单形状样例。",
+        "kind": "evidence",
+        "pending": "用真实四足素材验证方向与摘要的关联，再决定目标五向输入协议。",
+        "requires": [],
+        "sha256": "fd28e77a438c64dde456722411353046b0a3e24f967db58514d8633b817c0e60",
+        "size": 1287,
+        "source_path": "workflows/image-to-assembly/assets/views-manifest.example.json"
+      },
+      "runtime/prebuilt-skills/image-to-assembly/references/view-conventions.md": {
+        "basis": "作为安装版证据记录物体语义侧别、画面特征方向及 API 槽位之间的分离，并描述审查后再提交。",
+        "kind": "evidence",
+        "pending": "官网当前标签协议和服务支持范围需在供应商选定后复核。",
+        "requires": [],
+        "sha256": "b30e075e5e2cd596a6346fb4fb4a4ac85fc5d0526f14b0246b960fd63a8107e2",
+        "size": 4368,
+        "source_path": "workflows/image-to-assembly/references/view-conventions.md"
+      },
+      "runtime/prebuilt-skills/image-to-assembly/scripts/view_contract.py": {
+        "basis": "第 34–66 行读取已审查声明并按前、后、左、右顺序校验两到四个槽及图像摘要。隔离验证无序前图与右图得到 1001，并拒绝顶槽和被改摘要。第 70 行起另有公共接口的 multipart 回读证据。",
+        "kind": "evidence",
+        "pending": "该协议限 Hi3D 的四个 API 槽，画面方向由审查者确定。Vet3D 顶视含义、真实动物识别、供应商字段与前端标签仍待验证。",
+        "requires": [],
+        "sha256": "2c6467f1d752c34b106e8daf3ceffaa5b5dcc4085500506e763b4db0f7e49bec",
+        "size": 4999,
+        "source_path": "workflows/image-to-assembly/scripts/view_contract.py"
+      },
+      "runtime/prebuilt-skills/mdf-api/SKILL.md": {
+        "basis": "桌面 MDF 从已有单件模型同步调用 auto-rig，经宿主登录态和授权获得绑定模型。超时或受理不明时保留原 jobPath。动作由后段专业流程负责。",
+        "kind": "evidence",
+        "pending": "需用已授权的真实四足 GLB 核对现有服务的物种适用性、输出骨骼与权重、超时后的受理状态。",
+        "requires": [],
+        "sha256": "925135ef7dd9ddeedc9789263a3a79f31069b57ef4fae5b53bbbc3f6be3d502e",
+        "size": 3701,
+        "source_path": "tools/mdf-call/references/runtime/entry.md"
+      },
+      "runtime/prebuilt-skills/mdf-api/references/mesh-invoke-api.md": {
+        "basis": "桌面公开契约给出 auto-rig 的 OBJ/FBX/GLB 入口、文件上限和 use_skeleton/use_transfer/num_beams 三个公开参数。",
+        "kind": "evidence",
+        "pending": "实际环境部署和支持物种须实测。绑定输出需要检查关节层级、权重与最终变形。",
+        "requires": [],
+        "sha256": "fd5233d32594fb95df308055a1d319023466c268f1b6e8266ccdf00e4a1dd2b6",
+        "size": 17865,
+        "source_path": "tools/mdf-call/references/runtime/mesh-invoke-api.md"
+      },
+      "runtime/prebuilt-skills/rig-retarget/SKILL.md": {
+        "basis": "安装版入口明确面向 T/A-Pose 人形骨骼资产。作为选择四足数值检查及延后整套人形入口的依据。",
+        "kind": "evidence",
+        "pending": "犬猫的前后肢、脊柱、尾巴、落足及步态映射需专门设计并实测。",
+        "requires": [],
+        "sha256": "8237ec25a4cf0b06a49723f21c168eee36f5848f64256fd357993d0a2b04f17d",
+        "size": 7088,
+        "source_path": "workflows/rig-retarget/SKILL.md"
+      },
+      "runtime/prebuilt-skills/rig-retarget/references/runtime.md": {
+        "basis": "人形 rig-retarget 的执行说明记录 Blender 5.x layered Action slots、BVH 或 VMD 导入能力，以及可选的外部权重求解依赖。",
+        "kind": "evidence",
+        "pending": "人形包的坐标、命名、导入器和重定向约定没有经过当前动物管线验证。四足骨架适配须独立评估。",
+        "requires": [],
+        "sha256": "929e2a213d82099c9c7eaf1cfbfa9863e43b651ff71b1b93754d88b393c1eb5e",
+        "size": 3403,
+        "source_path": "workflows/rig-retarget/references/runtime.md"
+      }
+    },
+    "groups": {
+      "material-bake": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-blender-tools/scripts/material_nodes.py",
+          "runtime/prebuilt-skills/.dependency-texture-bake/scripts/texture_bake.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/material-nodes.md",
+          "runtime/prebuilt-skills/.dependency-texture-bake/references/contract.md",
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/cycles-device.md",
+          "runtime/prebuilt-skills/.dependency-texture-bake/tests/test_device_context.py"
+        ],
+        "external": [
+          "独立 Blender 提供 bpy 和 Cycles",
+          "由调用方提供对齐的源与目标网格、目标 UV 与独立节点材质并控制通道"
+        ],
+        "title": "基础材质与本地纹理烘焙"
+      },
+      "mesh-acceptance": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_bounds.py",
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/mesh_snapshot.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-mesh-audit/references/code-contract.md",
+          "runtime/prebuilt-skills/.dependency-mesh-audit/tests/test_glb_bounds.py",
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/mesh-snapshot.md",
+          "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_mesh_snapshot.py",
+          "runtime/prebuilt-skills/.dependency-blender-tools/scripts/mesh_snapshot.py"
+        ],
+        "external": [
+          "glb_bounds 需要可用 NumPy，可独立于 Blender 读取支持的 GLB",
+          "mesh_snapshot 需要 Blender 的 bpy、按分支的 bmesh 与 NumPy，调用方设置姿态和依赖图"
+        ],
+        "title": "GLB 几何取证与离线网格快照"
+      },
+      "model-io": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-blender-tools/scripts/asset_scene.py",
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/glb_export.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/asset-scene.md",
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/scene-io.md",
+          "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_asset_scene.py",
+          "runtime/prebuilt-skills/.dependency-model-preview/tests/test_preview_atoms.py",
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/glb_export.py"
+        ],
+        "external": [
+          "独立后台 Blender 提供 bpy、选用的导入算子与 glTF 导出器",
+          "调用方明确候选路径、视图层对象集合及材质和动画导出选项"
+        ],
+        "title": "GLB 或 BLEND 重开与 GLB 交付"
+      },
+      "p1-local-view-render": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/source_views.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-model-preview/references/source-views.md",
+          "runtime/prebuilt-skills/.dependency-model-preview/references/preview-atoms.md",
+          "runtime/prebuilt-skills/.dependency-motion-check/references/scene-samples.md",
+          "runtime/prebuilt-skills/.dependency-blender-tools/references/mesh-snapshot.md",
+          "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/preview_scene.py"
+        ],
+        "external": [
+          "Blender 的 bpy、mathutils、bpy_extras 与 Cycles。启用 check_framing 时加载使用 NumPy 的网格快照。",
+          "调用方打开并规范化模型对象，给定已有输出目录和场景编码。",
+          "需要后台启动包装时复用已归档的 P0 execute.py，选择实际脚本及输出目录。"
+        ],
+        "title": "本地模型多方向渲染与构图取样"
+      },
+      "p1-reference-sheet": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-image-sheet/scripts/image_sheet.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-image-sheet/REFERENCE.md",
+          "runtime/prebuilt-skills/.dependency-image-sheet/references/contract.md"
+        ],
+        "external": [
+          "Python 与 Pillow。来源照片、排序、格位和可选字体由调用方提供。"
+        ],
+        "title": "普通 RGB 参考图检查拼版"
+      },
+      "p1-reviewed-view-pairing": {
+        "entries": [],
+        "evidence": [
+          "runtime/prebuilt-skills/image-to-assembly/scripts/view_contract.py",
+          "runtime/prebuilt-skills/image-to-assembly/references/view-conventions.md",
+          "runtime/prebuilt-skills/image-to-assembly/assets/views-manifest.example.json",
+          "runtime/prebuilt-skills/head-reference/references/review.md",
+          "runtime/prebuilt-skills/head-reference/references/review-base.json"
+        ],
+        "external": [
+          "现有配对校验使用 Python 标准库和人工方向证据。真实画面验收与所选生成 API 属于后续验证。"
+        ],
+        "title": "视图配对与视觉验收契约证据"
+      },
+      "provider-reference": {
+        "entries": [],
+        "evidence": [
+          "runtime/prebuilt-skills/hi3d/SKILL.md",
+          "runtime/prebuilt-skills/hi3d/references/desktop-parameters.md",
+          "runtime/prebuilt-skills/hi3d/scripts/hi3d_parameters.py",
+          "runtime/prebuilt-skills/hi3d/scripts/hi3d_jobs.py",
+          "runtime/prebuilt-skills/hi3d/scripts/hi3d_image_workflow.py",
+          "runtime/prebuilt-skills/hi3d/scripts/hi3d_generation_workflow.py",
+          "runtime/prebuilt-skills/.dependency-hi3d-api-source/REFERENCE.md"
+        ],
+        "external": [
+          "桌面路线使用已登录 Hi3D 宿主的 Runtime 动态工具、会话代理和原任务账本。",
+          "独立 AK/SK 路线需要各自的服务凭据与授权。当前保留两条供应商路线的静态证据。",
+          "Runtime 主模块沿用 P0 锚点。证据文件用于比对协议和控制流，完整供应商执行路径由原安装包承载。"
+        ],
+        "title": "供应商请求与任务生命周期"
+      },
+      "quadruped-rig-audit": {
+        "entries": [
+          "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/skin_weights.py"
+        ],
+        "evidence": [
+          "runtime/prebuilt-skills/.dependency-skin-weights/REFERENCE.md",
+          "runtime/prebuilt-skills/.dependency-motion-retarget/REFERENCE.md",
+          "runtime/prebuilt-skills/rig-retarget/references/runtime.md",
+          "runtime/prebuilt-skills/hi3d-model-gpt-animation/references/rigging.md",
+          "runtime/prebuilt-skills/mdf-api/SKILL.md",
+          "runtime/prebuilt-skills/mdf-api/references/mesh-invoke-api.md",
+          "runtime/prebuilt-skills/.dependency-glb-clips/references/contract.md",
+          "runtime/prebuilt-skills/rig-retarget/SKILL.md"
+        ],
+        "external": [
+          "部署保持 rigging Python 包结构。选定数值模块需要 NumPy，由调用方提供静止顶点、同拓扑变形顶点、三角面和有语义的骨骼索引。",
+          "Blender 骨架求值、远端服务、四足模型与动作素材属于独立验收前提。"
+        ],
+        "title": "四足绑定、权重与动画验收"
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope_sha256": "7aaed6fc8dc7ed2846c6929201cdc6a6be2f13ebb67bec92389adfbf5fc378df",
+  "source_inventory": {
+    "arch": "x64",
+    "inventory_sha256": "07fd787489ee93fa5d1e4b8e926db7db27275c174058a88bcf4a0a0d9b01e312",
+    "lock_sha256": "bdd4d5f257d32b72f4d8efad120bed88deedac089c2935cb7f740e27e6a4c515",
+    "platform": "win32",
+    "profile": "sparc3d",
+    "records": 7740,
+    "runtime_version": "1.2.11"
+  }
+}

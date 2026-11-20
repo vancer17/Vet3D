@@ -1,0 +1,136 @@
+{
+  "evidence_references": [
+    "runtime/prebuilt-skills/.dependency-blender-tools/references/asset-scene.md",
+    "runtime/prebuilt-skills/.dependency-blender-tools/references/cycles-device.md",
+    "runtime/prebuilt-skills/.dependency-blender-tools/references/material-nodes.md",
+    "runtime/prebuilt-skills/.dependency-blender-tools/references/mesh-snapshot.md",
+    "runtime/prebuilt-skills/.dependency-blender-tools/references/scene-io.md",
+    "runtime/prebuilt-skills/.dependency-blender-tools/scripts/mesh_snapshot.py",
+    "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_asset_scene.py",
+    "runtime/prebuilt-skills/.dependency-blender-tools/tests/test_mesh_snapshot.py",
+    "runtime/prebuilt-skills/.dependency-glb-clips/references/contract.md",
+    "runtime/prebuilt-skills/.dependency-hi3d-api-source/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-image-sheet/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-image-sheet/references/contract.md",
+    "runtime/prebuilt-skills/.dependency-mesh-audit/references/code-contract.md",
+    "runtime/prebuilt-skills/.dependency-mesh-audit/tests/test_glb_bounds.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/references/preview-atoms.md",
+    "runtime/prebuilt-skills/.dependency-model-preview/references/source-views.md",
+    "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/__init__.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/glb_export.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/mesh_snapshot.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/preview_scene.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/scripts/product/scene_samples.py",
+    "runtime/prebuilt-skills/.dependency-model-preview/tests/test_preview_atoms.py",
+    "runtime/prebuilt-skills/.dependency-motion-check/references/scene-samples.md",
+    "runtime/prebuilt-skills/.dependency-motion-retarget/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-skin-weights/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-texture-bake/references/contract.md",
+    "runtime/prebuilt-skills/.dependency-texture-bake/tests/test_device_context.py",
+    "runtime/prebuilt-skills/head-reference/references/review-base.json",
+    "runtime/prebuilt-skills/head-reference/references/review.md",
+    "runtime/prebuilt-skills/hi3d-model-gpt-animation/references/rigging.md",
+    "runtime/prebuilt-skills/hi3d/SKILL.md",
+    "runtime/prebuilt-skills/hi3d/references/desktop-parameters.md",
+    "runtime/prebuilt-skills/hi3d/scripts/hi3d_generation_workflow.py",
+    "runtime/prebuilt-skills/hi3d/scripts/hi3d_image_workflow.py",
+    "runtime/prebuilt-skills/hi3d/scripts/hi3d_jobs.py",
+    "runtime/prebuilt-skills/hi3d/scripts/hi3d_parameters.py",
+    "runtime/prebuilt-skills/image-to-assembly/assets/views-manifest.example.json",
+    "runtime/prebuilt-skills/image-to-assembly/references/view-conventions.md",
+    "runtime/prebuilt-skills/image-to-assembly/scripts/view_contract.py",
+    "runtime/prebuilt-skills/mdf-api/SKILL.md",
+    "runtime/prebuilt-skills/mdf-api/references/mesh-invoke-api.md",
+    "runtime/prebuilt-skills/rig-retarget/SKILL.md",
+    "runtime/prebuilt-skills/rig-retarget/references/runtime.md"
+  ],
+  "files": [
+    {
+      "path": "runtime/prebuilt-skills/.dependency-blender-tools/scripts/asset_scene.py",
+      "sha256": "a7b661c221f436f1eece117b2724f48747824160ef43427aa0154daac5941f6d",
+      "size": 1219
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-blender-tools/scripts/material_nodes.py",
+      "sha256": "1d12412503f0d6c6d04e655a5a08cba652643152e4768867bed397a1e2ceefc5",
+      "size": 777
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-blender-tools/scripts/scene_io.py",
+      "sha256": "1436a037311c8f6b84c24c225aa434d1bc6046a060c7764e611f9aae4f962939",
+      "size": 3910
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-image-sheet/scripts/image_sheet.py",
+      "sha256": "731506e21b8a53d04f409cf2a6ae3afc5cd5f6f4bc1079d62f5bf7c2b79361c0",
+      "size": 5639
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_bounds.py",
+      "sha256": "3431b26d8238ba6448b7efc28099f911b3f98e1fc7e6bb94fbb9b416a0b8a6b4",
+      "size": 3945
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-mesh-audit/scripts/glb_clips.py",
+      "sha256": "9a6be55268d9156efcccbd9572206cbbc4ffef4a462d1615e89e1560ecd89412",
+      "size": 9243
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-model-preview/scripts/glb_export.py",
+      "sha256": "8f92bd1c2c0664febbd8f7c841531c546c4feb34e52e088b39ca40a9529069a4",
+      "size": 2272
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-model-preview/scripts/mesh_snapshot.py",
+      "sha256": "2a073c84a13a945bd83effd3d6c15f5bb4ad218d2a9cb0c3025e36149d32d8f2",
+      "size": 3825
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-model-preview/scripts/preview_scene.py",
+      "sha256": "63fcd07dc3b6f025cc0fd88bd9ce56cafb42dc50044307abfe5c0710e403abb8",
+      "size": 5899
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-model-preview/scripts/scene_samples.py",
+      "sha256": "c0db727254739247e0069f2379133f5bd7f3d8462f7761f6f755f27dc21aafb5",
+      "size": 1439
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-model-preview/scripts/source_views.py",
+      "sha256": "0eca3af57e2ee647b96dba759c57ba4add06388080967982ef0ae9bd187056f6",
+      "size": 2253
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/__init__.py",
+      "sha256": "87619a7714a1f9926ac07089f8a9da8a5b361367a3f13647c716ffabfda11166",
+      "size": 63
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-skin-weights/scripts/rigging/skin_weights.py",
+      "sha256": "07668c30ed37172c5b0babf053eefc206a3fcc6077ff3ba901aee9b68a1c11e4",
+      "size": 6016
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-texture-bake/scripts/cycles_device.py",
+      "sha256": "51dfc0d8d42285f8bdea0be92ed9d2b615e058fcc71216a953be711338674a6e",
+      "size": 2342
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-texture-bake/scripts/texture_bake.py",
+      "sha256": "af6018e9708b459448fd01485b3a5e88acc32d7b360803ba3a8798e7f94347d9",
+      "size": 6625
+    }
+  ],
+  "p0_priority_sha256": "c273624ad288025ba3f6ae3dd2323892f029b10a3bc08766eefa59bc0bf3ce03",
+  "priority_sha256": "20afffdbc3959fa0bef71fb05c0a59a936f7ab466a3d136caccd917653580163",
+  "schema_version": 1,
+  "source_inventory": {
+    "arch": "x64",
+    "inventory_sha256": "07fd787489ee93fa5d1e4b8e926db7db27275c174058a88bcf4a0a0d9b01e312",
+    "lock_sha256": "bdd4d5f257d32b72f4d8efad120bed88deedac089c2935cb7f740e27e6a4c515",
+    "platform": "win32",
+    "profile": "sparc3d",
+    "records": 7740,
+    "runtime_version": "1.2.11"
+  }
+}

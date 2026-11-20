@@ -1,0 +1,103 @@
+{
+  "evidence_references": [
+    "app.asar",
+    "runtime/codex/vendor/x86_64-pc-windows-msvc/codex-package.json",
+    "runtime/dist/runtime.mjs",
+    "runtime/manifest.json",
+    "runtime/prebuilt-skills/.dependency-blender-tools/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/REFERENCE.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/artifact-refs.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/budget-run.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/desktop-runtime.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/hi3d-edit-job.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/local-runtime.md",
+    "runtime/prebuilt-skills/.dependency-run-tools/references/stage-records.md",
+    "runtime/prebuilt-skills/.workflow-bundle.json",
+    "runtime/prebuilt-skills/prebuilt.json",
+    "runtime/support/pcg_yaml.py",
+    "runtime/templates/hooks/skill-credit.cjs"
+  ],
+  "files": [
+    {
+      "path": "runtime/prebuilt-skills/.dependency-blender-tools/scripts/execute.py",
+      "sha256": "2af409eaf32c40e570fc7e6a8714dfd4e4e06380c032b273c54e6b2c3e54c26f",
+      "size": 1757
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/artifact_refs.py",
+      "sha256": "266ea5cfec6e052add2c9c81510384dd885514dd064f8181df97289f4c614ae6",
+      "size": 7805
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/checkpoints.py",
+      "sha256": "8079c39c0f1b83b71dcf1fee8b914a16284addb606fe4f42084f6ecfed2b481a",
+      "size": 1175
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/config_runtime.py",
+      "sha256": "bd20f4e414f96cf6a90ba6ab79d165204e4654fa4b18b96edab6f503595a1a36",
+      "size": 2540
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/hi3d-edit-job.py",
+      "sha256": "d9cd53c30f378f26a0fb67a5a37a164054ac88a50c878c86e69109684cd787b1",
+      "size": 6102
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/path_safety.py",
+      "sha256": "f0f1abe321a2905b39ef55ffc420ad23decc875d5868948c1f05edadb47a9dc4",
+      "size": 1362
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/process_run.py",
+      "sha256": "c8e8ed562a9eb82e10941b42b4c065a38db8518002247024b4280d495afbd0a6",
+      "size": 8542
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/session_schema.py",
+      "sha256": "97936f666c6b475907fc23333fd889399ee6a141828a6285fe29f3c46707718c",
+      "size": 25823
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/stage_cli.py",
+      "sha256": "3a93fa7538c125313380c5ad9c783c6ba2b6614264438a59f6a4a0f7ebba0c2d",
+      "size": 646
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/stage_events.py",
+      "sha256": "56f0e8b340e47bc06cc51da8544909097f1db1fa97b042a29990bb5f254d32b3",
+      "size": 1873
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/timing.py",
+      "sha256": "612d7644e98f00a99c0e1248d1f1376b25e419aa731ff90bc5bb6383fa781237",
+      "size": 12023
+    },
+    {
+      "path": "runtime/prebuilt-skills/.dependency-run-tools/scripts/tool_result.py",
+      "sha256": "2edd4beafeb31265f3566fcbb9addc47872f464916a0bbe8cb256923705fa932",
+      "size": 2580
+    },
+    {
+      "path": "runtime/templates/AGENTS.md",
+      "sha256": "ece491f7b27df210c813719b31d0b57c3868e68c5ec9566f9520a45a7a507e1f",
+      "size": 11314
+    },
+    {
+      "path": "runtime/templates/config.toml",
+      "sha256": "f59083f6a92a8edeea40c2ec363cfdb040b3ab903db43980aad9f7e4221069a0",
+      "size": 1301
+    }
+  ],
+  "priority_sha256": "c273624ad288025ba3f6ae3dd2323892f029b10a3bc08766eefa59bc0bf3ce03",
+  "schema_version": 1,
+  "source_inventory": {
+    "arch": "x64",
+    "inventory_sha256": "07fd787489ee93fa5d1e4b8e926db7db27275c174058a88bcf4a0a0d9b01e312",
+    "lock_sha256": "bdd4d5f257d32b72f4d8efad120bed88deedac089c2935cb7f740e27e6a4c515",
+    "platform": "win32",
+    "profile": "sparc3d",
+    "records": 7740,
+    "runtime_version": "1.2.11"
+  }
+}
