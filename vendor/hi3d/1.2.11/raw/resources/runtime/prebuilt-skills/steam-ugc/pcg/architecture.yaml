@@ -1,0 +1,42 @@
+schema: pcg.architecture.v1
+entry: steam-ugc
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: Steam 物品接口操作
+    function: 对独立操作选择核对接口、离线预检，或在目标 App 已支持且真实 SDK 已提供及授权时交接单次提交；不制作游戏内容。
+    outputs: []
+  - id: scope
+    parent: root
+    role: local
+    label: 核对调用侧与应用支持
+    function: 读取官方来源和目标 App 证据；没有实际 SDK、支持信息时只给出调用侧和阻塞，不创造客户端或 Steam 物品。
+    outputs: []
+  - id: preflight
+    parent: scope
+    role: local
+    label: 离线核对物品字段
+    function: 在已有内容目录上核对归属、预览、字段、来源与新建/更新范围；通过和缺项写入包外检查记录，不执行任何 Steam 调用。
+    outputs:
+      - id: ugc_review
+        label: hi3d-steam-ugc-review.md 离线接口与提交前检查结果
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: scope
+  - id: receipt
+    parent: preflight
+    role: local
+    label: 单次 SDK 提交回执
+    function: 仅在已有可信 SDK 客户端、目标已确认且授权覆盖本次提交时收集实际回调；未知提交查原 ID 不重传；inspect 路线跳过本阶段。
+    outputs:
+      - id: ugc_receipt
+        label: hi3d-steam-ugc-receipt.json 实际回调与物品 ID（仅提交成功时）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: preflight
+    irreversible: [publish]

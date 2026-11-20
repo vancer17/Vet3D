@@ -1,0 +1,20 @@
+{
+  "scene_fps": 30,
+  "fps_base": 1.25,
+  "effective_fps": 24,
+  "source_frames": [
+    10,
+    11,
+    12
+  ],
+  "expected_seconds_by_effective_fps": [
+    0.4166666666666667,
+    0.4583333333333333,
+    0.5
+  ],
+  "actual_sampler_seconds": [
+    0.2666666805744171,
+    0.2933333218097687,
+    0.3199999928474426
+  ]
+}

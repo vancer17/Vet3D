@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/hi3d-edit-job.py": "tools/run-tools/scripts/hi3d-edit-job.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/path_safety.py": "tools/run-tools/scripts/path_safety.py"
+  },
+  "requires": []
+}

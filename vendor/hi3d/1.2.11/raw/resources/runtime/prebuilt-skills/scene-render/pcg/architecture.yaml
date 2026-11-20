@@ -1,0 +1,80 @@
+schema: pcg.architecture.v1
+entry: scene-render
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: scene_render
+    parent: null
+    role: agent
+    label: "确认场景主题"
+    function: "编排 scene-render"
+  - id: brief
+    parent: scene_render
+    label: "确认场景主题"
+    function: "本 agent 确认场景主题"
+    outputs:
+      - id: brief
+        label: "确认场景主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认场景主题"
+  - id: layout
+    parent: scene_render
+    label: "主角与配景"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: layout
+        label: "主角与配景"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: render
+    parent: scene_render
+    label: "离线静帧"
+    function: "本 agent 离线静帧"
+    outputs:
+      - id: render
+        label: "离线静帧"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "离线静帧"
+    irreversible:
+      - blender.write
+  - id: page
+    parent: scene_render
+    label: "成果页"
+    function: "派出 asset-page"
+    outputs:
+      - id: page
+        label: "成果页"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: asset-page
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 asset-page"

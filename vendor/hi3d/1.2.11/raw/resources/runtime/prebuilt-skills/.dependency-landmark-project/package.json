@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "files": {
+    "assets/taro/UPSTREAM_LICENSE.txt": "skills/head-template/assets/taro/UPSTREAM_LICENSE.txt",
+    "assets/taro/regions.json": "skills/head-template/assets/taro/regions.json",
+    "assets/taro/sapiens2_ear_mapping.json": "skills/head-template/assets/taro/sapiens2_ear_mapping.json",
+    "assets/taro/sapiens2_keypoint_names.json": "skills/head-template/assets/taro/sapiens2_keypoint_names.json",
+    "assets/taro/sapiens2_mapping.json": "skills/head-template/assets/taro/sapiens2_mapping.json",
+    "assets/taro/template.npz": "skills/head-template/assets/taro/template.npz",
+    "scripts/blender_io.py": "tools/blender-tools/scripts/head_io.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/template_defaults.py": "skills/head-template/scripts/template_defaults.py"
+  },
+  "requires": []
+}

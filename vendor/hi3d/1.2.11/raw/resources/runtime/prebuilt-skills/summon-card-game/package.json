@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "references/hi3d-game-brief.md": "workflows/build-explorable-3d-game/references/hi3d-game-brief.md"
+  },
+  "requires": []
+}

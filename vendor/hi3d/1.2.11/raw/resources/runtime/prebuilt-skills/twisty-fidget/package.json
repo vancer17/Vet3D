@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/pose_math.py": "skills/motion-check/scripts/pose_math.py",
+    "scripts/solid_samples.py": "skills/motion-check/scripts/solid_samples.py",
+    "scripts/stage_events.py": "tools/run-tools/scripts/stage_events.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/twisty_fidget_timing.py"
+  },
+  "requires": []
+}

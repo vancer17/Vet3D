@@ -1,0 +1,128 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "对话里须先有约两百万面的高模 GLB。缺低模时先交接风格化低模，再做成流形四边面；有脸时必须校准下巴和现有颈部。"
+checkpoints:
+  - id: inspect_align
+    say: "核对资产对齐"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/method.md
+      - references/evidence.md
+    irreversible: []
+  - id: quad_base
+    say: "建立流形四边面"
+    rollback_to: inspect_align
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: face_neck_regions
+    say: "提取面颈区域"
+    rollback_to: quad_base
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: face_neck_retopology
+    say: "重排五官下颌"
+    rollback_to: face_neck_regions
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: quad_transition
+    say: "四边面衔接"
+    rollback_to: face_neck_retopology
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: bake
+    say: "烘焙局部贴图"
+    rollback_to: quad_transition
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: validate_deliver
+    say: "验收登记交付"
+    rollback_to: bake
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/host-delivery.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "从对齐做到面颈四边面交付"
+    nodes:
+      - inspect_align
+      - quad_base
+      - face_neck_regions
+      - face_neck_retopology
+      - quad_transition
+      - bake
+      - validate_deliver
+    rollback_to: quad_base
+  - id: no_face
+    summary: "确认无脸后跳过面颈，仍检查连接与交付"
+    nodes:
+      - inspect_align
+      - quad_base
+      - bake
+      - validate_deliver
+    shares_input_with: main
+    rollback_to: quad_base
+  - id: from_face
+    summary: "四边面已合格，从面颈提取继续"
+    nodes:
+      - inspect_align
+      - face_neck_regions
+      - face_neck_retopology
+      - quad_transition
+      - bake
+      - validate_deliver
+    shares_input_with: main
+    rollback_to: face_neck_regions
+  - id: rebake
+    summary: "几何已合格，只烘焙并交付"
+    nodes:
+      - inspect_align
+      - bake
+      - validate_deliver
+    shares_input_with: main
+    rollback_to: bake
+choices_example:
+  - id: full
+    title: "完整做面颈四边面"
+    route: main
+    confirm: false
+  - id: no_face
+    title: "无脸，跳过面颈"
+    route: no_face
+    confirm: false
+  - id: from_face
+    title: "四边面已有，从面颈继续"
+    route: from_face
+    confirm: false
+  - id: rebake
+    title: "几何已合格，只烘焙交付"
+    route: rebake
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,4 @@
+interface:
+  display_name: "头部模板"
+  short_description: "提供 Taro 拓扑、分区、贴图及一次校准的眼唇与耳部索引"
+  default_prompt: "使用 $head-template 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

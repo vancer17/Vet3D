@@ -1,0 +1,43 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+checkpoints:
+  - id: understand
+    say: "理解需求"
+    rollback_to: null
+    load: [SKILL.md, references/writing.md]
+    irreversible: []
+  - id: clarify
+    say: "补充信息"
+    rollback_to: understand
+    load: [SKILL.md, references/writing.md]
+    irreversible: []
+  - id: write
+    say: "编写草稿"
+    rollback_to: clarify
+    load: [SKILL.md, references/writing.md]
+    irreversible: []
+  - id: submit
+    say: "提交校验"
+    rollback_to: write
+    load: [SKILL.md, references/writing.md]
+    irreversible: []
+routes:
+  - id: main
+    summary: "完整创建或同链修改"
+    nodes: [understand, clarify, write, submit]
+  - id: sufficient
+    summary: "信息完整，跳过澄清"
+    nodes: [understand, write, submit]
+choices_example:
+  - id: create
+    title: "整理并提交草稿"
+    route: main
+    confirm: false
+  - id: revise
+    title: "返回调整需求"
+    rollback_to: understand
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

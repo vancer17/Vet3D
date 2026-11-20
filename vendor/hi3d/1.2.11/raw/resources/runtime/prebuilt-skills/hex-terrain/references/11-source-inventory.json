@@ -1,0 +1,740 @@
+{
+  "source_thread_id": "01a18abe-eb13-7c31-bf96-b15b0498e501",
+  "source_workspace_id": "asset_4610c1f2",
+  "baseline_date": "2026-11-06",
+  "rules_version": "2.1.2",
+  "conversation_excerpt_count": 268,
+  "scope": "read-only source index; original scripts are not bundled executables",
+  "files": [
+    {
+      "path": "config/hi3d-terrain-rules.json",
+      "bytes": 25380,
+      "sha256": "2a72334fe5e703ec3d1ec2a2366477a500a807d63a8ef13a630ae96eb32e16b3"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-decorations_28.json",
+      "bytes": 49359,
+      "sha256": "319eba3d645d46689c483e66f71676498f3e177f8167f49270db34dc4b6372a8"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grass-patches_5.json",
+      "bytes": 6012,
+      "sha256": "4b9370c809d945ad792bfe4e6398149f98989077e7230ba5a801504cc27b8286"
+    },
+    {
+      "path": "exports/hi3d-civilization-decorations_4.json",
+      "bytes": 15036,
+      "sha256": "233dd56eb5d60d8da11378aeb1bab1a32143eaf65902e6d759dcea4cdfd2e2d9"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations-labels_1.py",
+      "bytes": 809,
+      "sha256": "5709a122404b3c0d37010dd1745a6ae539b38cf42c74041084bc64e04efddf05"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations-labels_2.py",
+      "bytes": 826,
+      "sha256": "9b271d8772b3b5c3bd5bb98c6e0ab4611bef954e03e71c8fe51a37faeff8cbd9"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations-labels_3.py",
+      "bytes": 846,
+      "sha256": "4c1065e36cbcd7ed90cabae91be257f2fd44fe31f2f7d9c7609eea957b3ded81"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations-labels_4.py",
+      "bytes": 848,
+      "sha256": "ec82c91883365b5f134a245592374b720112c58c97923d930374868a395c31da"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations_1.py",
+      "bytes": 9114,
+      "sha256": "a6f73de2013e16243a35c313dfc9daff2c8830223952bfbd38b289add9e8a8cc"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations_2.py",
+      "bytes": 5037,
+      "sha256": "25191e29cab3c8c4e55312631b91692d54d2985645aac41616175c10c755ee7a"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations_3.py",
+      "bytes": 5555,
+      "sha256": "2ac6dfd9c34e9557086f97e50bf5d6dc8e49750afc98836a566d97abb5a558d7"
+    },
+    {
+      "path": "scripts/hi3d-civilization-decorations_4.py",
+      "bytes": 5582,
+      "sha256": "b5973571578a25d68ad355bc36dc6e08f000a9de083255d057366feaa983229d"
+    },
+    {
+      "path": "scripts/hi3d-civilization-palette-models_1.py",
+      "bytes": 5702,
+      "sha256": "f091abcf5e7a9a49ca601e8b216cf37008e44f6d96ed06721199957d5ecf23e9"
+    },
+    {
+      "path": "scripts/hi3d-civilization-palette-previews_1.py",
+      "bytes": 778,
+      "sha256": "365cfa3660cec6d30167ec806e6003e2a43244fa60373720dd5b24c502737303"
+    },
+    {
+      "path": "scripts/hi3d-civilization-palette_1.py",
+      "bytes": 1694,
+      "sha256": "4214d36c2800ca08fc3555c210fb30eace926ac3355cba81b67c7e9cb5fb0fbc"
+    },
+    {
+      "path": "scripts/hi3d-decoration-comparison-labels_1.py",
+      "bytes": 2017,
+      "sha256": "bc83c663e4cf943966510f04cb58d9a06083f4402909a808c8353aec7c4699f4"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations-labels_1.py",
+      "bytes": 639,
+      "sha256": "b7eb48d6f3bbbc8072747d4d39b1ff2f634f1a64647ac578c692f00843f6e71c"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations-labels_2.py",
+      "bytes": 634,
+      "sha256": "42e756f7808557cf8b124d74dc8a25233fc28a661bb8b01851e20b3bb3836857"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations-labels_3.py",
+      "bytes": 634,
+      "sha256": "1286dd0f2ca7ee2ae2dd1b4ede4dbc74a05e7005c2bf460c24a426274d536a2d"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations_1.py",
+      "bytes": 23942,
+      "sha256": "483a5740ebebfda32a189496c07813ed8a52ae4966c87ee646c0160410871982"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations_2.py",
+      "bytes": 8824,
+      "sha256": "9f6f500ef031d9a4f6df4af53dc2d0a130dec1ffdec2992177d57f87b0cbf3bf"
+    },
+    {
+      "path": "scripts/hi3d-fortress-decorations_3.py",
+      "bytes": 5219,
+      "sha256": "ab446980d3044f175adda69aa3ab129c3a9d0d99724be164f211a28ddca0b3fb"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-edge-multiply-thresholds_1.py",
+      "bytes": 2901,
+      "sha256": "b5777cc3ff7ae0d144dbfadcfec6c7dc5f022eab8b615612fe8f949ee399cc28"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-edge-multiply-thresholds_2.py",
+      "bytes": 3889,
+      "sha256": "f096538e5d244a18eaeba9fafbaa384ff4e57348f179accd66f08245e8d3fa9c"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-edge-multiply-thresholds_3.py",
+      "bytes": 3889,
+      "sha256": "7ee3efe2845d404d922bbe9fe38c2633bad8cd050422d4e29a02b8ed232a7636"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-edge-multiply_1.py",
+      "bytes": 4733,
+      "sha256": "6a6c9bec875b3138c25383c0751b0605107d8545b7be580666add80abb5113c6"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-fields_4.py",
+      "bytes": 2951,
+      "sha256": "b5facedb1ba7170a89c5170653fa91aae43f921b25f7ce927adb98220c1431a9"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-low-frequency-field_1.py",
+      "bytes": 5291,
+      "sha256": "5832fa4b565450644db4eb5b9c2ff27b208767ceffb67b711d198f909889c489"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-low-frequency-field_2.py",
+      "bytes": 5889,
+      "sha256": "4cadb9e00c621f1a3d03ed2b27f9cb9e1d6792d8e926e08637ab292f97d3cf98"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-low-frequency-field_3.py",
+      "bytes": 6500,
+      "sha256": "442471f4bcf092a401b163112837b4112790ecd8557246f8a9e20a4899e29ef0"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-low-frequency-field_4.py",
+      "bytes": 7298,
+      "sha256": "31279382f4f654a39404aacffd50a0d8f91fb92864e3f633db95a35369a3754e"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-preview.py",
+      "bytes": 4300,
+      "sha256": "68ecc7b6af9b5bcdfc95ad0d872b8999a9b1ac37a3b2b3d7dae4b9d471ba248d"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-range-map_1.py",
+      "bytes": 7011,
+      "sha256": "dc7c8ba679d5fd54ebe549a63b7fb09dd5f6620e89db4c97fdcc6744b035f3a7"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-redesign-build_2.py",
+      "bytes": 12181,
+      "sha256": "4ecfa926acd41b4edaa5f092ff8aef5cd0eacaadfe38283a43a2a00824326f9c"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-refine-build_3.py",
+      "bytes": 5077,
+      "sha256": "99c57b695e1df504bff0bd27ad740b1e496a476588822e5efff2905771cc87f5"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_1.py",
+      "bytes": 5329,
+      "sha256": "abb7931899bdc311ccb1110d5d8b60c358343cea3ca662d4114b66bdc52f41f5"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_10.py",
+      "bytes": 5983,
+      "sha256": "6a075b9f2dcaa879731db650ed751de0805d6decd9b254c102eb686f4915379c"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_11.py",
+      "bytes": 5985,
+      "sha256": "6ce5a8067268b730ba482b20fbbdf3e276b988b60807b9326597a121294d062d"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_12.py",
+      "bytes": 6005,
+      "sha256": "d0b49872e85ee216744385e1b31c9558db4a6c9b8a019de6e7d9e12410ba412f"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_13.py",
+      "bytes": 6720,
+      "sha256": "dbabe31a614394ca72c2000e1b553ff86f081e146462bd5507d42531be4ed5d2"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_2.py",
+      "bytes": 5333,
+      "sha256": "49ba63d7ded612cb6a5b59c3cf7b3e182397d44a2f6d9fdc225e46a74e08fee6"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_3.py",
+      "bytes": 5962,
+      "sha256": "af7134565d282f7aadf7b6b17ce69bd9d3c11252fbfd0394c8dfbc3f1c7f3bc3"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_4.py",
+      "bytes": 5428,
+      "sha256": "a0bb751d5ff6246981b6bc8beb36147e1eef4b41e3a356226026f3410e8be8c8"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_5.py",
+      "bytes": 5573,
+      "sha256": "d36ca734a42b3ceee4c94032ebc8dc53fb2ba0266061dc131ea287f2baba907f"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_6.py",
+      "bytes": 6199,
+      "sha256": "e019dd5069f040f5b3e6a56c0360075493d6f9b6bb89dfc04b24d0895868c195"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_7.py",
+      "bytes": 6012,
+      "sha256": "7e55d7602d948253cba6231c57025686b2a5c7f652893d9b601901adab82b781"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_8.py",
+      "bytes": 6088,
+      "sha256": "75fe97c87bbe8e011b2517f6a6c84a057a5dbcd38b5d6e6b0620d345abf60c90"
+    },
+    {
+      "path": "scripts/hi3d-grass-patch-two-fields_9.py",
+      "bytes": 5997,
+      "sha256": "fc1dffdb99ec76ca507c1da05850f2f422ca08b00af4676cbc99fd9a98fcde61"
+    },
+    {
+      "path": "scripts/hi3d-grass-patches-labels_1.py",
+      "bytes": 1734,
+      "sha256": "3ec4a1aa63a933ff10be5ac9d0c1f0ad7cc80d1534f1950548d25fdcd46f8272"
+    },
+    {
+      "path": "scripts/hi3d-grass-patches-labels_2.py",
+      "bytes": 1767,
+      "sha256": "3f8a3f36766fbab1f3e02be9c4283d056271d72435c9b8f968537522acc21ca5"
+    },
+    {
+      "path": "scripts/hi3d-grass-patches-labels_3.py",
+      "bytes": 1767,
+      "sha256": "1569103c5f798d5eba0973c6961430952fbd52b1bd3bfc16c1d229a2cd07751a"
+    },
+    {
+      "path": "scripts/hi3d-gravel-fine-grass-detail_1.py",
+      "bytes": 1664,
+      "sha256": "c38cec77e3cc25713f6d13ae4e698eff87c31b903f5dd18cf61eca857fdedf47"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-apply-json_1.py",
+      "bytes": 6688,
+      "sha256": "8708402755dfc859dd0acf8812f859565f7c9850a410f5c56a4adab551bd76ca"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-attributes_1.py",
+      "bytes": 6126,
+      "sha256": "96be13af64380da51c46d6dfb3ca2f32f49c0e2920cc03775130937442928509"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-bevel_1.py",
+      "bytes": 11150,
+      "sha256": "543758bd92fdd2077ba7ccb9e0827461c54ee12c92255c48bb9978f7398867b6"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-assets_1.py",
+      "bytes": 24287,
+      "sha256": "fa037c399ede0ce4a162285a21da4837fcad47c57355c15f6dc0938b264e615e"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-corner-towers_1.py",
+      "bytes": 12573,
+      "sha256": "3bcdf264f17a5107888aa83f40fa1fa743200232536e9f300f01219b84d3066f"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-gate-fix_1.py",
+      "bytes": 6950,
+      "sha256": "866c9651cc4e9db4e7683ff7b71a10475d080d6c0237c86520c818f3f2cae529"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-layout_1.py",
+      "bytes": 19982,
+      "sha256": "33fe29bc155b1da6cc26232226855def679c54bed2dbecda5a707840ef96d0c2"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-layout_2.py",
+      "bytes": 21515,
+      "sha256": "668d348574dc5cb66f1489a37a9a4a019d054e2bd109d640ec0945847cc55a30"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-open-bottom-gate_1.py",
+      "bytes": 10523,
+      "sha256": "a6717d4f40d90834ccfa531de8646f836153a6c73e2016bf44142c2634627069"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-civilization-walls_1.py",
+      "bytes": 22157,
+      "sha256": "65de8ef2f82c51a2900b11e861934c3de890986f0bc691a7da325c53f786a263"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-clip-river-grass_1.py",
+      "bytes": 15373,
+      "sha256": "6c056fcf1935da4a48b58b8e3371fbc4db14616ecca0f47dd029baa0746f67c9"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorated_1.py",
+      "bytes": 17657,
+      "sha256": "79db36af620c2388bc0e32730c95d8ca210808ec2456ec865f3136ddb448e606"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_1.py",
+      "bytes": 11988,
+      "sha256": "cffbc479f101b27bfa20b5d91f0f262cda06df4ff32a4d7ce6ac1fa1be640873"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_10.py",
+      "bytes": 16970,
+      "sha256": "c26e31fb74001c8b7a83278582182b605fba100db4e6f865451bf102b0007bd7"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_11.py",
+      "bytes": 5957,
+      "sha256": "36161587658d9be8c7b81a8b232044e601a44a474e20eba2a8381613515c0a32"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_12.py",
+      "bytes": 5633,
+      "sha256": "23d729fbaac76b363fcab139c449bac24acc0603fd02f75ab032e8bbcc0538fb"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_13.py",
+      "bytes": 27143,
+      "sha256": "81fef107689afbca9c76cf11498c9070e5c1cadd5f91aaec3fb48d9151b9c29d"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_14.py",
+      "bytes": 16575,
+      "sha256": "14c4a30f11060c375fc7e44afdf7e9caa42a6c8cb3ff213ba483487d28c5ef8b"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_15.py",
+      "bytes": 15992,
+      "sha256": "54355b75fc1f1f019aa895d8214d6ae1fa372e64589876ed1117ef8185469bb0"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_16.py",
+      "bytes": 14873,
+      "sha256": "15fb3b2fcf536d5253c502783745b62aa09c49a57f066d3659ea495c7a0c1c33"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_17.py",
+      "bytes": 12502,
+      "sha256": "7d544ad8b1a4a62607af81ef136cfa65c3873bf220dc8c62bb9af25136d2c56b"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_18.py",
+      "bytes": 17764,
+      "sha256": "7a14540f432ea1840fd68125f185b7314894739e1dc5ecbb6ca020bbad085272"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_19.py",
+      "bytes": 13366,
+      "sha256": "b69fcefa0d9a65b3834770518010e42533248478da88f680f0beec500aeef28c"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_2.py",
+      "bytes": 5293,
+      "sha256": "52cff4ae44145ae3f2c27ea263b6d9123b2318db46d3750c8d66ab07107cdeb3"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_20.py",
+      "bytes": 6103,
+      "sha256": "bd911bdca45115e435b9109663f619e7bc66970169e246543c4c8bd8b060afd6"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_21.py",
+      "bytes": 6056,
+      "sha256": "bdcad4e923a82adb642685b5d9f894393617c685126a61ea8f7a3afd6104b867"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_22.py",
+      "bytes": 4990,
+      "sha256": "bd124c94ed4b6c18b6fe1f0dc516734a5e88432cd2b7025d9739923c198744d8"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_23.py",
+      "bytes": 5573,
+      "sha256": "7631d1252684ec236e4e109491909a59b721a40099c3f93469e5cfc32fc80c7f"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_3.py",
+      "bytes": 7623,
+      "sha256": "e0e66b5f74da41dbdd88b7aeae9db7e744558b3ffd4330e93d96d3a944d0a0cb"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_4.py",
+      "bytes": 19079,
+      "sha256": "8d6bc83d9cd1401a445578aeec9eec775fc50346d816d5f97907dd5053087750"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_5.py",
+      "bytes": 15818,
+      "sha256": "2f122729d946abefb086a968991eefdef530013b5890681608cabddcceb85ff7"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_6.py",
+      "bytes": 214,
+      "sha256": "3440f372974dcdd01ad70da4db44d7fee5fb791bde276595a51fe7cbede8cdae"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_7.py",
+      "bytes": 11608,
+      "sha256": "a54fa58b2dfe3607a3a6e8989034afa3a4b382e78239aa6111685a78015e1b14"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_8.py",
+      "bytes": 6468,
+      "sha256": "9611b6b65bf6f238129de75a404b0dbfdc00562e7e1587552b673daae9ba29cf"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-decorations_9.py",
+      "bytes": 24486,
+      "sha256": "d6f84aeb7887f3aa05f46da364cc06a61b8263bb9f869e02e106870dbc2ed72e"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-frequency_1.py",
+      "bytes": 7601,
+      "sha256": "ec8a65eb70e5e64ca5c405afc0ba37ee86d1b80f366990209dd40f4cc5142c6b"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-patches_1.py",
+      "bytes": 21884,
+      "sha256": "410971cf3488285e4b8096a20fd0b723bb05c5d71047fa8648d8de8a04c4f532"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-patches_2.py",
+      "bytes": 23361,
+      "sha256": "d026ef99391a0d0de5ab88af13c7ed394c0fece84eb2821a0c9bc22b7179c790"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-patches_3.py",
+      "bytes": 24375,
+      "sha256": "194309a6f44e308ac8fcea9caa91aa2f0eb1925e9efd43419ff1589d0651ac27"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-patches_4.py",
+      "bytes": 17146,
+      "sha256": "d57ebfd0c0118623518147f730a263bfc7aa79fda3bdb2d2639ee3fbe49873b0"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-patches_5.py",
+      "bytes": 10897,
+      "sha256": "a20aea9f63384ef493b6a3dadba080d9420ccb13fbdc755dd86e0ea8d78d2be4"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass-variants_1.py",
+      "bytes": 7894,
+      "sha256": "440d39227fc88aecccccf5a9fc77f4578e438e2ec1bea254e48baa8a04c0d556"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grass_1.py",
+      "bytes": 11035,
+      "sha256": "e78a25eed74c9cba6a96d3dc897ee7bfc1ffbc2065ffc25fbcf8352525d19fd9"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-grid_1.py",
+      "bytes": 16443,
+      "sha256": "6eb706636ff63463046ef1de10d0d9acdf869fdf1dca4a3b9d083c3c5bd65ed4"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-humidity_1.py",
+      "bytes": 3727,
+      "sha256": "76f8e6d033334f3515cee570726962a087f05d3457f47ccbaf60576b538e944c"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-json-only_1.py",
+      "bytes": 3322,
+      "sha256": "2dfbd4012b0df32ea83e4fda4d6d496f8f6321c142ef677ab78723d0c6b19989"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-overview-alt_1.py",
+      "bytes": 1075,
+      "sha256": "abfb3e871108228aa0fd5940c14efa15be08f1d0a5967b9eecebc62fabbaf722"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-place-grass-patches_1.py",
+      "bytes": 20027,
+      "sha256": "f46aaa0919285de1d677f09d8c4ca248b9aaaedc7700729308aa71ce2d68b896"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-place-river-plants_1.py",
+      "bytes": 16451,
+      "sha256": "bbf097ebe019b1ffa279da9103753bf3fdb2c6b1ad0b2cac1ec34931f6630300"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-random-scale_1.py",
+      "bytes": 11070,
+      "sha256": "5d7b22d0fb859418ff74e2055bd5b464524420b5cff8107bba668b5d45605724"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-edit_1.py",
+      "bytes": 10305,
+      "sha256": "80e5910af13e7888120f950af1a27b94772dabf3da88b632ab723fe6d36dd6f7"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-edit_2.py",
+      "bytes": 10818,
+      "sha256": "38f2ce7bf774b5f119be37cf53c5228fac10e680aaed3ee1bcd128563fb31fd0"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-plants-inside_2.py",
+      "bytes": 16114,
+      "sha256": "98dbc6e141fd246361b1bfd31d766672c8ecbeb60470970382093d52308002ab"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-plants-per-cell_3.py",
+      "bytes": 14741,
+      "sha256": "f01430307ec03db2fb096d55c4b70de7383e2807195f7566f04c0d4b00678532"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-texture_1.py",
+      "bytes": 10885,
+      "sha256": "7df0e8e2617e6b66b9e0cb2499a85acaca83355df289d4f69f26185b7f1a78f3"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river-texture_2.py",
+      "bytes": 7097,
+      "sha256": "91832b05efd0271cf6834a7e076366769b6c9728722d53e82f258fd5307e3fbd"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river_1.py",
+      "bytes": 24676,
+      "sha256": "5ab65c7a374193a36c62cfa3450f0c9674507ad5468653b0e3b64d623ca161dd"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river_2.py",
+      "bytes": 27873,
+      "sha256": "827f33506442c03cd4b56905d62eb3ea2540192d7ecbd363cd6bdebc08cc1d54"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river_3.py",
+      "bytes": 27874,
+      "sha256": "3d98c2f8aac0fa5e14928bd670e87e19b8a2a7780559170f9ec478585e491acc"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-river_4.py",
+      "bytes": 28032,
+      "sha256": "379d3e72c110f55feb98541541504351d6c01876c24fb8946adb20ca85b4fac5"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-sandiness_1.py",
+      "bytes": 4859,
+      "sha256": "11aa4b2e5e674039866334c8409493d2d72c2451cc7b7dd410323eef80e6e2b0"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-soil-grass_1.py",
+      "bytes": 10060,
+      "sha256": "a7b0d54412558b3a02ba562583afdddd7ccf4f3b2f968e80223cdd96c2581f96"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-soil-grass_2.py",
+      "bytes": 10232,
+      "sha256": "16d485b3aff7d5cccfe2d73a94252fb8c920549d4ef5e0f3c9b7d1f2ec1f4378"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-soil-grass_3.py",
+      "bytes": 12308,
+      "sha256": "4f93c03e6d826a6c4aaaedfd90bef6debb6e8bd0d3dab2779b06cdd10fca4ede"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-temperature_1.py",
+      "bytes": 3927,
+      "sha256": "368363d205c4c2a46d95ccaf1291509725352a8a5e3613731ec7bda254430f8b"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-textures_1.py",
+      "bytes": 9122,
+      "sha256": "ab0d5667d7771605b57b00a5303d19504f79c9e95832bd31aa5453b607c98d5d"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-tile_1.py",
+      "bytes": 3873,
+      "sha256": "c90d17dea923cc171761a60ef856822902cf5e0e7f291da73d5bf2ae95797301"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-tile_2.py",
+      "bytes": 6540,
+      "sha256": "4e0061b64011d4f0167d925aea0603fddc22912c192b4fb90d43c37b9411c9a7"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-values_1.py",
+      "bytes": 7030,
+      "sha256": "803cce97b02f96a29f9eba0612ab80ea63b13b5754a57db03964b555f81ca838"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-water-alpha_1.py",
+      "bytes": 6122,
+      "sha256": "a3be443115549acfb4a008939bd794521896882a04e705e6b6eab8f5fd8fe39d"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-water-height_1.py",
+      "bytes": 11724,
+      "sha256": "9d7495c4753037ef67965917b465c69612f5ec69d46068319fb0123369fb170d"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-water-rotate_1.py",
+      "bytes": 6152,
+      "sha256": "67d42ed2af9481df90ab10aa5344345effa433273212ce711b4ef37d84128f97"
+    },
+    {
+      "path": "scripts/hi3d-hex-terrain-water_1.py",
+      "bytes": 15505,
+      "sha256": "4378c2702f66c981d24f3ba32c68425c4c0fc21e549575077817d225944513a9"
+    },
+    {
+      "path": "scripts/hi3d-natural-decoration-atlas_1.py",
+      "bytes": 3106,
+      "sha256": "9a61a8e6cb3aa1d624e46cdebd140cbe02d50b386c4ef6335e96cc5cace7bd8f"
+    },
+    {
+      "path": "scripts/hi3d-natural-decoration-audit_1.py",
+      "bytes": 2879,
+      "sha256": "00a98cadbbfc3a9818f90593ce7cd2a56a2c973856d2973807283c8fd4f85379"
+    },
+    {
+      "path": "scripts/hi3d-natural-decoration-references_1.py",
+      "bytes": 1831,
+      "sha256": "5957641b79dccb2b6f1a6f24d8fcdd16feb2cfa3508ca7bef9cd177f671e4d7f"
+    },
+    {
+      "path": "scripts/hi3d-natural-decorations-labels_1.py",
+      "bytes": 637,
+      "sha256": "054749ba7cbaf105f1d4b2671e86f571389d5dd864a98bdaf2d0a08999d14a00"
+    },
+    {
+      "path": "scripts/hi3d-natural-decorations-merge_1.py",
+      "bytes": 11318,
+      "sha256": "096505edc929f584e76b4ea16991bc75294ddf0f8dd190aeea29f2f4e540d483"
+    },
+    {
+      "path": "scripts/hi3d-river-plants-gallery_1.py",
+      "bytes": 14722,
+      "sha256": "6416f95643191d75dad442817ec009047c70afeb8a0ae6afc639436766352e20"
+    },
+    {
+      "path": "scripts/hi3d-river-plants-revise_2.py",
+      "bytes": 18545,
+      "sha256": "30d7a41fabb793fed81c08544cf152551c796971aec920317dd236e561ba3467"
+    },
+    {
+      "path": "scripts/hi3d-river-plants-scale_1.py",
+      "bytes": 5752,
+      "sha256": "21392c5c6c101f39ea09bfe4c3288b8b9cfe3c5c3eea4aae610d5641c8e0eaa3"
+    },
+    {
+      "path": "scripts/hi3d-river-texture-seamless_1.py",
+      "bytes": 1702,
+      "sha256": "515582e134e1fec0956c4c3ee71da4a8d5afe63760654d90933f24d2f28a572b"
+    },
+    {
+      "path": "scripts/hi3d-terrain-apply-rules_1.py",
+      "bytes": 33297,
+      "sha256": "8a862c3f581c5933afa566339ef46aea4d10dd2e8e1518fa106d6540ff371f95"
+    },
+    {
+      "path": "scripts/hi3d-town-decorations-labels_1.py",
+      "bytes": 705,
+      "sha256": "f452592eeb7513414f8b6bf61270342658a0df8bc41296051c69a045ffbbb9b1"
+    },
+    {
+      "path": "scripts/hi3d-town-decorations_1.py",
+      "bytes": 20939,
+      "sha256": "38ad83278bc881cce26a6cd5c34e3ca73d5b7dc436df0ad66ea1d3c3663b13d0"
+    },
+    {
+      "path": "scripts/hi3d-underwater-decorations-labels_2.py",
+      "bytes": 862,
+      "sha256": "5ab58f711c70c0403a6099d6e3376d2d156cb6b95f4ad0ff0d2d61c73a106ad5"
+    },
+    {
+      "path": "scripts/hi3d-village-decorations-labels_1.py",
+      "bytes": 671,
+      "sha256": "165e710976e39342773c648f2b02186c933f790108f576ba118479893c194314"
+    },
+    {
+      "path": "scripts/hi3d-village-decorations_1.py",
+      "bytes": 26152,
+      "sha256": "49b803a1c766208eeffe36cf57160a7b227f1d3c165d498e7e392d04c744c25e"
+    },
+    {
+      "path": "scripts/hi3d-village-decorations_2.py",
+      "bytes": 2578,
+      "sha256": "82f99b06e7ab44064a5303c8a4f9528032f06cb800838ebb8f4c3eacc4fb7d96"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grid_48.json",
+      "bytes": 980218,
+      "sha256": "40845340848623f22e9a0be91c9213817862d4e5ef39bef90956256e9977c864"
+    },
+    {
+      "path": "hi3d-hex-terrain-grid_37.glb",
+      "bytes": 41909844,
+      "sha256": "5ec46f32cd30c1433cc1171d14b5e8c1f74305abb4aee3743b9e395e849a87d2"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grid_43.blend",
+      "bytes": 117346698,
+      "sha256": "6fc5c5ba706f816941d965c5708546385fbaf2c8ff57b5bddf9f50d27d6c9c66"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-edge-multiply_1.npz",
+      "bytes": 13896952,
+      "sha256": "de4f64b4f8b3096fcaa42ce2e1132e13c1f301c8347c278f2a6dbdb99629cc73"
+    },
+    {
+      "path": "codex-home/sessions/2026/10/30/rollout-2026-10-30T10-58-50-01a18abe-eb13-7c31-bf96-b15b0498e501.jsonl",
+      "bytes": 1000185837,
+      "sha256": "07206aa67c5c125342d46cbe2324acd552f5defad22cd404b43ef2781abd422f"
+    }
+  ]
+}

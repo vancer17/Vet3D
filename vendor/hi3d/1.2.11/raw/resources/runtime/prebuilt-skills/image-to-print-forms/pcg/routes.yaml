@@ -1,0 +1,99 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "单张标志或剪影做成可选的四种打印实体；缺图先停，已点名款式不再弹窗。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: intake
+    say: "核对图片与文案"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/options.md
+    irreversible: []
+  - id: select
+    say: "选择立体款式"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/options.md
+      - references/geometry-and-checks.md
+    irreversible: []
+  - id: build
+    say: "构造所选实体"
+    rollback_to: select
+    load:
+      - SKILL.md
+      - references/geometry-and-checks.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: deliver
+    say: "渲染并交付文件"
+    rollback_to: build
+    load:
+      - SKILL.md
+      - references/geometry-and-checks.md
+      - references/tested-example.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: all
+    summary: "用户已要求四种都做"
+    nodes:
+      - intake
+      - build
+      - deliver
+    rollback_to: build
+  - id: plaque
+    summary: "分层标牌"
+    nodes:
+      - intake
+      - select
+      - build
+      - deliver
+    rollback_to: build
+  - id: sweep
+    summary: "轮廓封底并曲面落地"
+    nodes:
+      - intake
+      - select
+      - build
+      - deliver
+    rollback_to: build
+  - id: wave
+    summary: "波浪镜像围合"
+    nodes:
+      - intake
+      - select
+      - build
+      - deliver
+    rollback_to: build
+  - id: slats
+    summary: "弧形竖片"
+    nodes:
+      - intake
+      - select
+      - build
+      - deliver
+    rollback_to: build
+choices_example:
+  - id: plaque
+    title: "分层标牌"
+    route: plaque
+    confirm: true
+  - id: sweep
+    title: "曲面落地桌摆"
+    route: sweep
+    confirm: true
+  - id: wave
+    title: "波浪双面围合"
+    route: wave
+    confirm: true
+  - id: slats
+    title: "弧形竖片"
+    route: slats
+    confirm: true

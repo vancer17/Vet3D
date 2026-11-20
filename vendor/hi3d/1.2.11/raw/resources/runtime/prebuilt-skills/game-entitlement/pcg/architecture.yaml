@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: game-entitlement
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "购买权益归约"
+    function: "按已确认目标编排购买权益归约，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 applyEvent(state,{id,order,user,product,revision,status}) → 新权益；canDownload(state,{user,product}) → 布尔；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "支付适配器验证签名与金额，再在数据库事务里分配单调 revision 并调用归约。下载接口从服务端权益发短时链接；禁止客户端自报 paid 或仅凭此内存函数授权生产下载。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 重复事件、身份不匹配、乱序退款、退款后 paid 拒绝；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py"
+  },
+  "requires": []
+}

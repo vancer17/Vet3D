@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: teapot-design
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: teapot_design
+    parent: null
+    role: agent
+    label: "容量、把型、材料与主题"
+    function: "编排 teapot-design"
+  - id: brief
+    parent: teapot_design
+    label: "容量、把型、材料与主题"
+    function: "本 agent 容量、把型、材料与主题"
+    outputs:
+      - id: brief
+        label: "容量、把型、材料与主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "容量、把型、材料与主题"
+  - id: research
+    parent: teapot_design
+    label: "壶型、使用与连接研究"
+    function: "本 agent 壶型、使用与连接研究"
+    outputs:
+      - id: research
+        label: "壶型、使用与连接研究"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "壶型、使用与连接研究"
+  - id: form
+    parent: teapot_design
+    label: "壶体、内腔与曲面浮雕"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "壶体、内腔与曲面浮雕"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: structure
+    parent: teapot_design
+    label: "壶盖、壶嘴与把手"
+    function: "本 agent 壶盖、壶嘴与把手"
+    outputs:
+      - id: structure
+        label: "壶盖、壶嘴与把手"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "壶盖、壶嘴与把手"
+  - id: fdm
+    parent: teapot_design
+    label: "制造路线与打印试样"
+    function: "本 agent 制造路线与打印试样"
+    outputs:
+      - id: fdm
+        label: "制造路线与打印试样"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "制造路线与打印试样"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: teapot_design
+    label: "取盖、倾倒与使用展示"
+    function: "本 agent 取盖、倾倒与使用展示"
+    outputs:
+      - id: media
+        label: "取盖、倾倒与使用展示"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "取盖、倾倒与使用展示"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: teapot_design
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

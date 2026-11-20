@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "width": 320,
+  "height": 180,
+  "fps": "24",
+  "frames": 12,
+  "strips": [
+    {
+      "id": "background",
+      "type": "color",
+      "start": 1,
+      "duration": 12,
+      "channel": 1,
+      "color": [
+        0.05,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "start": 1,
+      "duration": 12,
+      "channel": 2,
+      "text": "Hi3D VSE",
+      "fontSize": 28
+    }
+  ]
+}

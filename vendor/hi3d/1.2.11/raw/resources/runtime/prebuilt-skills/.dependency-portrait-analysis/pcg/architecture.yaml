@@ -1,0 +1,78 @@
+schema: pcg.architecture.v1
+entry: portrait-analysis
+kind: agent_skill
+layout: linear
+note: parent 表示编排归属；实际前置条件见 function。算子由代码执行，阶段不自动创建子 agent。
+tasks:
+- id: portrait_analysis
+  parent: null
+  role: agent
+  label: portrait-analysis
+  function: 编排阶段并检查交接；已有合格产物从对应阶段续接。
+- id: source
+  parent: portrait_analysis
+  role: local
+  label: 确认模型与推理项
+  function: 选择关键点、分割或法线；核对已有渲染的源模型和真实相机绑定。
+  outputs: []
+- id: render
+  parent: source
+  role: local
+  label: 准备同源渲染
+  function: source 后准备渲染和相机；关键点采用纹理图，分割/法线可用灰模并单独验收。
+  outputs:
+  - id: render_0
+    label: 渲染 PNG
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: render_1
+    label: 相机与来源绑定 JSON
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: source
+  optional: true
+- id: infer
+  parent: render
+  role: local
+  label: Sapiens2 推理
+  function: render 合格后通过 mdf-call 调用所选任务；保存任务记录，恢复已有任务。
+  outputs:
+  - id: infer_0
+    label: Sapiens2 原始数组 NPZ
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: infer_1
+    label: 请求与任务记录
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: render
+  irreversible:
+  - mdf.invoke
+  optional: true
+- id: review
+  parent: infer
+  role: local
+  label: 核对检测与交接
+  function: infer 后核对坐标、置信度和覆盖范围；交接 landmark-project 做真实相机反投影，本能力不拟合或修复。
+  outputs:
+  - id: review_0
+    label: 检测叠加图
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_1
+    label: 质量判定与来源记录
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: infer

@@ -1,0 +1,721 @@
+{
+  "notice": "Schema/reference examples only. Records are deliberately truncated, not a runnable complete map or replacement for the original JSON.",
+  "source": "exports/hi3d-hex-terrain-grid_48.json",
+  "map_header": {
+    "rows": 10,
+    "columns": 10,
+    "circumradius_m": 0.9999999910258843,
+    "height_step_m": 0.1,
+    "altitude_max": 1000,
+    "seed": 20261030,
+    "orientation": "pointy_top",
+    "base_z_m": 0,
+    "coordinate_formulas": {
+      "x": "(id.X + (id.Y % 2) * 0.5) * R * sqrt(3)",
+      "y": "id.Y * R * 1.5",
+      "z": "altitude * height_step_m",
+      "water_z": "(waterLevel - 0.25) * height_step_m"
+    },
+    "terrain_rules": {
+      "path": "../config/hi3d-terrain-rules.json",
+      "version": "2.1.2",
+      "schema_version": 1
+    }
+  },
+  "environment_generation": {
+    "seed": 20261030,
+    "altitude_normalization": {
+      "mode": "current_map_min_max",
+      "min": 19,
+      "max": 64
+    },
+    "noise_fields": {
+      "humidityNoise": {
+        "type": "smooth_value_noise",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "seed": 20261131,
+        "scale_cells": 1.7
+      },
+      "coverNoise": {
+        "type": "smooth_value_noise",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "seed": 20261232,
+        "scale_cells": 1.4
+      },
+      "sandSourceNoise": {
+        "type": "smooth_value_noise",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "seed": 20261333,
+        "scale_cells": 7.0
+      }
+    },
+    "formulas": {
+      "humidityValue": "clamp(0.80 - 0.60*h + 0.30*(humidityNoise - 0.5), 0, 1)",
+      "fineCoverValue": "clamp(1.175 - 1.19*h + 0.51*(coverNoise - 0.5), 0, 1)",
+      "sandinessValue": "clamp(1/(1+exp(-12*(sandSourceNoise-0.885))) + 0.08*(0.5-humidityValue), 0, 1)"
+    },
+    "thresholds": {
+      "humidity_low": 0.3333333333333333,
+      "humidity_high": 0.6666666666666666,
+      "fine_cover_low": 0.25,
+      "fine_cover_high": 0.5,
+      "sandiness": 0.5
+    }
+  },
+  "cell_examples": {
+    "natural": {
+      "id": {
+        "X": 0,
+        "Y": 0
+      },
+      "altitude": 48,
+      "coordinate_m": [
+        0.0,
+        0.0,
+        4.800000000000001
+      ],
+      "feature": "rolling_terrain",
+      "humidity": "moderate",
+      "surfaceMaterial": "gravel",
+      "temperature": "temperate",
+      "humidityNoise": 0.857111,
+      "coverNoise": 0.194349,
+      "sandSourceNoise": 0.087784,
+      "humidityValue": 0.520467,
+      "fineCoverValue": 0.252229,
+      "sandinessValue": 0.0,
+      "topTexture": "hi3d-approved-terrain-textures/hi3d-terrain-temperate-moderate-gravel.png",
+      "waterLevel": 0,
+      "surfaceState": "land",
+      "decorationRuleKey": "land.moderate.gravel",
+      "riverRefs": [],
+      "civilizationLevel": 0,
+      "decoration_record_example": {
+        "instance_name": "Decor_00_00_gravel_grass_00",
+        "group": "gravel_grass",
+        "variant": "Grass_Gravel_01",
+        "local_position_m": [
+          -0.4268735647201538,
+          -0.3215435743331909,
+          0.003000000026077032
+        ],
+        "rotation_rad": 5.657665453693876,
+        "scale": 0.8844342588547562,
+        "parts": [
+          "Decor_00_00_gravel_grass_00__Grass_Gravel_01_Blades"
+        ]
+      }
+    },
+    "underwater": {
+      "id": {
+        "X": 2,
+        "Y": 5
+      },
+      "altitude": 30,
+      "coordinate_m": [
+        4.330126980063132,
+        7.4999999326941325,
+        3.0
+      ],
+      "feature": "pit",
+      "humidity": "moderate",
+      "surfaceMaterial": "soil",
+      "temperature": "temperate",
+      "humidityNoise": 0.405514,
+      "coverNoise": 0.277593,
+      "sandSourceNoise": 0.707002,
+      "humidityValue": 0.624988,
+      "fineCoverValue": 0.770684,
+      "sandinessValue": 0.09565,
+      "topTexture": "hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel.png",
+      "waterLevel": 35,
+      "surfaceState": "underwater",
+      "decorationRuleKey": "underwater",
+      "riverRefs": [],
+      "civilizationLevel": 0,
+      "decoration_record_example": {
+        "instance_name": "Decor_02_05_underwater_shell_00",
+        "group": "underwater_shell",
+        "variant": "Shell_Underwater_01",
+        "local_position_m": [
+          0.6504382491111755,
+          0.3666665554046631,
+          0.003000000026077032
+        ],
+        "rotation_rad": 5.36306879370206,
+        "scale": 0.6314718104438918,
+        "parts": [
+          "Decor_02_05_underwater_shell_00__Shell_Underwater_01_Geometry"
+        ]
+      }
+    },
+    "civilized": {
+      "id": {
+        "X": 3,
+        "Y": 1
+      },
+      "altitude": 58,
+      "coordinate_m": [
+        6.062177772088385,
+        1.4999999865388265,
+        5.800000000000001
+      ],
+      "feature": "rolling_terrain",
+      "humidity": "arid",
+      "surfaceMaterial": "rock",
+      "temperature": "temperate",
+      "humidityNoise": 0.181983,
+      "coverNoise": 0.405236,
+      "sandSourceNoise": 0.481526,
+      "humidityValue": 0.184595,
+      "fineCoverValue": 0.095337,
+      "sandinessValue": 0.033064,
+      "topTexture": "hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-dry-stone-paving.png",
+      "waterLevel": 0,
+      "surfaceState": "land",
+      "decorationRuleKey": "civilization.2.functional_zones",
+      "riverRefs": [
+        {
+          "river_id": "river_001",
+          "segment_index": 0,
+          "entry_edge": null,
+          "exit_edge": 3,
+          "upstream_cell": null,
+          "downstream_cell": {
+            "X": 2,
+            "Y": 1
+          }
+        }
+      ],
+      "riverDecorationInstances": [
+        "RiverDecor_river_001_03_01_00",
+        "RiverDecor_river_001_03_01_01",
+        "RiverDecor_river_001_03_01_02"
+      ],
+      "civilizationLevel": 2,
+      "civilizationSurface": {
+        "texture": "hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-dry-stone-paving.png",
+        "decorations": [
+          "CivDecor_03_01_00",
+          "CivDecor_03_01_01",
+          "CivDecor_03_01_02",
+          "CivDecor_03_01_03",
+          "CivDecor_03_01_04",
+          "CivDecor_03_01_05",
+          "CivDecor_03_01_06",
+          "CivDecor_03_01_07",
+          "CivDecor_03_01_08",
+          "CivDecor_03_01_09"
+        ],
+        "status": "dense_functional_layout_applied",
+        "natural_environment_attributes_preserved": true
+      },
+      "decoration_record_example": {
+        "instance_name": "CivDecor_03_01_00",
+        "group": "civilization_2",
+        "variant": "Town_Hall_01",
+        "role": "civic_core",
+        "parts": [
+          "CivDecor_03_01_00__Town_Hall_01_Geometry"
+        ],
+        "position_m": [
+          6.279511083003426,
+          1.4417657013907594,
+          5.803000000000001
+        ],
+        "local_position_m": [
+          0.15909910202026367,
+          -0.15909898281097412,
+          0.0029997825622558594
+        ],
+        "rotation_rad": -2.6179938316345215,
+        "world_rotation_rad": 4.1887902047863905,
+        "scale": 1.0,
+        "scale_relative_to_original": 0.48,
+        "footprint_xy_m": [
+          [
+            6.237804207561662,
+            1.6848872837709348
+          ],
+          [
+            6.048108178733041,
+            1.3563241238457129
+          ],
+          [
+            6.294821506392564,
+            1.2138841177088187
+          ],
+          [
+            6.484517535221185,
+            1.5424472776340405
+          ]
+        ],
+        "placement_rule": "functional_zone_deterministic_lattice"
+      }
+    }
+  },
+  "river_example": {
+    "id": "river_001",
+    "mesh_name": "River_001",
+    "units": "meter",
+    "direction": "path_order_upstream_to_downstream",
+    "base_width_m": 0.2999999973077653,
+    "source": {
+      "type": "mountain_spring",
+      "cell": {
+        "X": 3,
+        "Y": 1
+      },
+      "taper": true
+    },
+    "sink": {
+      "type": "water_body",
+      "cell": {
+        "X": 2,
+        "Y": 6
+      },
+      "water_level": 35,
+      "taper": false,
+      "mesh_termination": "water_surface_contact",
+      "mesh_endpoint_m": [
+        3.048588752746582,
+        8.28031063079834,
+        3.475
+      ],
+      "surface_height_m": 3.475
+    },
+    "path": [
+      {
+        "cell": {
+          "X": 3,
+          "Y": 1
+        },
+        "order": 0,
+        "altitude": 58,
+        "upstream_cell": null,
+        "downstream_cell": {
+          "X": 2,
+          "Y": 1
+        },
+        "entry_edge": null,
+        "exit_edge": 3
+      },
+      {
+        "cell": {
+          "X": 2,
+          "Y": 1
+        },
+        "order": 1,
+        "altitude": 57,
+        "upstream_cell": {
+          "X": 3,
+          "Y": 1
+        },
+        "downstream_cell": {
+          "X": 2,
+          "Y": 2
+        },
+        "entry_edge": 0,
+        "exit_edge": 2
+      },
+      {
+        "cell": {
+          "X": 2,
+          "Y": 2
+        },
+        "order": 2,
+        "altitude": 54,
+        "upstream_cell": {
+          "X": 2,
+          "Y": 1
+        },
+        "downstream_cell": {
+          "X": 1,
+          "Y": 2
+        },
+        "entry_edge": 5,
+        "exit_edge": 3
+      },
+      {
+        "cell": {
+          "X": 1,
+          "Y": 2
+        },
+        "order": 3,
+        "altitude": 49,
+        "upstream_cell": {
+          "X": 2,
+          "Y": 2
+        },
+        "downstream_cell": {
+          "X": 1,
+          "Y": 3
+        },
+        "entry_edge": 0,
+        "exit_edge": 1
+      },
+      {
+        "cell": {
+          "X": 1,
+          "Y": 3
+        },
+        "order": 4,
+        "altitude": 48,
+        "upstream_cell": {
+          "X": 1,
+          "Y": 2
+        },
+        "downstream_cell": {
+          "X": 1,
+          "Y": 4
+        },
+        "entry_edge": 4,
+        "exit_edge": 2
+      },
+      {
+        "cell": {
+          "X": 1,
+          "Y": 4
+        },
+        "order": 5,
+        "altitude": 42,
+        "upstream_cell": {
+          "X": 1,
+          "Y": 3
+        },
+        "downstream_cell": {
+          "X": 1,
+          "Y": 5
+        },
+        "entry_edge": 5,
+        "exit_edge": 1
+      },
+      {
+        "cell": {
+          "X": 1,
+          "Y": 5
+        },
+        "order": 6,
+        "altitude": 41,
+        "upstream_cell": {
+          "X": 1,
+          "Y": 4
+        },
+        "downstream_cell": {
+          "X": 2,
+          "Y": 6
+        },
+        "entry_edge": 4,
+        "exit_edge": 1
+      },
+      {
+        "cell": {
+          "X": 2,
+          "Y": 6
+        },
+        "order": 7,
+        "altitude": 25,
+        "upstream_cell": {
+          "X": 1,
+          "Y": 5
+        },
+        "downstream_cell": null,
+        "entry_edge": 4,
+        "exit_edge": null
+      }
+    ],
+    "cross_section_layout": {
+      "normalized_lateral_positions": [
+        -1,
+        -0.86,
+        0,
+        0.86,
+        1
+      ],
+      "initial_zero_width_section": "single_tip_vertex"
+    },
+    "uv_mapping": "u_across_width_v_distance_downstream_div_repeat_length_m",
+    "reconstruction_script": "scripts/hi3d-hex-terrain-river-edit_2.py",
+    "reconstruction_mode": "apply_recorded_terminal_clip_and_opacity_edit_to_source_revision",
+    "mesh_summary": {
+      "objects": 1,
+      "connected_components": 1,
+      "vertices": 276,
+      "faces": 220,
+      "sections": 56,
+      "length_m": 12.09834916646216
+    },
+    "texture_mapping": {
+      "texture": "hi3d-approved-terrain-textures/hi3d-terrain-river-water.png",
+      "uv_layer": "RiverFlowUV",
+      "u_axis": "across_river_width_0_to_1",
+      "v_axis": "distance_from_source_m / repeat_length_m",
+      "repeat_length_m": 2.0,
+      "wrap_u": "CLAMP_TO_EDGE",
+      "wrap_v": "REPEAT",
+      "alpha": 0.7
+    },
+    "decoration_plan": {
+      "count_scope": "all_three_types_combined_per_eligible_cell",
+      "variants": [
+        "River_Lotus_01",
+        "River_SweetFlag_01",
+        "River_Reed_01"
+      ],
+      "placed_instances": 14,
+      "status": "placed_all_three_types_in_river",
+      "source_decoration_glb": "hi3d-hex-terrain-decorations_25.glb",
+      "seed": 12774194512257213654,
+      "all_three_types_inside_river": true,
+      "count_per_river_cell": [
+        1,
+        3
+      ],
+      "eligible_cell_count": 7,
+      "cell_counts": [
+        {
+          "cell": {
+            "X": 3,
+            "Y": 1
+          },
+          "count": 3,
+          "seed": 4087979917555698951,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 1,
+            "River_Reed_01": 1
+          }
+        },
+        {
+          "cell": {
+            "X": 2,
+            "Y": 1
+          },
+          "count": 1,
+          "seed": 4641889054583252495,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 0,
+            "River_Reed_01": 0
+          }
+        },
+        {
+          "cell": {
+            "X": 2,
+            "Y": 2
+          },
+          "count": 2,
+          "seed": 14407905841220282542,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 0,
+            "River_Reed_01": 1
+          }
+        },
+        {
+          "cell": {
+            "X": 1,
+            "Y": 2
+          },
+          "count": 2,
+          "seed": 9082842566213729502,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 1,
+            "River_Reed_01": 0
+          }
+        },
+        {
+          "cell": {
+            "X": 1,
+            "Y": 3
+          },
+          "count": 2,
+          "seed": 15294272582605118317,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 1,
+            "River_Reed_01": 0
+          }
+        },
+        {
+          "cell": {
+            "X": 1,
+            "Y": 4
+          },
+          "count": 2,
+          "seed": 5157661321099254950,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 1,
+            "River_Reed_01": 0
+          }
+        },
+        {
+          "cell": {
+            "X": 1,
+            "Y": 5
+          },
+          "count": 2,
+          "seed": 15454038034155776282,
+          "counts_by_variant": {
+            "River_Lotus_01": 1,
+            "River_SweetFlag_01": 1,
+            "River_Reed_01": 0
+          }
+        }
+      ],
+      "skipped_cells": [
+        {
+          "cell": {
+            "X": 2,
+            "Y": 6
+          },
+          "reason": "waterfall_only_no_flat_channel"
+        }
+      ]
+    }
+  },
+  "river_cross_section_examples": [
+    {
+      "center_m": [
+        6.062177658081055,
+        1.5,
+        5.810000000000001
+      ],
+      "tangent_xy": [
+        -1.0,
+        0.0
+      ],
+      "width_m": 0.0,
+      "owner_cell": {
+        "X": 3,
+        "Y": 1
+      },
+      "kind": "surface",
+      "distance_from_source_m": 0
+    },
+    {
+      "center_m": [
+        5.809947967529297,
+        1.5,
+        5.810000000000001
+      ],
+      "tangent_xy": [
+        -1.0,
+        0.0
+      ],
+      "width_m": 0.08465566320011736,
+      "owner_cell": {
+        "X": 3,
+        "Y": 1
+      },
+      "kind": "surface",
+      "distance_from_source_m": 0.2522296905517578
+    },
+    {
+      "center_m": [
+        3.048588752746582,
+        8.28031063079834,
+        3.475
+      ],
+      "tangent_xy": [
+        0.5,
+        0.8660253882408142
+      ],
+      "width_m": 0.2999999973077653,
+      "owner_cell": {
+        "X": 2,
+        "Y": 6
+      },
+      "kind": "waterfall",
+      "distance_from_source_m": 12.09834916646216
+    }
+  ],
+  "river_plant_record_example": {
+    "instance_name": "RiverDecor_river_001_03_01_00",
+    "group": "river_sweet_flag",
+    "variant": "River_SweetFlag_01",
+    "cell": {
+      "X": 3,
+      "Y": 1
+    },
+    "position_m": [
+      5.407824516296387,
+      1.4651168584823608,
+      5.802997589111328
+    ],
+    "local_position_m": [
+      -0.5841279029846191,
+      0.29696691036224365,
+      0.0029973983764648438
+    ],
+    "scale": 0.9659470703676452,
+    "rotation_rad": 4.949775395204424,
+    "placement": "river_shallow_water",
+    "distance_from_source_m": 0.6543527841567993,
+    "parts": [
+      "RiverDecor_river_001_03_01_00__River_SweetFlag_01_Geometry"
+    ]
+  },
+  "wall_record_keys": [
+    "mesh_name",
+    "closed_boundary_loop",
+    "boundary_edge_count",
+    "edges",
+    "water_gates",
+    "mesh_summary",
+    "corner_towers",
+    "material"
+  ],
+  "water_gate_example": {
+    "river_id": "river_001",
+    "civilized_cell": {
+      "X": 3,
+      "Y": 1
+    },
+    "natural_cell": {
+      "X": 2,
+      "Y": 1
+    },
+    "center_m": [
+      5.196152210235596,
+      1.5,
+      5.79528024171826
+    ],
+    "wall_tangent_xy": [
+      0.0,
+      -1.0
+    ],
+    "wall_normal_xy": [
+      1.0,
+      0.0
+    ],
+    "width_m": 0.41019999730776524,
+    "bottom_m": 4.975000190734863,
+    "shoulder_m": 5.899999942779541,
+    "crown_m": 5.984999942779541,
+    "river_min_z_m": 5.71,
+    "river_max_z_m": 5.809999942779541,
+    "shape": "faceted_arch",
+    "arch_segments": 8,
+    "sill": "none_open_through_entire_wall_base",
+    "opening_bottom_policy": "below_lowest_vertex_of_entire_wall",
+    "entire_wall_min_z_m": 5.175000190734863,
+    "geometry_verification": {
+      "wall_triangles_in_lower_opening": 0,
+      "checked_bottom_m": 4.975000190734863,
+      "checked_top_m": 5.8989999427795405,
+      "checked_width_m": 0.40959999730776525
+    }
+  }
+}

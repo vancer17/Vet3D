@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "mode": "inspect",
+  "candidate": "candidate.dxf",
+  "target": {
+    "software": "FreeCAD",
+    "version": "",
+    "build": "",
+    "platform": ""
+  },
+  "document_type": "drawing",
+  "required_preservation": ["layers", "objects"],
+  "expected_changes": [],
+  "dependencies": [],
+  "tolerances": {},
+  "allowed_operations": ["read", "copy"],
+  "excluded_checks": [],
+  "freecad": "",
+  "budget_seconds": 120,
+  "require_native": false,
+  "repair": false,
+  "upstream_build": {
+    "tool": "not-specified",
+    "version": "",
+    "session_evidence_refs": []
+  }
+}

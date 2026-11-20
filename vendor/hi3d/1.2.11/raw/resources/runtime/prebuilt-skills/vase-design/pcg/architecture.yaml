@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: vase-design
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: vase_design
+    parent: null
+    role: agent
+    label: "花材、空间与主题"
+    function: "编排 vase-design"
+  - id: brief
+    parent: vase_design
+    label: "花材、空间与主题"
+    function: "本 agent 花材、空间与主题"
+    outputs:
+      - id: brief
+        label: "花材、空间与主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "花材、空间与主题"
+  - id: research
+    parent: vase_design
+    label: "花器、内胆与连接研究"
+    function: "本 agent 花器、内胆与连接研究"
+    outputs:
+      - id: research
+        label: "花器、内胆与连接研究"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "花器、内胆与连接研究"
+  - id: form
+    parent: vase_design
+    label: "自由外壳与自然开口"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "自由外壳与自然开口"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: structure
+    parent: vase_design
+    label: "承托、内胆与拆洗"
+    function: "本 agent 承托、内胆与拆洗"
+    outputs:
+      - id: structure
+        label: "承托、内胆与拆洗"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "承托、内胆与拆洗"
+  - id: fdm
+    parent: vase_design
+    label: "接口试片与打印套件"
+    function: "本 agent 接口试片与打印套件"
+    outputs:
+      - id: fdm
+        label: "接口试片与打印套件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "接口试片与打印套件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: vase_design
+    label: "插花与装配展示"
+    function: "本 agent 插花与装配展示"
+    outputs:
+      - id: media
+        label: "插花与装配展示"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "插花与装配展示"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: vase_design
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

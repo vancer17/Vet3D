@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDF"
+  short_description: "通过当前桌面账号处理网格、自动绑定与图像分析，保留原任务并恢复下载"
+  default_prompt: "使用 $mdf-api 检查我的输入，选择已公开的处理能力并交付可验证的结果。"

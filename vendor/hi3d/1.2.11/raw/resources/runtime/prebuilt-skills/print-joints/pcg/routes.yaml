@@ -1,0 +1,78 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "打印人偶关节：分件、球窝与试片，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: pose
+    say: "确认姿态选题"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/mechanisms.md
+      - references/subject-design.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: split
+    say: "解剖分件"
+    rollback_to: pose
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/mechanisms.md
+      - references/subject-design.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: joint
+    say: "球窝铰链"
+    rollback_to: split
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/mechanisms.md
+      - references/subject-design.md
+    irreversible: []
+  - id: print
+    say: "试片与导出"
+    rollback_to: joint
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/mechanisms.md
+      - references/subject-design.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: main
+    summary: "选题到打印件"
+    nodes:
+      - pose
+      - split
+      - joint
+      - print
+    rollback_to: split
+  - id: retune
+    summary: "已有分件，调间隙"
+    nodes:
+      - pose
+      - joint
+      - print
+choices_example:
+  - id: new_figure
+    title: "新做人偶分件"
+    route: main
+    confirm: true
+  - id: tune_gap
+    title: "已有分件，调间隙"
+    route: retune
+    confirm: true
+  - id: back_split
+    title: "回退到上一检查点"
+    rollback_to: split
+    confirm: false

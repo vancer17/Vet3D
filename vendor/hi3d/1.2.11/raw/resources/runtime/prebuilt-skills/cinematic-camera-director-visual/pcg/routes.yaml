@@ -1,0 +1,89 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "已有 Blender 或 GLB 场景上的电影镜头；确认导演意图后才生成连续相机动画。"
+checkpoints:
+  - id: scene
+    say: "检查场景与主体"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-runbook.md
+      - references/hi3d-visual-brief.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: plan
+    say: "核对导演意图"
+    rollback_to: scene
+    load:
+      - SKILL.md
+      - references/hi3d-visual-brief.md
+      - references/hi3d-contract.md
+    irreversible: []
+  - id: trajectory
+    say: "生成连续轨迹"
+    rollback_to: plan
+    load:
+      - SKILL.md
+      - references/hi3d-contract.md
+      - references/hi3d-upstreams.md
+    irreversible: []
+  - id: check
+    say: "验收运动与遮挡"
+    rollback_to: trajectory
+    load:
+      - SKILL.md
+      - references/hi3d-validation.md
+    irreversible: []
+  - id: bake
+    say: "烘焙相机动画"
+    rollback_to: check
+    load:
+      - SKILL.md
+      - references/hi3d-runbook.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: deliver
+    say: "重开预览并交付"
+    rollback_to: bake
+    load:
+      - SKILL.md
+      - references/hi3d-workflow.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从场景检查到相机动画交付"
+    nodes:
+      - scene
+      - plan
+      - trajectory
+      - check
+      - bake
+      - deliver
+    rollback_to: plan
+  - id: rebake
+    summary: "轨迹与检查已通过，只重烘焙"
+    nodes:
+      - scene
+      - bake
+      - deliver
+    shares_input_with: main
+    rollback_to: scene
+choices_example:
+  - id: full
+    title: "完整制作镜头"
+    route: main
+    confirm: false
+  - id: rebake
+    title: "复用轨迹重烘焙"
+    route: rebake
+    confirm: false
+  - id: back_plan
+    title: "回到导演意图"
+    rollback_to: plan
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

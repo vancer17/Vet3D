@@ -1,0 +1,121 @@
+schema: pcg.architecture.v1
+entry: connected-faceted-lowpoly
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与本地阶段；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: faceted_lowpoly
+    parent: null
+    role: agent
+    label: "连通块面低模"
+    function: "编排已有高模的对照、体素融合、块面、纯色分区、导出和回读"
+  - id: intake
+    parent: faceted_lowpoly
+    label: "核对源模型"
+    function: "确认可读网格、姿态、接触和要保留的细节；复制后工作，源模型与结果保持同一坐标。只有图片时收集三维主体，不在此阶段生成模型。"
+    outputs:
+      - id: intake_note
+        label: "源模型对象、尺度、材质来源与接触记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: inspect
+        label: "记录源模型与约束"
+    rollback_to: null
+  - id: facet
+    parent: faceted_lowpoly
+    label: "融合并块面化"
+    function: "按当前模型总高和最窄连接做体素融合、减面前光顺和平面减面；有意义的断开先补强接触。后台重网格、光顺和减面走预算心跳。"
+    outputs:
+      - id: facet_blend
+        label: "已块面化、尚未定稿色区的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: remesh
+        label: "融合、光顺并减面"
+    rollback_to: intake
+    irreversible:
+      - blender.write
+  - id: color
+    parent: faceted_lowpoly
+    label: "划分纯色色区"
+    function: "采样源基础色，按部位校正后写成整面不透明材质，并清理无语义的小色岛。几何已合格时 recolor 从这里继续。"
+    outputs:
+      - id: colored_blend
+        label: "已划分纯色区的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: palette_note
+        label: "实际使用的纯色清单与部位说明"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: paint
+        label: "采样并整理色区"
+    rollback_to: facet
+    irreversible:
+      - blender.write
+  - id: export
+    parent: faceted_lowpoly
+    label: "导出对照与模型"
+    function: "写出结果 GLB、同坐标隐藏原模的对照工程和真实预览。用户涉及色料或打印时另写单网格逐面 3MF；未要求则不产生该文件，并在说明中记录跳过。"
+    outputs:
+      - id: result_glb
+        label: "平面着色纯色结果 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: compare_blend
+        label: "源模型与结果同坐标的对照 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: preview_png
+        label: "正面与侧角或背面预览 PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: color_3mf
+        label: "逐面材料索引的单网格 3MF（仅色料或打印要求时）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: write
+        label: "导出并渲染对照"
+    rollback_to: color
+    irreversible:
+      - blender.write
+  - id: check
+    parent: faceted_lowpoly
+    label: "回读连通与色区"
+    function: "用 mesh-audit 测量连通、开放边、非流形边和有符号体积；GLB 回读使用精确同位置焊接。未通过时保留可编辑结果并回到受影响阶段。"
+    outputs:
+      - id: check_report
+        label: "回读指标、色数和未做打印项的检查说明"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: measure
+        label: "回读并记录指标"
+    rollback_to: export

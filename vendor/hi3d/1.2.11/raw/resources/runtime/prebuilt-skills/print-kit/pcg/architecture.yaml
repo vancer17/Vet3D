@@ -1,0 +1,76 @@
+schema: pcg.architecture.v1
+entry: print-kit
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: print_kit
+    parent: null
+    role: agent
+    label: "确认物体目标"
+    function: "编排 print-kit"
+  - id: brief
+    parent: print_kit
+    label: "确认物体目标"
+    function: "本 agent 确认物体目标"
+    outputs:
+      - id: brief
+        label: "确认物体目标"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认物体目标"
+  - id: join
+    parent: print_kit
+    label: "免胶连接"
+    function: "本 agent 免胶连接"
+    outputs:
+      - id: join
+        label: "免胶连接"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "免胶连接"
+  - id: kits
+    parent: print_kit
+    label: "双版本导出"
+    function: "本 agent 双版本导出"
+    outputs:
+      - id: kits
+        label: "双版本导出"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "双版本导出"
+    irreversible:
+      - overwrite.source
+  - id: web
+    parent: print_kit
+    label: "展示页"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "展示页"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

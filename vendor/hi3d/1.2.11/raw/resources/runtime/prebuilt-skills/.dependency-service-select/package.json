@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "references/mdf/mesh-watertight.md": "tools/mdf-call/references/mesh-watertight.md"
+  },
+  "requires": []
+}

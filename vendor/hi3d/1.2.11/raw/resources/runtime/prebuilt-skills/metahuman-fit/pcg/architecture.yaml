@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: metahuman-fit
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: metahuman_fit
+    parent: null
+    role: agent
+    label: "Quality 高模"
+    function: "编排 metahuman-fit；文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+  - id: hi3d
+    parent: metahuman_fit
+    label: "Quality 高模"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: hi3d
+        label: "Quality 高模"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: register
+    parent: metahuman_fit
+    label: "注册与拓扑"
+    function: "派出 surface-fit"
+    outputs:
+      - id: register
+        label: "注册与拓扑"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: surface-fit
+    members:
+      - id: invoke
+        label: "调用 surface-fit"
+  - id: bake
+    parent: metahuman_fit
+    label: "贴图 bake"
+    function: "派出 texture-bake"
+    outputs:
+      - id: bake
+        label: "贴图 bake"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: subagent
+    entry: texture-bake
+    members:
+      - id: invoke
+        label: "调用 texture-bake"
+    irreversible:
+      - blender.write
+  - id: dna
+    parent: metahuman_fit
+    label: "可选 DNA/表情"
+    function: "本 agent 可选 DNA/表情"
+    outputs:
+      - id: dna
+        label: "可选 DNA/表情"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "可选 DNA/表情"

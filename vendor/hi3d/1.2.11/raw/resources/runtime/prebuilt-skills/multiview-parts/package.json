@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/primitive_core.py": "skills/shape-build/scripts/primitive_core.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/timing.py": "tools/run-tools/scripts/timing.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "registry_repo": "blueprint-pcg",
+  "registry_files": [
+    "registry/op.registry.v1.json",
+    "registry/node_contract.snapshot.json"
+  ],
+  "note": "只引用 blueprint-pcg 已有 ship op；未映射阶段保持 agent_workflow，不发明假 op。",
+  "skill": "mdf-deploy",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [
+    "input.image",
+    "input.mesh"
+  ],
+  "unmapped": [
+    "spec",
+    "build",
+    "serve",
+    "review"
+  ]
+}

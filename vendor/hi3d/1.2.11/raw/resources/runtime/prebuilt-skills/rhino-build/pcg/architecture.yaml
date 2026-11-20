@@ -1,0 +1,75 @@
+schema: pcg.architecture.v1
+entry: rhino-build
+kind: agent_workflow
+layout: tree
+tasks:
+  - id: rhino_build
+    parent: null
+    role: agent
+    label: "Rhino 建模编排"
+    function: "顺序完成 locate、connect、model、verify；复用 rhino-control 控制应用。已有合格模型跳过 model，只配置检查入口并验收。回退不自动撤销或重放 Rhino 操作。"
+    outputs: []
+  - id: locate
+    parent: rhino_build
+    role: local
+    label: "定位安装与输入"
+    function: "读取用户目标、尺寸、来源与输出位置；调用 rhino-control 的 detect 或 detect --app/--root，检验真实可执行文件。无候选才收集安装文件夹；搜索截断/错误先缩小范围。多版本按指定目标或活动文档选择，结果交 connect，不另造文件。"
+    outputs: []
+  - id: connect
+    parent: rhino_build
+    role: local
+    label: "验证运行版本和接口"
+    function: "等待 locate 明确候选。按 rhino-control 先验证 MCP；缺少受支持插件时安装并正常启动，已有有效连接跳过安装。否则用原生 Python 探针验证命令与引擎，只有 Python 不可用才用 CUA。保存安装路径、运行证据、接口及原因；目标变化重新探测。"
+    outputs:
+      - id: environment
+        label: "environment.json：实际安装、运行版本与接口证据"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: probe
+        label: "probe.py / probe.json：使用 Python 探针时的源码与结果"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: model
+    parent: rhino_build
+    role: local
+    label: "透传并完成建模"
+    function: "等待 connect 验证目标与调用路径。将需求、尺寸、单位、来源、文档/对象标识和输出完整交给 rhino-control；需要脚本时按运行版本、目标平台及已核对的 Python 分支/XML 框架查询 rhino-control 两级索引，分支缺证据不借另一版本代填；已知 ID 用 section --with-notes 批量读取契约与注意事项，未知名称/重载先 lookup --format text，复用已读行段；目标引擎只编译/只读预检后单次执行。MCP 直调可不生成脚本。仅准备请求或缺运行环境时交付准备状态，不能记为已建模；潜在无界计算无隔离预算时停在准备。"
+    outputs:
+      - id: script
+        label: "业务 .py：仅使用脚本时产生"
+        kind: file
+        retain: keep
+        semantics: [source]
+  - id: verify
+    parent: rhino_build
+    role: local
+    label: "原生文件与业务验收"
+    function: "等待本轮建模结果，或接收用户已有模型。由 rhino-control 核对几何、单位与任务断言；建模结果另存并回读 3DM，仅验收时直接回读已有文件，检查所需导出和实际视图。仅准备时不产生模型槽。失败保留证据，禁止因超时自动重放；输出已验证范围。"
+    outputs:
+      - id: model
+        label: "新版本 .3dm：已完成建模或明确另存时"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: exports
+        label: "用户所需导出文件：仅请求且已生成时"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: validation
+        label: "validation.json：几何、回读及视觉检查"
+        kind: file
+        retain: keep
+        semantics: [review]
+      - id: stages
+        label: "stages.jsonl：执行者阶段起止与状态"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: timing
+        label: "timing.md：阶段耗时与未覆盖区间"
+        kind: file
+        retain: keep
+        semantics: [review]

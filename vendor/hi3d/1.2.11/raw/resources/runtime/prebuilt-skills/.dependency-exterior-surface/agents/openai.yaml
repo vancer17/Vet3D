@@ -1,0 +1,4 @@
+interface:
+  display_name: "外露表面体素"
+  short_description: "剔除装配模型的封闭内部体素，保留外露表面并准备 Geo2 稀疏坐标"
+  default_prompt: "使用 $exterior-surface 为装配口腔和眼球后的模型提取外露表面体素，核对目标 Geo2 配置并检查切片。"

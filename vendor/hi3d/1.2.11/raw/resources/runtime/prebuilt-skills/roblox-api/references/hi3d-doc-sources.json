@@ -1,0 +1,257 @@
+{
+  "source": "Roblox/creator-docs",
+  "revision": "4fc8478587ee7c1a412403d76baff4d0ede578d4",
+  "license": "CC-BY-4.0",
+  "modified": false,
+  "documents": [
+    {
+      "path": "LICENSE",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/LICENSE"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Instance.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Instance.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ServiceProvider.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ServiceProvider.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/DataModel.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/DataModel.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/PVInstance.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/PVInstance.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Model.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Model.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Workspace.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Workspace.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/BasePart.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/BasePart.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/MeshPart.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/MeshPart.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Players.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Players.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Player.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Player.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Humanoid.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Humanoid.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Tool.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Tool.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ProximityPrompt.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ProximityPrompt.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/RemoteEvent.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/RemoteEvent.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ReplicatedStorage.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ReplicatedStorage.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ServerStorage.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ServerStorage.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ServerScriptService.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ServerScriptService.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/RunService.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/RunService.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/UserInputService.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/UserInputService.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Camera.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Camera.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Debris.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Debris.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/GuiButton.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/GuiButton.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/GuiObject.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/GuiObject.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ScreenGui.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ScreenGui.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Lighting.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Lighting.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/SurfaceLight.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/SurfaceLight.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/Light.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/Light.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/TextChatService.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/TextChatService.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/TextChannel.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/TextChannel.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/TextChatMessage.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/TextChatMessage.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ChatWindowConfiguration.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ChatWindowConfiguration.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/ChatInputBarConfiguration.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/ChatInputBarConfiguration.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/BubbleChatConfiguration.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/BubbleChatConfiguration.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/CFrame.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/CFrame.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/Vector3.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/Vector3.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/Color3.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/Color3.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/UDim2.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/UDim2.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/RaycastParams.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/RaycastParams.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/datatypes/RaycastResult.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/datatypes/RaycastResult.yaml"
+    },
+    {
+      "path": "content/en-us/projects/client-server.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/projects/client-server.md"
+    },
+    {
+      "path": "content/en-us/projects/data-model.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/projects/data-model.md"
+    },
+    {
+      "path": "content/en-us/projects/place-files.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/projects/place-files.md"
+    },
+    {
+      "path": "content/en-us/scripting/events/remote.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/scripting/events/remote.md"
+    },
+    {
+      "path": "content/en-us/scripting/security/client-server-boundary.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/scripting/security/client-server-boundary.md"
+    },
+    {
+      "path": "content/en-us/chat/in-experience-text-chat.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/chat/in-experience-text-chat.md"
+    },
+    {
+      "path": "content/en-us/studio/testing-modes.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/studio/testing-modes.md"
+    },
+    {
+      "path": "content/en-us/studio/importer.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/studio/importer.md"
+    },
+    {
+      "path": "content/en-us/physics/units.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/physics/units.md"
+    },
+    {
+      "path": "content/en-us/performance-optimization/design.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/performance-optimization/design.md"
+    },
+    {
+      "path": "content/en-us/performance-optimization/identify.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/performance-optimization/identify.md"
+    },
+    {
+      "path": "content/en-us/performance-optimization/test-on-hardware.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/performance-optimization/test-on-hardware.md"
+    },
+    {
+      "path": "content/en-us/cloud/guides/usage-place-publishing.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/cloud/guides/usage-place-publishing.md"
+    },
+    {
+      "path": "content/en-us/cloud/auth/api-keys.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/cloud/auth/api-keys.md"
+    },
+    {
+      "path": "content/en-us/production/publishing/publish-games-and-places.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/production/publishing/publish-games-and-places.md"
+    },
+    {
+      "path": "content/en-us/production/promotion/content-maturity.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/production/promotion/content-maturity.md"
+    },
+    {
+      "path": "content/en-us/reference/engine/classes/WorldRoot.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/classes/WorldRoot.yaml"
+    },
+    {
+      "path": "content/en-us/reference/engine/libraries/task.yaml",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/engine/libraries/task.yaml"
+    },
+    {
+      "path": "content/en-us/workspace/streaming/index.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/workspace/streaming/index.md"
+    },
+    {
+      "path": "content/en-us/art/modeling/specifications.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/art/modeling/specifications.md"
+    },
+    {
+      "path": "content/en-us/art/modeling/texture-specifications.md",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/art/modeling/texture-specifications.md"
+    },
+    {
+      "path": "content/en-us/reference/cloud/universes-api/v1.json",
+      "source": "https://raw.githubusercontent.com/Roblox/creator-docs/4fc8478587ee7c1a412403d76baff4d0ede578d4/content/en-us/reference/cloud/universes-api/v1.json"
+    }
+  ],
+  "archive": "hi3d-roblox-official-docs.zip"
+}

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/check_media.py": "skills/media-check/scripts/check_media.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/collision.py": "skills/mesh-audit/scripts/collision.py",
+    "scripts/cycles_device.py": "tools/blender-tools/scripts/cycles_device.py",
+    "scripts/encode_sequence.py": "skills/media-encode/scripts/encode_sequence.py",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/head_io.py": "tools/blender-tools/scripts/head_io.py",
+    "scripts/head_preview.py": "skills/model-preview/scripts/head_preview.py",
+    "scripts/image_sheet.py": "skills/image-sheet/scripts/image_sheet.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/texture_bake.py": "skills/texture-bake/scripts/texture_bake.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py",
+    "scripts/media_tools.py": "skills/media-check/scripts/media_tools.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,99 @@
+schema: pcg.architecture.v1
+entry: image-to-print-forms
+kind: agent_workflow
+layout: tree
+note: "单张标志到可选打印实体。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: image_forms
+    parent: null
+    role: agent
+    label: "单图立体打印制品"
+    function: "编排标志、线稿或剪影到分层标牌、曲面落地、波浪围合或弧形竖片。用户已点名款式或要求四种都做时跳过再次选择。缺内容图时停在 intake。"
+  - id: intake
+    parent: image_forms
+    role: local
+    label: "核对图片与文案"
+    function: "区分内容图和侧面参考，识别轮廓、孔洞、离散笔画、长宽比和配色语义。没有内容图时用文字索取，不生模。尺寸和工艺未知时标为设计假设。此阶段不写网格。"
+    members:
+      - id: read_image
+        label: "识别图案角色与已知尺寸"
+    outputs: []
+  - id: select
+    parent: image_forms
+    role: local
+    label: "选择立体款式"
+    function: "未点名款式时由宿主 waiting_choice 使用 choices_example。已说四种都做或已点名某一款时跳过本阶段，把 forms 3、4、5、7 或对应编号交给构造。"
+    members:
+      - id: choose_form
+        label: "确定要做的款式编号"
+    outputs: []
+  - id: build
+    parent: image_forms
+    role: local
+    label: "构造所选实体"
+    function: "用 logo_forms.py 从前景蒙版构造所选款式，写出融合毫米 STL、部件网格和参数摘要。绿色点缀分色只适用于已测的双色标志。更换图片或宽度时新建目录；只改一款时用 update 保留其他合格模型。构造进程先写预算再启动。"
+    members:
+      - id: make_solids
+        label: "生成所选款式的实体与 STL"
+    irreversible:
+      - overwrite.source
+    outputs:
+      - id: forms_json
+        label: "款式参数、分色说明和构造检查摘要 hi3d-logo-forms.json"
+        kind: file
+        retain: keep
+        semantics:
+          - manifest
+      - id: meshes_npz
+        label: "米制部件顶点与面索引 hi3d-logo-meshes.npz"
+        kind: file
+        retain: cache
+        semantics:
+          - mesh
+      - id: stl_files
+        label: "所选款式的毫米融合 STL"
+        kind: file
+        retain: keep
+        semantics:
+          - stl
+  - id: deliver
+    parent: image_forms
+    role: local
+    label: "渲染并交付文件"
+    function: "用 render_forms.py 回读 GLB 后按固定正交轴测渲染，并另存可编辑工程。再用 deliver_forms.py 核对部件名、闭合和底座支承投影，写出验证摘要与四宫格总览。宿主提供登记工具时再登记 GLB。Blender 进程受 run_budgeted 约束，超时不写半截工程。"
+    members:
+      - id: export_preview
+        label: "导出 GLB、渲染 PNG 并回读验收"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: glb_files
+        label: "所选款式的米制 GLB，保留 sparc3dPhysicalUnits"
+        kind: file
+        retain: keep
+        semantics:
+          - glb
+      - id: blend_file
+        label: "可编辑 Blender 工程 hi3d-logo-four-forms-editable.blend，默认显示所选款式中编号最小的一款，其余集合隐藏"
+        kind: file
+        retain: keep
+        semantics:
+          - blend
+      - id: preview_png
+        label: "固定轴测及必要侧视、顶视或正视 PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - preview
+      - id: overview_png
+        label: "同尺度轴测总览 hi3d-logo-four-forms-isometric.png"
+        kind: file
+        retain: keep
+        semantics:
+          - overview
+      - id: verification_json
+        label: "回读闭合、支承投影和未试打说明 hi3d-logo-verification.json"
+        kind: file
+        retain: keep
+        semantics:
+          - verification

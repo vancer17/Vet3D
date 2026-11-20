@@ -1,0 +1,4 @@
+interface:
+  display_name: "截图替换简报"
+  short_description: "从截图定位要替换的区域，并列出待向用户索取的物件素材"
+  default_prompt: "使用 $replace-brief 根据用户截图标出要分割替换的位置，核对框选后列出仍缺的替换物件素材需求。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "多视图拆件建模"
+  short_description: "多视图拆件建模与排列，提供独立原子函数、统一入口和业务阶段耗时"
+  default_prompt: "使用 $multiview-parts，根据我提供的多视图参考图和部件清单，在 Blender 中分别建模并按指定顺序排成一列。"

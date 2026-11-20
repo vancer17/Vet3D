@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grease Pencil 二维动画"
+  short_description: "Grease Pencil 二维动画与真实文件验收"
+  default_prompt: "使用 $stroke-animate 按明确输入执行并核对产物。"

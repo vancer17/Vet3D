@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/rigging/io_utils.py": "skills/skin-weights/scripts/rigging/io_utils.py",
+    "scripts/rigging/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/rigging/retarget_math.py": "skills/motion-retarget/scripts/retarget_math.py",
+    "scripts/rigging/skin_weights.py": "skills/skin-weights/scripts/rigging/skin_weights.py",
+    "scripts/rigging/test_skin_weights.py": "skills/skin-weights/scripts/rigging/test_skin_weights.py",
+    "scripts/rigging/test_weight_graph.py": "skills/skin-weights/scripts/rigging/test_weight_graph.py",
+    "scripts/rigging/timing.py": "tools/run-tools/scripts/profiles/rig_timing.py",
+    "scripts/rigging/weight_graph.py": "skills/skin-weights/scripts/rigging/weight_graph.py"
+  },
+  "requires": []
+}

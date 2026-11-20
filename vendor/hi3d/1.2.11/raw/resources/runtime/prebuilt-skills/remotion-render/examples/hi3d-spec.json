@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "width": 320,
+  "height": 180,
+  "fps": 24,
+  "frames": 24,
+  "layers": [
+    {
+      "id": "title",
+      "type": "text",
+      "text": "Hi3D",
+      "x": 30,
+      "y": 50,
+      "fromX": 0,
+      "toX": 60,
+      "fadeFrames": 6
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/coupon_crop.py": "skills/fit-coupon/scripts/coupon_crop.py",
+    "scripts/coupon_records.py": "skills/fit-coupon/scripts/coupon_records.py",
+    "scripts/mesh_io.py": "skills/print-export/scripts/mesh_io.py",
+    "scripts/motion_check.py": "skills/motion-check/scripts/motion_check.py",
+    "scripts/page_assets.py": "skills/asset-page/scripts/page_assets.py",
+    "scripts/pose_math.py": "skills/motion-check/scripts/pose_math.py",
+    "scripts/solid_samples.py": "skills/motion-check/scripts/solid_samples.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/print_kit_timing.py"
+  },
+  "requires": []
+}

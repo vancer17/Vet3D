@@ -1,0 +1,58 @@
+schema: pcg.architecture.v1
+entry: connector-select
+kind: agent_skill
+layout: linear
+note: "线形进程：检查点顺序前进，rollback_to 回退到更早步骤；不是 workflow 编排树。缺省由 package-tools 自 routes 生成，手调后不再覆盖。"
+tasks:
+  - id: connector_select
+    parent: null
+    role: agent
+    label: "确认输入"
+    function: "编排 connector-select"
+  - id: input
+    parent: connector_select
+    label: "确认输入"
+    outputs:
+      - id: input
+        label: "确认输入"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    function: "本 agent 确认输入"
+    members:
+      - id: work
+        label: "确认输入"
+  - id: run
+    parent: input
+    label: "执行能力"
+    outputs:
+      - id: run
+        label: "执行能力"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: input
+    role: local
+    function: "本 agent 执行能力"
+    members:
+      - id: work
+        label: "执行能力"
+  - id: review
+    parent: run
+    label: "核对产物"
+    outputs:
+      - id: review
+        label: "核对产物"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: run
+    role: local
+    function: "本 agent 核对产物"
+    members:
+      - id: work
+        label: "核对产物"

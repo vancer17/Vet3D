@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hi3D 精度展示游戏"
+  short_description: "高效制作展示 Hi3D 生成模型几何与纹理精度的可玩 demo"
+  default_prompt: "先用简短问题收集缺项与素材，展示玩法方案，待我选择或明确委托后开始制作；已有答案和局部修改范围直接复用。使用 $hi3d-game-demo，将提供的图像或已有 Hi3D 模型制作成可玩 demo，展示几何与纹理细节，保留原始资产并验证交互和交付。"

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/web_option_gates.py": "tools/hi3d-api/scripts/web_option_gates.py"
+  },
+  "requires": []
+}

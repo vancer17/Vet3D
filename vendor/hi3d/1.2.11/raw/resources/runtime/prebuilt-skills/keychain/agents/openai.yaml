@@ -1,0 +1,4 @@
+interface:
+  display_name: "钥匙挂件连接设计"
+  short_description: "为三维模型选择挂点并建立可验证的双孔弯道、吊耳与参数化连接环"
+  default_prompt: "使用 $keychain 为这个模型设计真实的钥匙扣连接结构，检查局部材料、五金配合和装配方式，并交付可编辑工程。"

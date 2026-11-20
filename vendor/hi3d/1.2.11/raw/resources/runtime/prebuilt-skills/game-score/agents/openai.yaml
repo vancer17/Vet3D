@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏成绩排名"
+  short_description: "添加最高分榜、同分名次或显示榜外本人排名；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-score 处理当前游戏需求，复用已有工程并验证输入输出。"

@@ -1,0 +1,102 @@
+schema: pcg.architecture.v1
+entry: audio-prep
+kind: agent_workflow
+layout: tree
+tasks:
+  - id: audio_prep
+    parent: null
+    role: agent
+    label: "音频整理编排"
+    function: "探测真实时长后做首尾裁切、淡变和响度；已有合格 WAV 可只测量。不提供降噪，不默认裁中间停顿。"
+    outputs: []
+  - id: intake
+    parent: audio_prep
+    role: local
+    label: "音频与时长探测"
+    function: "登记本地音频并用 ffprobe 得到时长。无法解码、全静音或过短失败并提示，不写处理文件。"
+    outputs: []
+  - id: prefer
+    parent: audio_prep
+    role: local
+    label: "裁切淡变与响度"
+    function: "展示用途、首尾 trim、淡入淡出和目标 LUFS；允许沿用推荐值。中间停顿裁切与降噪不出现在选项中。"
+    outputs:
+      - id: brief
+        label: "处理 brief JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: review_plan
+    parent: audio_prep
+    role: local
+    label: "检查处理项"
+    function: "plan_mix 校验 trim 落在探测时长内且淡变不超过裁切长度，写出 audio-mix 配方。"
+    outputs:
+      - id: spec
+        label: "混音配方 JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: produce
+    parent: audio_prep
+    role: local
+    label: "试听与导出"
+    function: "调用 audio-mix 得到 WAV；measure_loudness 测真实输出。峰值越界失败。保留原文件供切换试听。"
+    outputs:
+      - id: wav
+        label: "处理 WAV"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: measure
+        label: "实测响度 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: audio_mix
+    parent: produce
+    role: subagent
+    entry: audio-mix
+    label: "裁切淡变混音"
+    function: "独立 audio-mix 按单轨 start/end/fade/loudness 输出 WAV，并验证解码与采样率。"
+    outputs:
+      - id: mixed
+        label: "hi3d-mixed.wav"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: deliver
+    parent: audio_prep
+    role: local
+    label: "WAV 与实测"
+    function: "只交付真实 WAV、配方与测量 JSON。asset-page 与 delivery-review 生成本地页并打开下载。不提供 MP3。"
+    outputs:
+      - id: page
+        label: "成果页 HTML"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收 WAV 与测量报告下载。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对文件可打开；不把配方目标响度当作已测值。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

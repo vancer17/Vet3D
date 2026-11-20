@@ -1,0 +1,4 @@
+interface:
+  display_name: "资产审阅看板"
+  short_description: "本地多版本对比和批注，批注绑定原版本，导入失败不覆盖"
+  default_prompt: "使用 $asset-review-board，把这些图片/模型和视频按资产分成版本，并排对比并写下批注，不要把不同作品当成前后版。"

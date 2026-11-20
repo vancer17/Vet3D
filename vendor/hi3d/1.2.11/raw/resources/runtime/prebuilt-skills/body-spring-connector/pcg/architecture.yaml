@@ -1,0 +1,119 @@
+schema: pcg.architecture.v1
+entry: body-spring-connector
+kind: agent_workflow
+layout: tree
+note: "已有模型到身体中段弹簧装配。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: body_spring
+    parent: null
+    role: agent
+    label: "身体中段弹簧连接"
+    function: "编排已有角色、动物或摆件的中段弹簧连接；已有合格身体和接口时跳过重新切槽，仅圈隙修订不扩孔。"
+  - id: intake
+    parent: body_spring
+    role: local
+    label: "核对模型与尺度"
+    function: "读取用户指定的当前版本，核对单位、世界变换、身体语义和连接轴。STL 无可靠单位时询问。记录采用的配方。没有可用网格且用户明确要求生成主体时才交接 hi3d-api；已有模型不生成。此阶段不切身体。"
+    members:
+      - id: read_subject
+        label: "核对主体、单位与连接轴"
+    outputs:
+      - id: intake_record
+        label: "输入版本、单位解释、连接轴与采用配方的 JSON 记录"
+        kind: file
+        retain: keep
+        semantics:
+          - record
+  - id: socket
+    parent: body_spring
+    role: local
+    label: "制作内藏接口"
+    function: "首次拆分时形成两个闭合身体，并从相向切面向内减去配对 D 形盲槽和卡舌凹槽。带 UV 的减料交接 solid-edit。检查保护包络完全容纳，入口只开在切面。已有合格接口时本阶段不新切，直接复用上游身体与槽。写入新工程前由 run_budgeted 约束墙钟。"
+    members:
+      - id: cut_sockets
+        label: "切分身体并制作内藏盲槽"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: body_parts
+        label: "带内藏盲槽的身体部件网格（GLB 或 BLEND）；复用时沿用已有文件"
+        kind: file
+        retain: keep
+        semantics:
+          - body
+  - id: spring
+    parent: body_spring
+    role: local
+    label: "装配连续弹簧"
+    function: "按配方扫掠单连通宽圆片螺旋，与端盘和 D 形桩并集，再把身体刚性对位到新的切面间距。保持接口不变的圈隙修订只重建螺旋并移动身体，不改桩槽局部形状。布尔与扫掠经 run_budgeted 执行，超时不写半截工程。"
+    members:
+      - id: build_helix
+        label: "生成连续弹簧并刚性装配"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: spring_mesh
+        label: "连续宽圆片弹簧、端盘与插桩的网格"
+        kind: file
+        retain: keep
+        semantics:
+          - spring
+  - id: deliver
+    parent: body_spring
+    role: local
+    label: "检查并交付文件"
+    function: "用 mesh-audit 查闭合与单连通，用 motion-check 查静态装配和有限姿态，用 fit-coupon 组织 D 形试片间隙系列，用 print-export 写毫米 STL，用 model-preview 渲染当前几何。回读后写尺寸说明、清单和 ZIP。覆盖已有交付物前需确认。数字检查通过不等于试印或强度认证。"
+    members:
+      - id: export_pack
+        label: "回读、试片、说明与制作包"
+    irreversible:
+      - overwrite.source
+    outputs:
+      - id: assembly_glb
+        label: "同版装配 GLB（米，含 sparc3dPhysicalUnits）"
+        kind: file
+        retain: keep
+        semantics:
+          - assembly
+      - id: exploded_glb
+        label: "展开分件 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - exploded
+      - id: spring_glb
+        label: "独立弹簧 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - spring
+      - id: stl_pack
+        label: "身体与弹簧的毫米 STL"
+        kind: file
+        retain: keep
+        semantics:
+          - stl
+      - id: coupons
+        label: "0.15/0.25/0.35 mm 单侧间隙的 D 形桩槽试片"
+        kind: file
+        retain: keep
+        semantics:
+          - coupon
+      - id: blend_file
+        label: "可编辑 Blender 工程"
+        kind: file
+        retain: keep
+        semantics:
+          - blend
+      - id: preview_png
+        label: "当前版本装配与接口细节 PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - preview
+      - id: manifest_zip
+        label: "尺寸说明、交付清单与制作包 ZIP"
+        kind: file
+        retain: keep
+        semantics:
+          - manifest

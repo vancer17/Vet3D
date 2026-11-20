@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品设计交付"
+  short_description: "从文字、图像或已有艺术模型完成通用产品设计、工程化、验证和图片/3D/制造包交付，供品类工作流组合。"
+  default_prompt: "使用 $product-design 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

@@ -1,0 +1,93 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: 默认路线以交付并主动打开交互 HTML 结束，等待用户点击处理。不得把继续流程或默认阈值当作代切割授权；仅用户明确要求代执行并确认阈值时选择 confirmed_cut。
+checkpoints:
+  - id: input
+    say: "输入与坐标核对"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible: []
+  - id: reference
+    say: "正面渲染"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible: []
+  - id: label
+    say: "语义标签参考图"
+    rollback_to: reference
+    load:
+      - SKILL.md
+      - references/execution.md
+      - references/label-prompt.txt
+    irreversible: []
+  - id: texture
+    say: "独立贴图任务"
+    rollback_to: label
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: html
+    say: "生成交互分割 HTML，不执行 mincut"
+    rollback_to: texture
+    load: [SKILL.md, references/execution.md]
+    irreversible: []
+  - id: handoff
+    say: "必交付并主动打开 HTML，等待用户操作"
+    rollback_to: html
+    load: [SKILL.md, references/execution.md]
+    irreversible: []
+  - id: split
+    say: "图割与原纹理回写"
+    rollback_to: handoff
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible: []
+  - id: review
+    say: "多视图验收"
+    rollback_to: split
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "准备标签并必交付交互 HTML，用户自行处理"
+    nodes: [input, reference, label, texture, html, handoff]
+  - id: from_labels
+    summary: "复用已有标签模型，只生成并交付 HTML"
+    nodes: [input, html, handoff]
+  - id: confirmed_cut
+    summary: "HTML 已交付，且用户明确要求代切割并确认阈值后才进入"
+    nodes: [handoff, split, review]
+  - id: review_only
+    summary: "已有输出只验收"
+    nodes: [input, review]
+choices_example:
+  - id: continue
+    title: "按已确认输入与预算继续"
+    route: main
+    confirm: true
+  - id: reuse_label
+    title: "使用已有标签模型"
+    route: from_labels
+    confirm: false
+  - id: execute_cut
+    title: "已选定阈值，请代执行切割"
+    route: confirmed_cut
+    confirm: true
+  - id: revise
+    title: "返回输入调整"
+    rollback_to: input
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDF3 服务部署"
+  short_description: "封装常驻 MDF3 服务，在本机容器部署并完成真实队列与产物验收"
+  default_prompt: "Use $mdf-deploy to adapt my algorithm into a resident MDF3 service, deploy it on the selected host, and verify real queue calls and output content."

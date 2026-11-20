@@ -1,0 +1,71 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: contract
+  say: 核对接口与运行侧
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/hi3d-api-map.md
+  irreversible: []
+- id: operate
+  say: 本地检查与接口适配
+  rollback_to: contract
+  load:
+  - SKILL.md
+  - references/hi3d-code-contract.md
+  irreversible: []
+- id: upload
+  say: 按已授权目标单次上传
+  rollback_to: operate
+  load:
+  - SKILL.md
+  - references/hi3d-open-cloud.md
+  irreversible:
+  - publish
+  confirm_required: true
+- id: verify
+  say: 核对结果与限制
+  rollback_to: operate
+  load:
+  - SKILL.md
+  - references/hi3d-open-cloud.md
+  irreversible: []
+routes:
+- id: main
+  summary: 本地检查与适配，无云端写入
+  nodes:
+  - contract
+  - operate
+  - verify
+  rollback_to: operate
+- id: review
+  summary: 复核已有结果，不重复生成或上传
+  nodes:
+  - contract
+  - verify
+- id: cloud
+  summary: 已授权的既有 Place 单次上传
+  nodes:
+  - contract
+  - operate
+  - upload
+  - verify
+  rollback_to: operate
+choices_example:
+- id: main
+  title: 按已确认范围继续
+  route: main
+  confirm: false
+- id: review
+  title: 复核已有结果
+  route: review
+  confirm: false
+- id: cloud
+  title: 更新已确认的云端目标
+  route: cloud
+  confirm: false

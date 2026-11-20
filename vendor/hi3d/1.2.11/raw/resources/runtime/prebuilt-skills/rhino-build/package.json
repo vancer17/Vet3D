@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "references/stage-records.md": "tools/run-tools/references/stage-records.md"
+  },
+  "requires": [
+    "rhino-control"
+  ]
+}

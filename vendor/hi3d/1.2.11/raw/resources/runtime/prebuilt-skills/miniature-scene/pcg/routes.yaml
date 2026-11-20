@@ -1,0 +1,177 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "按当前范围选择分支；已有资产跳过生成，授权标记仅适用于实际执行的写入/提交。专项资料按入口条件读取；中高预算与中断选择由宿主统一处理。"
+checkpoints:
+  - id: layout
+    say: "参考、名单与布局"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/layout.md
+    irreversible: []
+  - id: arch
+    say: "建筑与底座"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/production.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: generate
+    say: "缺失自由形体生成（可跳过）"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/production.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: props
+    say: "人物/动物/植被资产与质量"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/production.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: assembly
+    say: "布局、朝向与接触"
+    rollback_to: props
+    load:
+      - SKILL.md
+      - references/production.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: resin
+    say: "树脂分件与回读（按需）"
+    rollback_to: assembly
+    load:
+      - SKILL.md
+      - references/resin-printing.md
+    irreversible: []
+  - id: render
+    say: "最终工程与渲染"
+    rollback_to: assembly
+    load:
+      - SKILL.md
+      - references/validation-and-timing.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: web
+    say: "网页摆放与保存（按需）"
+    rollback_to: assembly
+    load:
+      - SKILL.md
+      - references/web-viewer.md
+    irreversible: []
+  - id: delivery
+    say: "同版交付与计时"
+    rollback_to: assembly
+    load:
+      - SKILL.md
+      - references/validation-and-timing.md
+    irreversible: []
+  - id: publish
+    say: "公开发布（仅明确请求时）"
+    rollback_to: web
+    load:
+      - SKILL.md
+      - references/web-viewer.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "主题/图片/视频到静态微缩场景"
+    nodes:
+      - layout
+      - arch
+      - generate
+      - props
+      - assembly
+      - render
+      - delivery
+  - id: hi3d_freeform
+    summary: "缺失资产的生成与检查"
+    nodes:
+      - generate
+      - props
+    shares_input_with: main
+  - id: reuse_model
+    summary: "已有合格资产，跳过生成"
+    nodes:
+      - layout
+      - arch
+      - props
+      - assembly
+      - render
+      - delivery
+    shares_input_with: main
+  - id: resin_print
+    summary: "树脂分件与制造母模"
+    nodes:
+      - layout
+      - arch
+      - generate
+      - props
+      - assembly
+      - resin
+      - render
+      - delivery
+    shares_input_with: main
+  - id: interactive_web
+    summary: "带可保存摆放的网页"
+    nodes:
+      - layout
+      - arch
+      - generate
+      - props
+      - assembly
+      - render
+      - web
+      - delivery
+    shares_input_with: main
+  - id: resin_web
+    summary: "同时交付打印与交互网页"
+    nodes:
+      - layout
+      - arch
+      - generate
+      - props
+      - assembly
+      - resin
+      - render
+      - web
+      - delivery
+    shares_input_with: main
+  - id: publish_page
+    summary: "已验收网页的可选公开发布"
+    nodes:
+      - web
+      - publish
+    shares_input_with: main
+choices_example:
+  - id: blockout
+    title: "先定布局与场景"
+    route: main
+    confirm: false
+  - id: have_models
+    title: "已有模型，继续装配"
+    route: reuse_model
+    confirm: false
+  - id: print_parts
+    title: "制作树脂分件"
+    route: resin_print
+    confirm: false
+  - id: edit_scene
+    title: "制作交互摆放网页"
+    route: interactive_web
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: game-level
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "游戏关卡检查"
+    function: "按已确认目标编排游戏关卡检查，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 validateLevel({nodes:[{id}],edges:[[from,to]],start,goals}) → {valid,issues,reachable}；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "把关卡编辑结果序列化为图并在导入/保存前检查。带条件门需对状态空间另验，不将纯拓扑可达说成解谜可解。已有编辑器只加检查入口。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 重复 ID、悬空边、不可达终点、输入保持；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

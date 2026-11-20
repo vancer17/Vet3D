@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "id": "head-reference",
+  "revision": "3",
+  "criteria": [
+    {"id":"identity","title":"身份 / 表情与可见特征","views":["all"],"pass_when":"对照原图，保留可见身份、年龄、表情及发型；不可见区域仅标为推定，不声称背面证明人脸身份。","repair":"仅修正实际变化的身份特征，保留其他已通过区域和当前视角。"},
+    {"id":"scope","title":"头部完整 / 颈部范围","views":["all"],"pass_when":"头顶、下巴、主要发长完整，无肩胸衣服底座，颈部符合 manifest；只允许已批准的局部删除。","repair":"按约定裁切/补边，保留完整头部与其余发长，不自动缩短或删除饰品。"},
+    {"id":"shape","title":"调用方必选造型约束","views":["all"],"pass_when":"满足 manifest 中全部 required_shape_constraints；为空时保留通用自然外观，不自行树脂化或删除刘海。","repair":"定位未满足的调用方造型条款，仅针对其修订；所有视角继续携带完整约束。"},
+    {"id":"appearance","title":"所选材料 / 颜色","views":["all"],"pass_when":"与约定 appearance 一致，不用外观改变覆盖身份、造型和视角。","repair":"仅修正约定材质的偏差，不更改几何参考的身份和发型。"},
+    {"id":"original_pose","title":"保留原姿态","views":["head"],"modes":["head"],"pass_when":"头部朝向、相机、视线及表情保持原图，不自动转正。","repair":"恢复原图姿态，不串用转正分支。"},
+    {"id":"yaw","title":"正面：偏航","views":["front"],"pass_when":"实际面部透视为正面；综合鼻梁、两侧眼眶/脸颊透视等，不仅看注视方向，不伪造零度测量。","repair":"转正头部和相机的偏航，不镜像或抹除真实解剖不对称。"},
+    {"id":"pitch","title":"正面：俯仰","views":["front"],"pass_when":"相机平视，无明显抬头/低头；综合鼻底、下巴及面部透视，不以单一鼻孔形态判断。","repair":"仅校正头部与相机俯仰，不为隐藏鼻孔改变鼻子形状。"},
+    {"id":"roll","title":"正面：侧倾","views":["front"],"pass_when":"头部直立，眼线与面中线符合正面相机，允许真实不对称，不冒称精确角度。","repair":"校正头部/相机侧倾，不用局部拉伸来伪造对称。"},
+    {"id":"view","title":"真实侧 / 后视角与标签","views":["right","back","left"],"modes":["four-views"],"pose_modes":["aligned"],"pass_when":"按画面鼻尖朝向命名：right 鼻尖朝画面右，left 鼻尖朝画面左，均为真实侧面；back 无另一张脸。实际图片与 manifest 标签相符，不以相机左右命名，不是镜像/旋转副本。","repair":"先核对实际朝向；若仅标签反了，另存修正 manifest 并同步 images/prompts/generation_inputs 对应关系后重审，不镜像图片。仅图像视角本身错误才定向重做，保留本分支合格正面基准并重查一致性。"},
+    {"id":"consistency","title":"四视图一致性","views":["set"],"modes":["four-views"],"pass_when":"共同查看四图：同一头部、发型/发际线/已删区域、尺度及颈部裁切；完整容纳各方向自然变化的投影轮廓，不强拉成相同顶底像素；推定不可当真值。","repair":"以本模式已通过的基准图修订不一致视图；基准变更时重新检查全部关联视图，不把当前视角基准转正。"},
+    {"id":"preserve_yaw","title":"当前基准：保留原图左右朝向","views":["view_0"],"modes":["four-views"],"pose_modes":["current"],"compare_source":true,"pass_when":"与原图实际对照，基准图保留原左右朝向、透视和表情，不改成正面或只移动视线。","repair":"恢复原图左右朝向，不使用转正块；其他视图随后重查。"},
+    {"id":"preserve_pitch","title":"当前基准：保留抬头 / 低头","views":["view_0"],"modes":["four-views"],"pose_modes":["current"],"compare_source":true,"pass_when":"与原图实际对照，保留原抬头/低头关系及鼻底、下巴透视，不抬平/压平，不改变鼻形遮掩姿态。","repair":"恢复原图俯仰及相机观感，不摆成平视正面，不改鼻子或下巴形态。"},
+    {"id":"preserve_roll","title":"当前基准：保留原图侧倾","views":["view_0"],"modes":["four-views"],"pose_modes":["current"],"compare_source":true,"pass_when":"与原图实际对照，保留头部侧倾及画面倾斜关系，不拉平眼线、不自动摆直；不伪造定量角度。","repair":"恢复原图倾斜，不旋转整图假造新视图，也不拉伸五官强行拉平。"},
+    {"id":"relative_view","title":"当前姿态：真实相对环绕视角","views":["view_90","view_180","view_270"],"modes":["four-views"],"pose_modes":["current"],"pass_when":"相对 view_0 按 view_frame 换观察方向，目标为相机向左环绕 90/180/270 度；不是标准解剖正侧后标签，不是二维旋转/镜像副本，不臆造精确测量。","repair":"围绕同一固定姿态的头部换相机方向，保留当前基准；不要调用标准正面/侧面块来摆直头部。"},
+    {"id":"frozen_pose","title":"整组：固定原姿态，只换相机","views":["set"],"modes":["four-views"],"pose_modes":["current"],"compare_source":true,"pass_when":"原图与四图共同支持同一个保持俯仰/侧倾的头部摆放，仅相机环绕；不逐张重新摆正，也不强制不同方向有相同二维倾斜角。","repair":"以保留原姿态的 view_0 重新约束失败视角；头部姿态固定，只换相机，无法判断时先复核。"}
+  ]
+}

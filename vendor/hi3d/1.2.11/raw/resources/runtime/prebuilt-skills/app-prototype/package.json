@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/hi3d-core.mjs": "skills/game-save/scripts/hi3d-core.mjs",
+    "scripts/timing.py": "tools/run-tools/scripts/timing.py"
+  },
+  "requires": []
+}

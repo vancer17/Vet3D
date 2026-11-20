@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: analyze
+    say: "图像分析与尺度"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/form.md
+      - references/settings.md
+      - references/sources.md
+    irreversible: []
+  - id: form
+    say: "基础造型"
+    rollback_to: analyze
+    load:
+      - SKILL.md
+      - references/form.md
+      - references/settings.md
+      - references/sources.md
+    irreversible: []
+  - id: detail
+    say: "表面细节"
+    rollback_to: form
+    load:
+      - SKILL.md
+      - references/form.md
+      - references/settings.md
+      - references/sources.md
+    irreversible: []
+  - id: settings
+    say: "宝石与镶嵌"
+    rollback_to: detail
+    load:
+      - SKILL.md
+      - references/form.md
+      - references/settings.md
+      - references/sources.md
+    irreversible: []
+  - id: deliver
+    say: "验收与交付"
+    rollback_to: settings
+    load:
+      - SKILL.md
+      - references/form.md
+      - references/settings.md
+      - references/sources.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "首次重建主链"
+    nodes:
+      - analyze
+      - form
+      - detail
+      - settings
+      - deliver
+    rollback_to: form
+  - id: local_revise
+    summary: "已有工程只改受影响阶段"
+    nodes:
+      - detail
+      - settings
+    shares_input_with: main
+choices_example:
+  - id: continue_form
+    title: "继续基础造型"
+    route: main
+    confirm: false
+  - id: skip_to_settings
+    title: "已有主体，直接排石"
+    route: local_revise
+    confirm: false
+  - id: rollback_form
+    title: "回退到基础造型"
+    rollback_to: form
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

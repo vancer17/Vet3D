@@ -1,0 +1,74 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "GitHub Pages 部署已有网页游戏；发布不可逆。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: game
+    say: "确认可玩构建"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/github-pages.md
+      - references/implementation.md
+      - references/leaderboard.md
+    irreversible: []
+  - id: adapt
+    say: "子路径与资源"
+    rollback_to: game
+    load:
+      - SKILL.md
+      - references/github-pages.md
+      - references/implementation.md
+      - references/leaderboard.md
+    irreversible: []
+  - id: publish
+    say: "Pages 发布"
+    rollback_to: adapt
+    load:
+      - SKILL.md
+      - references/github-pages.md
+      - references/implementation.md
+      - references/leaderboard.md
+    irreversible:
+      - publish
+    confirm_required: true
+  - id: review
+    say: "匿名开局验收"
+    rollback_to: publish
+    load:
+      - SKILL.md
+      - references/github-pages.md
+      - references/implementation.md
+      - references/leaderboard.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "适配并发布"
+    nodes:
+      - game
+      - adapt
+      - publish
+      - review
+    rollback_to: adapt
+  - id: rebuild
+    summary: "已发布，只更新构建"
+    nodes:
+      - game
+      - publish
+      - review
+choices_example:
+  - id: first_ship
+    title: "首次适配并发布"
+    route: main
+    confirm: true
+  - id: update_build
+    title: "更新已有 Pages"
+    route: rebuild
+    confirm: true
+  - id: back_adapt
+    title: "回退到上一检查点"
+    rollback_to: adapt
+    confirm: false

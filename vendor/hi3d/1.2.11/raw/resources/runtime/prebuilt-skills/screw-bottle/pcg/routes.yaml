@@ -1,0 +1,80 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "旋拧水瓶：内腔、螺纹与盖运动，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: art
+    say: "确认瓶身参考"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/runtime.md
+      - references/workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: cavity
+    say: "内腔与螺纹"
+    rollback_to: art
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/runtime.md
+      - references/workflow.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: cap
+    say: "整盖运动"
+    rollback_to: cavity
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/runtime.md
+      - references/workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: review
+    say: "产品渲染"
+    rollback_to: cap
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/runtime.md
+      - references/workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "参考到旋拧瓶"
+    nodes:
+      - art
+      - cavity
+      - cap
+      - review
+    rollback_to: cavity
+  - id: thread_only
+    summary: "已有瓶身，补螺纹"
+    nodes:
+      - art
+      - cavity
+      - review
+choices_example:
+  - id: full_bottle
+    title: "完整旋拧瓶"
+    route: main
+    confirm: true
+  - id: add_thread
+    title: "已有外形，补螺纹"
+    route: thread_only
+    confirm: true
+  - id: back_cavity
+    title: "回退到上一检查点"
+    rollback_to: cavity
+    confirm: false

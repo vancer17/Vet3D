@@ -1,0 +1,153 @@
+schema: pcg.architecture.v1
+entry: product-configurator
+kind: agent_workflow
+layout: tree
+note: "编排产品配置器；glb-clips/game-save/game-browser-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: product_configurator
+    parent: null
+    role: agent
+    label: "产品配置器编排"
+    function: "读取已有 GLB 部件，规划改色/显隐/互斥，生成配置页。已有合格页面可从 preview 续接。不生成新模型。"
+    outputs: []
+  - id: asset
+    parent: product_configurator
+    role: local
+    label: "模型与纹理"
+    function: "接收 GLB 及旁路纹理附件。inspect_parts 经 glb-clips.read_glb 列出节点与材质。缺文件停在附件。不编造部件名。"
+    outputs:
+      - id: inventory
+        label: "部件 inventory JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: glb_clips
+    parent: asset
+    role: subagent
+    entry: glb-clips
+    label: "GLB 容器读取"
+    function: "独立 glb-clips 提供 read_glb；本阶段只列清单，不合并动画。"
+    outputs: []
+  - id: options
+    parent: product_configurator
+    role: local
+    label: "改色、显隐与互斥"
+    function: "询问哪些材质可改色、哪些节点可显隐、哪些互斥。不可独立选部位时收集 splitDecision。need-split 停止。"
+    outputs: []
+  - id: prefer
+    parent: product_configurator
+    role: local
+    label: "页面版式"
+    function: "展示 simple/product/fullscreen；默认 simple。用户未确认前推荐值不是事实。"
+    outputs: []
+  - id: price
+    parent: product_configurator
+    role: local
+    optional: true
+    label: "可选报价"
+    function: "仅用户要求报价时收集 currency/base/option 价格。未收集则 plan.pricing 为空，页面不显示总价。无新增文件。"
+    outputs: []
+  - id: preview
+    parent: product_configurator
+    role: local
+    label: "配置体验"
+    function: "等待 inventory 与选项。plan_config 与 build_page 写入新目录。用户改色、显隐、恢复、换视角。互斥禁用并说明。加载失败给下载入口。"
+    members:
+      - id: write_page
+        label: "写出配置页与模型副本"
+    outputs:
+      - id: page
+        label: "配置网页目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: plan
+        label: "配置 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: game_save
+    parent: preview
+    role: subagent
+    entry: game-save
+    label: "配置 JSON 存档"
+    function: "独立 game-save 提供 encode/decode/writeSave；导入失败不覆盖。"
+    outputs: []
+  - id: http_check
+    parent: preview
+    role: local
+    label: "loopback 资源检查"
+    function: "check_http GET 页面、模块、模型与已复制纹理。"
+    outputs:
+      - id: http
+        label: "HTTP 加载报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: browser_check
+    parent: preview
+    role: subagent
+    entry: game-browser-check
+    optional: true
+    label: "浏览器操作验收"
+    function: "独立 game-browser-check 走改色/显隐/恢复；无 Playwright 时跳过并记录未测。"
+    outputs:
+      - id: browser
+        label: "浏览器检查结果"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: shots
+    parent: preview
+    role: subagent
+    entry: model-preview
+    optional: true
+    label: "配置静帧"
+    function: "按需用独立 model-preview 按预设姿态出图；未请求则不写截图。"
+    outputs:
+      - id: png
+        label: "截图 PNG"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: revise
+    parent: product_configurator
+    role: local
+    label: "按需修改"
+    function: "调整色板、互斥、镜头与说明。已有模型不重新生成。无改动时 outputs 为空。"
+    outputs: []
+  - id: deliver
+    parent: product_configurator
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的网页、模型、纹理、plan。asset-page 生成本地页；delivery-review 打开下载。无支付库存订单。"
+    outputs:
+      - id: pack
+        label: "配置包目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮 HTML/GLB/plan，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

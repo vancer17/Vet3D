@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "width": 320,
+  "height": 180,
+  "fps": "24",
+  "clips": [
+    {
+      "path": "hi3d-source.mp4",
+      "start": 0,
+      "end": 1,
+      "speed": 1
+    }
+  ]
+}

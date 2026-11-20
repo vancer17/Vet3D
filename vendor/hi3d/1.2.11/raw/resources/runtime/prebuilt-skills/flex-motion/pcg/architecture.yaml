@@ -1,0 +1,150 @@
+schema: pcg.architecture.v1
+entry: flex-motion
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: flex_motion
+    parent: null
+    role: agent
+    label: "柔性部位随动"
+    function: "编排已绑定角色的柔性部位识别、辅助骨、权重和 Blender 动作烘焙"
+  - id: body_rig
+    parent: flex_motion
+    label: "补身体绑定"
+    function: "没有有效身体骨架或没有肢体角度变化的动作时派出 rig-retarget；已有合格绑定不调用"
+    outputs:
+      - id: body_rig_blend
+        label: "可采样肢体角度的绑定工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    members:
+      - id: invoke
+        label: "交接 rig-retarget"
+  - id: baseline
+    parent: flex_motion
+    label: "保存动作基线"
+    function: "另存 BLEND，记录拓扑、身体骨、休止权重，并在关闭辅助骨时采样腿和手臂角度"
+    outputs:
+      - id: baseline_blend
+        label: "含原网格、骨架和动作的基线 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: baseline_note
+        label: "骨名、休止姿态和肢体曲线采样记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: copy
+        label: "另存基线并采样动作"
+    rollback_to: null
+    irreversible:
+      - blender.write
+  - id: regions
+    parent: flex_motion
+    label: "标出柔性区域"
+    function: "标出发梢、衣摆、宽袖、披风、飘带、围巾、裤脚等自由端、锚骨和保护区；不确定时不写权重"
+    outputs:
+      - id: region_map
+        label: "柔性部位、锚骨、自由端和保护区清单"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: mark
+        label: "确认柔性区域"
+    rollback_to: baseline
+  - id: chains
+    parent: flex_motion
+    label: "添加辅助骨链"
+    function: "沿自由端添加带 flex_motion 标记的辅助骨，根挂锚骨，段长取自当前休止轮廓"
+    outputs:
+      - id: chain_blend
+        label: "已添加辅助骨链的 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: chain_list
+        label: "骨名、父骨和段长清单"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: add
+        label: "创建或复用辅助骨"
+    rollback_to: regions
+    irreversible:
+      - blender.write
+  - id: weights
+    parent: flex_motion
+    label: "写入区域权重"
+    function: "用掩码混合辅助骨权重，保护区保持原权重；轴向包围盒污染才调用 skin-weights"
+    outputs:
+      - id: weighted_blend
+        label: "已写入区域权重的 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: weight_report
+        label: "保护区辅助权重审计"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: paint
+        label: "混合并审计权重"
+    rollback_to: chains
+    irreversible:
+      - blender.write
+  - id: bake
+    parent: flex_motion
+    label: "烘焙惯性动作"
+    function: "按帧用弹簧更新骨梢，并把辅助骨旋转写入动作关键帧"
+    outputs:
+      - id: baked_blend
+        label: "辅助骨旋转已烘焙的 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: simulate
+        label: "烘焙辅助骨旋转"
+    rollback_to: weights
+    irreversible:
+      - blender.write
+  - id: check
+    parent: flex_motion
+    label: "对照验收随动"
+    function: "在锚骨局部空间比较开关辅助骨关键帧后的滞后、转向偏移和停止衰减"
+    outputs:
+      - id: check_report
+        label: "开关对照和未验证项记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: compare
+        label: "记录局部随动对照"
+    rollback_to: bake

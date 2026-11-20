@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: rig-retarget
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: rig_retarget
+    parent: null
+    role: agent
+    label: "确认姿态与动作"
+    function: "编排 rig-retarget"
+  - id: pose
+    parent: rig_retarget
+    label: "确认姿态与动作"
+    function: "本 agent 确认姿态与动作"
+    outputs:
+      - id: pose
+        label: "确认姿态与动作"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认姿态与动作"
+  - id: rig
+    parent: rig_retarget
+    label: "骨架蒙皮"
+    function: "派出 mdf-call"
+    outputs:
+      - id: rig
+        label: "骨架蒙皮"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: mdf-call
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 mdf-call"
+    irreversible:
+      - mdf.invoke
+  - id: retarget
+    parent: rig_retarget
+    label: "动作校准"
+    function: "复用已有绑定或 rig 阶段结果，本地检查骨轴和休止姿态、适配目标动作；局部拉伸按 inspect/repair 修复，候选工程与映射交给 bake。"
+    outputs:
+      - id: retarget
+        label: "校准候选工程、动作映射与修复报告（BLEND/JSON）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    rollback_to: pose
+    members:
+      - id: work
+        label: "本地校准动作与修复权重"
+  - id: bake
+    parent: rig_retarget
+    label: "烘焙动作"
+    function: "本 agent 烘焙动作"
+    outputs:
+      - id: bake
+        label: "烘焙动作"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "烘焙动作"
+    irreversible:
+      - blender.write

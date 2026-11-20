@@ -1,0 +1,222 @@
+schema: pcg.architecture.v1
+entry: unity-cozy-exploration-game
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。本机未安装 Unity，这些阶段描述交接与验收条件，不代表 Player 已跑通。"
+tasks:
+  - id: unity_cozy
+    parent: null
+    role: agent
+    label: "治愈系探索游戏"
+    function: "编排 Unity 桌面第三人称探索：工程副本、条件资产生成、身体动作、可选裙发与草地、任务存档菜单、目标环境验收和 Windows/Mac 交付。已有合格输入跳过对应子阶段并记录原因。通用探索或网页发布不在本入口。"
+    outputs: []
+  - id: brief
+    parent: unity_cozy
+    role: local
+    label: "记录主题与交付范围"
+    function: "用 assets/hi3d-project-brief.md 记下主题、资产来源与许可、单位、骨架映射、平台和验收条件。缺关键事实时最多问两项。没有目标平台时把 Windows x64 与 macOS Universal 标为建议。"
+    members:
+      - id: scope
+        label: "区分新建、增量、修复或只打包"
+      - id: license
+        label: "记录可分发资产；无授权则停下分发"
+    outputs:
+      - id: project_brief
+        label: "主题、资产许可、平台和验收条件（Markdown）"
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: project
+    parent: unity_cozy
+    role: local
+    label: "建立工程与任务闭环"
+    function: "按 references/hi3d-design-scene.md 另存 Unity 工作副本，保留 .meta。写开场、任务前置、世界变化和完成状态，并布置出生、互动和结束点。不升级已有工程的编辑器作为第一步。"
+    members:
+      - id: copy
+        label: "另存工作副本"
+      - id: tasks
+        label: "写可走通的任务状态表"
+    outputs:
+      - id: unity_copy
+        label: "保留 Assets、Packages、ProjectSettings 与 .meta 的 Unity 工作副本"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: task_table
+        label: "任务前置、反馈和完成状态表"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: look
+    parent: unity_cozy
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "生成缺少的外观"
+    function: "仅缺少复杂外观或主题图时派出 hi3d-api。已有合格模型或图片不提交。调用失败保留 task ID 与 job，不自动重提。"
+    members:
+      - id: invoke
+        label: "交接参考图与资产规格"
+    irreversible:
+      - hi3d.submit
+    outputs:
+      - id: generated_assets
+        label: "原始 GLB、主题图和任务记录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: body
+    parent: unity_cozy
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    label: "补身体绑定"
+    function: "没有可采样肢体角度的身体绑定或走路动作时派出 rig-retarget。已有合格绑定不重绑。"
+    members:
+      - id: invoke
+        label: "交接角色与所需动作"
+    outputs:
+      - id: rigged_body
+        label: "可采样肢体角度的绑定工程"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: clips
+    parent: unity_cozy
+    role: subagent
+    entry: hi3d-model-gpt-animation
+    optional: true
+    label: "组织多个身体动作"
+    function: "需要按已有动画工作流组织多段身体动作时派出 hi3d-model-gpt-animation。取回动作工程后再接入 Unity Animator。"
+    members:
+      - id: invoke
+        label: "交接已绑定角色与动作需求"
+    outputs:
+      - id: body_clips
+        label: "供 Unity 接入的身体动作工程"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: scene_io
+    parent: unity_cozy
+    role: subagent
+    entry: blender-tools
+    optional: true
+    label: "读写 Blender 工程"
+    function: "需要后台打开、导入或另存 BLEND 时派出 blender-tools。不另写 Blender 启动器，不操作未保存的前台工程。"
+    members:
+      - id: invoke
+        label: "按场景读写契约交接 BLEND"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: blend_copy
+        label: "另存的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: motion
+    parent: unity_cozy
+    role: local
+    label: "接入真实身体动作"
+    function: "按 references/hi3d-character-motion.md 核对 Animator、Avatar 和实际曲线。位移只保留控制器或 Root Motion 其中一种。拾取和坐下使用本次角色的锚点。"
+    members:
+      - id: animator
+        label: "确认活动骨架与走路曲线"
+      - id: contact
+        label: "核对脚底、碰撞和手部锚点"
+    outputs:
+      - id: motion_note
+        label: "骨映射、位移来源和动作采样记录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: flex
+    parent: unity_cozy
+    role: subagent
+    entry: flex-motion
+    optional: true
+    label: "烘焙柔性关键帧"
+    function: "角色需要柔性部位惯性时派出 flex-motion，取回关键帧动作。本阶段不另写分区、骨链、权重或弹簧。"
+    members:
+      - id: invoke
+        label: "交接已绑定角色与柔性区域"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: baked_flex
+        label: "带柔性部位关键帧的 BLEND"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: secondary
+    parent: unity_cozy
+    role: local
+    label: "导入随动并接草地"
+    function: "把 flex-motion 的关键帧导入 Animator，并确认没有第二个组件改写这些骨。草地按 references/hi3d-unity-runtime.md 做局部弯曲。没有柔性部位或不需要植被时记跳过。"
+    members:
+      - id: import_clips
+        label: "导入柔性动作并核对唯一写入者"
+      - id: grass
+        label: "统一接触点、草根高度和衰减"
+    outputs:
+      - id: secondary_note
+        label: "动作来源和草地接触记录；跳过时写明原因"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: play
+    parent: unity_cozy
+    role: local
+    label: "实现玩法存档和菜单"
+    function: "按 references/hi3d-unity-runtime.md 实现移动、互动、任务状态、持物、存档和可点击菜单。换主题时替换用户可见文案，不无故改骨名和存档 ID。"
+    members:
+      - id: quests
+        label: "按状态表提交任务，不跳过前置"
+      - id: save
+        label: "用独立测试档验证读档"
+    outputs:
+      - id: play_scripts
+        label: "任务、存档和菜单的工程改动"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: accept
+    parent: unity_cozy
+    role: local
+    label: "在目标环境做验收"
+    function: "用 assets/hi3d-acceptance-checklist.md 把菜单、走路、任务、读档和性能记为通过、失败或未验证。没有 Unity 或目标设备时对应项保持未验证。编辑器通过不等于发布包通过。"
+    members:
+      - id: player
+        label: "在真实 Player 中走主路径"
+      - id: gaps
+        label: "分开记录未安装环境与未测设备"
+    outputs:
+      - id: acceptance
+        label: "逐项通过、失败或未验证的验收表"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: deliver
+    parent: unity_cozy
+    role: local
+    label: "构建桌面安装包"
+    function: "按 references/hi3d-build-delivery.md 使用 assets/hi3d-desktop-build.cs。缺平台模块时停止该平台，不假装已构建。签名和公证未完成就如实写明。覆盖已有交付物前需要确认。"
+    members:
+      - id: build
+        label: "分别构建 Windows x64 与 macOS Universal"
+      - id: guide
+        label: "按安装说明模板核对包内文件"
+    irreversible:
+      - overwrite.source
+    outputs:
+      - id: desktop_packages
+        label: "Windows 免安装包或安装器、macOS DMG，以及玩家安装说明"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: build_report
+        label: "构建报告、签名状态和未验证平台"
+        kind: file
+        retain: keep
+        semantics: [deliverable]

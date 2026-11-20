@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rhino 建模"
+  short_description: "自动定位 Rhino，通过 MCP 或原生 Python 完成建模与交付"
+  default_prompt: "使用 $rhino-build 定位本机 Rhino，选择可用的 MCP 或 Python 入口，按我的需求建模并保存验收。"

@@ -1,0 +1,61 @@
+kind: agent_skill
+partition: make
+entry: SKILL.md
+note: "原子能力三检查点：确认输入、执行、核对产物。tools 不设 pcg。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: input
+    say: "确认输入"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/ear-fitting.md
+      - references/registered-geometry.md
+    irreversible: []
+  - id: run
+    say: "执行能力"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/ear-fitting.md
+      - references/registered-geometry.md
+    irreversible: []
+  - id: review
+    say: "核对产物"
+    rollback_to: run
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/ear-fitting.md
+      - references/registered-geometry.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "完整执行"
+    nodes:
+      - input
+      - run
+      - review
+    rollback_to: run
+  - id: review_only
+    summary: "已有产物，只核对"
+    nodes:
+      - input
+      - review
+choices_example:
+  - id: do_run
+    title: "按输入执行"
+    route: main
+    confirm: false
+  - id: skip_run
+    title: "已有结果，只核对"
+    route: review_only
+    confirm: false
+  - id: back_run
+    title: "回退到上一检查点"
+    rollback_to: run
+    confirm: false

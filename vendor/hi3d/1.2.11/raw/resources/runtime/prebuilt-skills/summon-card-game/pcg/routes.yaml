@@ -1,0 +1,74 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "首个检查点先提问、盘点素材并确定玩法；已有认可或明确委托复用，未确定时不进入制作。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: cards
+    say: "提问、素材与卡牌玩法确认"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/card-arena.md
+      - references/validation.md
+    irreversible: []
+  - id: summon
+    say: "召唤物高模"
+    rollback_to: cards
+    load:
+      - SKILL.md
+      - references/card-arena.md
+      - references/validation.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: battle
+    say: "回合战场"
+    rollback_to: summon
+    load:
+      - SKILL.md
+      - references/card-arena.md
+      - references/validation.md
+    irreversible: []
+  - id: review
+    say: "对决与漫游"
+    rollback_to: battle
+    load:
+      - SKILL.md
+      - references/card-arena.md
+      - references/validation.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "备卡到可玩"
+    nodes:
+      - cards
+      - summon
+      - battle
+      - review
+    rollback_to: summon
+  - id: reuse_models
+    summary: "已有召唤物，做战场"
+    nodes:
+      - cards
+      - battle
+      - review
+choices_example:
+  - id: new_roster
+    title: "按已展示阵容与规则制作"
+    route: main
+    confirm: true
+  - id: have_models
+    title: "按已展示规则复用模型制作"
+    route: reuse_models
+    confirm: false
+  - id: back_summon
+    title: "回退到上一检查点"
+    rollback_to: summon
+    confirm: false
+  - id: revise_brief
+    title: "修改玩法或等待素材"
+    rollback_to: cards
+    confirm: false

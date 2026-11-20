@@ -1,0 +1,1822 @@
+{
+  "schema_version": 2,
+  "source_style_glb": "hi3d-hex-terrain-grass-variants_1.glb",
+  "style": "lowpoly_grass_family",
+  "units": "meter",
+  "assets": {
+    "Cactus_01": {
+      "label": "仙人掌·柱状",
+      "parts": [
+        "Cactus_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Cactus_01",
+      "local_bounds_m": {
+        "min": [
+          -0.09811566770076752,
+          -0.08049999922513962,
+          0.0
+        ],
+        "max": [
+          0.10090462863445282,
+          0.09788033366203308,
+          0.4270000159740448
+        ]
+      },
+      "dimensions_m": [
+        0.19902,
+        0.17838,
+        0.427
+      ],
+      "triangle_count": 84,
+      "placement_pivot": "ground_center",
+      "comparison_position_m": [
+        -0.8999999761581421,
+        0.4749999940395355,
+        0.0
+      ],
+      "revision_scale_factor": 0.7,
+      "size_factor_from_original": 0.7,
+      "previous_parts": [
+        "Cactus_01_Rib",
+        "Cactus_01_Rib.001",
+        "Cactus_01_Rib.002",
+        "Cactus_01_Stem"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Cactus_02": {
+      "label": "仙人掌·分枝",
+      "parts": [
+        "Cactus_02_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Cactus_02",
+      "local_bounds_m": {
+        "min": [
+          -0.19631187617778778,
+          -0.07000000029802322,
+          0.0
+        ],
+        "max": [
+          0.17753472924232483,
+          0.06306781619787216,
+          0.37800002098083496
+        ]
+      },
+      "dimensions_m": [
+        0.373847,
+        0.133068,
+        0.378
+      ],
+      "triangle_count": 120,
+      "placement_pivot": "ground_center",
+      "comparison_position_m": [
+        0.0,
+        0.4749999940395355,
+        0.0
+      ],
+      "revision_scale_factor": 0.7,
+      "size_factor_from_original": 0.7,
+      "previous_parts": [
+        "Cactus_02_ArmLeft",
+        "Cactus_02_ArmLeftUp",
+        "Cactus_02_ArmRight",
+        "Cactus_02_ArmRightUp",
+        "Cactus_02_Stem"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Deadwood_01": {
+      "label": "枯木",
+      "parts": [
+        "Deadwood_01_Main"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Deadwood_01",
+      "local_bounds_m": {
+        "min": [
+          -0.23553678393363953,
+          -0.13465888798236847,
+          0.0
+        ],
+        "max": [
+          0.21237705647945404,
+          0.14184609055519104,
+          0.06220778077840805
+        ]
+      },
+      "dimensions_m": [
+        0.447914,
+        0.276505,
+        0.062208
+      ],
+      "triangle_count": 140,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "horizontal_fallen_branch",
+        "ground_contact": "flat_lower_band"
+      },
+      "comparison_position_m": [
+        0.8999999761581421,
+        0.4749999940395355,
+        0.0
+      ],
+      "revision_scale_factor": 0.7,
+      "size_factor_from_original": 0.7,
+      "previous_parts": [
+        "Deadwood_01_Main"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Grass_Gravel_01": {
+      "label": "砾石草",
+      "parts": [
+        "Grass_Gravel_01_Blades"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Grass_Gravel_01",
+      "local_bounds_m": {
+        "min": [
+          -0.1043258011341095,
+          -0.09461662173271179,
+          0.0
+        ],
+        "max": [
+          0.09133200347423553,
+          0.08374547213315964,
+          0.22193507850170135
+        ]
+      },
+      "dimensions_m": [
+        0.195658,
+        0.178362,
+        0.221935
+      ],
+      "triangle_count": 440,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "fine_needle_tussock",
+        "blade_count": 44,
+        "blade_width_m": [
+          0.0026,
+          0.0046
+        ],
+        "height_m": [
+          0.125,
+          0.225
+        ]
+      },
+      "comparison_position_m": [
+        -0.8999999761581421,
+        -0.4749999940395355,
+        0.0
+      ],
+      "previous_parts": [
+        "Grass_Gravel_01_Blades"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Shrub_Gravel_01": {
+      "label": "砾石灌木",
+      "parts": [
+        "Shrub_Gravel_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Shrub_Gravel_01",
+      "local_bounds_m": {
+        "min": [
+          -0.20421169698238373,
+          -0.17079898715019226,
+          0.0
+        ],
+        "max": [
+          0.19552716612815857,
+          0.16779601573944092,
+          0.2705843150615692
+        ]
+      },
+      "dimensions_m": [
+        0.399739,
+        0.338595,
+        0.270584
+      ],
+      "triangle_count": 1036,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "overlapping_irregular_foliage_mounds_with_short_woody_base",
+        "foliage_cluster_count": 5,
+        "palette_tones": 3,
+        "sphere_primitives": false,
+        "layered_broad_leaves": true,
+        "silhouette": "dense_rounded_asymmetric"
+      },
+      "comparison_position_m": [
+        0.0,
+        -0.4749999940395355,
+        0.0
+      ],
+      "revision_scale_factor": 0.8,
+      "size_factor_from_original": 0.8,
+      "previous_parts": [
+        "Shrub_Gravel_01_Branches",
+        "Shrub_Gravel_01_Leaves"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Stone_Gravel_01": {
+      "label": "砾石小石头",
+      "parts": [
+        "Stone_Gravel_01"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Stone_Gravel_01",
+      "local_bounds_m": {
+        "min": [
+          -0.10705838352441788,
+          -0.09574726969003677,
+          0.0
+        ],
+        "max": [
+          0.12534354627132416,
+          0.06933800131082535,
+          0.10000000149011612
+        ]
+      },
+      "dimensions_m": [
+        0.232402,
+        0.165085,
+        0.1
+      ],
+      "triangle_count": 40,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "single_irregular_rock",
+        "separate_cap_meshes": false
+      },
+      "comparison_position_m": [
+        0.8999999761581421,
+        -0.4749999940395355,
+        0.0
+      ],
+      "revision_scale_factor": 0.8,
+      "size_factor_from_original": 0.8,
+      "previous_parts": [
+        "Stone_Gravel_01"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Stone_Rock_01": {
+      "label": "岩石小石头·冷灰",
+      "parts": [
+        "Stone_Rock_01"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Stone_Rock_01",
+      "local_bounds_m": {
+        "min": [
+          -0.11317453533411026,
+          -0.09628494828939438,
+          0.0
+        ],
+        "max": [
+          0.15520469844341278,
+          0.08511800318956375,
+          0.12000000476837158
+        ]
+      },
+      "dimensions_m": [
+        0.268379,
+        0.181403,
+        0.12
+      ],
+      "triangle_count": 40,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "single_irregular_rock",
+        "separate_cap_meshes": false
+      },
+      "comparison_position_m": [
+        -0.8999999761581421,
+        -1.4249999523162842,
+        0.0
+      ],
+      "revision_scale_factor": 0.8,
+      "size_factor_from_original": 0.8,
+      "previous_parts": [
+        "Stone_Rock_01"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Stone_Rock_02": {
+      "label": "岩石小石头·深灰",
+      "parts": [
+        "Stone_Rock_02"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Stone_Rock_02",
+      "local_bounds_m": {
+        "min": [
+          -0.12341820448637009,
+          -0.10258405655622482,
+          0.0
+        ],
+        "max": [
+          0.12729491293430328,
+          0.07779906690120697,
+          0.1679999977350235
+        ]
+      },
+      "dimensions_m": [
+        0.250713,
+        0.180383,
+        0.168
+      ],
+      "triangle_count": 40,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "single_irregular_rock",
+        "separate_cap_meshes": false
+      },
+      "comparison_position_m": [
+        0.0,
+        -1.4249999523162842,
+        0.0
+      ],
+      "revision_scale_factor": 0.8,
+      "size_factor_from_original": 0.8,
+      "previous_parts": [
+        "Stone_Rock_02"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Shrub_Rock_01": {
+      "label": "岩石灌木",
+      "parts": [
+        "Shrub_Rock_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Shrub_Rock_01",
+      "local_bounds_m": {
+        "min": [
+          -0.17666728794574738,
+          -0.13846544921398163,
+          0.0
+        ],
+        "max": [
+          0.16719181835651398,
+          0.1392548382282257,
+          0.19107232987880707
+        ]
+      },
+      "dimensions_m": [
+        0.343859,
+        0.27772,
+        0.191072
+      ],
+      "triangle_count": 834,
+      "placement_pivot": "ground_center",
+      "design": {
+        "form": "overlapping_irregular_foliage_mounds_with_short_woody_base",
+        "foliage_cluster_count": 4,
+        "palette_tones": 3,
+        "sphere_primitives": false,
+        "layered_broad_leaves": true,
+        "silhouette": "low_spreading"
+      },
+      "comparison_position_m": [
+        0.8999999761581421,
+        -1.4249999523162842,
+        0.0
+      ],
+      "revision_scale_factor": 0.8,
+      "size_factor_from_original": 0.8,
+      "previous_parts": [
+        "Shrub_Rock_01_Branches",
+        "Shrub_Rock_01_Leaves"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Grass_Dense": {
+      "label": "土壤草·小花草",
+      "parts": [
+        "Grass_Dense_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Grass_Dense",
+      "local_bounds_m": {
+        "min": [
+          -0.05097239837050438,
+          -0.059845540672540665,
+          0.0
+        ],
+        "max": [
+          0.05026892200112343,
+          0.0523492656648159,
+          0.07000000029802322
+        ]
+      },
+      "dimensions_m": [
+        0.101241,
+        0.112195,
+        0.07
+      ],
+      "triangle_count": 470,
+      "placement_pivot": "ground_center",
+      "source_file": "hi3d-hex-terrain-grass-variants_1.glb",
+      "design": {
+        "label": "土壤草·小花草",
+        "blade_count": 17,
+        "seed": 261121,
+        "height_range": [
+          0.065,
+          0.105
+        ],
+        "reach_range": [
+          0.035,
+          0.075
+        ],
+        "width_range": [
+          0.007,
+          0.011
+        ],
+        "base_radius": 0.018,
+        "flowers": 2,
+        "revised_height_m": 0.07,
+        "width_scale_from_previous": 0.78,
+        "flower_export": "independent_single_material_petal_and_center_meshes"
+      },
+      "comparison_scale_factor": 1.0,
+      "comparison_position_m": [
+        -0.8999999761581421,
+        1.4249999523162842,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_16.glb",
+      "status": "sample_pending_user_review",
+      "previous_parts": [
+        "Grass_Dense",
+        "Grass_Dense_FlowerPetals",
+        "Grass_Dense_FlowerCenters"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Grass_Short_Spread": {
+      "label": "土壤草·矮密草",
+      "parts": [
+        "Grass_Short_Spread"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Grass_Short_Spread",
+      "local_bounds_m": {
+        "min": [
+          -0.06909049302339554,
+          -0.06408429145812988,
+          0.0
+        ],
+        "max": [
+          0.07450329512357712,
+          0.07834381610155106,
+          0.03999999910593033
+        ]
+      },
+      "dimensions_m": [
+        0.143594,
+        0.142428,
+        0.04
+      ],
+      "triangle_count": 414,
+      "placement_pivot": "ground_center",
+      "source_file": "hi3d-hex-terrain-grass-variants_1.glb",
+      "design": {
+        "label": "土壤草·矮密草",
+        "blade_count": 23,
+        "seed": 261119,
+        "height_range": [
+          0.075,
+          0.115
+        ],
+        "reach_range": [
+          0.045,
+          0.095
+        ],
+        "width_range": [
+          0.009,
+          0.014
+        ],
+        "base_radius": 0.018,
+        "flowers": 0,
+        "revised_height_m": 0.04,
+        "width_scale_from_previous": 0.78
+      },
+      "comparison_scale_factor": 1.0,
+      "comparison_position_m": [
+        0.0,
+        1.4249999523162842,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_16.glb",
+      "status": "sample_pending_user_review",
+      "previous_parts": [
+        "Grass_Short_Spread"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Grass_Tall_Arch": {
+      "label": "土壤草·高弯草",
+      "parts": [
+        "Grass_Tall_Arch"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "root_name": "Decoration_Grass_Tall_Arch",
+      "local_bounds_m": {
+        "min": [
+          -0.06658219546079636,
+          -0.06703400611877441,
+          0.0
+        ],
+        "max": [
+          0.07119576632976532,
+          0.06598411500453949,
+          0.09000000357627869
+        ]
+      },
+      "dimensions_m": [
+        0.137778,
+        0.133018,
+        0.09
+      ],
+      "triangle_count": 270,
+      "placement_pivot": "ground_center",
+      "source_file": "hi3d-hex-terrain-grass-variants_1.glb",
+      "design": {
+        "label": "土壤草·高弯草",
+        "blade_count": 15,
+        "seed": 261120,
+        "height_range": [
+          0.21,
+          0.29
+        ],
+        "reach_range": [
+          0.035,
+          0.085
+        ],
+        "width_range": [
+          0.007,
+          0.012
+        ],
+        "base_radius": 0.016,
+        "flowers": 0,
+        "revised_height_m": 0.09,
+        "width_scale_from_previous": 0.85
+      },
+      "comparison_scale_factor": 1.0,
+      "comparison_position_m": [
+        0.8999999761581421,
+        1.4249999523162842,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_16.glb",
+      "status": "sample_pending_user_review",
+      "previous_parts": [
+        "Grass_Tall_Arch"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Shell_Underwater_01": {
+      "label": "水底贝壳·鼓起的椭圆蛤壳",
+      "parts": [
+        "Shell_Underwater_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_underwater_family",
+      "root_name": "Decoration_Shell_Underwater_01",
+      "local_bounds_m": {
+        "min": [
+          -0.0941755548119545,
+          -0.07640260457992554,
+          0.0
+        ],
+        "max": [
+          0.10042285919189453,
+          0.07059739530086517,
+          0.05715908110141754
+        ]
+      },
+      "dimensions_m": [
+        0.194598,
+        0.147,
+        0.057159
+      ],
+      "triangle_count": 2560,
+      "placement_pivot": "ground_center",
+      "comparison_position_m": [
+        -0.8999999761581421,
+        -2.375,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_8.glb",
+      "design": {
+        "form": "paired_oval_clam",
+        "concentric_growth_lines": 6,
+        "narrow_front_opening": true,
+        "not_a_radial_fan": true
+      },
+      "revision_scale_factor": 0.7,
+      "size_factor_from_original": 0.7,
+      "previous_parts": [
+        "Shell_Underwater_01_LowerValve",
+        "Shell_Underwater_01_LowerRidges",
+        "Shell_Underwater_01_UpperValve",
+        "Shell_Underwater_01_UpperRidges"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Stone_Underwater_01": {
+      "label": "水下卵石·水流磨圆",
+      "parts": [
+        "Stone_Underwater_01_Main"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_underwater_family",
+      "root_name": "Decoration_Stone_Underwater_01",
+      "local_bounds_m": {
+        "min": [
+          -0.07838046550750732,
+          -0.05049237236380577,
+          0.0
+        ],
+        "max": [
+          0.07477883249521255,
+          0.05639545992016792,
+          0.06895908713340759
+        ]
+      },
+      "dimensions_m": [
+        0.153159,
+        0.106888,
+        0.068959
+      ],
+      "triangle_count": 320,
+      "placement_pivot": "ground_center",
+      "comparison_position_m": [
+        0.0,
+        -2.375,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_9.glb",
+      "design": {
+        "form": "asymmetric_waterworn_pebble",
+        "rounded_silhouette": true,
+        "flat_ground_contact": true,
+        "color_variation": "subtle_not_crystalline"
+      },
+      "revision_scale_factor": 0.7,
+      "size_factor_from_original": 0.49,
+      "previous_parts": [
+        "Stone_Underwater_01_Main"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Seaweed_Underwater_01": {
+      "label": "水草·宽带波浪海带",
+      "parts": [
+        "Seaweed_Underwater_01_Blades"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_underwater_family",
+      "root_name": "Decoration_Seaweed_Underwater_01",
+      "local_bounds_m": {
+        "min": [
+          -0.09942740947008133,
+          -0.054272063076496124,
+          0.0010000000474974513
+        ],
+        "max": [
+          0.11867983639240265,
+          0.062024082988500595,
+          0.2963050603866577
+        ]
+      },
+      "dimensions_m": [
+        0.218107,
+        0.116296,
+        0.295305
+      ],
+      "triangle_count": 896,
+      "placement_pivot": "ground_center",
+      "comparison_position_m": [
+        0.8999999761581421,
+        -2.375,
+        0.0
+      ],
+      "source_revision": "hi3d-hex-terrain-decorations_7.glb",
+      "design": {
+        "form": "wavy_broad_kelp_ribbons",
+        "frond_count": 4,
+        "broad_straps_not_grass_blades": true,
+        "s_curve_and_twisted_edges": true
+      },
+      "previous_parts": [
+        "Seaweed_Underwater_01_Blades"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Grass_Sand_Wet_01": {
+      "label": "湿沙风滚草",
+      "root_name": "Decoration_Grass_Sand_Wet_01",
+      "parts": [
+        "Grass_Sand_Wet_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.12987439334392548,
+          -0.12897519767284393,
+          -0.019999999552965164
+        ],
+        "max": [
+          0.12556098401546478,
+          0.1288556456565857,
+          0.16645902395248413
+        ]
+      },
+      "dimensions_m": [
+        0.255435,
+        0.257831,
+        0.186459
+      ],
+      "triangle_count": 10796,
+      "comparison_position_m": [
+        1.8,
+        1.425,
+        0
+      ],
+      "intended_surface": "sand",
+      "intended_humidity": "humid",
+      "status": "sample_pending_user_review",
+      "size_factor_from_original": 0.5599999999999999,
+      "source_revision": "hi3d-hex-terrain-decorations_20.glb",
+      "design": {
+        "form": "outward_low_then_upward_inward_round_tumbleweed",
+        "main_stems": 34,
+        "reference": "user_image_1_and_followup_growth_direction",
+        "added_interior_stems": 18,
+        "vertical_offset_m": -0.02,
+        "palette": {
+          "Tumbleweed_Bract_1_DarkBrown": [
+            0.1469999998807907,
+            0.09600000083446503,
+            0.04800000041723251
+          ],
+          "Tumbleweed_Bract_2_DarkBrown": [
+            0.1784999966621399,
+            0.11840000003576279,
+            0.06000000238418579
+          ],
+          "Tumbleweed_Bract_3_DarkBrown": [
+            0.21000000834465027,
+            0.14399999380111694,
+            0.07500000298023224
+          ],
+          "Tumbleweed_Bract_4_DarkBrown": [
+            0.2345000058412552,
+            0.1695999950170517,
+            0.0990000069141388
+          ]
+        }
+      },
+      "revision_scale_factor": 0.8,
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_17.glb",
+          "factor": 0.7
+        },
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_18.glb",
+          "factor": 0.8
+        }
+      ],
+      "ground_penetration_m": 0.02,
+      "previous_parts": [
+        "Grass_Sand_Wet_01_Blades",
+        "Grass_Sand_Wet_01_Seedheads"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Tree_Soil_Wet_Willow_01": {
+      "label": "湿土树·垂柳",
+      "root_name": "Decoration_Tree_Soil_Wet_Willow_01",
+      "parts": [
+        "Tree_Soil_Wet_Willow_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.18981869518756866,
+          -0.19078542292118073,
+          0.0
+        ],
+        "max": [
+          0.1865902543067932,
+          0.16740094125270844,
+          0.47238296270370483
+        ]
+      },
+      "dimensions_m": [
+        0.376409,
+        0.358186,
+        0.472383
+      ],
+      "triangle_count": 1582,
+      "comparison_position_m": [
+        1.8,
+        0.475,
+        0
+      ],
+      "intended_surface": "soil",
+      "intended_humidity": "humid",
+      "status": "sample_pending_user_review",
+      "size_factor_from_original": 0.35,
+      "revision_scale_factor": 0.7,
+      "source_revision": "hi3d-hex-terrain-decorations_18.glb",
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_17.glb",
+          "factor": 0.5
+        },
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_18.glb",
+          "factor": 0.7
+        }
+      ],
+      "previous_parts": [
+        "Tree_Soil_Wet_Willow_01_Wood",
+        "Tree_Soil_Wet_Willow_01_Canopy"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Tree_Soil_Wet_Broadleaf_01": {
+      "label": "湿土树·阔叶小树",
+      "root_name": "Decoration_Tree_Soil_Wet_Broadleaf_01",
+      "parts": [
+        "Tree_Soil_Wet_Broadleaf_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.17869384586811066,
+          -0.145308256149292,
+          0.0
+        ],
+        "max": [
+          0.17970579862594604,
+          0.1472068428993225,
+          0.55289626121521
+        ]
+      },
+      "dimensions_m": [
+        0.3584,
+        0.292515,
+        0.552896
+      ],
+      "triangle_count": 578,
+      "comparison_position_m": [
+        1.8,
+        -0.475,
+        0
+      ],
+      "intended_surface": "soil",
+      "intended_humidity": "humid",
+      "status": "sample_pending_user_review",
+      "size_factor_from_original": 0.35,
+      "revision_scale_factor": 0.7,
+      "source_revision": "hi3d-hex-terrain-decorations_18.glb",
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_17.glb",
+          "factor": 0.5
+        },
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_18.glb",
+          "factor": 0.7
+        }
+      ],
+      "previous_parts": [
+        "Tree_Soil_Wet_Broadleaf_01_Wood",
+        "Tree_Soil_Wet_Broadleaf_01_Canopy"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "Fern_Rock_Wet_01": {
+      "label": "岩缝蕨丛",
+      "root_name": "Decoration_Fern_Rock_Wet_01",
+      "parts": [
+        "Fern_Rock_Wet_01_Geometry"
+      ],
+      "part_count": 1,
+      "style": "lowpoly_grass_family",
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.15165381133556366,
+          -0.1268339902162552,
+          0.0
+        ],
+        "max": [
+          0.14786788821220398,
+          0.16877126693725586,
+          0.02525506727397442
+        ]
+      },
+      "dimensions_m": [
+        0.299522,
+        0.295605,
+        0.025255
+      ],
+      "triangle_count": 1302,
+      "comparison_position_m": [
+        1.8,
+        -1.425,
+        0
+      ],
+      "intended_surface": "rock",
+      "intended_humidity": "humid",
+      "status": "sample_pending_user_review",
+      "size_factor_from_original": 0.7,
+      "source_revision": "hi3d-hex-terrain-decorations_17.glb",
+      "design": {
+        "form": "surface_creeping_crevice_fern",
+        "fronds": 6,
+        "paired_leaflets_per_frond": 10,
+        "reference": "user_blue_growth_line",
+        "frond_layout": [
+          {
+            "angle_deg": 5,
+            "length_scale": 1.0,
+            "height_scale": 0.84,
+            "bend_m": 0.014
+          },
+          {
+            "angle_deg": 47,
+            "length_scale": 0.78,
+            "height_scale": 0.74,
+            "bend_m": -0.024
+          },
+          {
+            "angle_deg": 111,
+            "length_scale": 1.06,
+            "height_scale": 0.98,
+            "bend_m": 0.006
+          },
+          {
+            "angle_deg": 172,
+            "length_scale": 0.9,
+            "height_scale": 0.8,
+            "bend_m": 0.02
+          },
+          {
+            "angle_deg": 219,
+            "length_scale": 0.68,
+            "height_scale": 0.9,
+            "bend_m": -0.018
+          },
+          {
+            "angle_deg": 294,
+            "length_scale": 0.94,
+            "height_scale": 0.7,
+            "bend_m": 0.018
+          }
+        ]
+      },
+      "revision_scale_factor": 0.7,
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_17.glb",
+          "factor": 0.7
+        }
+      ],
+      "previous_parts": [
+        "Fern_Rock_Wet_01_Fronds",
+        "Fern_Rock_Wet_01_Stems"
+      ],
+      "mesh_count": 1,
+      "material_count": 1,
+      "primitive_count": 1
+    },
+    "River_Lotus_01": {
+      "root_name": "River_Lotus_01",
+      "parts": [
+        "River_Lotus_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.144505,
+        0.099256,
+        0.023423
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.06710587441921234,
+          -0.0487992949783802,
+          -0.012599999085068703
+        ],
+        "max": [
+          0.07739900797605515,
+          0.050456710159778595,
+          0.010822540149092674
+        ]
+      },
+      "comparison_position_m": [
+        2.7,
+        1.425,
+        0
+      ],
+      "triangle_count": 140,
+      "size_review_status": "scaled_to_user_specification",
+      "placement_pivot": "water_surface",
+      "design": {
+        "label": "荷叶",
+        "kind": "two_lowpoly_peltate_leaves_with_radial_veins",
+        "recommended_placement": "calm_water_surface",
+        "leaf_veins": "UV_mapped_embedded_albedo_texture",
+        "surface_detail": "radial_main_and_branch_veins",
+        "revision": 2
+      },
+      "embedded_texture": "exports/hi3d-river-plants-atlas_2.png",
+      "mesh_count": 1,
+      "material_count": 1,
+      "revision_scale_factor": 0.7,
+      "appearance_status": "approved",
+      "size_factor_from_original": 0.7,
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_23.glb",
+          "factor": 0.7
+        }
+      ],
+      "previous_parts": [
+        "River_Lotus_01_Geometry"
+      ],
+      "part_count": 1,
+      "primitive_count": 1
+    },
+    "River_SweetFlag_01": {
+      "root_name": "River_SweetFlag_01",
+      "parts": [
+        "River_SweetFlag_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.148202,
+        0.137041,
+        0.184105
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.06669925898313522,
+          -0.06669657677412033,
+          0.0
+        ],
+        "max": [
+          0.0815025195479393,
+          0.07034458220005035,
+          0.18410496413707733
+        ]
+      },
+      "comparison_position_m": [
+        2.7,
+        0.475,
+        0
+      ],
+      "triangle_count": 774,
+      "size_review_status": "scaled_to_user_specification",
+      "placement_pivot": "ground_center",
+      "design": {
+        "label": "菖蒲草",
+        "kind": "broad_folded_sword_leaves_in_asymmetric_fans",
+        "recommended_placement": "river_shallow_water",
+        "source_blend": "exports/hi3d-hex-terrain-decorations_13.blend",
+        "source_asset": "Grass_Sand_Wet_01",
+        "source_reference": "exports/hi3d-wet-grass-fern-detail_1.png",
+        "source_geometry_reused": true,
+        "source_scale": 1.0,
+        "revision": 2
+      },
+      "embedded_texture": "exports/hi3d-river-plants-atlas_2.png",
+      "mesh_count": 1,
+      "material_count": 1,
+      "revision_scale_factor": 0.5,
+      "appearance_status": "approved",
+      "size_factor_from_original": 0.5,
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_23.glb",
+          "factor": 0.5
+        }
+      ],
+      "previous_parts": [
+        "River_SweetFlag_01_Geometry"
+      ],
+      "part_count": 1,
+      "primitive_count": 1
+    },
+    "River_Reed_01": {
+      "root_name": "River_Reed_01",
+      "parts": [
+        "River_Reed_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.10822,
+        0.11784,
+        0.24872
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.05521712824702263,
+          -0.0648796558380127,
+          -3.3464581065345556e-05
+        ],
+        "max": [
+          0.05300239101052284,
+          0.05296040326356888,
+          0.2486869841814041
+        ]
+      },
+      "comparison_position_m": [
+        2.7,
+        -0.475,
+        0
+      ],
+      "triangle_count": 3832,
+      "size_review_status": "scaled_to_user_specification",
+      "placement_pivot": "ground_center",
+      "design": {
+        "label": "芦苇草",
+        "kind": "arched_jointed_stalks_and_drooping_lanceolate_leaves_with_full_feathery_panicles",
+        "recommended_placement": "river_shallow_water",
+        "panicle_color": "warm_tan_to_pale_beige_baked_into_embedded_atlas",
+        "revision": 2
+      },
+      "embedded_texture": "exports/hi3d-river-plants-atlas_2.png",
+      "mesh_count": 1,
+      "material_count": 1,
+      "revision_scale_factor": 1.2,
+      "appearance_status": "approved",
+      "size_factor_from_original": 0.6,
+      "scale_history": [
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_23.glb",
+          "factor": 0.5
+        },
+        {
+          "source_revision": "hi3d-hex-terrain-decorations_24.glb",
+          "factor": 1.2
+        }
+      ],
+      "previous_parts": [
+        "River_Reed_01_Geometry"
+      ],
+      "part_count": 1,
+      "primitive_count": 1
+    }
+  },
+  "terrain_material_mapping": {
+    "soil": [
+      "Grass_Dense",
+      "Grass_Short_Spread",
+      "Grass_Tall_Arch"
+    ],
+    "sand": [
+      "Cactus_01",
+      "Cactus_02",
+      "Deadwood_01"
+    ],
+    "gravel": [
+      "Grass_Gravel_01",
+      "Shrub_Gravel_01",
+      "Stone_Gravel_01"
+    ],
+    "rock": [
+      "Stone_Rock_01",
+      "Stone_Rock_02",
+      "Shrub_Rock_01"
+    ]
+  },
+  "files": {
+    "glb": "hi3d-hex-terrain-decorations_28.glb",
+    "blend": "hi3d-hex-terrain-decorations_28.blend",
+    "json": "hi3d-hex-terrain-decorations_28.json",
+    "png": "hi3d-hex-terrain-decorations_28.png"
+  },
+  "revision_notes": [
+    "Corrected preview lighting and palette",
+    "Added a root node per decoration asset",
+    "Fixed duplicate parenting translations",
+    "Grounded all asset pivots",
+    "Excluded inherited reference objects from preview",
+    "Fitted camera to all nine assets",
+    "Horizontal deadwood with a flat support band",
+    "Irregular single-body rock silhouettes",
+    "Fine 44-blade gravel grass",
+    "Branching shrubs with separate folded leaves",
+    "Replaced sparse shrub twigs with overlapping irregular foliage crowns and short woody bases",
+    "Included the original three soil grasses and arranged twelve same-scale decoration samples",
+    "Scaled both cacti and deadwood by 0.7, both shrubs and all three stones by 0.8; preserved all four grasses",
+    "Added one low-poly open scallop shell, one algae-faceted underwater stone, and one ribbon-leaf seagrass tuft; preserved existing twelve assets and did not place decorations on terrain",
+    "Replaced fan shell with oval clam, crystalline stone with rounded waterworn pebble, and straight grass with broad S-curved kelp ribbons; preserved other twelve assets.",
+    "Uniformly scaled only underwater shell and stone to 70 percent; preserved seaweed, all land decorations, gallery positions, and grounded pivots.",
+    "Scaled only the underwater stone by another 0.7, reaching 0.49 of its initial size; shell, seaweed, other decorations, and gallery positions unchanged.",
+    "Added four unapproved low-poly samples: humid-sand bunchgrass, humid-soil willow and broadleaf tree, humid-rock fern; preserved all fifteen approved assets and did not change terrain or active placement rules.",
+    "Replaced only the wet-sand cattail-like grass with a round tumbleweed and the damp-rock leafy spray with paired-pinnule fern fronds; two wet-soil trees and fifteen original assets unchanged.",
+    "Revised the two models against the user's references: upward-curving rooted tumbleweed and compact crevice fern with paired rounded pinnae; other seventeen assets preserved.",
+    "Rebuilt tumbleweed branches to spread outward near the root, rise along the perimeter and curl inward; flattened fern fronds to creep over the stone surface.",
+    "Added eighteen fine inner tumbleweed stems and eighteen forks without changing its outer branches; varied fern frond directions, lengths, sideways bends and low heights to remove the hexagonal radial pattern.",
+    "Redesigned the three soil grass types as a short dense tuft, taller arching blades, and a short tuft with two small ivory wildflowers; preserved the sixteen other assets.",
+    "Reduced short, tall and flowering grass to 4, 9 and 7 cm; separated white petals and yellow centers into independent single-material meshes; verified the exported GLB after import and rendered that actual file.",
+    "Scaled both wet-soil trees to 0.5 of the previous size, and tumbleweed and creeping rock fern to 0.7; preserved all gallery positions and other fifteen assets.",
+    "Scaled both wet-soil trees to 0.7 and tumbleweed to 0.8 of their current size; preserved all gallery positions, the creeping rock fern and the other fifteen assets.",
+    "Moved tumbleweed, willow, broadleaf tree and creeping rock fern into a fourth column alongside the original twelve land decorations; retained all accepted sizes and underwater assets.",
+    "Darkened only tumbleweed branches and seed bracts to brown, and lowered its geometry 0.02 m relative to its placement pivot; retained all model sizes and gallery positions.",
+    "Added lotus leaves, sweet flag and reeds in a fifth column beside the existing nineteen accepted decorations; retained existing geometry, sizes and positions.",
+    "Revised lotus using embedded vein albedo; reused exact early wet-sand grass for sweet flag; rebuilt fuller beige reed panicles and baked all river-plant colors into a single atlas per mesh.",
+    "User approved river-plant appearance; scaled lotus to 0.7, sweet flag and reeds to 0.5 of their preceding size, preserving root pivots and gallery positions.",
+    "Enlarged the accepted reed by 1.2 from its preceding size, to 0.6 of its original geometry.",
+    "Consolidated natural assets into single meshes with one shared palette material; preserved original river leaf-vein UVs, geometry, gallery positions and grounded pivots. Grass patches are unchanged."
+  ],
+  "terrain_modified": false,
+  "placement_status": "river_plants_appearance_approved_scaled_to_user_specification",
+  "checks": {
+    "asset_types": 22,
+    "one_mesh_per_asset": true,
+    "one_primitive_per_asset": true,
+    "one_material_per_asset": true,
+    "triangles_and_bounds_preserved": true,
+    "physical_units_meter": true,
+    "exported_glb_structure_verified": true
+  },
+  "source_model_revision": "hi3d-hex-terrain-decorations_25.glb",
+  "previous_preview_reference": {
+    "file": "hi3d-underwater-decorations-detail_2.png",
+    "labels": [
+      {
+        "text": "水底贝壳·鼓起的椭圆蛤壳",
+        "position": [
+          211,
+          690
+        ]
+      },
+      {
+        "text": "水下卵石·水流磨圆",
+        "position": [
+          900,
+          690
+        ]
+      },
+      {
+        "text": "水草·宽带波浪海带",
+        "position": [
+          1589,
+          690
+        ]
+      }
+    ]
+  },
+  "previous_comparison_scene": {
+    "projection": "orthographic",
+    "rows": [
+      [
+        "Grass_Dense",
+        "Grass_Short_Spread",
+        "Grass_Tall_Arch"
+      ],
+      [
+        "Cactus_01",
+        "Cactus_02",
+        "Deadwood_01"
+      ],
+      [
+        "Grass_Gravel_01",
+        "Shrub_Gravel_01",
+        "Stone_Gravel_01"
+      ],
+      [
+        "Stone_Rock_01",
+        "Stone_Rock_02",
+        "Shrub_Rock_01"
+      ],
+      [
+        "Shell_Underwater_01",
+        "Stone_Underwater_01",
+        "Seaweed_Underwater_01"
+      ]
+    ],
+    "row_order": [
+      "soil",
+      "sand",
+      "gravel",
+      "rock",
+      "underwater"
+    ],
+    "column_spacing_m": 0.9,
+    "row_spacing_m": 0.95,
+    "independent_asset_scaling": false,
+    "grass_instance_random_scaling_applied": false,
+    "labels": [
+      {
+        "name": "Grass_Dense",
+        "label": "土壤草·密簇",
+        "anchor_px": [
+          500,
+          580
+        ],
+        "width_cm": 16.8,
+        "depth_cm": 16.4,
+        "height_cm": 22.9
+      },
+      {
+        "name": "Grass_Short_Spread",
+        "label": "土壤草·矮展",
+        "anchor_px": [
+          1080,
+          580
+        ],
+        "width_cm": 24.6,
+        "depth_cm": 24.7,
+        "height_cm": 14.2
+      },
+      {
+        "name": "Grass_Tall_Arch",
+        "label": "土壤草·高弯",
+        "anchor_px": [
+          1660,
+          580
+        ],
+        "width_cm": 29.9,
+        "depth_cm": 24.1,
+        "height_cm": 29.7
+      },
+      {
+        "name": "Cactus_01",
+        "label": "仙人掌·柱状",
+        "anchor_px": [
+          500,
+          1065
+        ],
+        "width_cm": 19.9,
+        "depth_cm": 17.8,
+        "height_cm": 42.7
+      },
+      {
+        "name": "Cactus_02",
+        "label": "仙人掌·分枝",
+        "anchor_px": [
+          1080,
+          1065
+        ],
+        "width_cm": 37.4,
+        "depth_cm": 13.3,
+        "height_cm": 37.8
+      },
+      {
+        "name": "Deadwood_01",
+        "label": "枯木",
+        "anchor_px": [
+          1660,
+          1065
+        ],
+        "width_cm": 44.8,
+        "depth_cm": 27.7,
+        "height_cm": 6.2
+      },
+      {
+        "name": "Grass_Gravel_01",
+        "label": "砾石草",
+        "anchor_px": [
+          500,
+          1550
+        ],
+        "width_cm": 19.6,
+        "depth_cm": 17.8,
+        "height_cm": 22.2
+      },
+      {
+        "name": "Shrub_Gravel_01",
+        "label": "砾石灌木",
+        "anchor_px": [
+          1080,
+          1550
+        ],
+        "width_cm": 40.0,
+        "depth_cm": 33.9,
+        "height_cm": 27.1
+      },
+      {
+        "name": "Stone_Gravel_01",
+        "label": "砾石小石头",
+        "anchor_px": [
+          1660,
+          1550
+        ],
+        "width_cm": 23.2,
+        "depth_cm": 16.5,
+        "height_cm": 10.0
+      },
+      {
+        "name": "Stone_Rock_01",
+        "label": "岩石小石头·冷灰",
+        "anchor_px": [
+          500,
+          2035
+        ],
+        "width_cm": 26.8,
+        "depth_cm": 18.1,
+        "height_cm": 12.0
+      },
+      {
+        "name": "Stone_Rock_02",
+        "label": "岩石小石头·深灰",
+        "anchor_px": [
+          1080,
+          2035
+        ],
+        "width_cm": 25.1,
+        "depth_cm": 18.0,
+        "height_cm": 16.8
+      },
+      {
+        "name": "Shrub_Rock_01",
+        "label": "岩石灌木",
+        "anchor_px": [
+          1660,
+          2035
+        ],
+        "width_cm": 34.4,
+        "depth_cm": 27.8,
+        "height_cm": 19.1
+      },
+      {
+        "name": "Shell_Underwater_01",
+        "label": "水底贝壳·鼓起的椭圆蛤壳",
+        "anchor_px": [
+          500,
+          2520
+        ],
+        "width_cm": 19.5,
+        "depth_cm": 14.7,
+        "height_cm": 5.7
+      },
+      {
+        "name": "Stone_Underwater_01",
+        "label": "水下卵石·水流磨圆",
+        "anchor_px": [
+          1080,
+          2520
+        ],
+        "width_cm": 15.3,
+        "depth_cm": 10.7,
+        "height_cm": 6.9
+      },
+      {
+        "name": "Seaweed_Underwater_01",
+        "label": "水草·宽带波浪海带",
+        "anchor_px": [
+          1660,
+          2520
+        ],
+        "width_cm": 21.8,
+        "depth_cm": 11.6,
+        "height_cm": 29.5
+      }
+    ],
+    "title": "15种装饰物·含新水下资产比例对照",
+    "caption": "统一正交视角 | 同一物理比例 | 尺寸单位：cm"
+  },
+  "comparison_scene": {
+    "projection": "orthographic",
+    "asset_count": 22,
+    "old_asset_positions_preserved": true,
+    "new_asset_positions_m": {
+      "Grass_Sand_Wet_01": [
+        -1.45,
+        -4.3,
+        0
+      ],
+      "Tree_Soil_Wet_Willow_01": [
+        -0.35,
+        -4.3,
+        0
+      ],
+      "Tree_Soil_Wet_Broadleaf_01": [
+        1.1,
+        -4.3,
+        0
+      ],
+      "Fern_Rock_Wet_01": [
+        2.15,
+        -4.3,
+        0
+      ]
+    },
+    "independent_asset_scaling": false
+  },
+  "new_sample_preview": {
+    "path": "exports/hi3d-tumbleweed-creeping-fern-overview_1.png",
+    "same_physical_scale": true,
+    "left_to_right": [
+      "Grass_Sand_Wet_01",
+      "Tree_Soil_Wet_Willow_01",
+      "Tree_Soil_Wet_Broadleaf_01",
+      "Fern_Rock_Wet_01"
+    ]
+  },
+  "new_asset_recommendations": {
+    "Grass_Sand_Wet_01": "For humid sand: stems leave the root horizontally, rise around the outside and curl inward to a round crown.",
+    "Tree_Soil_Wet_Willow_01": "For humid soil: a spreading willow with drooping crown clusters; suggested future density 0-1 per tile.",
+    "Tree_Soil_Wet_Broadleaf_01": "For humid soil: an upright forked broadleaf tree; use as an alternative to willow, not an additional mandatory tree.",
+    "Fern_Rock_Wet_01": "For humid rock crevices: leafed fronds creep close to the stone, rising only slightly."
+  },
+  "new_sample_detail": {
+    "path": "exports/hi3d-tumbleweed-fern-refined_1.png",
+    "same_physical_scale": true,
+    "left_to_right": [
+      "Grass_Sand_Wet_01",
+      "Fern_Rock_Wet_01"
+    ]
+  },
+  "soil_grass_preview": {
+    "path": "exports/hi3d-soil-grass-scaled-glb-check_1.png",
+    "source": "reimported_actual_focused_glb",
+    "same_physical_scale": true,
+    "left_to_right": [
+      "Grass_Short_Spread",
+      "Grass_Tall_Arch",
+      "Grass_Dense"
+    ]
+  },
+  "focused_grass_glb": "exports/hi3d-hex-terrain-grass-variants_2.glb",
+  "comparison_layout": {
+    "kind": "four_land_columns_and_underwater_row",
+    "added_assets_column_x_m": 1.8,
+    "added_assets_top_to_bottom": [
+      "Grass_Sand_Wet_01",
+      "Tree_Soil_Wet_Willow_01",
+      "Tree_Soil_Wet_Broadleaf_01",
+      "Fern_Rock_Wet_01"
+    ],
+    "all_asset_sizes_preserved": true,
+    "river_assets_column_x_m": 2.7,
+    "river_assets_top_to_bottom": [
+      "River_Lotus_01",
+      "River_SweetFlag_01",
+      "River_Reed_01"
+    ]
+  },
+  "river_decoration_plan": {
+    "count_scope": "all_three_types_combined_per_eligible_cell",
+    "variants": [
+      "River_Lotus_01",
+      "River_SweetFlag_01",
+      "River_Reed_01"
+    ],
+    "placed_instances": 0,
+    "size_review_before_placement": true,
+    "status": "awaiting_placement_instruction",
+    "count_per_river_cell": [
+      1,
+      3
+    ]
+  },
+  "palette": {
+    "image": "hi3d-natural-decoration-atlas_1.png",
+    "embedded_in_glb": true,
+    "packed_in_blend": true,
+    "materials_in_library": 1,
+    "existing_lotus_veins_preserved": true
+  },
+  "optimization": {
+    "before": {
+      "assets": 22,
+      "mesh_objects": 40,
+      "primitives": 99
+    },
+    "after": {
+      "assets": 22,
+      "mesh_objects": 22,
+      "primitives": 22,
+      "materials": 1
+    },
+    "unchanged_geometry_and_dimensions": true,
+    "grass_patches_modified": false
+  },
+  "preview_labels": [
+    {
+      "label": "柱状仙人掌",
+      "position_px": [
+        397,
+        725
+      ]
+    },
+    {
+      "label": "分枝仙人掌",
+      "position_px": [
+        866,
+        761
+      ]
+    },
+    {
+      "label": "枯木",
+      "position_px": [
+        1336,
+        797
+      ]
+    },
+    {
+      "label": "砾石细草",
+      "position_px": [
+        351,
+        1137
+      ]
+    },
+    {
+      "label": "砾石灌木",
+      "position_px": [
+        821,
+        1173
+      ]
+    },
+    {
+      "label": "砾石小石",
+      "position_px": [
+        1290,
+        1208
+      ]
+    },
+    {
+      "label": "岩地小石1",
+      "position_px": [
+        306,
+        1549
+      ]
+    },
+    {
+      "label": "岩地小石2",
+      "position_px": [
+        776,
+        1585
+      ]
+    },
+    {
+      "label": "岩地灌木",
+      "position_px": [
+        1245,
+        1620
+      ]
+    },
+    {
+      "label": "小花草",
+      "position_px": [
+        442,
+        313
+      ]
+    },
+    {
+      "label": "矮草",
+      "position_px": [
+        912,
+        349
+      ]
+    },
+    {
+      "label": "高草",
+      "position_px": [
+        1381,
+        385
+      ]
+    },
+    {
+      "label": "贝壳",
+      "position_px": [
+        261,
+        1961
+      ]
+    },
+    {
+      "label": "水下卵石",
+      "position_px": [
+        730,
+        1996
+      ]
+    },
+    {
+      "label": "水草",
+      "position_px": [
+        1200,
+        2032
+      ]
+    },
+    {
+      "label": "风滚草",
+      "position_px": [
+        1851,
+        421
+      ]
+    },
+    {
+      "label": "柳树",
+      "position_px": [
+        1805,
+        832
+      ]
+    },
+    {
+      "label": "阔叶树",
+      "position_px": [
+        1760,
+        1244
+      ]
+    },
+    {
+      "label": "石缝蕨",
+      "position_px": [
+        1715,
+        1656
+      ]
+    },
+    {
+      "label": "荷叶",
+      "position_px": [
+        2320,
+        456
+      ]
+    },
+    {
+      "label": "菖蒲",
+      "position_px": [
+        2275,
+        868
+      ]
+    },
+    {
+      "label": "芦苇",
+      "position_px": [
+        2230,
+        1280
+      ]
+    }
+  ],
+  "preview_raw": "hi3d-natural-decorations-render_1.png",
+  "registered_model_revision": "hi3d-hex-terrain-decorations_26.glb"
+}

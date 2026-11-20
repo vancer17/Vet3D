@@ -1,0 +1,4 @@
+interface:
+  display_name: "UE5 场景 Demo"
+  short_description: "把文字或参考图做成可编辑的 UE5 展示场景，缺引擎时先完成设计与资产交接"
+  default_prompt: "使用 $ue5-exploration-demo，根据这段场景描述做一版紧凑、可编辑的 UE5 展示工程。已有合格模型不重新生成；本机没有虚幻引擎时，把导入和实机验收标成未验证。"

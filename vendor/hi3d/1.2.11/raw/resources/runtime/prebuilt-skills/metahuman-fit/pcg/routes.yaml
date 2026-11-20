@@ -1,0 +1,71 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: hi3d
+    say: "Quality 高模"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/annotations.md
+      - references/bundled-template.md
+      - references/color-reference-prompt.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: register
+    say: "注册与拓扑"
+    rollback_to: hi3d
+    load:
+      - SKILL.md
+      - references/annotations.md
+      - references/bundled-template.md
+      - references/color-reference-prompt.md
+    irreversible: []
+  - id: bake
+    say: "贴图 bake"
+    rollback_to: register
+    load:
+      - SKILL.md
+      - references/annotations.md
+      - references/bundled-template.md
+      - references/color-reference-prompt.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: dna
+    say: "可选 DNA/表情"
+    rollback_to: bake
+    load:
+      - SKILL.md
+      - references/annotations.md
+      - references/bundled-template.md
+      - references/color-reference-prompt.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "图/高模→MetaHuman"
+    nodes:
+      - hi3d
+      - register
+      - bake
+    rollback_to: register
+  - id: from_mesh
+    summary: "已有高模跳过生成"
+    nodes:
+      - register
+      - bake
+    shares_input_with: main
+choices_example:
+  - id: from_image
+    title: "从图生成再注册"
+    route: main
+    confirm: false
+  - id: from_mesh
+    title: "已有高模直接注册"
+    route: from_mesh
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

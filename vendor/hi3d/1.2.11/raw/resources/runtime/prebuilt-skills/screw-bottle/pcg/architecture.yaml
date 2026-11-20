@@ -1,0 +1,77 @@
+schema: pcg.architecture.v1
+entry: screw-bottle
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: screw_bottle
+    parent: null
+    role: agent
+    label: "确认瓶身参考"
+    function: "编排 screw-bottle"
+  - id: art
+    parent: screw_bottle
+    label: "确认瓶身参考"
+    function: "本 agent 确认瓶身参考；缺模型时 hi3d-api 提交前走参数选择与计费示警；文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+    outputs:
+      - id: art
+        label: "确认瓶身参考"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认瓶身参考"
+  - id: cavity
+    parent: screw_bottle
+    label: "内腔与螺纹"
+    function: "本 agent 内腔与螺纹"
+    outputs:
+      - id: cavity
+        label: "内腔与螺纹"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "内腔与螺纹"
+    irreversible:
+      - overwrite.source
+  - id: cap
+    parent: screw_bottle
+    label: "整盖运动"
+    function: "本 agent 整盖运动"
+    outputs:
+      - id: cap
+        label: "整盖运动"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "整盖运动"
+    irreversible:
+      - blender.write
+  - id: review
+    parent: screw_bottle
+    label: "产品渲染"
+    function: "本 agent 产品渲染"
+    outputs:
+      - id: review
+        label: "产品渲染"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "产品渲染"
+    irreversible:
+      - blender.write

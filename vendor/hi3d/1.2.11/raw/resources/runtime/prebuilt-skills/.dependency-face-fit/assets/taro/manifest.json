@@ -1,0 +1,31 @@
+{
+  "source_repository": "https://github.com/EpicGames/MetaHuman-DNA-Calibration",
+  "source_revision": "8297ff1bd6f1692a6e221aa8395a66486e5a53c9",
+  "character": "Taro",
+  "template_source": "data/dna_files/Taro.dna",
+  "extraction": "scripts/dna_io.py extract; original vertex order and per-corner UVs retained",
+  "scope": "Taro LOD0 anatomical geometry prior, fitting regions and Sapiens2 mapping; no textures or DNA runtime",
+  "license": "Epic MetaHuman DNA Calibration License and applicable Epic content terms; not relicensed as unrestricted open-source assets",
+  "files": {
+    "UPSTREAM_LICENSE.txt": {
+      "bytes": 7697,
+      "sha256": "93203f12b0cd8590606ef0cc1f26e2db2278186df86c2a29d188913fe7255881"
+    },
+    "template.npz": {
+      "bytes": 1474174,
+      "sha256": "181869031ca0a395ffa1fd848b53681515412fbe128288f615d9d6e15bffe4e3"
+    },
+    "regions.json": {
+      "bytes": 461122,
+      "sha256": "917bcc150076fa57001c50f7253c1b2ee506e8509cc5ad9e592331755ebf92e7"
+    },
+    "sapiens2_keypoint_names.json": {
+      "bytes": 11523,
+      "sha256": "4fb377f7eb087522948c84e17ea48321c353f16d980dc8a8da607cc0ec6ce2e9"
+    },
+    "sapiens2_mapping.json": {
+      "bytes": 59279,
+      "sha256": "c66a6febd2efb7bb03128a1f8885d1fea25ffdd612d31406caea4c3dd3b124bc"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "pass": true,
+  "volume_tolerance_mm3": 0.02,
+  "checks": [
+    {
+      "part": "01_RAIL_BOTTOM",
+      "absolute_volume_difference_mm3": 0.0003341753690619953,
+      "pass": true
+    },
+    {
+      "part": "02_RAIL_RIGHT",
+      "absolute_volume_difference_mm3": 0.00045672002306673676,
+      "pass": true
+    },
+    {
+      "part": "03_RAIL_TOP",
+      "absolute_volume_difference_mm3": 0.0006294981358223595,
+      "pass": true
+    },
+    {
+      "part": "04_RAIL_LEFT",
+      "absolute_volume_difference_mm3": 0.0004845645744353533,
+      "pass": true
+    },
+    {
+      "part": "05_KEY_LB",
+      "absolute_volume_difference_mm3": 3.193637712683994e-05,
+      "pass": true
+    },
+    {
+      "part": "06_KEY_RB",
+      "absolute_volume_difference_mm3": 3.193637712683994e-05,
+      "pass": true
+    },
+    {
+      "part": "07_KEY_LT",
+      "absolute_volume_difference_mm3": 3.193637712683994e-05,
+      "pass": true
+    },
+    {
+      "part": "08_KEY_RT",
+      "absolute_volume_difference_mm3": 3.193637724052678e-05,
+      "pass": true
+    },
+    {
+      "part": "09_PRESSURE_BAR_L",
+      "absolute_volume_difference_mm3": 7.069131697789999e-05,
+      "pass": true
+    },
+    {
+      "part": "10_PRESSURE_BAR_R",
+      "absolute_volume_difference_mm3": 7.075183384586126e-05,
+      "pass": true
+    },
+    {
+      "part": "11_BACK_LED_TRAY",
+      "absolute_volume_difference_mm3": 0.0019087582331849262,
+      "pass": true
+    },
+    {
+      "part": "14_U_STAND",
+      "absolute_volume_difference_mm3": 4.630240437109023e-05,
+      "pass": true
+    }
+  ],
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

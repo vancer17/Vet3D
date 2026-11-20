@@ -1,0 +1,4 @@
+interface:
+  display_name: "连续盒体碰撞"
+  short_description: "高速物体穿墙或角色碰撞代理需要扫掠检测；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-collision 处理当前游戏需求，复用已有工程并验证输入输出。"

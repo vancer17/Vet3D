@@ -1,0 +1,4 @@
+interface:
+  display_name: "实体运动检查"
+  short_description: "对明确刚体装配执行完整实体的静态相交、拆装路径及多部件姿态离散碰撞检查。"
+  default_prompt: "使用 $motion-check 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

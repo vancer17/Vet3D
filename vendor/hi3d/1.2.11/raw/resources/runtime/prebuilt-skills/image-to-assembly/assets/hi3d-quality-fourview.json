@@ -1,0 +1,10 @@
+{
+  "model": "hi3dv3.0",
+  "resolution": "2048quality",
+  "face": 2000000,
+  "request_type": 3,
+  "pbr": 1,
+  "shading": 0.5,
+  "format": 2,
+  "multi_images_bit": "1111"
+}

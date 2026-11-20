@@ -1,0 +1,4 @@
+interface:
+  display_name: "创建 Skill"
+  short_description: "把本对话成功流程整理成可复用草稿并提交结构检查"
+  default_prompt: "使用 $create-skill，把本对话已经成功的流程整理为 Skill 草稿，保留必要规则并提供测试示例。"

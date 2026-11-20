@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "width": 320,
+  "height": 180,
+  "fps": 24,
+  "frames": 12,
+  "viewWidth": 6,
+  "layers": [
+    {
+      "id": "mark",
+      "color": [
+        0.1,
+        0.5,
+        1,
+        1
+      ],
+      "drawings": [
+        {
+          "frame": 1,
+          "strokes": [
+            {
+              "points": [
+                [
+                  -1,
+                  -0.6
+                ],
+                [
+                  0,
+                  0.8
+                ],
+                [
+                  1,
+                  -0.6
+                ]
+              ],
+              "radius": 0.05
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "frame": 1,
+          "x": -0.5
+        },
+        {
+          "frame": 12,
+          "x": 0.5,
+          "rotation": 15
+        }
+      ]
+    }
+  ]
+}

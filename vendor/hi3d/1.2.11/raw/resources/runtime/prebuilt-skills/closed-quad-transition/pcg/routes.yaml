@@ -1,0 +1,89 @@
+kind: agent_skill
+partition: make
+entry: SKILL.md
+note: "只处理未保护的规则 4×4 四边面。模板失败或误差超预算时保留原片。"
+checkpoints:
+  - id: intake
+    say: "冻结基线与预算"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-evidence.md
+    irreversible: []
+  - id: select_patches
+    say: "筛选规则四乘四"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/hi3d-tests.md
+    irreversible: []
+  - id: build_template
+    say: "构造十六到十五"
+    rollback_to: select_patches
+    load:
+      - SKILL.md
+      - references/hi3d-tests.md
+    irreversible: []
+  - id: validate_candidate
+    say: "投影并核对误差"
+    rollback_to: build_template
+    load:
+      - SKILL.md
+      - references/hi3d-evidence.md
+    irreversible: []
+  - id: replace_patch
+    say: "替换通过的面片"
+    rollback_to: validate_candidate
+    load:
+      - SKILL.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: deliver
+    say: "导出并回读交付"
+    rollback_to: replace_patch
+    load:
+      - SKILL.md
+      - references/hi3d-evidence.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "从筛选到模板、验收、替换和交付"
+    nodes:
+      - intake
+      - select_patches
+      - build_template
+      - validate_candidate
+      - replace_patch
+      - deliver
+    rollback_to: select_patches
+  - id: select_only
+    summary: "只找出合格片并说明跳过原因"
+    nodes:
+      - intake
+      - select_patches
+    rollback_to: intake
+  - id: review_only
+    summary: "替换已完成，只回读交付"
+    nodes:
+      - intake
+      - deliver
+    rollback_to: deliver
+choices_example:
+  - id: full
+    title: "处理合格四乘四片"
+    route: main
+    confirm: false
+  - id: select
+    title: "只筛选不替换"
+    route: select_only
+    confirm: false
+  - id: review
+    title: "只回读已有交付"
+    route: review_only
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,73 @@
+schema: pcg.architecture.v1
+entry: keychain
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: keychain
+    parent: null
+    role: agent
+    label: "确认挂件主体"
+    function: "编排 keychain"
+  - id: model
+    parent: keychain
+    label: "确认挂件主体"
+    function: "本 agent 确认挂件主体；缺模型时 hi3d-api 提交前走参数选择与计费示警"
+    outputs:
+      - id: model
+        label: "确认挂件主体"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认挂件主体"
+  - id: loop
+    parent: keychain
+    label: "挂孔与吊耳"
+    function: "本 agent 挂孔与吊耳"
+    outputs:
+      - id: loop
+        label: "挂孔与吊耳"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "挂孔与吊耳"
+    irreversible:
+      - overwrite.source
+  - id: hardware
+    parent: keychain
+    label: "环链配合"
+    function: "本 agent 环链配合"
+    outputs:
+      - id: hardware
+        label: "环链配合"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "环链配合"
+  - id: review
+    parent: keychain
+    label: "连接检查"
+    function: "本 agent 连接检查"
+    outputs:
+      - id: review
+        label: "连接检查"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "连接检查"

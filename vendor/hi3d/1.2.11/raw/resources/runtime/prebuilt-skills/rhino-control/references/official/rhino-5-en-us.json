@@ -1,0 +1,9 @@
+{
+  "base_url": "https://docs.mcneel.com/rhino/5/help/en-us/",
+  "topics": 1226,
+  "indexed_topics": 1232,
+  "missing_topics": 6,
+  "archive": "rhino-5-en-us.zip",
+  "complete_index_coverage": false,
+  "scope": "Available search-indexed HTML topics and extracted full text; media remain upstream links."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/rigging/timing.py": "tools/run-tools/scripts/profiles/rig_timing.py"
+  },
+  "requires": []
+}

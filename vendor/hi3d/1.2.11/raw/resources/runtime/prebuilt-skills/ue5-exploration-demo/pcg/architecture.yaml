@@ -1,0 +1,164 @@
+schema: pcg.architecture.v1
+entry: ue5-exploration-demo
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。本机未安装虚幻引擎，这些阶段描述交接与验收条件，不代表编辑器已跑通。"
+tasks:
+  - id: ue5_exploration_demo
+    parent: null
+    role: agent
+    label: "UE5 展示场景"
+    function: "编排可编辑 UE5 展示场景：视觉目标、条件生图与生模、条件人物绑定、引擎探测、样板区与外围、真实画面验收，以及仅在用户要求时打包。已有合格输入跳过对应子阶段。通用探索和 Unity 治愈系游戏不在本入口。"
+    outputs: []
+  - id: brief
+    parent: ue5_exploration_demo
+    role: local
+    label: "记录场景目标"
+    function: "探测实际宿主，记录目标平台和资产策略。用户已给出目标时不另开访谈。用 assets/production-record.md 写入包外任务目录。收费提交和覆盖仍走宿主不可逆检查。"
+    members:
+      - id: host
+        label: "记录宿主、目标和资产策略"
+      - id: scope
+        label: "区分新建、续作或只打包"
+    outputs:
+      - id: production_record
+        label: "视觉目标、平台和资产策略记录（Markdown 或 JSON）"
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: concept
+    parent: ue5_exploration_demo
+    role: local
+    optional: true
+    label: "确定整景概念"
+    function: "新场景或整体美术升级按 references/art-direction.md 形成可搭建的概念。已有合格概念或局部技术修复跳过。概念图生成交接 hi3d-api，失败不自动重提。概念图不能标成 UE 实机画面。"
+    members:
+      - id: direction
+        label: "写风格、路线和可视范围"
+      - id: image
+        label: "需要时交接概念图"
+    outputs:
+      - id: concept_image
+        label: "选定概念图、提示词版本和必须保留的识别特征"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: look
+    parent: ue5_exploration_demo
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "生成缺少的外观"
+    function: "仅缺少合格单体图或模型时派出 hi3d-api。精细可见资产使用 model_type=v3.0:quality 与 generation_type=both。已有合格结果不提交。调用失败保留 task ID 与 job，不自动重提。"
+    members:
+      - id: invoke
+        label: "交接参考图与资产规格"
+    irreversible:
+      - hi3d.submit
+    outputs:
+      - id: generated_assets
+        label: "原始 GLB、单体图和任务记录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: body
+    parent: ue5_exploration_demo
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    label: "补人物绑定"
+    function: "只有需要活动且没有合格绑定的人物才派出 rig-retarget。由其组合 mdf-call。静态雕像和已有合格绑定不重绑。本入口不保存 Cookie。"
+    members:
+      - id: invoke
+        label: "交接站姿模型和保留项"
+    irreversible:
+      - mdf.invoke
+    outputs:
+      - id: rigged_body
+        label: "已检查皮肤、关节和权重的绑定网格"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: scene_io
+    parent: ue5_exploration_demo
+    role: subagent
+    entry: blender-tools
+    optional: true
+    label: "读写 Blender 工程"
+    function: "需要后台打开、导入或另存 BLEND 时派出 blender-tools。不另写 Blender 启动器。"
+    members:
+      - id: invoke
+        label: "按场景读写契约交接 BLEND"
+    irreversible:
+      - blender.write
+    outputs:
+      - id: blend_copy
+        label: "另存的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: project
+    parent: ue5_exploration_demo
+    role: local
+    label: "建立可编辑工程"
+    function: "按 references/ue-environment.md 核对真实引擎路径和平台工具链。新建独立工程；续作只改用户指定工程。缺少编辑器时停止导入，不把空目录称为可打开工程。单位按当前导入器核对，glTF 米与 UE 厘米不能盲目再乘 100。场景需要虚幻水体且工程为 5.7 或更高时，插件启用交接 dcc-preset，不在本阶段另写一份插件名单。"
+    members:
+      - id: detect
+        label: "核对编辑器与 UAT 入口"
+      - id: import
+        label: "导入并保存地图"
+    outputs:
+      - id: ue_project
+        label: "含 .uproject、已保存地图和导入资源的 UE 工程；无引擎时不产生此项"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: scene
+    parent: ue5_exploration_demo
+    role: local
+    label: "搭建样板与外围"
+    function: "按 references/scene.md 先完成含地面、近景、主景、光照和可见背景的样板区。样板画面未查看或未通过时不扩展同类布景。天气、外围和交互只在场景需要时加入。重复运行不清空整张地图。"
+    members:
+      - id: sample
+        label: "做完整环境片段"
+      - id: extend
+        label: "合格后再补外围和天气"
+    outputs:
+      - id: sample_level
+        label: "已保存的样板地图，以及适用的天气和外围"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: accept
+    parent: ue5_exploration_demo
+    role: local
+    label: "验收画面与运行"
+    function: "按 references/acceptance.md 把资产、绑定、工程、视觉和运行分开记录。场景美术必须查看真实 UE 画面后才能标 reviewed_pass。无渲染环境时 visual_status 保持 not_checked，阶段工程可以交接。"
+    members:
+      - id: data
+        label: "核对尺度、材质、碰撞和依赖"
+      - id: picture
+        label: "查看样板与整景画面"
+    outputs:
+      - id: review_record
+        label: "资产状态、视觉状态、未验证项和修复记录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: package
+    parent: ue5_exploration_demo
+    role: local
+    optional: true
+    label: "按需打包目标平台"
+    function: "只有用户要求独立包时，在具备目标工具链的环境 Cook 和 Package。构建成功、可启动和路线可玩分开记录。没有该平台环境则保持未验证，不覆盖已有交付，除非宿主确认 overwrite.source。"
+    members:
+      - id: cook
+        label: "按目标平台打包"
+    irreversible:
+      - overwrite.source
+    outputs:
+      - id: staged_build
+        label: "目标平台的完整运行目录或 .app"
+        kind: file
+        retain: keep
+        semantics: [deliverable]

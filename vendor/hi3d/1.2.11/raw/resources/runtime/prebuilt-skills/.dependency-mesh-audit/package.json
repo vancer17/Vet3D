@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/asset_scene.py": "tools/blender-tools/scripts/asset_scene.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/frame_runtime.py": "tools/run-tools/scripts/config_runtime.py",
+    "scripts/frame_stl.py": "skills/mesh-audit/scripts/validate_stl.py",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py"
+  },
+  "requires": []
+}

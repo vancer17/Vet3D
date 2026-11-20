@@ -1,0 +1,3 @@
+# External weight solver only; Blender provides its own NumPy.
+numpy
+scipy

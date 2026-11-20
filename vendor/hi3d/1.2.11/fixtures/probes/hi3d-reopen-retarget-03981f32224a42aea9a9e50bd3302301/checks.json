@@ -1,0 +1,18 @@
+{
+  "rest_alignment": true,
+  "local_fingers": true,
+  "root_scale": true,
+  "source_object_motion": true,
+  "source_ik_evaluated": true,
+  "limb_sequence_adapted": true,
+  "ik_root_offset_in_place": true,
+  "ik_local_descendants": true,
+  "disconnected_limb_rejected": true,
+  "bone_parented_prop": true,
+  "scaled_cache_rejected": true,
+  "fixed_limb_lengths": true,
+  "weight_order_preserved": true,
+  "saved_reopened": true,
+  "protected_assets": true,
+  "timing": true
+}

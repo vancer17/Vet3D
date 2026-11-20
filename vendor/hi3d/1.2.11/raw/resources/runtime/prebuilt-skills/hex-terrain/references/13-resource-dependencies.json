@@ -1,0 +1,810 @@
+{
+  "notice": "Original workspace paths and hashes only; these resource binaries are not bundled in this Skill. Current GLB viewing uses embedded images; editing/rebuilding needs the referenced source fields, assets and textures.",
+  "terrain_texture_count": 49,
+  "resource_count": 73,
+  "files": [
+    {
+      "path": "hi3d-hex-terrain-decorations_26.glb",
+      "roles": [
+        "assets.decoration_glb"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 2732528,
+      "sha256": "e9434e0df8a28ada4ac8344c17302a2373062e26e2a7f67b5b35978ddf1913d7"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-decorations_28.blend",
+      "roles": [
+        "assets.decoration_blend"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 5202199,
+      "sha256": "23db18121c58c3ba989924b4906854ea34a2b0231f77f5993da1e5ac626f1b42"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-decorations_28.json",
+      "roles": [
+        "assets.decoration_manifest"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 49359,
+      "sha256": "319eba3d645d46689c483e66f71676498f3e177f8167f49270db34dc4b6372a8"
+    },
+    {
+      "path": "hi3d-hex-terrain-grass-patches_2.glb",
+      "roles": [
+        "assets.grass_patch_glb"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 5323544,
+      "sha256": "5d9f473f14b95d235411ecf3cb9e7641f1c948d0d6135cf0841fe50707bcc61d"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grass-patches_5.json",
+      "roles": [
+        "assets.grass_patch_manifest"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 6012,
+      "sha256": "4b9370c809d945ad792bfe4e6398149f98989077e7230ba5a801504cc27b8286"
+    },
+    {
+      "path": "hi3d-civilization-decorations_4.glb",
+      "roles": [
+        "assets.civilization_decoration_glb"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 2835676,
+      "sha256": "9de37a70a99a283bbde3ba070119ca351598839378b41a7836bfd174327e1cf9"
+    },
+    {
+      "path": "exports/hi3d-civilization-decorations_4.blend",
+      "roles": [
+        "assets.civilization_decoration_blend"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 5225541,
+      "sha256": "53cf0acbf599a3583f549a00eb15c13165051f98e550f33fe049af1b46bc745c"
+    },
+    {
+      "path": "exports/hi3d-civilization-decorations_4.json",
+      "roles": [
+        "assets.civilization_decoration_manifest"
+      ],
+      "usage": [
+        "reuse/edit asset libraries"
+      ],
+      "bytes": 15036,
+      "sha256": "233dd56eb5d60d8da11378aeb1bab1a32143eaf65902e6d759dcea4cdfd2e2d9"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-dry-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2367366,
+      "sha256": "bf4defe51b8675ac5216859f77617a8841cb740a82b906881537e4663a4d3ab2"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-dry-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2339858,
+      "sha256": "6ab9c10703f4e2d3e5bf228692beb5e40842a6f047793df91fea372143e897d1"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-dry-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2551106,
+      "sha256": "3c6f8a7063855b00516b0271b2cb6f6d9b505678faf8d43527f5d119e5bd9111"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-dry-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2375976,
+      "sha256": "e7dfb1d04a49c98643d9822b5a4ecca05bc3823d65999b5780e393b3163ad0c5"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-moderate-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 1910039,
+      "sha256": "c7e773cb9dbe67fc251d4ffbd830442d7060e61bdeaf3da070296964b3c54dd2"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-moderate-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2277093,
+      "sha256": "2ec7e64fb73b715a84cbba7e7840edbbf6ae4ce777ac818b8f715514ea71da2c"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-moderate-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2510349,
+      "sha256": "73b4f0590bffed0fa59deb98432bb4f1f9315235e8ab86147b2cacd5b68749f7"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-moderate-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2127352,
+      "sha256": "84afaa235415a1d309940fcf6dc36d15d64db58a5cd224ff9c6a2267f806c8e6"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-wet-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2149960,
+      "sha256": "aaeda1eac77190e2ba0f45442bf7002534e5597fa44a34c98b62b15935fc068b"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-wet-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2328348,
+      "sha256": "27af1417379026f6834e9f900a6589cdab90048dc59673e125eec3993cb9ec7c"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-wet-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2345081,
+      "sha256": "655254078b9617eeb00491313e6c12cb48f393b480f9005481b2aea9017117cb"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-hot-wet-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2058624,
+      "sha256": "0b0e5614e09ccd6292b55eb0b11f6c00b21134710db3809e3eabc22859a2b0de"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-dry-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2168768,
+      "sha256": "b3d2fb220d1f72ce48235bbe6159435446a7654a075c25513c730983b1c6d669"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-dry-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2489985,
+      "sha256": "c5738ed19a0e54259d413706c507739e736b7147e023281d435f90bae259edc1"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-dry-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2459212,
+      "sha256": "363f8c608066bd94b95dcd72111420f3185d649760b09d3c0ab4dee6c1fea96c"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-dry-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2082550,
+      "sha256": "5a668cd6453c78cc8dfd59c122517458306fdd7bd26150f50f2d07964f295e0f"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-moderate-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2165973,
+      "sha256": "7dca90e3947f0c63a6f90b9d68bac57ffe00b509e48633e3fe417d7172f50100"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-moderate-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2297578,
+      "sha256": "c71cf4ef99fdd20789c3d554d7a09bd926427a9137a017dff5b4bf9110620aa2"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-moderate-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2608670,
+      "sha256": "79d784ca79bc49e0776bb968989fcf4153024aaf1984cfb5913308512010964c"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-moderate-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2185475,
+      "sha256": "85eb4fd77f2e578d068d53328529567d909a92cfb63e311a5989177116db5901"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-wet-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2000826,
+      "sha256": "a3ec1d1248b91c385be0d89cccd67d3418590d06ac0c97128cb2ada74f4360bc"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-wet-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2188409,
+      "sha256": "7483996d9008e3b9741f14eb55d912f345c204eadbc411b7563b5d7f8e7d91d9"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-wet-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2346308,
+      "sha256": "857d14d0298cdb132b9b11568745b1e018c063818bd0eff2185d6a5eb0115ed8"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-temperate-wet-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2121082,
+      "sha256": "ceab3633c7b95f095bbad584f3ac9f6171c829788609237f9ee0efedf67f14f1"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-dry-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2068574,
+      "sha256": "1608db7c849494b832c1591273543880d6e4e8446be2d535bdac4979d01687d7"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-dry-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2703348,
+      "sha256": "28652d1f3b6136858c2e90b893ba337b153569d5025d8e9bee047b90599eddad"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-dry-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2542112,
+      "sha256": "923b6a33c23dcdd04540987264f9fa7e97fe1ea1dc0a5c2175114a40fa8f28be"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-dry-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2212089,
+      "sha256": "674a079341dbcaf8b0f816ff25aa1238f02d7e6f4cb0d5895494a1624ac916a1"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-moderate-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2038343,
+      "sha256": "95c8b83c3a9b661c5218bbeb6e5a202a51868ec539e63ca8075582901662b2f8"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-moderate-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2428007,
+      "sha256": "7da9561ec8d40545e1dad60111227a72381ffb5dfa08f2f9325e686ceb942c95"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-moderate-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2304874,
+      "sha256": "1443388fc06f10b009221d3109e9ce5bb6c466a1efe382dc09f7cb85fabe3ef4"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-moderate-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 1980975,
+      "sha256": "3a5c9924c61bf2818c7b4cd43fe91fc3265139238d2ebd94580cffef4307e21b"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-wet-soil.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 1888416,
+      "sha256": "42b87e46758891c3c65dcd533866338abf62cf399efa3ae3b24b38369bfbdf9a"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-wet-sand.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2098578,
+      "sha256": "d04fab486210cfb8feb93fd8c85b6afe4196e801c99a6fe54150019a09077cf7"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-wet-gravel.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2190873,
+      "sha256": "8b1522330d9363a4982f9158011755a15af5b7d91dc529491962227ee03620ea"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-cold-wet-rock.png",
+      "roles": [
+        "natural terrain texture"
+      ],
+      "usage": [
+        "reapply natural appearance"
+      ],
+      "bytes": 2193598,
+      "sha256": "14553f8b7bb0f1da35969acde2ca8ce8887eaff9a94526ca4966f9740af4a06a"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel.png",
+      "roles": [
+        "underwater terrain texture"
+      ],
+      "usage": [
+        "reapply underwater appearance"
+      ],
+      "bytes": 2509938,
+      "sha256": "f14866c2211757f39788cb23c3ed7e3ed6b3762112baf3f79ebfdcc888fe283f"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel-variant-02.png",
+      "roles": [
+        "underwater terrain texture"
+      ],
+      "usage": [
+        "reapply underwater appearance"
+      ],
+      "bytes": 2592519,
+      "sha256": "63293d5d9505ed35299241e41da16b5124babcf0125fa74b641c8977e520fcf4"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel-variant-03.png",
+      "roles": [
+        "underwater terrain texture"
+      ],
+      "usage": [
+        "reapply underwater appearance"
+      ],
+      "bytes": 2594752,
+      "sha256": "9ad82f7d65c5d28b07f57ce812dac279717af98f0e25f732767fd48a542ada37"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-village-temperate-dry-tamped-earth.png",
+      "roles": [
+        "civilization 1 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 2109280,
+      "sha256": "2c68f0e48f42542e14ec98605e35deb7054f91fa89f350ce09841a81a1a0466c"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-village-temperate-moderate-tamped-earth.png",
+      "roles": [
+        "civilization 1 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 2011320,
+      "sha256": "474d902c514123ad3846313c7ed82f20b5bb29b35c9ef18a27e030e4c86ff846"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-village-temperate-wet-tamped-earth.png",
+      "roles": [
+        "civilization 1 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1991549,
+      "sha256": "6636c4fb5314148c7d52b520df3a23402fcdfde6104857b368b5462d5c6e8e6a"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-dry-stone-paving.png",
+      "roles": [
+        "civilization 2 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1943600,
+      "sha256": "9d6912e6b20c52571670003eb1a95e7982f34667ea1a7f1e1805f98ed5f6e281"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-moderate-stone-paving.png",
+      "roles": [
+        "civilization 2 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1725141,
+      "sha256": "519bc71a2547bee6194d752701dc83f1f39d4c82bea1313b4a82ac55fc32b84b"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-wet-stone-paving.png",
+      "roles": [
+        "civilization 2 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1803638,
+      "sha256": "e9e14bd8aa3b5cb0477cb90310a660108147529923796e95c81adaa31e156a72"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-fortress-temperate-dry-cut-stone-paving.png",
+      "roles": [
+        "civilization 3 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1855936,
+      "sha256": "8561497e850b273ff24279c0f416c96565220bf554573354c4c4bacdd5017434"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-fortress-temperate-moderate-cut-stone-paving.png",
+      "roles": [
+        "civilization 3 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1819616,
+      "sha256": "b3021ce061321a78cc7b521c09d42819d0320ecac695cee4047da0444d4c4f58"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-civilization-fortress-temperate-wet-cut-stone-paving.png",
+      "roles": [
+        "civilization 3 terrain texture"
+      ],
+      "usage": [
+        "reapply civilization appearance"
+      ],
+      "bytes": 1901219,
+      "sha256": "bb98d85a4b3d04af91dad99db0ae71226e4f425c9eb845a6a06b6be983dfc5b1"
+    },
+    {
+      "path": "exports/hi3d-approved-terrain-textures/hi3d-terrain-river-water.png",
+      "roles": [
+        "river water texture"
+      ],
+      "usage": [
+        "reapply river appearance"
+      ],
+      "bytes": 909645,
+      "sha256": "c73274e8694735d19a0f380de8949c37743a257a3c66ce12101f203f6b6ab78d"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-edge-multiply_1.npz",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 13896952,
+      "sha256": "de4f64b4f8b3096fcaa42ce2e1132e13c1f301c8347c278f2a6dbdb99629cc73"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-fields_4.npz",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 14959843,
+      "sha256": "b620ff563b0605d2432fea4f861b40d17f153d88c25289e31f9f2bfcf3917e9f"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-fields_4.json",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 993,
+      "sha256": "bafd3759eacae2d8e50dfd5e0102069d3a7bd9acb9b45c348057e98d647b9adb"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-dry-albedo_4.png",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 748858,
+      "sha256": "6fe5b210596b4ad97d529edcc3377bcefbadb39d122c2a9ea69eb69785deb65d"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-moderate-albedo_4.png",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 708126,
+      "sha256": "58fbfb04506d84d7bbddc4702f0dd09f45e2d9281c8c1dd63b027f3502967557"
+    },
+    {
+      "path": "exports/hi3d-grass-patch-wet-albedo_4.png",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 675184,
+      "sha256": "a8774254b89faeda2c457c7f1987b05f12743a16b3818655859869c7aa563ce8"
+    },
+    {
+      "path": "exports/hi3d-natural-decoration-atlas_1.png",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 720763,
+      "sha256": "dc446df1dba6e837ee6c747e737ce31d320cc4782fe4e6a7a4e2915f687cc1a4"
+    },
+    {
+      "path": "exports/hi3d-natural-decoration-atlas_1.json",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 26288,
+      "sha256": "f3bdce45bd7528b02b76721905fc7c9974c2efe139c2ae8f74efa40ae77aef6e"
+    },
+    {
+      "path": "exports/hi3d-civilization-decoration-palette_1.png",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 840,
+      "sha256": "cec2bf90807204ade39f63c9ad7eb8153f121d492009ed049a43f93d19747ca0"
+    },
+    {
+      "path": "exports/hi3d-civilization-decoration-palette_1.json",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 15309,
+      "sha256": "2c9da3823ae8950280a414daa4ab2aa0672b38124f1dcca9889db3124d7c65a8"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grass-patches_5.blend",
+      "roles": [
+        "grass field/texture or decoration atlas dependency"
+      ],
+      "usage": [
+        "edit or rebuild; embedded images suffice for existing GLB viewing"
+      ],
+      "bytes": 22175281,
+      "sha256": "62a41b3b97836b75458255f8a6196bbdd403f7705dfa22d52d5f8ac1712b71b8"
+    },
+    {
+      "path": "hi3d-hex-terrain-grid_37.glb",
+      "roles": [
+        "final matching terrain baseline"
+      ],
+      "usage": [
+        "continue original scene"
+      ],
+      "bytes": 41909844,
+      "sha256": "5ec46f32cd30c1433cc1171d14b5e8c1f74305abb4aee3743b9e395e849a87d2"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grid_43.glb",
+      "roles": [
+        "final matching terrain baseline"
+      ],
+      "usage": [
+        "continue original scene"
+      ],
+      "bytes": 41909844,
+      "sha256": "5ec46f32cd30c1433cc1171d14b5e8c1f74305abb4aee3743b9e395e849a87d2"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grid_43.blend",
+      "roles": [
+        "final matching terrain baseline"
+      ],
+      "usage": [
+        "continue original scene"
+      ],
+      "bytes": 117346698,
+      "sha256": "6fc5c5ba706f816941d965c5708546385fbaf2c8ff57b5bddf9f50d27d6c9c66"
+    },
+    {
+      "path": "exports/hi3d-hex-terrain-grid_48.json",
+      "roles": [
+        "final matching terrain baseline"
+      ],
+      "usage": [
+        "continue original scene"
+      ],
+      "bytes": 980218,
+      "sha256": "40845340848623f22e9a0be91c9213817862d4e5ef39bef90956256e9977c864"
+    },
+    {
+      "path": "config/hi3d-terrain-rules.json",
+      "roles": [
+        "final matching terrain baseline"
+      ],
+      "usage": [
+        "continue original scene"
+      ],
+      "bytes": 25380,
+      "sha256": "2a72334fe5e703ec3d1ec2a2366477a500a807d63a8ef13a630ae96eb32e16b3"
+    }
+  ]
+}

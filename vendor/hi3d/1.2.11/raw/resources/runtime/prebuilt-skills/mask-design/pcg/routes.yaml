@@ -1,0 +1,155 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: brief
+    say: "输入与简报"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible: []
+  - id: sources
+    say: "头型与外壳"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: cavity
+    say: "内腔与试戴骨架"
+    rollback_to: sources
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible: []
+  - id: retention
+    say: "按材料设计固定、止退与释放"
+    rollback_to: cavity
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible: []
+  - id: fdm
+    say: "FDM 拆件"
+    rollback_to: retention
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: media
+    say: "适配图与视频"
+    rollback_to: fdm
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: web
+    say: "网页与制作包"
+    rollback_to: media
+    load:
+      - SKILL.md
+      - references/breathing.md
+      - references/capture-and-head.md
+      - references/contour-fit.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "照片→头模/外壳→适配交付"
+    nodes:
+      - brief
+      - sources
+      - cavity
+      - retention
+      - fdm
+      - media
+      - web
+    rollback_to: sources
+  - id: default_head
+    summary: "拒绝上传，用默认头型"
+    nodes:
+      - brief
+      - sources
+      - cavity
+      - retention
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: reuse_head
+    summary: "已有头雕/扫描"
+    nodes:
+      - brief
+      - cavity
+      - retention
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: repair
+    summary: "已有面具，只做适配/修复"
+    nodes:
+      - brief
+      - cavity
+      - retention
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: printed_diy
+    summary: "按允许材料设计全打印固定与可拆接触层"
+    nodes:
+      - brief
+      - sources
+      - cavity
+      - retention
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: concept_only
+    summary: "只要概念/研究"
+    nodes:
+      - brief
+    shares_input_with: main
+choices_example:
+  - id: from_photo
+    title: "用本人照片做头模"
+    route: main
+    confirm: false
+  - id: use_default
+    title: "用默认头型继续数字版"
+    route: default_head
+    confirm: false
+  - id: have_scan
+    title: "已有头雕，直接做内腔"
+    route: reuse_head
+    confirm: false
+  - id: rollback_sources
+    title: "回退到头型与外壳"
+    rollback_to: sources
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

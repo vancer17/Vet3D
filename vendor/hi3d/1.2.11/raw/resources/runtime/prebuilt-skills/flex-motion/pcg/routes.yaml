@@ -1,0 +1,90 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "已有绑定上的柔性部位惯性，在 Blender 内烘焙；缺身体动作时才交接 rig-retarget。"
+checkpoints:
+  - id: baseline
+    say: "保存动作基线"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/case-bounds.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: regions
+    say: "标出柔性区域"
+    rollback_to: baseline
+    load:
+      - SKILL.md
+      - references/regions.md
+    irreversible: []
+  - id: chains
+    say: "添加辅助骨链"
+    rollback_to: regions
+    load:
+      - SKILL.md
+      - references/chains.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: weights
+    say: "写入区域权重"
+    rollback_to: chains
+    load:
+      - SKILL.md
+      - references/chains.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: bake
+    say: "烘焙惯性动作"
+    rollback_to: weights
+    load:
+      - SKILL.md
+      - references/bake.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: check
+    say: "对照验收随动"
+    rollback_to: bake
+    load:
+      - SKILL.md
+      - references/validation.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "识别柔性部位并烘焙随动"
+    nodes:
+      - baseline
+      - regions
+      - chains
+      - weights
+      - bake
+      - check
+    rollback_to: chains
+  - id: rebake
+    summary: "骨链和权重已合格，只重烘焙"
+    nodes:
+      - baseline
+      - bake
+      - check
+    shares_input_with: main
+    rollback_to: baseline
+choices_example:
+  - id: full
+    title: "完整添加随动"
+    route: main
+    confirm: false
+  - id: rebake
+    title: "复用骨链重烘焙"
+    route: rebake
+    confirm: false
+  - id: back_weights
+    title: "回到区域权重"
+    rollback_to: weights
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

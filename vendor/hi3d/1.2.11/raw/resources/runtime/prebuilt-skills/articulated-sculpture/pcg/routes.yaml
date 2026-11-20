@@ -1,0 +1,84 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "分节铰链雕塑：输入确认后分段、铰链与动画，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: input
+    say: "确认雕塑输入"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/validation.md
+      - references/workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: segment
+    say: "语义分节"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/validation.md
+      - references/workflow.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: hinge
+    say: "铰链与间隙"
+    rollback_to: segment
+    load:
+      - SKILL.md
+      - references/validation.md
+      - references/workflow.md
+    irreversible: []
+  - id: motion
+    say: "关节动画"
+    rollback_to: hinge
+    load:
+      - SKILL.md
+      - references/validation.md
+      - references/workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: review
+    say: "碰撞与交付"
+    rollback_to: motion
+    load:
+      - SKILL.md
+      - references/validation.md
+      - references/workflow.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "完整分节到动画"
+    nodes:
+      - input
+      - segment
+      - hinge
+      - motion
+      - review
+    rollback_to: segment
+  - id: reuse_parts
+    summary: "已有分件，只做铰链"
+    nodes:
+      - input
+      - hinge
+      - motion
+      - review
+choices_example:
+  - id: full_joints
+    title: "从整模开始分节"
+    route: main
+    confirm: true
+  - id: have_parts
+    title: "已有节段，直接做铰链"
+    route: reuse_parts
+    confirm: true
+  - id: back_segment
+    title: "回退到上一检查点"
+    rollback_to: segment
+    confirm: false

@@ -1,0 +1,59 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: target
+    say: 核对目标 App、物品归属和已有授权
+    rollback_to: null
+    load: [SKILL.md, references/publishing.md]
+    irreversible: []
+  - id: preflight
+    say: 核对可加载内容、预览、来源和 SDK 前提
+    rollback_to: target
+    load: [SKILL.md, references/publishing.md]
+    irreversible: []
+  - id: upload
+    say: 有授权时新建或更新物品并记录回执
+    rollback_to: preflight
+    load: [SKILL.md, references/publishing.md]
+    irreversible: [publish]
+    confirm_required: true
+  - id: visibility
+    say: 检查本次授权的可见范围
+    rollback_to: upload
+    load: [SKILL.md, references/publishing.md]
+    irreversible: []
+  - id: subscriber
+    say: 从独立账号核对订阅下载和游戏加载
+    rollback_to: visibility
+    load: [SKILL.md, references/publishing.md]
+    irreversible: []
+routes:
+  - id: create
+    summary: 目标不存在时按授权新建并验收
+    nodes: [target, preflight, upload, visibility, subscriber]
+    rollback_to: preflight
+  - id: update
+    summary: 复用已有物品 ID 与旧版本记录更新
+    nodes: [target, preflight, upload, visibility, subscriber]
+    rollback_to: preflight
+  - id: review
+    summary: 仅复核已有内容与发布状态
+    nodes: [target, preflight, visibility, subscriber]
+    rollback_to: target
+choices_example:
+  - id: create_item
+    title: 新建已确认的物品
+    route: create
+    confirm: true
+  - id: update_item
+    title: 更新已确认的物品
+    route: update
+    confirm: true
+  - id: review_item
+    title: 只检查状态
+    route: review
+    confirm: false

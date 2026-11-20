@@ -1,0 +1,88 @@
+{
+  "cache_sha256": "59828abaf48add5d6f116491a84634517229f9d5c540a4358b989805cf08f517",
+  "file_sha256": "759a870845d88cba755bbd381285cf4a2b7a2434596882a77d6b69186a00e1dd",
+  "fps": 30.0,
+  "frame_range": [
+    10,
+    12
+  ],
+  "frames": 3,
+  "input_sha256": "7dabfdecef40d6e459a67a9879d73dd852230c1e699e14deeb73b0d51236a155",
+  "max_limb_reach_error": 0.0,
+  "output": "{PROBE_ROOT}/hi3d-reopen-retarget-03981f32224a42aea9a9e50bd3302301/result.blend",
+  "pose_qa_pending": true,
+  "protected_assets_preserved": true,
+  "rig": "Target",
+  "rig_sha256": "0743660c6cbc8b1a7ccc1e738b890604d59def5bbd46c877be6b63bb183b8c3d",
+  "root": "hip",
+  "saved_inventory": {
+    "actions": [
+      {
+        "name": "MappedMotion",
+        "range": [
+          10.0,
+          12.0
+        ]
+      },
+      {
+        "name": "SourceAction",
+        "range": [
+          0.0,
+          2.0
+        ]
+      }
+    ],
+    "camera": null,
+    "camera_location": null,
+    "file_images": [],
+    "fps": 30.0,
+    "frames": [
+      10,
+      12
+    ],
+    "rigs": [
+      {
+        "active_action": "SourceAction",
+        "bones": [
+          "hip",
+          "arm",
+          "fore",
+          "finger",
+          "thigh",
+          "shin",
+          "foot"
+        ],
+        "location": [
+          0.0,
+          0.10000000149011612,
+          0.0
+        ],
+        "name": "Source",
+        "parent": null,
+        "strips": []
+      },
+      {
+        "active_action": "MappedMotion",
+        "bones": [
+          "hip",
+          "arm",
+          "fore",
+          "finger",
+          "thigh",
+          "shin",
+          "foot"
+        ],
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "name": "Target",
+        "parent": null,
+        "strips": []
+      }
+    ],
+    "texts": []
+  },
+  "scale": 2.0
+}

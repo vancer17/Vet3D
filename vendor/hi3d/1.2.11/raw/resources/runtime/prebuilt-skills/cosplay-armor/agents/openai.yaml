@@ -1,0 +1,4 @@
+interface:
+  display_name: "适配Cosplay护甲"
+  short_description: "设计身体适配护甲与完整打印连接，主动打开图文3D成果页，视频按需"
+  default_prompt: "请用 $cosplay-armor 从佩戴部位、身体来源、外甲主题和打印材料引导我，完成内腔、穿脱及可行的全打印固定与分段连接；持续完成图片、3D与制作文件并主动打开成果网页。视频默认不渲染，交付后再询问。"

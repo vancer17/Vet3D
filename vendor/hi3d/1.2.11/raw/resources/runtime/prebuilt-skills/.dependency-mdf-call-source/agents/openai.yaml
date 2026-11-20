@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDF 服务调用"
+  short_description: "Call MDF services with single-attempt audit and validation"
+  default_prompt: "Use $mdf-call to resolve the current MDF service contract, submit one authorized request through the default HTTP gateway (SDK only when explicitly selected), and verify its result."

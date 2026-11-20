@@ -1,0 +1,111 @@
+schema: pcg.architecture.v1
+entry: closed-quad-transition
+kind: agent_skill
+layout: linear
+tasks:
+  - id: closed_transition
+    parent: null
+    role: agent
+    label: "闭合四边面过渡"
+    function: "编排静态资产上未保护 4×4 四边面的 16→15 替换。保留源文件和冻结误差；模板或投影失败时保留原片。"
+    outputs: []
+  - id: intake
+    parent: closed_transition
+    role: local
+    label: "冻结基线与预算"
+    function: "在工作副本记录四边面、三角面、边界、非流形和部件名。冻结对象集合的 L、边长中位数 h 和增量误差 ε。缺预算时可声明 ε=0.00075L，并写明这不是工程公差。L=0 时停止。"
+    rollback_to: null
+    outputs:
+      - id: budget_note
+        label: "基线统计和冻结的 L、h、ε"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: select_patches
+    parent: intake
+    role: local
+    label: "筛选规则四乘四"
+    function: "沿有向边生长正好 16 个四边面、25 个顶点的片。内部 3×3 顶点为 4 价，不重叠、不跨保护和接缝。不合格片记录原因并跳过。"
+    rollback_to: intake
+    outputs:
+      - id: patch_list
+        label: "合格片与跳过原因"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: build_template
+    parent: select_patches
+    role: local
+    label: "构造十六到十五"
+    function: "对合格片调用 scripts/hi3d-quad-template.py 的 build_template。外环顶点不移动。偏移系数固定为 (0.3,-0.3,0.3,-0.3)。失败返回空时保留原片。"
+    rollback_to: select_patches
+    outputs:
+      - id: template_record
+        label: "每片模板顶点、面和失败原因"
+        kind: file
+        retain: cache
+        semantics:
+          - checkpoint
+  - id: validate_candidate
+    parent: build_template
+    role: local
+    label: "投影并核对误差"
+    function: "只把四个新增点投回原片。双向边和面心采样的最大距离都必须不大于冻结 ε。validate_topology 要求中心以外 14 面的边界是 4 段和 16 段两条闭链，外环边集与原片相同。任一失败则拒绝该片。"
+    rollback_to: build_template
+    outputs:
+      - id: candidate_report
+        label: "投影、误差和闭环检查结果"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: replace_patch
+    parent: validate_candidate
+    role: local
+    label: "替换通过的面片"
+    function: "只在工作副本替换已通过的 16 面，保留外环和邻片仍使用的顶点。组装后再查四边面、零面积、闭环和非流形。失败则丢弃该副本。带动画蒙皮的资产不在本模板已验证范围内。后台替换走预算心跳。"
+    rollback_to: validate_candidate
+    irreversible:
+      - blender.write
+    outputs:
+      - id: replaced_blend
+        label: "已替换合格片的可编辑工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: deliver
+    parent: replace_patch
+    role: local
+    label: "导出并回读交付"
+    function: "另存真实四边面 BLEND，并导出三角化预览 GLB。回读单位、节点名和面数。报告每片 old_faces=16、new_faces=15，以及跳过原因。零修改是合法结果。网格诊断交接 mesh-audit。"
+    rollback_to: replace_patch
+    irreversible:
+      - blender.write
+    outputs:
+      - id: editable_blend
+        label: "可编辑四边面 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: preview_glb
+        label: "三角化预览 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: validation_report
+        label: "每片验收、误差口径和跳过原因"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: comparison_images
+        label: "真实四边面线框与材质对照"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

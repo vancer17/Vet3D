@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender 视频序列"
+  short_description: "Blender 视频序列与真实文件验收"
+  default_prompt: "使用 $video-sequence 按明确输入执行并核对产物。"

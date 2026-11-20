@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_stl.py": "skills/print-export/scripts/blender_stl.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py"
+  },
+  "requires": []
+}

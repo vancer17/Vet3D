@@ -1,0 +1,12 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "rhino-build",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "locate",
+    "connect",
+    "model",
+    "verify"
+  ]
+}

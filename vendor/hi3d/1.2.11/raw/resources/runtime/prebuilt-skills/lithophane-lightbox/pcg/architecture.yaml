@@ -1,0 +1,154 @@
+schema: pcg.architecture.v1
+entry: lithophane-lightbox
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: lithophane_lightbox
+    parent: null
+    role: agent
+    label: "发光浮雕相框"
+    function: "编排尺寸与工艺选择、V5 接口计算、V5.1 框体、混色或 UV 照片板、检查与切片打开；按任务范围跳过未改阶段，不发送实体打印。"
+  - id: inputs
+    parent: lithophane_lightbox
+    role: local
+    label: "确认尺寸、工艺与设备信息"
+    function: "复用用户已提供的信息，只询问当前任务缺少的尺寸、工艺、照片和实际设备事实；不把推荐值当作用户选择。仅咨询时不进入生成。"
+    outputs: []
+    members:
+      - id: classify
+        label: "分类范围并收集缺项"
+    rollback_to: null
+  - id: interface
+    parent: lithophane_lightbox
+    role: local
+    label: "计算照片板尺寸接口"
+    function: "用包内接口脚本按 B=10、O=3.5 计算可视区域、成品板、槽轮廓及相册布局；计算结果不等于床面或几何验证。"
+    outputs:
+      - id: interface_spec
+        label: "相框尺寸接口 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    members:
+      - id: compute
+        label: "运行接口脚本"
+    rollback_to: inputs
+  - id: frame
+    parent: lithophane_lightbox
+    role: local
+    optional: true
+    label: "按范围复用或生成框体"
+    function: "完整制作或框体修改才复制 V5.1 生成器到工作副本，经预算心跳的后台 Blender 重建 12 件打印结构；照片板单项任务复用未变框体。历史检查 JSON 不升级为本次 PASS。"
+    outputs:
+      - id: frame_project
+        label: "参数化框体 BLEND、配置与分件 STL"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+          - derived
+      - id: frame_model
+        label: "框体装配 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+          - derived
+    members:
+      - id: rebuild
+        label: "后台生成并导出分件"
+    rollback_to: interface
+    irreversible:
+      - blender.write
+  - id: panel
+    parent: lithophane_lightbox
+    role: local
+    optional: true
+    label: "按所选工艺准备照片板"
+    function: "混色路线确认兼容真实工艺后再写平放工程；UV 路线用已配准高度场生成白色浅浮雕板与同坐标母版。需要新艺术图或浮雕时可选 spawn hi3d-api。缺少输入或能力时暂停，不用占位板替代成品。"
+    outputs:
+      - id: panel_files
+        label: "所选工艺的照片板制造文件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+          - derived
+    members:
+      - id: make_panel
+        label: "按混色或 UV 制版"
+    rollback_to: interface
+    irreversible:
+      - hi3d.submit
+  - id: generate
+    parent: lithophane_lightbox
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "按需准备图像或浮雕"
+    function: "仅在用户明确要求生成图案或人物几何浅浮雕时提交；已有合格照片和高度场跳过。图像调用失败立即停止该链路，不自动换模型重提。"
+    outputs:
+      - id: generated_source
+        label: "源图、浮雕或任务记录"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    members:
+      - id: invoke
+        label: "按已选参数生成并下载"
+    irreversible:
+      - hi3d.submit
+  - id: validate
+    parent: lithophane_lightbox
+    role: local
+    label: "检查几何、方向与工艺约束"
+    function: "按实际修改范围检查接口、保存网格、平放背面、图案方向和单位；整框另查螺丝通道与支架运动。区分静态检查、真实切片、实物装配与光学验证。"
+    outputs:
+      - id: validation_record
+        label: "检查记录与未验证事项"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    members:
+      - id: audit
+        label: "回读网格与方向"
+    rollback_to: interface
+  - id: slicer
+    parent: lithophane_lightbox
+    role: local
+    optional: true
+    label: "配置并打开切片项目"
+    function: "完整制作依据真实设备和软件建立或更新兼容项目，照片板与框体分盘，执行真实切片并按证据报告是否已在所选软件中打开。尺寸评审或不切片任务跳过。不发送打印任务。"
+    outputs:
+      - id: slicer_project
+        label: "原生切片项目与设置摘要"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+          - derived
+    members:
+      - id: configure
+        label: "写入工程、切片并打开"
+    rollback_to: validate
+  - id: deliver
+    parent: lithophane_lightbox
+    role: local
+    label: "整理并说明交付物"
+    function: "按用户范围整理实际生成的接口、框体、照片板、切片工程与检查记录；只报告已完成状态，并明确实物、光学或 UV 试印等尚未验证事项。"
+    outputs:
+      - id: delivery_bundle
+        label: "相框项目交付包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    members:
+      - id: pack
+        label: "核对文件并说明范围"
+    rollback_to: validate

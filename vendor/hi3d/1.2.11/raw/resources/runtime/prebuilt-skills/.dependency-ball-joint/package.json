@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/coupon_records.py": "skills/fit-coupon/scripts/coupon_records.py",
+    "scripts/mesh_io.py": "skills/print-export/scripts/mesh_io.py"
+  },
+  "requires": []
+}

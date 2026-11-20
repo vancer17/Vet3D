@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "files": {
+    "references/runtime.md": "tools/run-tools/references/runtime.md",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/support_core.py": "skills/support-check/scripts/support_core.py"
+  },
+  "requires": []
+}

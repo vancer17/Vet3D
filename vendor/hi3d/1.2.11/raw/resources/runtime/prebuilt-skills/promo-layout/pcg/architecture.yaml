@@ -1,0 +1,159 @@
+schema: pcg.architecture.v1
+entry: promo-layout
+kind: agent_workflow
+layout: tree
+note: "编排宣传物料；svg-edit/media-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: promo_layout
+    parent: null
+    role: agent
+    label: "宣传物料编排"
+    function: "按 brief 收集文案与素材，规划三种规格，溢出失败则停；已有合格 PNG/SVG 可从 preview 续接。"
+    outputs: []
+  - id: intake
+    parent: promo_layout
+    role: local
+    label: "品牌文案与素材"
+    function: "确认品牌或产品名称、准确标题/正文；产品图走附件，无图必须 textOnly。缺项停在对应字段，不创建交付文件。"
+    outputs: []
+  - id: prefer
+    parent: promo_layout
+    role: local
+    label: "版式配色与规格"
+    function: "展示 layouts.json 推荐方图/横幅/竖版及配色效果，允许沿用；写入 brief 的 formats 与 colors。用户未确认前推荐值不是事实默认。"
+    outputs:
+      - id: brief
+        label: "任务 brief JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: review_plan
+    parent: promo_layout
+    role: local
+    label: "检查任务与溢出"
+    function: "plan_layouts 生成每尺寸 svg 配方与文字框；overflow_check 对标题正文测宽，溢出失败回 prefer，禁止截断。输出 plan 与 overflow 报告后才能 produce。"
+    outputs:
+      - id: plan
+        label: "分尺寸 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: overflow
+        label: "溢出检查 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: produce
+    parent: promo_layout
+    role: local
+    label: "分层生成"
+    function: "等待 review_plan 通过。对每个尺寸调用 svg-edit 得到 SVG/PNG 文字层；有产品图时 compose_png 与 write_html 保持图像与文案分离。只重跑变更尺寸，旧版目录保留。"
+    members:
+      - id: vector
+        label: "调用 svg-edit"
+      - id: flatten
+        label: "合成 PNG 与 HTML"
+    outputs:
+      - id: svg
+        label: "可编辑 SVG"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: png
+        label: "预览 PNG"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: html
+        label: "分层 HTML"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: svg_edit
+    parent: produce
+    role: subagent
+    entry: svg-edit
+    label: "矢量文字图层"
+    function: "独立 svg-edit 接收该尺寸 svg 配方，写出 hi3d-artwork.svg 与 PNG；不嵌入产品位图。"
+    outputs:
+      - id: artwork
+        label: "svg-edit 产物目录"
+        kind: file
+        retain: cache
+        semantics: [reference]
+  - id: preview
+    parent: promo_layout
+    role: local
+    label: "分尺寸预览"
+    function: "同时等待各尺寸 PNG。media-check 核对宽高并载入像素；需要对照时 spawn image-sheet。字体替代必须可见。失败指出文件与原因，保留已通过尺寸。"
+    outputs:
+      - id: check
+        label: "媒体检查报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: media_check
+    parent: preview
+    role: subagent
+    entry: media-check
+    label: "PNG 尺寸解码"
+    function: "独立 media-check 检查每个 PNG 声明宽高并完整载入。"
+    outputs:
+      - id: report
+        label: "media-check 报告"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: sheet
+    parent: preview
+    role: subagent
+    entry: image-sheet
+    optional: true
+    label: "三尺寸对照图"
+    function: "按需把三张 PNG 拼成检查图；不替代溢出结论。"
+    outputs:
+      - id: sheet
+        label: "对照 PNG"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: deliver
+    parent: promo_layout
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的 PNG/SVG/HTML 与参数。asset-page 生成本地页；delivery-review 打开下载。本地 HTTP 确认 HTML 文字可编辑。无发布。"
+    outputs:
+      - id: page
+        label: "成果页 HTML"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: pack
+        label: "素材与参数目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮图片与下载文件，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载；网页交互按实际检查记录。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "发光浮雕相框"
+  short_description: "选择尺寸及混色或UV工艺，制作发光浮雕相框并配置、打开切片工程"
+  default_prompt: "使用 $lithophane-lightbox，根据我的照片制作发光浮雕相框。先让我选择外框尺寸和混色打印或UV打印工艺，再核对实际打印设备，完成制造文件、切片参数配置，并在所选切片软件中打开最终工程，不启动实体打印。"

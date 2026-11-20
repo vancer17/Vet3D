@@ -1,0 +1,4 @@
+interface:
+  display_name: "图片检查拼版"
+  short_description: "将有序图片和标签拼成检查图与格位映射，保留比例和来源校验"
+  default_prompt: "使用 $image-sheet 将这些图片按指定顺序和标签生成检查图及格位映射。"

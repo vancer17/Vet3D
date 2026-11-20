@@ -1,0 +1,3 @@
+# Local stage/cloth checks use Blender's NumPy; contact sheets need Pillow.
+numpy
+Pillow

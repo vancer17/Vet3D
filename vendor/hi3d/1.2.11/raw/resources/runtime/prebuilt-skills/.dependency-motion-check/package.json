@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py"
+  },
+  "requires": []
+}

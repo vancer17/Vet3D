@@ -1,0 +1,86 @@
+schema: pcg.architecture.v1
+entry: jewelry-reconstruction
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: jewelry_reconstruction
+    parent: null
+    role: agent
+    label: "图像分析与尺度"
+    function: "编排 jewelry-reconstruction"
+  - id: analyze
+    parent: jewelry_reconstruction
+    label: "图像分析与尺度"
+    function: "本 agent 图像分析与尺度"
+    outputs:
+      - id: analyze
+        label: "图像分析与尺度"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "图像分析与尺度"
+  - id: form
+    parent: jewelry_reconstruction
+    label: "基础造型"
+    function: "按已确认尺度与轮廓在 Blender 中构建主体和连接，已有工程仅修订受影响结构，另存基础造型候选。"
+    outputs:
+      - id: form
+        label: "基础造型候选工程（BLEND）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "本地构建首饰基础造型"
+  - id: detail
+    parent: jewelry_reconstruction
+    label: "表面细节"
+    function: "本 agent 表面细节"
+    outputs:
+      - id: detail
+        label: "表面细节"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "表面细节"
+  - id: settings
+    parent: jewelry_reconstruction
+    label: "宝石与镶嵌"
+    function: "本 agent 宝石与镶嵌"
+    outputs:
+      - id: settings
+        label: "宝石与镶嵌"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "宝石与镶嵌"
+  - id: deliver
+    parent: jewelry_reconstruction
+    label: "验收与交付"
+    function: "本 agent 验收与交付"
+    outputs:
+      - id: deliver
+        label: "验收与交付"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "验收与交付"

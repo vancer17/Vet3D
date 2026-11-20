@@ -1,0 +1,53 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: input
+  say: 校验输入与资源
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/hi3d-contract.md
+  irreversible: []
+- id: run
+  say: 执行SVG 矢量编辑
+  rollback_to: input
+  load:
+  - SKILL.md
+  - references/hi3d-contract.md
+  irreversible: []
+- id: review
+  say: 回读与验收
+  rollback_to: run
+  load:
+  - SKILL.md
+  - references/hi3d-contract.md
+  irreversible: []
+routes:
+- id: main
+  summary: 执行并验收
+  nodes:
+  - input
+  - run
+  - review
+- id: review_only
+  summary: 仅核对已有产物
+  nodes:
+  - input
+  - review
+choices_example:
+- id: execute
+  title: 按当前输入执行
+  route: main
+  confirm: false
+- id: review
+  title: 已有产物，只验收
+  route: review_only
+  confirm: false
+- id: revise
+  title: 返回修改输入
+  rollback_to: input
+  confirm: false

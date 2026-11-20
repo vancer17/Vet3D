@@ -1,0 +1,4 @@
+interface:
+  display_name: "动作重定向"
+  short_description: "依据源/目标休止姿态、骨骼层级与映射，将已有动作样本转换为目标骨架的旋转和根位置。"
+  default_prompt: "使用 $motion-retarget 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

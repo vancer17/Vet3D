@@ -1,0 +1,4 @@
+interface:
+  display_name: "旋拧水瓶"
+  short_description: "从参考或艺术模型设计带真实螺纹、内腔及旋拧动画的水瓶"
+  default_prompt: "使用 $screw-bottle 将参考图或已有艺术模型制作成带真实内外螺纹的水瓶，并交付 Blender 工程与高质感渲染。"

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/primitive_core.py": "skills/shape-build/scripts/primitive_core.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/scene_samples.py": "skills/motion-check/scripts/scene_samples.py",
+    "scripts/stage_events.py": "tools/run-tools/scripts/stage_events.py",
+    "scripts/surface_pairs.py": "skills/mesh-audit/scripts/surface_pairs.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/relief_palette_timing.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "registry_repo": "blueprint-pcg",
+  "registry_files": [
+    "registry/op.registry.v1.json",
+    "registry/node_contract.snapshot.json"
+  ],
+  "note": "仅引用注册表已有 ship 输入 op；业务阶段保留 agent_workflow，未声明自动执行 op。",
+  "skill": "earbud-case-cover",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [
+    "input.image",
+    "input.api",
+    "input.mesh"
+  ],
+  "unmapped": [
+    "brief",
+    "research",
+    "form",
+    "fit",
+    "fdm",
+    "media",
+    "web"
+  ]
+}

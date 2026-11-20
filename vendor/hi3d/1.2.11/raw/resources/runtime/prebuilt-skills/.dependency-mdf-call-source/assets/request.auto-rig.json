@@ -1,0 +1,9 @@
+{
+  "mesh": {
+    "$file": "body.glb"
+  },
+  "options": {
+    "use_skeleton": false,
+    "use_transfer": true
+  }
+}

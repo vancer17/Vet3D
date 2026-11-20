@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: memory-scene
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: memory_scene
+    parent: null
+    role: agent
+    label: "确认地点照片"
+    function: "编排 memory-scene"
+  - id: photos
+    parent: memory_scene
+    label: "确认地点照片"
+    function: "本 agent 确认地点照片"
+    outputs:
+      - id: photos
+        label: "确认地点照片"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认地点照片"
+  - id: rebuild
+    parent: memory_scene
+    label: "物件重建"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: rebuild
+        label: "物件重建"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: story
+    parent: memory_scene
+    label: "布置与故事"
+    function: "本 agent 布置与故事"
+    outputs:
+      - id: story
+        label: "布置与故事"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "布置与故事"
+  - id: web
+    parent: memory_scene
+    label: "交互网页"
+    function: "派出 asset-page"
+    outputs:
+      - id: web
+        label: "交互网页"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: asset-page
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 asset-page"
+    irreversible:
+      - publish

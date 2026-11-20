@@ -1,0 +1,74 @@
+schema: pcg.architecture.v1
+entry: game-deploy
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: game_deploy
+    parent: null
+    role: agent
+    label: "确认可玩构建"
+    function: "编排 game-deploy 游戏逻辑阶段按 references/game-atoms.md 条件接入独立原子能力；输入为当前工程和规则，输出为本次模块改动和检查记录。已有合格实现可跳过，不新增必需服务调用。"
+  - id: game
+    parent: game_deploy
+    label: "确认可玩构建"
+    function: "本 agent 确认可玩构建"
+    outputs:
+      - id: game
+        label: "确认可玩构建"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认可玩构建"
+  - id: adapt
+    parent: game_deploy
+    label: "子路径与资源"
+    function: "本 agent 子路径与资源"
+    outputs:
+      - id: adapt
+        label: "子路径与资源"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "子路径与资源"
+  - id: publish
+    parent: game_deploy
+    label: "Pages 发布"
+    function: "派出 game-deploy"
+    outputs:
+      - id: publish
+        label: "Pages 发布"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish
+  - id: review
+    parent: game_deploy
+    label: "匿名开局验收"
+    function: "本 agent 匿名开局验收"
+    outputs:
+      - id: review
+        label: "匿名开局验收"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "匿名开局验收"

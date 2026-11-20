@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "scope": "Documented service inventory only; membership does not guarantee availability or business success. exposure_status records the user-confirmed exposure list, not a live probe, and does not gate CLI calls. The exposed pcg-function-call-service has no recorded request contract and is not registered here. CLI defaults to HTTP generic-forward; --transport sdk explicitly selects ServiceInvokeSession and requires worker TCP access to the caller. Invocation metadata does not select transport.",
+  "sources": {
+    "auto_rig": "http://172.31.0.3:8099/hi3dreamer/auto-rig",
+    "video": "http://172.31.0.3:8099/video-to-3d/service/video-to-3d-center/-/tree/c567a59c4c9c5102353088fc03cceec8241e1ead",
+    "geo": "http://172.31.0.3:8099/zhaoshengchu/geo3.0_service/-/tree/63dbc6cb349eab768da4a5a5b1441d7f75a7f7fb",
+    "texture": "http://172.31.0.3:8099/mathmagic/texture-workflow-service/-/tree/10ea6251d9fe3acbd76dc1f071867208f93040cd",
+    "hitem_infer": "http://172.31.0.3:8099/yangzherui/hitem_infer/-/tree/f6e932ee0522121916e7f1a9994b46f01ceb9af7",
+    "sapiens2": "http://172.31.0.3:8099/hi3dreamer/sapiens2-service/-/tree/d5c8f6f0acbf4705043b73fc3897940b4611cb88"
+  },
+  "services": [
+    {
+      "name": "auto-rig",
+      "workflows": [
+        "auto_rig"
+      ],
+      "source_status": "Deployed adapter not yet published as a fixed commit; see the supplied service contract before reuse.",
+      "invocation": {
+        "validated_transport": "mdf3-service-invoke",
+        "environment": "test",
+        "group": "v3.0",
+        "generic_forward": "supported",
+        "default_transport": "http"
+      },
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "geometry-v4-geo2-pass1-cfg-distill-quant",
+      "workflows": [
+        "geo"
+      ],
+      "exposure_status": "pending_confirmation"
+    },
+    {
+      "name": "image-process-service-v2-0",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "mcolor-format-mesh",
+      "workflows": [
+        "geo"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "mesh-lod",
+      "workflows": [
+        "video"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "mesh-watertight",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "multiview-service",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "pending_confirmation"
+    },
+    {
+      "name": "retopology-V2-0",
+      "workflows": [
+        "geo"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "sapiens2",
+      "workflows": [
+        "sapiens2"
+      ],
+      "exposure_status": "exposed"
+    },
+    {
+      "name": "texture-bake-v3-0",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "pending_confirmation"
+    },
+    {
+      "name": "texture-render-v3-0",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "pending_confirmation"
+    },
+    {
+      "name": "texture-uv-unwrap-v3-0",
+      "workflows": [
+        "video",
+        "geo"
+      ],
+      "exposure_status": "exposed"
+    }
+  ]
+}

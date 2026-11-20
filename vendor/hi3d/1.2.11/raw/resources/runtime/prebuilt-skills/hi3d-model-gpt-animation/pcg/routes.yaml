@@ -1,0 +1,74 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "绑定与序列适配显式交接 rig-retarget；本包编排模型、舞台与次级运动。"
+checkpoints:
+  - id: source
+    say: "已有或 Hi3D 模型"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/cloth-and-contact-commands.md
+      - references/code.md
+      - references/garments-and-secondary-motion.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: autorig
+    say: "rig-retarget 绑定与回迁"
+    rollback_to: source
+    load:
+      - SKILL.md
+      - references/cloth-and-contact-commands.md
+      - references/code.md
+      - references/garments-and-secondary-motion.md
+    irreversible: []
+  - id: fix
+    say: "rig-retarget 局部修复"
+    rollback_to: autorig
+    load:
+      - SKILL.md
+      - references/cloth-and-contact-commands.md
+      - references/code.md
+      - references/garments-and-secondary-motion.md
+    irreversible: []
+  - id: motion
+    say: "rig-retarget 动作交接与本包舞台"
+    rollback_to: fix
+    load:
+      - SKILL.md
+      - references/cloth-and-contact-commands.md
+      - references/code.md
+      - references/garments-and-secondary-motion.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "新身体绑定主链"
+    nodes:
+      - source
+      - autorig
+      - fix
+      - motion
+    rollback_to: autorig
+  - id: reuse_rig
+    summary: "已有合格绑定"
+    nodes:
+      - source
+      - motion
+    shares_input_with: main
+choices_example:
+  - id: do_autorig
+    title: "走 auto-rig"
+    route: main
+    confirm: false
+  - id: reuse
+    title: "复用绑定只加动作"
+    route: reuse_rig
+    confirm: false
+  - id: rollback_rig
+    title: "回退到绑定"
+    rollback_to: autorig
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

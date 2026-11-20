@@ -1,0 +1,54 @@
+{
+  "source": "https://wiki.mcneel.com/rhino/trainingguides/en",
+  "manuals": [
+    {
+      "file": "rhino-6-level1.pdf",
+      "url": "https://docs.mcneel.com/rhino/6/training-level1/en-us/Rhino%206%20Level%201%20Training.pdf",
+      "bytes": 36876551
+    },
+    {
+      "file": "rhino-6-level2.pdf",
+      "url": "https://docs.mcneel.com/rhino/6/training-level2/en-us/Rhino%20Level%202%20Training.pdf",
+      "bytes": 27405858
+    },
+    {
+      "file": "rhino-8-user-guide-windows.pdf",
+      "url": "https://docs.mcneel.com/rhino/8/training-command/en-us/usersguide/Rhino%20User%27s%20Guide%20for%20Windows.pdf",
+      "bytes": 30983863
+    },
+    {
+      "file": "rhino-8-user-guide-mac.pdf",
+      "url": "https://docs.mcneel.com/rhino/8/training-command/en-us/usersguide/Rhino User's Guide for Mac.pdf",
+      "bytes": 32160626
+    },
+    {
+      "file": "rhino-7-user-guide-windows.pdf",
+      "url": "https://docs.mcneel.com/rhino/7/training-command/en-us/usersguide/Rhino User's Guide for Windows.pdf",
+      "bytes": 30982230
+    },
+    {
+      "file": "rhino-7-user-guide-mac.pdf",
+      "url": "https://docs.mcneel.com/rhino/7/training-command/en-us/usersguide/Rhino%20User%27s%20Guide%20for%20Mac.pdf",
+      "bytes": 32157845
+    },
+    {
+      "file": "rhino-8-user-guide-windows.pdf",
+      "url": "https://docs.mcneel.com/rhino/6/training-command/en-us/usersguide/Rhino%20User%27s%20Guide%20for%20Windows.pdf",
+      "bytes": 30983863,
+      "download_name": "rhino-6-user-guide-windows.pdf",
+      "same_content_as": "rhino-8-user-guide-windows.pdf"
+    },
+    {
+      "file": "rhino-7-user-guide-mac.pdf",
+      "url": "https://docs.mcneel.com/rhino/6/training-command/en-us/usersguide/Rhino User's Guide for Mac.pdf",
+      "bytes": 32157845,
+      "download_name": "rhino-6-user-guide-mac.pdf",
+      "same_content_as": "rhino-7-user-guide-mac.pdf"
+    },
+    {
+      "file": "rhino-5-user-guide-windows.pdf",
+      "url": "https://docs.mcneel.com/rhino/5/usersguide/en-us/windows_pdf_user_s_guide.pdf",
+      "bytes": 13533999
+    }
+  ]
+}

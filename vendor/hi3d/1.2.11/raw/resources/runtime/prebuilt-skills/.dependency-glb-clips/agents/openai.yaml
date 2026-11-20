@@ -1,0 +1,4 @@
+interface:
+  display_name: "GLB 同步片段"
+  short_description: "合并明确同时播放的 GLB 动画片段，检查时间和通道并保持模型数据。"
+  default_prompt: "使用 $glb-clips 合并当前明确选定的同步动作片段并报告保持项。"

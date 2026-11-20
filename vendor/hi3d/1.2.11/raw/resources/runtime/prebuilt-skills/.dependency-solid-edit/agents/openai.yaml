@@ -1,0 +1,4 @@
+interface:
+  display_name: "来源保留布尔"
+  short_description: "对带逐面来源与 UV 的闭合实体执行局部布尔并回写几何/材质来源，保留未改表面。"
+  default_prompt: "使用 $solid-edit 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

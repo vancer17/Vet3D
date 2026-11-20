@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "钥匙挂件：挂点、弯道与环链，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: model
+    say: "确认挂件主体"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/design.md
+      - references/pendant.md
+      - references/runtime.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: loop
+    say: "挂孔与吊耳"
+    rollback_to: model
+    load:
+      - SKILL.md
+      - references/design.md
+      - references/pendant.md
+      - references/runtime.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: hardware
+    say: "环链配合"
+    rollback_to: loop
+    load:
+      - SKILL.md
+      - references/design.md
+      - references/pendant.md
+      - references/runtime.md
+    irreversible: []
+  - id: review
+    say: "连接检查"
+    rollback_to: hardware
+    load:
+      - SKILL.md
+      - references/design.md
+      - references/pendant.md
+      - references/runtime.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "主体到挂件"
+    nodes:
+      - model
+      - loop
+      - hardware
+      - review
+    rollback_to: loop
+  - id: optimize
+    summary: "已有挂孔，优化接口"
+    nodes:
+      - model
+      - hardware
+      - review
+choices_example:
+  - id: add_loop
+    title: "新增挂孔吊耳"
+    route: main
+    confirm: true
+  - id: tune_ring
+    title: "已有挂孔，调环链"
+    route: optimize
+    confirm: false
+  - id: back_loop
+    title: "回退到上一检查点"
+    rollback_to: loop
+    confirm: false

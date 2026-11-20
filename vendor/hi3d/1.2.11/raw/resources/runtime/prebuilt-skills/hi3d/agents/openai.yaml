@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hi3D"
+  short_description: "生成或编辑图片，并调用 Hi3D 生成或处理 3D 模型"
+  default_prompt: "使用 $hi3d 按默认参数从我的图片生成 3D，下载 GLB 并提交到当前工作区。"

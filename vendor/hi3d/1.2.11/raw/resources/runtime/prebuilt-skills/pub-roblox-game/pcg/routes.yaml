@@ -1,0 +1,71 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: target
+  say: 核对发布目标
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/hi3d-publishing.md
+  irreversible: []
+- id: preflight
+  say: 核对工程与账号前提
+  rollback_to: target
+  load:
+  - SKILL.md
+  - references/hi3d-publishing.md
+  irreversible: []
+- id: upload
+  say: 上传或复用版本
+  rollback_to: preflight
+  load:
+  - SKILL.md
+  - references/hi3d-publishing.md
+  irreversible:
+  - publish
+  confirm_required: true
+- id: audience
+  say: 设置已授权访问范围
+  rollback_to: upload
+  load:
+  - SKILL.md
+  - references/hi3d-publishing.md
+  irreversible:
+  - publish
+  confirm_required: true
+- id: verify
+  say: 验证公开多人访问
+  rollback_to: audience
+  load:
+  - SKILL.md
+  - references/hi3d-acceptance.md
+  irreversible: []
+routes:
+- id: main
+  summary: Roblox 游戏发布
+  nodes:
+  - target
+  - preflight
+  - upload
+  - audience
+  - verify
+  rollback_to: target
+- id: review
+  summary: 复核已有结果，不重复生成或上传
+  nodes:
+  - target
+  - preflight
+  - verify
+choices_example:
+- id: main
+  title: 按已确认范围继续
+  route: main
+  confirm: false
+- id: review
+  title: 复核已有结果
+  route: review
+  confirm: false

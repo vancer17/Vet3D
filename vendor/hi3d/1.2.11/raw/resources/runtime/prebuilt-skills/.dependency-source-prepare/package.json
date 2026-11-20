@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/product_core.py": "skills/shape-build/scripts/product_core.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/source_views.py": "skills/model-preview/scripts/source_views.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py",
+    "scripts/studio_core.py": "skills/shape-build/scripts/studio_core.py"
+  },
+  "requires": []
+}

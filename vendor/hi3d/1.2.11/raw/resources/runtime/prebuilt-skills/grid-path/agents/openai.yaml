@@ -1,0 +1,4 @@
+interface:
+  display_name: "网格寻路"
+  short_description: "敌人需要绕开障碍、检查起点到终点可达；明确范围并验证关键边界。"
+  default_prompt: "使用 $grid-path 处理当前游戏需求，复用已有工程并验证输入输出。"

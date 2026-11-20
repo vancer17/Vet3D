@@ -1,0 +1,9 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "registry_repo": "blueprint-pcg",
+  "registry_files": ["registry/op.registry.v1.json", "registry/node_contract.snapshot.json"],
+  "skill": "taubin-smooth",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["input", "smooth", "review"]
+}

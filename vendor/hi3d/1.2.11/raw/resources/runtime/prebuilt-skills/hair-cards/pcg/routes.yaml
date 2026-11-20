@@ -1,0 +1,109 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: ref
+    say: "发型参考"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible: []
+  - id: volume
+    say: "生成或检查实际 3D 体积参考"
+    rollback_to: ref
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: guides
+    say: "分缝与试束"
+    rollback_to: volume
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible: []
+  - id: cards
+    say: "平滑发片"
+    rollback_to: guides
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible: []
+  - id: material
+    say: "保形材质与细丝质感"
+    rollback_to: cards
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible: []
+  - id: review
+    say: "最终文件回读与多视角对照"
+    rollback_to: material
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/modeling.md
+      - references/pipeline.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "照片→体积→发片"
+    nodes:
+      - ref
+      - volume
+      - guides
+      - cards
+      - material
+      - review
+    rollback_to: guides
+  - id: from_mesh
+    summary: "已有头发模型"
+    nodes:
+      - ref
+      - volume
+      - guides
+      - cards
+      - material
+      - review
+    shares_input_with: main
+  - id: material_only
+    summary: "已有认可发片，仅优化材质并回读验收"
+    nodes:
+      - ref
+      - material
+      - review
+    rollback_to: material
+choices_example:
+  - id: need_volume
+    title: "先出体积参考"
+    route: main
+    confirm: false
+  - id: have_mesh
+    title: "已有模型，直接分束"
+    route: from_mesh
+    confirm: false
+  - id: refine_material
+    title: "保留造型，增强发丝质感"
+    route: material_only
+    confirm: false
+  - id: rollback_guides
+    title: "回退到试束"
+    rollback_to: guides
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

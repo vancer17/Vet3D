@@ -1,0 +1,13 @@
+{
+  "name": "parts-example",
+  "modules": ["model.py"],
+  "parts": [
+    {"id": "housing", "label": "外壳"},
+    {"id": "cover", "label": "盖板"}
+  ],
+  "palette": {"shell": "C8D6E0", "trim": "394858"},
+  "axis": "X",
+  "gap": 0.4,
+  "output_dir": "outputs",
+  "exports": {"whole": false, "parts": false}
+}

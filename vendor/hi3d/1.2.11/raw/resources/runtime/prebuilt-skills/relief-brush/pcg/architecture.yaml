@@ -1,0 +1,122 @@
+schema: pcg.architecture.v1
+entry: relief-brush
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: relief_brush
+    parent: null
+    role: agent
+    label: "纹样与目标软件"
+    function: "编排 relief-brush"
+  - id: brief
+    parent: relief_brush
+    label: "纹样与目标软件"
+    function: "本 agent 纹样与目标软件"
+    outputs:
+      - id: brief
+        label: "纹样与目标软件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "纹样与目标软件"
+  - id: research
+    parent: relief_brush
+    label: "笔刷类型与目标表面"
+    function: "本 agent 笔刷类型与目标表面"
+    outputs:
+      - id: research
+        label: "笔刷类型与目标表面"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "笔刷类型与目标表面"
+  - id: source
+    parent: relief_brush
+    label: "真实Hi3D纹样来源"
+    function: "本 agent 真实Hi3D纹样来源；条件生成前走参数选择与计费示警"
+    outputs:
+      - id: source
+        label: "真实Hi3D纹样来源"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "真实Hi3D纹样来源"
+  - id: brush
+    parent: relief_brush
+    label: "高度笔刷、印章与边饰"
+    function: "本 agent 高度笔刷、印章与边饰"
+    outputs:
+      - id: brush
+        label: "高度笔刷、印章与边饰"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "高度笔刷、印章与边饰"
+  - id: apply
+    parent: relief_brush
+    label: "平面和曲面应用及试片"
+    function: "本 agent 平面和曲面应用及试片"
+    outputs:
+      - id: apply
+        label: "平面和曲面应用及试片"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "平面和曲面应用及试片"
+  - id: media
+    parent: relief_brush
+    label: "导入和应用展示"
+    function: "本 agent 导入和应用展示"
+    outputs:
+      - id: media
+        label: "导入和应用展示"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "导入和应用展示"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: relief_brush
+    label: "网页与资产包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与资产包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

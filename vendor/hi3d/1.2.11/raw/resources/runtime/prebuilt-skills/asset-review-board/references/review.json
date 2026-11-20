@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "layouts": {
+    "side_by_side": "并排对比，便于发现差异。",
+    "single": "单版切换，适合只有一版或窄屏。"
+  },
+  "criteria": ["appearance", "structure", "motion", "free"],
+  "defaultLayout": "side_by_side",
+  "defaultCriteria": ["free"]
+}

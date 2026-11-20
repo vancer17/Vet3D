@@ -1,0 +1,84 @@
+schema: pcg.architecture.v1
+entry: build-explorable-3d-game
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: build_explorable_3d_game
+    parent: null
+    role: agent
+    label: "确定世界主题"
+    function: "所有制作阶段以 brief 已有用户选择或明确委托为前提；依赖素材必须到齐，认可玩法不扩大收费/发布授权。编排 build-explorable-3d-game 游戏逻辑阶段按 references/game-atoms.md 条件接入独立原子能力；输入为当前工程和规则，输出为本次模块改动和检查记录。已有合格实现可跳过，不新增必需服务调用。"
+  - id: brief
+    parent: build_explorable_3d_game
+    role: local
+    label: "提问、素材与探索玩法确认"
+    function: "读取 references/hi3d-game-brief.md，复用消息、附件、已有工程与认可记录；只提问关键缺项，实际查看并索取所需素材，展示具体玩法方案。将方案和用户选择/明确委托依据写入任务目录 hi3d-game-brief.md；无认可或委托依据时停留此处，不启动生成或游戏实现。必需素材未到只阻塞依赖步骤；局部修改仅确定差异，继续任务复用已完成检查点。"
+    members:
+      - id: questions
+        label: "简短提问并复用已有答案"
+      - id: materials
+        label: "查看素材、区分必需与可选缺项"
+      - id: proposal
+        label: "展示核心交互闭环与首版范围"
+      - id: decision
+        label: "记录选择或明确委托后进入制作"
+    outputs:
+      - id: brief
+        label: "玩法方案、素材清单与选择依据（Markdown）"
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: world
+    parent: build_explorable_3d_game
+    label: "场景与角色"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: world
+        label: "场景与角色"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: play
+    parent: build_explorable_3d_game
+    label: "交互闭环"
+    function: "派出 rig-retarget"
+    outputs:
+      - id: play
+        label: "交互闭环"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 rig-retarget"
+  - id: review
+    parent: build_explorable_3d_game
+    label: "可玩验收"
+    function: "派出 game-deploy"
+    outputs:
+      - id: review
+        label: "可玩验收"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 game-deploy"

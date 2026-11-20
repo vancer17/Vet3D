@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "浮雕粉盘：形象、粉体与外壳，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: ref
+    say: "确认图案参考"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dependencies.md
+      - references/runtime.md
+    irreversible: []
+  - id: relief
+    say: "形象浮雕"
+    rollback_to: ref
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dependencies.md
+      - references/runtime.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: case
+    say: "外壳附件"
+    rollback_to: relief
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dependencies.md
+      - references/runtime.md
+    irreversible: []
+  - id: render
+    say: "质感渲染"
+    rollback_to: case
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dependencies.md
+      - references/runtime.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "参考到粉盘"
+    nodes:
+      - ref
+      - relief
+      - case
+      - render
+    rollback_to: relief
+  - id: reuse_relief
+    summary: "已有浮雕，做外壳"
+    nodes:
+      - ref
+      - case
+      - render
+choices_example:
+  - id: new_faces
+    title: "新做形象浮雕"
+    route: main
+    confirm: true
+  - id: have_relief
+    title: "已有浮雕，做外壳"
+    route: reuse_relief
+    confirm: true
+  - id: back_relief
+    title: "回退到上一检查点"
+    rollback_to: relief
+    confirm: false

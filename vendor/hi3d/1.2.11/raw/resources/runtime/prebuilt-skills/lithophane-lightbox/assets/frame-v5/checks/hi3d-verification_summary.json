@@ -1,0 +1,47 @@
+{
+  "revision": "V5.1 + photo flat-back V3",
+  "status": "geometry and offline slicing verified",
+  "pressure_access": {
+    "presets": 5,
+    "stations": 20,
+    "panel_edge_thickness_endpoints_mm": [
+      1.5,
+      3.0
+    ],
+    "max_overlap_mm3": 0
+  },
+  "assembly_regression": {
+    "frame_mm": [
+      150,
+      100
+    ],
+    "pass": true
+  },
+  "STL_export_presets": {
+    "count": 5,
+    "saved_parts": 60,
+    "pass": true
+  },
+  "negative_control_old_V5": {
+    "expected_blocked": true,
+    "detected_overlap_mm3": 184.25781825678942
+  },
+  "front_and_slot_preservation": "PASS within 0.02 mm3 boolean comparison tolerance",
+  "photo_plate": {
+    "plane_z_mm": 0,
+    "rim_and_image_coplanar": true,
+    "front_and_recipe_fields_retained": true,
+    "support_paths_white_and_experimental_mix": 0
+  },
+  "visual_reviews": [
+    "previews/rear_access_open.png",
+    "previews/pressure_screw_key_section.png"
+  ],
+  "independent_review": "mechanical code/report audit passed, scope restricted to B10 and light_gap25",
+  "physical_print_assembly_strength_optics": "not tested",
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/check_media.py": "skills/media-check/scripts/check_media.py",
+    "scripts/media_tools.py": "skills/media-check/scripts/media_tools.py"
+  },
+  "requires": []
+}

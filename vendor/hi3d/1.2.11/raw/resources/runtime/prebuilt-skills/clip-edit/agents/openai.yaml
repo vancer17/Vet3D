@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频剪辑"
+  short_description: "按排序与入出点剪辑本地素材，先预览再导出 MP4、封面和字幕"
+  default_prompt: "使用 $clip-edit，把这些图片或视频按顺序剪成一条竖屏成片，先出低分辨率预览，确认后再导出。"

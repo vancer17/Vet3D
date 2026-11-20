@@ -1,0 +1,112 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: A
+    say: "输入与语义结构"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+  - id: B
+    say: "三维粗模校正"
+    rollback_to: A
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+  - id: C
+    say: "部件四视图"
+    rollback_to: B
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+  - id: D
+    say: "部件高模"
+    rollback_to: C
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: E
+    say: "空间装配"
+    rollback_to: D
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+  - id: F
+    say: "真实接口"
+    rollback_to: E
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+  - id: G
+    say: "检测与交付"
+    rollback_to: F
+    load:
+      - SKILL.md
+      - references/contracts.md
+      - references/evolution.md
+      - references/existing-sculpture.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "图→粗模→高模→接口"
+    nodes:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+      - G
+    rollback_to: B
+  - id: reuse_hi3d
+    summary: "已有合格高模跳过 D"
+    nodes:
+      - A
+      - E
+      - F
+      - G
+    shares_input_with: main
+  - id: stop_after_proxy
+    summary: "只做到粗模验收"
+    nodes:
+      - A
+      - B
+    shares_input_with: main
+choices_example:
+  - id: next_C
+    title: "环绕通过，出四视图"
+    route: main
+    confirm: false
+  - id: skip_D
+    title: "已有高模，进入装配"
+    route: reuse_hi3d
+    confirm: false
+  - id: rollback_B
+    title: "回退到粗模"
+    rollback_to: B
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

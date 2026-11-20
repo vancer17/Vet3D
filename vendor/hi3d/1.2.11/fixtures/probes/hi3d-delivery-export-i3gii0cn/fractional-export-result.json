@@ -1,0 +1,84 @@
+{
+  "active_action": "MappedMotion",
+  "fps": 24.0,
+  "options": {
+    "export_animation_mode": "ACTIVE_ACTIONS",
+    "export_animations": true,
+    "export_extras": true,
+    "export_force_sampling": true,
+    "export_frame_range": true,
+    "export_morph": true,
+    "export_skins": true
+  },
+  "output": "{PROBE_ROOT}/hi3d-delivery-export-i3gii0cn/fractional.glb",
+  "output_sha256": "ecefdd0f59d33f54de5039c0f093b969c44b74d1f45a6b13f90c665a02dd7cb2",
+  "scene_frames": [
+    10,
+    11,
+    12
+  ],
+  "selected_export_objects": [
+    "Body",
+    "Target"
+  ],
+  "source_meshes": [
+    "Body",
+    "HeldProp"
+  ],
+  "source_sha256": "759a870845d88cba755bbd381285cf4a2b7a2434596882a77d6b69186a00e1dd",
+  "source_unchanged": true,
+  "source_world_samples": [
+    [
+      [
+        -0.1525043249130249,
+        -1.3010880151043125e-09,
+        1.0876729488372803
+      ],
+      [
+        -0.05803004652261734,
+        -2.0134298672758177e-09,
+        1.0604135990142822
+      ],
+      [
+        -0.10526719689369202,
+        0.10000000149011612,
+        1.0740432739257812
+      ]
+    ],
+    [
+      [
+        0.047813694924116135,
+        0.06620445847511292,
+        1.1030515432357788
+      ],
+      [
+        0.14131823182106018,
+        0.0698641985654831,
+        1.0745223760604858
+      ],
+      [
+        0.09125082194805145,
+        0.16769611835479736,
+        1.0903438329696655
+      ]
+    ],
+    [
+      [
+        0.25501108169555664,
+        0.1320403665304184,
+        1.1156909465789795
+      ],
+      [
+        0.3468501567840576,
+        0.1392139196395874,
+        1.0862529277801514
+      ],
+      [
+        0.2945438623428345,
+        0.23428776860237122,
+        1.104287028312683
+      ]
+    ]
+  ],
+  "state_restored": true
+}

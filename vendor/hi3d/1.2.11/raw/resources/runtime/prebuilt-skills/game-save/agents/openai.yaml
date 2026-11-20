@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏存档迁移"
+  short_description: "保存游戏进度、恢复旧版存档或处理损坏存档；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-save 处理当前游戏需求，复用已有工程并验证输入输出。"

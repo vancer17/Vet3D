@@ -1,0 +1,88 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: config
+    say: "输入与 face_config"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/inputs.md
+      - references/retopology-api.md
+    irreversible: []
+  - id: remesh
+    say: "减面与眼口环线"
+    rollback_to: config
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/inputs.md
+      - references/retopology-api.md
+    irreversible:
+      - mdf.invoke
+    confirm_required: true
+  - id: bind
+    say: "基础绑定与表情"
+    rollback_to: remesh
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/inputs.md
+      - references/retopology-api.md
+    irreversible: []
+  - id: bake
+    say: "贴图烘焙"
+    rollback_to: bind
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/inputs.md
+      - references/retopology-api.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: export
+    say: "导出 GLB/Blender"
+    rollback_to: bake
+    load:
+      - SKILL.md
+      - references/implementation.md
+      - references/inputs.md
+      - references/retopology-api.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: main
+    summary: "高模→低模主链"
+    nodes:
+      - config
+      - remesh
+      - bind
+      - bake
+      - export
+    rollback_to: remesh
+  - id: rebake
+    summary: "只改贴图尺寸重烘"
+    nodes:
+      - bake
+      - export
+    shares_input_with: main
+choices_example:
+  - id: continue_bind
+    title: "继续绑定表情"
+    route: main
+    confirm: false
+  - id: rebake_only
+    title: "几何已可，只重烘贴图"
+    route: rebake
+    confirm: false
+  - id: rollback_remesh
+    title: "回退到减面"
+    rollback_to: remesh
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

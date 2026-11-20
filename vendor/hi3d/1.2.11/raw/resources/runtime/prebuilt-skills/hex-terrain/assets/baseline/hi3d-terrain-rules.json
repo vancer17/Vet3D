@@ -1,0 +1,956 @@
+{
+  "schema_version": 1,
+  "version": "2.1.2",
+  "description": "六边形地形通用贴图与装饰规则；不包含地图种子、格子坐标、海拔或水位数据。",
+  "assets": {
+    "decoration_glb": "../hi3d-hex-terrain-decorations_26.glb",
+    "decoration_blend": "../exports/hi3d-hex-terrain-decorations_28.blend",
+    "decoration_manifest": "../exports/hi3d-hex-terrain-decorations_28.json",
+    "grass_patch_glb": "../hi3d-hex-terrain-grass-patches_2.glb",
+    "grass_patch_manifest": "../exports/hi3d-hex-terrain-grass-patches_5.json",
+    "groups": {
+      "soil_grass": {
+        "label": "土壤三种草",
+        "collision_class": "foliage",
+        "sampling_region": "entire_soil_tile_including_bare_ground",
+        "models": [
+          {
+            "id": "Grass_Dense",
+            "weight": 1
+          },
+          {
+            "id": "Grass_Short_Spread",
+            "weight": 1
+          },
+          {
+            "id": "Grass_Tall_Arch",
+            "weight": 1
+          }
+        ]
+      },
+      "soil_trees": {
+        "label": "湿土两种树",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Tree_Soil_Wet_Willow_01",
+            "weight": 1
+          },
+          {
+            "id": "Tree_Soil_Wet_Broadleaf_01",
+            "weight": 1
+          }
+        ]
+      },
+      "sand_cacti": {
+        "label": "沙地两种仙人掌",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Cactus_01",
+            "weight": 1
+          },
+          {
+            "id": "Cactus_02",
+            "weight": 1
+          }
+        ]
+      },
+      "sand_tumbleweed": {
+        "label": "沙地风滚草",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Grass_Sand_Wet_01",
+            "weight": 1
+          }
+        ]
+      },
+      "sand_deadwood": {
+        "label": "枯木",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Deadwood_01",
+            "weight": 1
+          }
+        ]
+      },
+      "gravel_grass": {
+        "label": "砾石细草",
+        "collision_class": "foliage",
+        "models": [
+          {
+            "id": "Grass_Gravel_01",
+            "weight": 1
+          }
+        ]
+      },
+      "gravel_shrub": {
+        "label": "砾石灌木",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Shrub_Gravel_01",
+            "weight": 1
+          }
+        ]
+      },
+      "gravel_stone": {
+        "label": "砾石小石头",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Stone_Gravel_01",
+            "weight": 1
+          }
+        ]
+      },
+      "rock_stones": {
+        "label": "岩地两种小石头",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Stone_Rock_01",
+            "weight": 1
+          },
+          {
+            "id": "Stone_Rock_02",
+            "weight": 1
+          }
+        ]
+      },
+      "rock_shrub": {
+        "label": "岩地灌木",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Shrub_Rock_01",
+            "weight": 1
+          }
+        ]
+      },
+      "rock_fern": {
+        "label": "岩地石缝蕨",
+        "collision_class": "foliage",
+        "models": [
+          {
+            "id": "Fern_Rock_Wet_01",
+            "weight": 1
+          }
+        ]
+      },
+      "underwater_shell": {
+        "label": "水下贝壳",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Shell_Underwater_01",
+            "weight": 1
+          }
+        ]
+      },
+      "underwater_stone": {
+        "label": "水下卵石",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Stone_Underwater_01",
+            "weight": 1
+          }
+        ]
+      },
+      "underwater_kelp": {
+        "label": "波浪海带",
+        "collision_class": "solid",
+        "models": [
+          {
+            "id": "Seaweed_Underwater_01",
+            "weight": 1
+          }
+        ]
+      },
+      "river_lotus": {
+        "label": "河流荷叶",
+        "collision_class": "foliage",
+        "models": [
+          {
+            "id": "River_Lotus_01",
+            "weight": 1
+          }
+        ]
+      },
+      "river_sweet_flag": {
+        "label": "河岸菖蒲",
+        "collision_class": "foliage",
+        "models": [
+          {
+            "id": "River_SweetFlag_01",
+            "weight": 1
+          }
+        ]
+      },
+      "river_reed": {
+        "label": "河岸芦苇",
+        "collision_class": "foliage",
+        "models": [
+          {
+            "id": "River_Reed_01",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    "civilization_decoration_glb": "../hi3d-civilization-decorations_4.glb",
+    "civilization_decoration_blend": "../exports/hi3d-civilization-decorations_4.blend",
+    "civilization_decoration_manifest": "../exports/hi3d-civilization-decorations_4.json"
+  },
+  "surface_rules": {
+    "underwater_condition": {
+      "water_field": "waterLevel",
+      "ground_field": "altitude",
+      "comparison": ">"
+    },
+    "land": {
+      "temperatures": [
+        "hot",
+        "temperate",
+        "cold"
+      ],
+      "materials": [
+        "soil",
+        "sand",
+        "gravel",
+        "rock"
+      ],
+      "humidity_file_names": {
+        "arid": "dry",
+        "moderate": "moderate",
+        "humid": "wet"
+      },
+      "texture_template": "../exports/hi3d-approved-terrain-textures/hi3d-terrain-{temperature}-{humidity}-{material}.png"
+    },
+    "underwater": {
+      "selection": "weighted_random_per_cell",
+      "textures": [
+        {
+          "id": "underwater_gravel_01",
+          "path": "../exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel.png",
+          "weight": 1
+        },
+        {
+          "id": "underwater_gravel_02",
+          "path": "../exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel-variant-02.png",
+          "weight": 1
+        },
+        {
+          "id": "underwater_gravel_03",
+          "path": "../exports/hi3d-approved-terrain-textures/hi3d-terrain-underwater-gravel-variant-03.png",
+          "weight": 1
+        }
+      ]
+    },
+    "civilization": {
+      "enabled": true,
+      "temperature_policy": "temperate_fallback_until_other_climates_approved",
+      "humidity_file_names": {
+        "arid": "dry",
+        "moderate": "moderate",
+        "humid": "wet"
+      },
+      "levels": {
+        "1": {
+          "label": "村庄夯土地",
+          "texture_template": "../exports/hi3d-approved-terrain-textures/hi3d-civilization-village-temperate-{humidity}-tamped-earth.png"
+        },
+        "2": {
+          "label": "城镇砖石地",
+          "texture_template": "../exports/hi3d-approved-terrain-textures/hi3d-civilization-town-temperate-{humidity}-stone-paving.png"
+        },
+        "3": {
+          "label": "堡垒切石板地",
+          "texture_template": "../exports/hi3d-approved-terrain-textures/hi3d-civilization-fortress-temperate-{humidity}-cut-stone-paving.png"
+        }
+      }
+    }
+  },
+  "water_surface": {
+    "rgba_linear": [
+      0.045,
+      0.3,
+      0.38,
+      0.7
+    ],
+    "roughness": 0.25,
+    "specular_ior_level": 0.18,
+    "metallic": 0.0,
+    "alpha_mode": "BLEND",
+    "double_sided": true,
+    "height_offset_steps": -0.25,
+    "height_formula": "(waterLevel + height_offset_steps) * height_step_m"
+  },
+  "decoration_rules": {
+    "count_unit": "total_instances_per_group_per_tile",
+    "count_distribution": "uniform_integer_inclusive",
+    "land": {
+      "arid": {
+        "soil": [
+          {
+            "group": "soil_grass",
+            "count": [
+              5,
+              10
+            ]
+          },
+          {
+            "group": "soil_trees",
+            "count": [
+              1,
+              2
+            ]
+          }
+        ],
+        "sand": [
+          {
+            "group": "sand_cacti",
+            "count": [
+              2,
+              3
+            ]
+          },
+          {
+            "group": "sand_tumbleweed",
+            "count": [
+              0,
+              1
+            ]
+          },
+          {
+            "group": "sand_deadwood",
+            "count": [
+              1,
+              2
+            ]
+          }
+        ],
+        "gravel": [
+          {
+            "group": "gravel_grass",
+            "count": [
+              3,
+              5
+            ]
+          },
+          {
+            "group": "gravel_shrub",
+            "count": [
+              1,
+              2
+            ]
+          },
+          {
+            "group": "gravel_stone",
+            "count": [
+              5,
+              8
+            ]
+          }
+        ],
+        "rock": [
+          {
+            "group": "rock_stones",
+            "count": [
+              3,
+              4
+            ]
+          },
+          {
+            "group": "rock_shrub",
+            "count": [
+              0,
+              1
+            ]
+          },
+          {
+            "group": "rock_fern",
+            "count": [
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      "moderate": {
+        "soil": [
+          {
+            "group": "soil_grass",
+            "count": [
+              10,
+              15
+            ]
+          },
+          {
+            "group": "soil_trees",
+            "count": [
+              3,
+              5
+            ]
+          }
+        ],
+        "sand": [
+          {
+            "group": "sand_cacti",
+            "count": [
+              1,
+              2
+            ]
+          },
+          {
+            "group": "sand_tumbleweed",
+            "count": [
+              2,
+              3
+            ]
+          },
+          {
+            "group": "sand_deadwood",
+            "count": [
+              1,
+              2
+            ]
+          }
+        ],
+        "gravel": [
+          {
+            "group": "gravel_grass",
+            "count": [
+              7,
+              12
+            ]
+          },
+          {
+            "group": "gravel_shrub",
+            "count": [
+              2,
+              3
+            ]
+          },
+          {
+            "group": "gravel_stone",
+            "count": [
+              3,
+              5
+            ]
+          }
+        ],
+        "rock": [
+          {
+            "group": "rock_stones",
+            "count": [
+              2,
+              3
+            ]
+          },
+          {
+            "group": "rock_shrub",
+            "count": [
+              1,
+              2
+            ]
+          },
+          {
+            "group": "rock_fern",
+            "count": [
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      "humid": {
+        "soil": [
+          {
+            "group": "soil_grass",
+            "count": [
+              15,
+              20
+            ]
+          },
+          {
+            "group": "soil_trees",
+            "count": [
+              5,
+              8
+            ]
+          }
+        ],
+        "sand": [
+          {
+            "group": "sand_deadwood",
+            "count": [
+              2,
+              4
+            ]
+          },
+          {
+            "group": "sand_tumbleweed",
+            "count": [
+              4,
+              5
+            ]
+          }
+        ],
+        "gravel": [
+          {
+            "group": "gravel_grass",
+            "count": [
+              15,
+              20
+            ]
+          },
+          {
+            "group": "gravel_shrub",
+            "count": [
+              3,
+              5
+            ]
+          },
+          {
+            "group": "gravel_stone",
+            "count": [
+              2,
+              4
+            ]
+          }
+        ],
+        "rock": [
+          {
+            "group": "rock_stones",
+            "count": [
+              1,
+              2
+            ]
+          },
+          {
+            "group": "rock_shrub",
+            "count": [
+              2,
+              3
+            ]
+          },
+          {
+            "group": "rock_fern",
+            "count": [
+              3,
+              4
+            ]
+          }
+        ]
+      }
+    },
+    "underwater": [
+      {
+        "group": "underwater_shell",
+        "count": [
+          1,
+          3
+        ]
+      },
+      {
+        "group": "underwater_stone",
+        "count": [
+          2,
+          4
+        ]
+      },
+      {
+        "group": "underwater_kelp",
+        "count": [
+          6,
+          10
+        ]
+      }
+    ],
+    "civilization": {
+      "selection": "all_types_with_count_ranges",
+      "count_scope": "per_civilized_above_water_tile",
+      "count_policy": "major_building_minimum_other_types_maximum_for_dense_test",
+      "count_policy_major_ids": [
+        "Town_Hall_01",
+        "Fortress_Castle_01"
+      ],
+      "levels": {
+        "1": {
+          "label": "村庄",
+          "counts": {
+            "Village_ThatchHouse_01": [
+              2,
+              3
+            ],
+            "Village_ChickenCoop_01": [
+              1,
+              2
+            ],
+            "Village_PigPen_01": [
+              1,
+              2
+            ],
+            "Village_Farm_01": [
+              2,
+              3
+            ]
+          },
+          "roles": {
+            "Village_ThatchHouse_01": "residential_core",
+            "Village_ChickenCoop_01": "animal_yard",
+            "Village_PigPen_01": "animal_yard",
+            "Village_Farm_01": "perimeter_farm"
+          }
+        },
+        "2": {
+          "label": "城镇",
+          "counts": {
+            "Town_Hall_01": [
+              1,
+              2
+            ],
+            "Town_Church_01": [
+              1,
+              2
+            ],
+            "Town_House_01": [
+              3,
+              4
+            ],
+            "Town_GeneralStore_01": [
+              2,
+              3
+            ]
+          },
+          "roles": {
+            "Town_Hall_01": "civic_core",
+            "Town_Church_01": "civic_core",
+            "Town_House_01": "residential_ring",
+            "Town_GeneralStore_01": "approach_market"
+          }
+        },
+        "3": {
+          "label": "堡垒",
+          "counts": {
+            "Fortress_Castle_01": [
+              1,
+              1
+            ],
+            "Fortress_CannonPlatform_01": [
+              1,
+              2
+            ],
+            "Fortress_Stable_01": [
+              1,
+              2
+            ],
+            "Fortress_TrainingGround_01": [
+              2,
+              3
+            ]
+          },
+          "roles": {
+            "Fortress_Castle_01": "defensive_core",
+            "Fortress_CannonPlatform_01": "near_wall_facing_out",
+            "Fortress_Stable_01": "side_service_yard",
+            "Fortress_TrainingGround_01": "open_yard"
+          }
+        }
+      },
+      "placement": {
+        "method": "deterministic_functional_zones_on_hex_lattice",
+        "reproducible_from": "grid_cell_id_and_civilization_level",
+        "no_random_positions": true,
+        "zones": {
+          "village": "houses_near_center_farms_at_perimeter_animal_yards_beside_houses",
+          "town": "hall_and_church_civic_core_shops_toward_water_gate_homes_outer_ring",
+          "fortress": "castle_core_cannons_toward_outer_wall_stables_side_training_open_yard"
+        },
+        "candidate_radius_step_m": 0.025,
+        "candidate_angle_step_degrees": 15,
+        "allowed_rotation_z_degrees": [
+          0,
+          60,
+          120,
+          180,
+          240,
+          300
+        ],
+        "edge_clearance_m": 0.135,
+        "building_gap_m": 0.045,
+        "river_clearance_m": 0.045,
+        "ground_offset_m": 0.003,
+        "scale_range": [
+          1.0,
+          1.0
+        ],
+        "scale_reference": "approved_civilization_decoration_geometry",
+        "approved_scale_relative_to_original": {
+          "required_main": 0.48,
+          "optional_assets": 0.36
+        },
+        "avoid_rivers": true,
+        "avoid_other_buildings": true,
+        "failure_policy": "error",
+        "solver": "deterministic_backtracking_with_spatially_distinct_candidates"
+      }
+    }
+  },
+  "grass_patch_rules": {
+    "kind": "special_decoration",
+    "enabled": true,
+    "eligible_surface_material": "soil",
+    "underwater_allowed": false,
+    "instances_per_tile": 1,
+    "humidity_mapping": {
+      "arid": "GrassPatch_Dry",
+      "moderate": "GrassPatch_Moderate",
+      "humid": "GrassPatch_Wet"
+    },
+    "placement_pivot": "ground_center",
+    "local_position_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale_xyz": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "allowed_rotation_z_degrees": [
+      0,
+      60,
+      120,
+      180,
+      240,
+      300
+    ],
+    "rotation_reference": "world_xy_axes",
+    "rotation_selection": "uniform_discrete_per_cell",
+    "maximum_fit_translation_m": 0.01,
+    "footprint_check": "turf_inside_flat_top_and_blades_inside_outer_hex",
+    "minimum_edge_clearance_m": 0.001,
+    "mesh_sharing": "shared_by_humidity_and_part",
+    "blade_objects_per_tile": 1,
+    "decoration_grass_sampling_region": "entire_soil_tile_including_bare_ground"
+  },
+  "placement_defaults": {
+    "reference_tile_circumradius_m": 1.0,
+    "count_size_policy": "scale_by_tile_area",
+    "scale_range": [
+      0.6,
+      1.0
+    ],
+    "scale_reference": "approved_asset_geometry",
+    "rotation_z_range_rad": [
+      0.0,
+      6.283185307179586
+    ],
+    "ground_offset_m": 0.003,
+    "edge_clearance_m": 0.012,
+    "solid_gap_m": 0.012,
+    "collision_policy": "protected_groups_only",
+    "protected_groups": [
+      "sand_cacti",
+      "gravel_stone",
+      "rock_stones",
+      "underwater_stone"
+    ],
+    "placement_order": "protected_groups_first",
+    "foliage_minimum_center_distance_m": 0.105,
+    "foliage_overlap_allowed": true,
+    "underwater_surface_clearance_m": 0.005,
+    "shallow_water_policy": "skip_if_minimum_scale_does_not_fit",
+    "layout_attempts": 24,
+    "position_attempts": 4000,
+    "placement_failure_policy": "error",
+    "seed_scope": "map_seed_and_cell_id_and_stage"
+  },
+  "river_rules": {
+    "width_edge_ratio": 0.3,
+    "curve_segments_per_tile": 4,
+    "width_reference": "regular_hexagon_edge_length_equals_circumradius",
+    "surface_offset_m": 0.01,
+    "surface_offset_reason": "small_clearance_above_terrain_and_turf_to_avoid_z_fighting",
+    "source_taper_length_m": 0.72,
+    "ordinary_sink_taper_length_m": 0.72,
+    "boundary_endpoints_taper": false,
+    "water_body_endpoints_taper": false,
+    "curve_control_length_edge_ratio": 0.58,
+    "step_transition_half_length_m": 0.09,
+    "waterfall_minimum_drop_m": 0.15,
+    "lake_overlap_m": 0.0,
+    "lake_join_offset_m": 0.0,
+    "decoration_clearance_m": 0.025,
+    "decoration_overlap_test": "world_xy_convex_footprint_against_variable_width_ribbon",
+    "decoration_overlap_action": "remove_whole_instance",
+    "preserve_grass_patches": true,
+    "rgba_linear": [
+      0.045,
+      0.3,
+      0.38,
+      0.7
+    ],
+    "roughness": 0.24,
+    "flow_constraint": "next_ground_altitude_lte_current_and_no_revisited_cells",
+    "water_body_entry_constraint": "receiving_water_level_lte_upstream_altitude",
+    "mesh_policy": "one_connected_mesh_per_river_shared_cross_sections",
+    "edge_index_angles_degrees": [
+      0,
+      60,
+      120,
+      180,
+      240,
+      300
+    ],
+    "water_body_termination": "first_contact_with_water_surface_no_submerged_strip",
+    "grass_patch_clip": {
+      "version": 1,
+      "source": "recorded_river_cross_sections",
+      "bank_clearance_m": 0.01,
+      "algorithm": "subtract_expanded_convex_ribbon_prisms_from_patch_triangles",
+      "parts": [
+        "Turf",
+        "Blades"
+      ],
+      "preserve_instance": true,
+      "preserve_unaffected_shared_meshes": true,
+      "preserve_uv_and_vertex_colors": true,
+      "store_derived_cut_polygons": false
+    },
+    "texture": {
+      "path": "../exports/hi3d-approved-terrain-textures/hi3d-terrain-river-water.png",
+      "uv_layer": "RiverFlowUV",
+      "u_axis": "across_river_width_0_to_1",
+      "v_axis": "distance_from_source_m / repeat_length_m",
+      "repeat_length_m": 2.0,
+      "wrap_u": "CLAMP_TO_EDGE",
+      "wrap_v": "REPEAT",
+      "seamless_axis": "V"
+    },
+    "decorations": {
+      "count_scope": "all_three_types_combined_per_eligible_cell",
+      "selection": "weighted_random_among_three_types",
+      "groups": [
+        {
+          "group": "river_lotus",
+          "weight": 1,
+          "position": "water_surface"
+        },
+        {
+          "group": "river_sweet_flag",
+          "weight": 1,
+          "position": "river_shallow_water"
+        },
+        {
+          "group": "river_reed",
+          "weight": 1,
+          "position": "river_shallow_water"
+        }
+      ],
+      "enabled": true,
+      "model_review_status": "approved",
+      "placement_algorithm": "seeded_per_cell_inside_flat_river_ribbon",
+      "scale_range": [
+        0.6,
+        1.0
+      ],
+      "rotation_z_range_rad": [
+        0,
+        6.283185307179586
+      ],
+      "lotus_surface_offset_m": 0.0005,
+      "avoid_step_transitions": true,
+      "avoid_protected_groups": true,
+      "ordinary_foliage_overlap_allowed": true,
+      "resolved_revision_requirements": {
+        "River_Lotus_01": "叶面纹理必须在GLB中显示并与截图一致",
+        "River_SweetFlag_01": "复用hi3d-wet-grass-fern-detail_1.png左侧早期沙漠草造型",
+        "River_Reed_01": "改善芦苇造型，修正穗部为独立非绿色材质并验证GLB"
+      },
+      "all_three_types_inside_river": true,
+      "channel_center_offset_m": [
+        -0.04,
+        0.04
+      ],
+      "channel_root_depth_m": 0.007,
+      "count_per_river_cell": [
+        1,
+        3
+      ],
+      "cell_eligibility": "has_flat_river_segment",
+      "waterfall_only_cell_policy": "skip"
+    },
+    "alpha_source": "water_surface.rgba_linear[3]"
+  },
+  "civilization_rules": {
+    "level_range": [
+      0,
+      3
+    ],
+    "default_level": 0,
+    "levels": {
+      "0": "自然",
+      "1": "村落",
+      "2": "城镇",
+      "3": "堡垒"
+    },
+    "underwater_level_policy": "force_zero",
+    "land_texture_policy": "level_and_humidity_approved_civilization_textures",
+    "land_decoration_policy": "replace_natural_land_layer_with_civilization_decorations",
+    "river_decoration_policy": "preserve_independent_river_layer",
+    "natural_surface_backup": "per_cell_naturalSurfaceBackup",
+    "wall": {
+      "edge_condition": "both_cells_exist_and_exactly_one_civilizationLevel_positive",
+      "map_boundary_walls": false,
+      "between_civilized_cells": false,
+      "continuous_component_mesh_policy": "one_connected_manifold_mesh_per_boundary_loop",
+      "centerline": "shared_hexagon_edge",
+      "height_above_higher_adjacent_terrain_m": 0.28,
+      "thickness_m": 0.085,
+      "top_bevel_m": 0.007,
+      "footing_depth_m": 0.025,
+      "height_transition_length_m": 0.1,
+      "water_gate": {
+        "policy": "automatic_at_intersecting_river",
+        "shape": "faceted_arch",
+        "lateral_clearance_m": 0.055,
+        "water_clearance_m": 0.09,
+        "arch_rise_m": 0.085,
+        "arch_segments": 8,
+        "opening_bottom_below_lowest_water_m": 0.06,
+        "opening_bottom_policy": "below_lowest_vertex_of_entire_wall",
+        "bottom_clearance_below_entire_wall_m": 0.2
+      },
+      "corner_towers": {
+        "enabled": true,
+        "location": "every_wall_turn_including_concave_corners",
+        "shape": "chamfered_square_pier_with_simple_overhanging_cap",
+        "shaft_width_m": 0.2,
+        "cap_width_m": 0.235,
+        "height_above_adjacent_wall_m": 0.14,
+        "cap_thickness_m": 0.035,
+        "corner_chamfer_m": 0.018,
+        "mesh_policy": "boolean_union_into_continuous_wall_mesh"
+      },
+      "material": {
+        "style": "dark_desaturated_blue_green_brick",
+        "base_color_linear_rgb": [
+          0.055,
+          0.085,
+          0.098
+        ],
+        "roughness": 0.88,
+        "texture": null
+      }
+    },
+    "surface_rules_reference": "surface_rules.civilization",
+    "decoration_rules_reference": "decoration_rules.civilization"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "changed_vertices": 1,
+  "rules": [
+    {
+      "vertices": 3,
+      "affected": 1,
+      "max_removed_weight": 0.20000000298023224
+    }
+  ],
+  "shared_position_duplicates": 0,
+  "pose_qa_pending": true,
+  "output_sha256": "48542a58c63b3ef4d191f3eb80d5452acd8426fef1464067d1df409395b60ac4",
+  "input_sha256": "eda57dd522cd3530356d3843588b7500c3cac6998851fb0f04bd5ffa99d7fbac"
+}

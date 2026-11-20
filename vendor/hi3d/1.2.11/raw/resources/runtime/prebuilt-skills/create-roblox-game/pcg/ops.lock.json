@@ -1,0 +1,14 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "create-roblox-game",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "scope",
+    "assets",
+    "rules",
+    "validation",
+    "publish",
+    "delivery"
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "schema_version": 1,
+  "units": "meter",
+  "style": "lowpoly_village_family",
+  "assets": {
+    "Village_ThatchHouse_01": {
+      "label": "茅草房",
+      "root_name": "Decoration_Village_ThatchHouse_01",
+      "parts": [
+        "Village_ThatchHouse_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.299827,
+        0.266364,
+        0.254588
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.14978647232055664,
+          -0.13704000413417816,
+          0.0
+        ],
+        "max": [
+          0.15004044771194458,
+          0.12932395935058594,
+          0.2545883059501648
+        ]
+      },
+      "comparison_position_m": [
+        -1.590000033378601,
+        0.0,
+        0.0
+      ],
+      "triangle_count": 4222,
+      "civilization_level": 1,
+      "group": "村庄",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.48
+    },
+    "Village_Farm_01": {
+      "label": "农田",
+      "root_name": "Decoration_Village_Farm_01",
+      "parts": [
+        "Village_Farm_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.2484,
+        0.1836,
+        0.062849
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.1242000088095665,
+          -0.09180000424385071,
+          0.0
+        ],
+        "max": [
+          0.1242000088095665,
+          0.09180000424385071,
+          0.0628492459654808
+        ]
+      },
+      "comparison_position_m": [
+        -0.5299999713897705,
+        0.0,
+        0.0
+      ],
+      "triangle_count": 3018,
+      "civilization_level": 1,
+      "group": "村庄",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Village_PigPen_01": {
+      "label": "猪圈",
+      "root_name": "Decoration_Village_PigPen_01",
+      "parts": [
+        "Village_PigPen_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.22824,
+        0.1656,
+        0.0612
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.1141200140118599,
+          -0.0838799998164177,
+          0.0
+        ],
+        "max": [
+          0.1141200140118599,
+          0.0817200094461441,
+          0.06120000407099724
+        ]
+      },
+      "comparison_position_m": [
+        0.5299999713897705,
+        0.0,
+        0.0
+      ],
+      "triangle_count": 1218,
+      "civilization_level": 1,
+      "group": "村庄",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Village_ChickenCoop_01": {
+      "label": "鸡笼",
+      "root_name": "Decoration_Village_ChickenCoop_01",
+      "parts": [
+        "Village_ChickenCoop_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.22572,
+        0.1638,
+        0.127221
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.11286000162363052,
+          -0.08298000693321228,
+          0.0
+        ],
+        "max": [
+          0.11286000162363052,
+          0.0808200016617775,
+          0.1272212415933609
+        ]
+      },
+      "comparison_position_m": [
+        1.590000033378601,
+        0.0,
+        0.0
+      ],
+      "triangle_count": 4102,
+      "civilization_level": 1,
+      "group": "村庄",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Town_Hall_01": {
+      "label": "市政厅",
+      "root_name": "Decoration_Town_Hall_01",
+      "parts": [
+        "Town_Hall_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.379392,
+        0.28488,
+        0.41568
+      ],
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.1896960288286209,
+          -0.15768000483512878,
+          0.0
+        ],
+        "max": [
+          0.1896960288286209,
+          0.12720000743865967,
+          0.41568002104759216
+        ]
+      },
+      "comparison_position_m": [
+        -1.590000033378601,
+        -1.6586984395980835,
+        0.0
+      ],
+      "triangle_count": 4346,
+      "part_count": 1,
+      "civilization_level": 2,
+      "group": "城镇",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.48
+    },
+    "Town_Church_01": {
+      "label": "教堂",
+      "root_name": "Decoration_Town_Church_01",
+      "parts": [
+        "Town_Church_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.183456,
+        0.30726,
+        0.34596
+      ],
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.09172800183296204,
+          -0.1614600121974945,
+          0.0
+        ],
+        "max": [
+          0.09172800183296204,
+          0.14580000936985016,
+          0.34596002101898193
+        ]
+      },
+      "comparison_position_m": [
+        -0.5299999713897705,
+        -1.6586984395980835,
+        0.0
+      ],
+      "triangle_count": 3042,
+      "part_count": 1,
+      "civilization_level": 2,
+      "group": "城镇",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Town_House_01": {
+      "label": "普通民房",
+      "root_name": "Decoration_Town_House_01",
+      "parts": [
+        "Town_House_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.201427,
+        0.19386,
+        0.22806
+      ],
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.10071361064910889,
+          -0.10386001318693161,
+          0.0
+        ],
+        "max": [
+          0.10071361064910889,
+          0.09000000357627869,
+          0.2280600219964981
+        ]
+      },
+      "comparison_position_m": [
+        0.5299999713897705,
+        -1.6586984395980835,
+        0.0
+      ],
+      "triangle_count": 2844,
+      "part_count": 1,
+      "civilization_level": 2,
+      "group": "城镇",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Town_GeneralStore_01": {
+      "label": "杂货铺",
+      "root_name": "Decoration_Town_GeneralStore_01",
+      "parts": [
+        "Town_GeneralStore_01_Geometry"
+      ],
+      "dimensions_m": [
+        0.224906,
+        0.2268,
+        0.176189
+      ],
+      "placement_pivot": "ground_center",
+      "local_bounds_m": {
+        "min": [
+          -0.10520640760660172,
+          -0.12348002195358276,
+          0.0
+        ],
+        "max": [
+          0.11969999969005585,
+          0.10332001000642776,
+          0.17618857324123383
+        ]
+      },
+      "comparison_position_m": [
+        1.590000033378601,
+        -1.6586984395980835,
+        0.0
+      ],
+      "triangle_count": 3300,
+      "part_count": 1,
+      "civilization_level": 2,
+      "group": "城镇",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Fortress_Castle_01": {
+      "label": "城堡",
+      "root_name": "Decoration_Fortress_Castle_01",
+      "parts": [
+        "Fortress_Castle_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.3456,
+        0.3108,
+        0.34416
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.17280001938343048,
+          -0.15720002353191376,
+          0.0
+        ],
+        "max": [
+          0.17280001938343048,
+          0.15360000729560852,
+          0.3441600203514099
+        ]
+      },
+      "comparison_position_m": [
+        -1.590000033378601,
+        -3.393186330795288,
+        0.0
+      ],
+      "triangle_count": 3959,
+      "civilization_level": 3,
+      "group": "堡垒",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.48
+    },
+    "Fortress_Stable_01": {
+      "label": "马厩",
+      "root_name": "Decoration_Fortress_Stable_01",
+      "parts": [
+        "Fortress_Stable_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.271066,
+        0.19908,
+        0.182669
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.13553281128406525,
+          -0.09539999812841415,
+          0.0
+        ],
+        "max": [
+          0.13553281128406525,
+          0.10368000715970993,
+          0.18266858160495758
+        ]
+      },
+      "comparison_position_m": [
+        -0.5299999713897705,
+        -3.393186330795288,
+        0.0
+      ],
+      "triangle_count": 4338,
+      "civilization_level": 3,
+      "group": "堡垒",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Fortress_CannonPlatform_01": {
+      "label": "火炮台",
+      "root_name": "Decoration_Fortress_CannonPlatform_01",
+      "parts": [
+        "Fortress_CannonPlatform_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.22212,
+        0.22554,
+        0.129246
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.1110600084066391,
+          -0.12762001156806946,
+          0.0
+        ],
+        "max": [
+          0.1110600084066391,
+          0.0979200154542923,
+          0.12924593687057495
+        ]
+      },
+      "comparison_position_m": [
+        0.5299999713897705,
+        -3.393186330795288,
+        0.0
+      ],
+      "triangle_count": 1578,
+      "civilization_level": 3,
+      "group": "堡垒",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    },
+    "Fortress_TrainingGround_01": {
+      "label": "训练场",
+      "root_name": "Decoration_Fortress_TrainingGround_01",
+      "parts": [
+        "Fortress_TrainingGround_01_Geometry"
+      ],
+      "part_count": 1,
+      "placement_pivot": "ground_center",
+      "dimensions_m": [
+        0.264959,
+        0.264959,
+        0.09288
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.1324797421693802,
+          -0.1324797421693802,
+          0.0
+        ],
+        "max": [
+          0.1324797421693802,
+          0.1324797421693802,
+          0.0928800031542778
+        ]
+      },
+      "comparison_position_m": [
+        1.590000033378601,
+        -3.393186330795288,
+        0.0
+      ],
+      "triangle_count": 2876,
+      "civilization_level": 3,
+      "group": "堡垒",
+      "source_model": "hi3d-civilization-decorations_3.glb",
+      "mesh_count": 1,
+      "material_count": 1,
+      "scale_multiplier_from_source": 1.2,
+      "scale_relative_to_original": 0.36
+    }
+  },
+  "source_models": [
+    "hi3d-civilization-decorations_3.glb"
+  ],
+  "files": {
+    "glb": "hi3d-civilization-decorations_4.glb",
+    "blend": "hi3d-civilization-decorations_4.blend",
+    "json": "hi3d-civilization-decorations_4.json",
+    "png": "hi3d-civilization-decorations_4.png"
+  },
+  "comparison": {
+    "same_physical_scale": true,
+    "individual_scale_changes": true,
+    "columns": 4,
+    "rows": [
+      "村庄",
+      "城镇",
+      "堡垒"
+    ],
+    "scale_relative_to": "hi3d-civilization-decorations_3.glb",
+    "scale_rule": {
+      "main_buildings": 1.2,
+      "other_assets": 1.2,
+      "relative_to_original": {
+        "main_buildings": 0.48,
+        "other_assets": 0.36
+      }
+    }
+  },
+  "preview_labels": [
+    {
+      "label": "茅草房",
+      "level": 1,
+      "position_px": [
+        524,
+        492
+      ]
+    },
+    {
+      "label": "农田",
+      "level": 1,
+      "position_px": [
+        1074,
+        519
+      ]
+    },
+    {
+      "label": "猪圈",
+      "level": 1,
+      "position_px": [
+        1622,
+        561
+      ]
+    },
+    {
+      "label": "鸡笼",
+      "level": 1,
+      "position_px": [
+        2170,
+        605
+      ]
+    },
+    {
+      "label": "市政厅",
+      "level": 2,
+      "position_px": [
+        432,
+        1157
+      ]
+    },
+    {
+      "label": "教堂",
+      "level": 2,
+      "position_px": [
+        979,
+        1204
+      ]
+    },
+    {
+      "label": "普通民房",
+      "level": 2,
+      "position_px": [
+        1530,
+        1226
+      ]
+    },
+    {
+      "label": "杂货铺",
+      "level": 2,
+      "position_px": [
+        2076,
+        1278
+      ]
+    },
+    {
+      "label": "城堡",
+      "level": 3,
+      "position_px": [
+        336,
+        1844
+      ]
+    },
+    {
+      "label": "马厩",
+      "level": 3,
+      "position_px": [
+        887,
+        1864
+      ]
+    },
+    {
+      "label": "火炮台",
+      "level": 3,
+      "position_px": [
+        1433,
+        1922
+      ]
+    },
+    {
+      "label": "训练场",
+      "level": 3,
+      "position_px": [
+        1980,
+        1968
+      ]
+    }
+  ],
+  "palette": {
+    "image": "hi3d-civilization-decoration-palette_1.png",
+    "embedded_in_glb": true,
+    "packed_in_blend": true,
+    "materials_in_library": 1
+  },
+  "checks": {
+    "asset_count": 12,
+    "mesh_objects": 12,
+    "primitives": 12,
+    "materials": 1,
+    "source_geometry_and_sizes_preserved": false,
+    "physical_units_meter": true,
+    "geometry_preserved_except_uniform_scale": true,
+    "all_requested_scale_ratios_verified": true
+  },
+  "preview_raw": "hi3d-civilization-decorations-render_4.png"
+}

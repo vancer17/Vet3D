@@ -1,0 +1,4 @@
+interface:
+  display_name: "实体卡牌游戏"
+  short_description: "制作 Hi3D 高模召唤的实体卡牌游戏，支持场内对战和自由飞行观察"
+  default_prompt: "先用简短问题收集缺项与素材，展示玩法方案，待我选择或明确委托后开始制作；已有答案和局部修改范围直接复用。使用 $summon-card-game，基于提供的卡图或 Hi3D 模型制作实体卡牌游戏，搭建 Blender 战场，支持场内召唤、攻击与第一/第三人称漫游，保留原模精度。"

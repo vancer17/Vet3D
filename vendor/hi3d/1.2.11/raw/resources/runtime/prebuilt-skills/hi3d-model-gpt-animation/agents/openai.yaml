@@ -1,0 +1,4 @@
+interface:
+  display_name: "模型与 Blender 动画交付"
+  short_description: "组合独立绑骨适配能力，完成模型交接、舞台修订、次级运动与动画交付"
+  default_prompt: "使用 $hi3d-model-gpt-animation 编排这个角色的动画交付，按需调用 rig-retarget，并保留已有模型与动作。"

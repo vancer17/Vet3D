@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "手机壳浮雕：内腔、开口与颜色，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: phone
+    say: "确认机型尺寸"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/geometry.md
+      - references/service.md
+      - references/timing.md
+    irreversible: []
+  - id: relief
+    say: "浮雕与颜色"
+    rollback_to: phone
+    load:
+      - SKILL.md
+      - references/geometry.md
+      - references/service.md
+      - references/timing.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: cavity
+    say: "内腔与开口"
+    rollback_to: relief
+    load:
+      - SKILL.md
+      - references/geometry.md
+      - references/service.md
+      - references/timing.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: review
+    say: "装配检查"
+    rollback_to: cavity
+    load:
+      - SKILL.md
+      - references/geometry.md
+      - references/service.md
+      - references/timing.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "机型到保护壳"
+    nodes:
+      - phone
+      - relief
+      - cavity
+      - review
+    rollback_to: relief
+  - id: geometry
+    summary: "纯几何浮雕"
+    nodes:
+      - phone
+      - cavity
+      - review
+choices_example:
+  - id: color_relief
+    title: "做连续彩色浮雕"
+    route: main
+    confirm: true
+  - id: geo_only
+    title: "只要几何浮雕"
+    route: geometry
+    confirm: true
+  - id: back_relief
+    title: "回退到上一检查点"
+    rollback_to: relief
+    confirm: false

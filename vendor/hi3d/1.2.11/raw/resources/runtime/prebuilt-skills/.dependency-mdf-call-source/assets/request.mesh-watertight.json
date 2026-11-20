@@ -1,0 +1,6 @@
+{
+  "input_mesh_glb": {
+    "$file": "input.glb"
+  },
+  "target_face_num": null
+}

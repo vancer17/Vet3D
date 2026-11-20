@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/collision.py": "skills/mesh-audit/scripts/collision.py",
+    "scripts/geometry_compare.py": "skills/mesh-audit/scripts/geometry_compare.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py"
+  },
+  "requires": []
+}

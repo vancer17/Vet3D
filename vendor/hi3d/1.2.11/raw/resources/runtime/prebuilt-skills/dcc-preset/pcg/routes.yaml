@@ -1,0 +1,61 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: "先检索预制，再按授权写入，最后对照结果。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: resolve
+    say: "检索预制"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/catalog.md
+      - references/code-contract.md
+    irreversible: []
+  - id: apply
+    say: "写入预制"
+    rollback_to: resolve
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/catalog.md
+      - references/code-contract.md
+    irreversible:
+      - overwrite.source
+      - blender.write
+  - id: review
+    say: "核对结果"
+    rollback_to: apply
+    load:
+      - SKILL.md
+      - references/catalog.md
+      - references/code-contract.md
+    irreversible: []
+routes:
+  - id: lookup
+    summary: "只检索，不改文件"
+    nodes:
+      - resolve
+      - review
+  - id: apply
+    summary: "检索后写入并复核"
+    nodes:
+      - resolve
+      - apply
+      - review
+    rollback_to: resolve
+choices_example:
+  - id: lookup_only
+    title: "只检索预制"
+    route: lookup
+    confirm: false
+  - id: apply_preset
+    title: "写入这条预制"
+    route: apply
+    confirm: true
+  - id: back_resolve
+    title: "回退到检索"
+    rollback_to: resolve
+    confirm: false

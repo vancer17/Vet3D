@@ -1,0 +1,4 @@
+interface:
+  display_name: "联网快照接收"
+  short_description: "处理迟到快照、旧局消息、插值或重连退避；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-network 处理当前游戏需求，复用已有工程并验证输入输出。"

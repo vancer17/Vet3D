@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "files": {
+    "assets/taro/template.npz": "skills/head-template/assets/taro/template.npz",
+    "assets/taro/UPSTREAM_LICENSE.txt": "skills/head-template/assets/taro/UPSTREAM_LICENSE.txt",
+    "scripts/collision.py": "skills/mesh-audit/scripts/collision.py",
+    "scripts/contact_repair.py": "skills/surface-fit/scripts/contact_repair.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/portrait_reconstruction_timing.py",
+    "assets/taro/manifest.json": "skills/head-template/assets/taro/portrait-reconstruction-manifest.json",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py"
+  },
+  "requires": []
+}

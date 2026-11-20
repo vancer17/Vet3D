@@ -1,0 +1,94 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "已有高模做成连通块面与纯色分区；缺三维主体时先收集模型。"
+checkpoints:
+  - id: intake
+    say: "核对源模型"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible: []
+  - id: facet
+    say: "融合并块面化"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: color
+    say: "划分纯色色区"
+    rollback_to: facet
+    load:
+      - SKILL.md
+      - references/method.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: export
+    say: "导出对照与模型"
+    rollback_to: color
+    load:
+      - SKILL.md
+      - references/execution.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: check
+    say: "回读连通与色区"
+    rollback_to: export
+    load:
+      - SKILL.md
+      - references/method.md
+      - references/execution.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从源模型做到导出回读"
+    nodes:
+      - intake
+      - facet
+      - color
+      - export
+      - check
+    rollback_to: facet
+  - id: recolor
+    summary: "几何已合格，只改色区"
+    nodes:
+      - intake
+      - color
+      - export
+      - check
+    shares_input_with: main
+    rollback_to: color
+  - id: reexport
+    summary: "几何和色区已合格，只重导出"
+    nodes:
+      - intake
+      - export
+      - check
+    shares_input_with: main
+    rollback_to: export
+choices_example:
+  - id: full
+    title: "完整做连通块面"
+    route: main
+    confirm: false
+  - id: recolor
+    title: "几何已合格，只改色"
+    route: recolor
+    confirm: false
+  - id: reexport
+    title: "只重做导出回读"
+    route: reexport
+    confirm: false
+  - id: back_facet
+    title: "回到块面几何"
+    rollback_to: facet
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,4 @@
+interface:
+  display_name: "关键点投影"
+  short_description: "同源相机反投影眼唇与多视角耳点，复用固定模板对应关系"
+  default_prompt: "使用 $landmark-project 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

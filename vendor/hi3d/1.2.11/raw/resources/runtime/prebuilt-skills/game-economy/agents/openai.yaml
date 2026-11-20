@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏经济账本"
+  short_description: "商店扣币、奖励领取、重复兑换或离线收益；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-economy 处理当前游戏需求，复用已有工程并验证输入输出。"

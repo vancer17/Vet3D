@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏包清单检查"
+  short_description: "上传游戏、发布 UGC 或检查版本文件清单；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-package 处理当前游戏需求，复用已有工程并验证输入输出。"

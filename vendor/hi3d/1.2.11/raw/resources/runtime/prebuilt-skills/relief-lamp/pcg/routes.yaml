@@ -1,0 +1,96 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "透光浮雕灯：建模交付后才询问切片；未同意不打开切片软件。局部修订先交付再决定是否更新切片。"
+checkpoints:
+  - id: intake
+    say: "识别输入与续接"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/modeling.md
+      - references/fit-and-surface.md
+    irreversible: []
+  - id: generate
+    say: "按需准备图像与浮雕"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/modeling.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: build
+    say: "处理透光、结构与局部修订"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/modeling.md
+      - references/fit-and-surface.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: deliver
+    say: "交付模型并询问切片"
+    rollback_to: build
+    load:
+      - SKILL.md
+      - references/modeling.md
+      - references/fit-and-surface.md
+      - references/evidence.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: slice
+    say: "配置可选整灯切片"
+    rollback_to: deliver
+    load:
+      - SKILL.md
+      - references/slicing.md
+      - references/fit-and-surface.md
+      - references/evidence.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从文字或图片做到建模交付"
+    nodes:
+      - intake
+      - generate
+      - build
+      - deliver
+    rollback_to: build
+  - id: reuse_relief
+    summary: "已有浮雕或整灯，跳过生成；含连接配合与筒面修订"
+    nodes:
+      - intake
+      - build
+      - deliver
+    shares_input_with: main
+    rollback_to: build
+  - id: slice_only
+    summary: "已交付模型，只配置切片"
+    nodes:
+      - intake
+      - slice
+    shares_input_with: main
+    rollback_to: intake
+choices_example:
+  - id: full
+    title: "从文字或图片做灯"
+    route: main
+    confirm: false
+  - id: have_relief
+    title: "已有模型，修订结构"
+    route: reuse_relief
+    confirm: false
+  - id: slice_now
+    title: "已交付，配置切片"
+    route: slice_only
+    confirm: true
+  - id: skip_slice
+    title: "先结束在建模交付"
+    rollback_to: deliver
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

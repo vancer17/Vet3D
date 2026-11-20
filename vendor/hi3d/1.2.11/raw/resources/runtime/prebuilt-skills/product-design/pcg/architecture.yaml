@@ -1,0 +1,131 @@
+schema: pcg.architecture.v1
+entry: product-design
+kind: agent_workflow
+layout: tree
+note: "通用产品外环；品类工作流再填造型。不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: product_design
+    parent: null
+    role: agent
+    label: 产品设计交付
+    function: 编排研究到制造包；文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务
+  - id: research
+    parent: product_design
+    role: local
+    label: 需求与研究
+    function: 本 agent 锁定目标尺度材料
+    members:
+      - id: brief
+        label: 用途与范围
+      - id: connectors
+        label: 有连接变化先比较构型
+    outputs:
+      - id: research_note
+        label: 研究记录
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: concept
+    parent: product_design
+    role: local
+    label: 概念选择
+    function: 本 agent 审图选一款；生图走宿主能力
+    members:
+      - id: refs
+        label: 概念图与已有模型
+      - id: pick
+        label: 审阅后选定
+    outputs:
+      - id: concept_pick
+        label: 选定概念
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: concept_hi3d
+    parent: concept
+    role: subagent
+    entry: hi3d-api
+    label: 生成或恢复艺术模型
+    function: 派出独立 hi3d-api
+    optional: true
+    irreversible:
+      - hi3d.submit
+    members:
+      - id: submit
+        label: 提交
+      - id: recover
+        label: 恢复原任务 ID
+    outputs:
+      - id: art_glb
+        label: 艺术模型
+        kind: file
+        retain: keep
+        semantics: [source, geometry, deliverable]
+  - id: engineer
+    parent: product_design
+    role: local
+    label: 工程化
+    function: 本 agent 做内腔接口保持；品类填几何
+    members:
+      - id: cavity
+        label: 内腔与装卸
+      - id: motion
+        label: 运动与对照
+    outputs:
+      - id: engineered
+        label: 工程模型
+        kind: file
+        retain: keep
+        semantics: [derived, deliverable]
+  - id: print_plan
+    parent: engineer
+    role: subagent
+    entry: print-plan
+    label: 制造与验证规划
+    function: 派出独立 print-plan 规则入口
+    members:
+      - id: diy
+        label: 全打印路线评估
+      - id: coupons
+        label: 试片与配合检查
+    outputs:
+      - id: plan
+        label: 制造方案
+        kind: file
+        retain: keep
+        semantics: [record, deliverable]
+  - id: deliver
+    parent: product_design
+    role: local
+    label: 制造包交付
+    function: 本 agent 集中图片 3D 网页；默认不渲染视频
+    irreversible:
+      - overwrite.source
+    members:
+      - id: shots
+        label: 主图背面细节
+      - id: files
+        label: BOM 打印包
+    outputs:
+      - id: page
+        label: 成果页
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: 同版打开下载核对
+    function: 派出独立 delivery-review
+    members:
+      - id: same_rev
+        label: 同版文件
+      - id: open
+        label: 实际打开下载
+    outputs:
+      - id: checklist
+        label: 交付清单
+        kind: file
+        retain: keep
+        semantics: [record, deliverable]

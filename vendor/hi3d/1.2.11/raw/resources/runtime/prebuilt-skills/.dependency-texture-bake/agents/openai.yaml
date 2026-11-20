@@ -1,0 +1,4 @@
+interface:
+  display_name: "高模纹理烘焙"
+  short_description: "在本地 Blender 将高模细节烘焙到目标 UV，保留几何并输出贴图。"
+  default_prompt: "使用 $texture-bake 从当前明确的高模向带 UV 目标烘焙所需通道。"

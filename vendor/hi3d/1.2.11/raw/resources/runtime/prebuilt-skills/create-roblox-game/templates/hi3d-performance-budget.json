@@ -1,0 +1,19 @@
+{
+  "schema": "roblox.prototype-budget.v1",
+  "status": "adjustable_starting_budget_not_platform_limit",
+  "assets": {
+    "small_prop": {"triangles": 2000, "texture_max_edge": 512},
+    "building_module_or_device": {"triangles": 10000, "texture_max_edge": 1024},
+    "featured_asset": {"triangles": 30000, "texture_max_edge": 2048},
+    "character": {"triangles": 15000, "texture_max_edge": 1024}
+  },
+  "mobile_visible_triangles": 300000,
+  "sample_seconds": 60,
+  "p95_frame_ms": {"mobile": 33.3, "desktop": 16.7},
+  "count_instances_and_characters": true,
+  "native_part_triangles_known": false,
+  "respect_current_import_limits_first": true,
+  "featured_texture_requires_type_specific_import_verification": true,
+  "unverified_texture_fallback_max_edge": 1024,
+  "performance_verified": false
+}

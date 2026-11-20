@@ -1,0 +1,4 @@
+interface:
+  display_name: "交付验收"
+  short_description: "核对已有模型、图片、制作文件与成果页是否同版且可打开下载，输出交付清单和实际检查范围。"
+  default_prompt: "使用 $delivery-review 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

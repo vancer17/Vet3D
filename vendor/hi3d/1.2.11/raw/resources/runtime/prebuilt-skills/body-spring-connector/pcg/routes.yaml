@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "已有模型身体中段改为连续宽圆片弹簧和内藏 D 形桩槽；不重新生成主体。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: intake
+    say: "核对模型与尺度"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/execution-contract.md
+      - references/latest-parameters.json
+    irreversible: []
+  - id: socket
+    say: "制作内藏接口"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/geometry-recipe.md
+      - references/execution-contract.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: spring
+    say: "装配连续弹簧"
+    rollback_to: socket
+    load:
+      - SKILL.md
+      - references/geometry-recipe.md
+      - references/latest-parameters.json
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: deliver
+    say: "检查并交付文件"
+    rollback_to: spring
+    load:
+      - SKILL.md
+      - references/validation-cases.md
+      - references/execution-contract.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: main
+    summary: "首次拆分身体并装上弹簧"
+    nodes:
+      - intake
+      - socket
+      - spring
+      - deliver
+    rollback_to: socket
+  - id: gap_only
+    summary: "已有合格接口，只改圈隙或片厚"
+    nodes:
+      - intake
+      - spring
+      - deliver
+    shares_input_with: main
+    rollback_to: spring
+choices_example:
+  - id: new_split
+    title: "首次拆分身体并连接"
+    route: main
+    confirm: true
+  - id: tune_gap
+    title: "已有接口，只改圈隙"
+    route: gap_only
+    confirm: true
+  - id: back_socket
+    title: "回退到接口检查"
+    rollback_to: socket
+    confirm: false

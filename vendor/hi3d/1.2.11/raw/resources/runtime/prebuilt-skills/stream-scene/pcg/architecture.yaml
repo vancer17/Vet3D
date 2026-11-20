@@ -1,0 +1,132 @@
+schema: pcg.architecture.v1
+entry: stream-scene
+kind: agent_workflow
+layout: tree
+note: "溪流编排。水体预制是对 dcc-preset 的调用，不在本入口复制插件名单或宿主脚本。"
+tasks:
+  - id: stream_scene
+    parent: null
+    role: agent
+    label: 可编辑溪流
+    function: 编排参考驱动的溪流场景。按宿主调用 dcc-preset 打开水体入口，再交接缺失资产、装配岸线，并在用户要求时做网页、减面和离线包。可装泵水景与通用 UE 展示不在本入口。
+    outputs: []
+  - id: brief
+    parent: stream_scene
+    role: local
+    label: 记录场景目标
+    function: 确认新建、接续或局部修订，以及 Blender、Houdini、虚幻、网页的组合。分开记录观察到的效果、用户指定和实现假设。错误的流向标注不作为新流场方向。已有合格阶段写明跳过原因。
+    outputs:
+      - id: brief_note
+        label: 任务目录中的目标说明，含宿主、范围和跳过的阶段
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: preset
+    parent: stream_scene
+    role: local
+    optional: true
+    label: 打开水体预制
+    rollback_to: brief
+    irreversible:
+      - overwrite.source
+      - blender.write
+    function: 调用 dcc-preset。UE 5.7 及以上默认 unreal.water；示例或浅水模拟改用 unreal.water-samples、unreal.water-simulation。Houdini 20.5 及以上用 houdini.ocean-spectrum。Blender 4.2 及以上用 blender.fluid-domain。先预演，宿主确认本检查点后再 --write。版本不够或程序缺失时不写文件。已有合格水体入口则跳过。
+    members:
+      - id: lookup
+        label: 按宿主和版本检索预制
+      - id: apply
+        label: 确认后写入预制
+    outputs:
+      - id: preset_result
+        label: dcc-preset 的 result.json；写入时还有改后的 uproject、HIP 或 BLEND
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: assets
+    parent: stream_scene
+    role: local
+    optional: true
+    label: 准备复杂资产
+    rollback_to: brief
+    irreversible:
+      - hi3d.submit
+    function: 复用用户给出的植物、桥和石头。缺少复杂外观时交接 hi3d-api，不升档，图片失败不自动重提。已有合格模型不生成，本阶段无新文件。
+    outputs:
+      - id: source_glb
+        label: 新生成时的原始 GLB 与任务记录；复用已有模型时不新增
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: scene
+    parent: stream_scene
+    role: local
+    label: 装配溪流场景
+    rollback_to: preset
+    function: 在预制结果上统一坐标并装配岸线、落差、泡沫和贴地树木。BLEND 读写交接 blender-tools。虚幻只在插件已启用的工程里放置水体，不生成假 uasset。预制文件本身不算细波和白沫已经完成。
+    outputs:
+      - id: scene_file
+        label: 装配后的 BLEND、HIP 或已放置水体的 UE 工程说明
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: art
+    parent: stream_scene
+    role: local
+    optional: true
+    label: 调整画面摆放
+    rollback_to: scene
+    function: 用户要求网页、调色或摆放时，把控件连到实际材质、光照和相机。导入失败保留现状，恢复默认回到已确认版本。未要求网页时不新增页面。
+    outputs:
+      - id: web_page
+        label: 可调色和摆放的页面，以及布局与画面 JSON
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: optimize
+    parent: stream_scene
+    role: local
+    optional: true
+    label: 减面与实例
+    rollback_to: scene
+    function: 只在重复高模造成卡顿或目标设备有预算时减面。保留轮廓、UV 和材质，树干与叶簇分开预算，并保留旧模型。
+    outputs:
+      - id: reduced_model
+        label: 减面后的模型和新的文件名记录
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: accept
+    parent: stream_scene
+    role: local
+    label: 验收场景效果
+    rollback_to: scene
+    function: 按本次宿主分别记录岸线、波纹、泡沫、贴地、网页冷加载和未安装软件时的未验证项。插件启用、HIP 保存或 BLEND 保存不代替这些现象。
+    outputs:
+      - id: accept_note
+        label: 验收记录，含已看过的宿主和未验证项
+        kind: file
+        retain: keep
+        semantics:
+          - report
+  - id: offline
+    parent: stream_scene
+    role: local
+    optional: true
+    label: 打包离线附件
+    rollback_to: accept
+    irreversible:
+      - overwrite.source
+    function: 用户要求解压直接打开时，打相对路径的 ZIP，并从最终压缩包的解压副本做直接打开和 HTTP 冷加载。未要求时不打包。
+    outputs:
+      - id: offline_zip
+        label: 离线 ZIP 与解压副本的打开记录
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

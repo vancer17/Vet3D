@@ -1,0 +1,4 @@
+interface:
+  display_name: "业务 App 原型"
+  short_description: "把明确业务流程做成列表、详情、编辑三页网页，并本地保存"
+  default_prompt: "使用 $app-prototype，按预约管理做一个可新增、查看、编辑和筛选的网页原型，双端自适应，交付源码和导入导出。"

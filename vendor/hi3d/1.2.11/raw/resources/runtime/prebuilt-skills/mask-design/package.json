@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "files": {
+    "references/connector-research.md": "skills/connector-select/references/lamp-design-connector-research.md",
+    "references/delivery-policy.md": "skills/delivery-review/references/delivery-policy.md",
+    "references/full-workflow.md": "workflows/product-design/references/full-workflow.md",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py"
+  },
+  "requires": []
+}

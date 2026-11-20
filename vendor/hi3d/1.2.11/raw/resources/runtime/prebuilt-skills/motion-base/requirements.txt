@@ -1,0 +1,5 @@
+numpy>=1.26
+scipy>=1.11
+manifold3d==3.5.3
+imageio-ffmpeg>=0.6
+Pillow>=10

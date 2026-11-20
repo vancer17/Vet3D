@@ -1,0 +1,51 @@
+{
+  "subframe_restored": {
+    "before": [
+      1,
+      0.25
+    ],
+    "after": [
+      1,
+      0.25
+    ]
+  },
+  "fractional_fps": {
+    "source_fps": 23.976022856742713,
+    "sample_frames": [
+      0.0,
+      0.7992007618914237,
+      1.5984015237828475
+    ],
+    "frames": 3,
+    "last_is_requested_end": false
+  },
+  "source_fps_override": {
+    "source_fps": 60.0,
+    "sample_frames": [
+      0.0,
+      2.0
+    ]
+  },
+  "nla_only": {
+    "active_action_is_none": true,
+    "tracks": 1,
+    "matches_active_action": true,
+    "actual_motion": true
+  },
+  "static_cache_accepted": {
+    "schema": "rig-retarget-cache-v1",
+    "frames": 3,
+    "all_poses_identical": true,
+    "report_fields": [
+      "cache_sha256",
+      "fps",
+      "frames",
+      "input_sha256",
+      "output",
+      "rig",
+      "rig_sha256",
+      "source_fps",
+      "source_frames"
+    ]
+  }
+}

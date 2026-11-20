@@ -1,0 +1,47 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+checkpoints:
+  - id: locate
+    say: "定位 Rhino 与建模输入"
+    rollback_to: null
+    load: [SKILL.md]
+    irreversible: []
+  - id: connect
+    say: "验证版本与 MCP/Python 入口"
+    rollback_to: locate
+    load: [SKILL.md]
+    irreversible: []
+  - id: model
+    say: "透传需求并执行建模"
+    rollback_to: connect
+    load: [SKILL.md]
+    irreversible: []
+  - id: verify
+    say: "另存、回读与模型验收"
+    rollback_to: model
+    load: [SKILL.md]
+    irreversible: []
+routes:
+  - id: main
+    summary: "定位环境、配置接口并建模交付"
+    nodes: [locate, connect, model, verify]
+  - id: review_only
+    summary: "已有合格模型只核验，不重复建模"
+    nodes: [locate, connect, verify]
+choices_example:
+  - id: continue_model
+    title: "按当前范围继续建模"
+    route: main
+    confirm: false
+  - id: review_existing
+    title: "检查已有模型"
+    route: review_only
+    confirm: false
+  - id: change_target
+    title: "调整安装位置或目标版本"
+    rollback_to: locate
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

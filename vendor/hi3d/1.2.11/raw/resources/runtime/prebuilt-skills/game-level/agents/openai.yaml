@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏关卡检查"
+  short_description: "配置关卡、检查传送门引用或出口不可达；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-level 处理当前游戏需求，复用已有工程并验证输入输出。"

@@ -1,0 +1,41 @@
+{
+  "convention": "hi3d-front-neg-y-z-up-v1",
+  "views": {
+    "front": {
+      "path": "views/front.png",
+      "sha256": "REPLACE_WITH_ACTUAL_DIGEST",
+      "camera_position_direction": [0, -1, 0],
+      "camera_up": [0, 0, 1],
+      "observed_front_direction": "toward_camera",
+      "direction_reviewed": false,
+      "direction_evidence": ""
+    },
+    "back": {
+      "path": "views/back.png",
+      "sha256": "REPLACE_WITH_ACTUAL_DIGEST",
+      "camera_position_direction": [0, 1, 0],
+      "camera_up": [0, 0, 1],
+      "observed_front_direction": "away_from_camera",
+      "direction_reviewed": false,
+      "direction_evidence": ""
+    },
+    "left": {
+      "path": "views/api-left.png",
+      "sha256": "REPLACE_WITH_ACTUAL_DIGEST",
+      "camera_position_direction": [-1, 0, 0],
+      "camera_up": [0, 0, 1],
+      "observed_front_direction": "screen_right",
+      "direction_reviewed": false,
+      "direction_evidence": ""
+    },
+    "right": {
+      "path": "views/api-right.png",
+      "sha256": "REPLACE_WITH_ACTUAL_DIGEST",
+      "camera_position_direction": [1, 0, 0],
+      "camera_up": [0, 0, 1],
+      "observed_front_direction": "screen_left",
+      "direction_reviewed": false,
+      "direction_evidence": ""
+    }
+  }
+}

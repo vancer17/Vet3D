@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏时钟与生命周期"
+  short_description: "暂停后时间跳跃、重复开局或帧率影响玩法；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-loop 处理当前游戏需求，复用已有工程并验证输入输出。"

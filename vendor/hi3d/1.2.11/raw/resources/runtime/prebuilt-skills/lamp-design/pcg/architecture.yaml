@@ -1,0 +1,158 @@
+schema: pcg.architecture.v1
+entry: lamp-design
+kind: agent_workflow
+layout: tree
+note: "parent 表示编排归属；各阶段 function 声明先后与可选条件。已有合格输入跳过对应生产，不以图中的节点存在触发收费、打印或发布。"
+tasks:
+  - id: lamp_design
+    parent: null
+    role: agent
+    label: "艺术灯具编排"
+    function: "从新概念或当前已认可工程继续，只修订受影响几何与依赖产物；放射竖片和严格 Logo 验证按条件启用，默认同版数字交付。文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+    outputs: []
+  - id: research
+    parent: lamp_design
+    role: local
+    label: "需求、硬件与有效约束"
+    function: "先核对范围/参考/已登记模型与光源资料。放射灯拆解轮廓、片面、厚度、rank 和保留项；严格顶视与收紧冲突先收集必要取舍。默认值仅作有适用条件的起点。"
+    outputs:
+      - id: research
+        label: "需求/硬件来源/约束与默认值配置 JSON/Markdown"
+        kind: file
+        retain: keep
+        semantics:
+          - specification
+  - id: concept
+    parent: lamp_design
+    role: local
+    label: "概念与选择"
+    function: "仅新设计需要，按光路、维护和可制造性比较主轮廓；已有认可设计或局部修订可跳过。需要新图时遵从实际宿主及生成授权，不为选择强制新建三维任务。"
+    outputs:
+      - id: concept
+        label: "概念图 PNG/JPEG 与选择记录 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - reference
+    optional: true
+    irreversible:
+      - hi3d.submit
+  - id: generate
+    parent: lamp_design
+    role: local
+    label: "可选自由外壳生成"
+    function: "仅选定自由形体且缺合格模型时，独立 hi3d-api 接收参考图/参数/稳定 job，预检后提交并恢复原任务；规则竖片、既有模型和局部修订跳过。"
+    outputs:
+      - id: raw
+        label: "原始外壳 GLB、参考图与 job JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    optional: true
+    irreversible:
+      - hi3d.submit
+  - id: form
+    parent: lamp_design
+    role: local
+    label: "真实三维与放射竖片"
+    function: "接收已选设计、已有工程或生成原模。建立内腔与硬件包络；放射片按独立中心线/宽/厚/根位和自然端帽构建，保留中心饰物和灯路。按预算另存候选，不调用褶皱例子冒充竖片。"
+    outputs:
+      - id: form
+        label: "可编辑灯具 BLEND/GLB 与参数/任务脚本"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    irreversible:
+      - blender.write
+  - id: logo
+    parent: lamp_design
+    role: local
+    label: "可选严格 Logo 投影"
+    function: "仅仍要求严格顶视时，回读本版 GLB 全部节点变换后投影灯片，与统一变换的 Logo 比较 IoU、双向边缘距离及多余/缺失区域。未通过回 form；改轮廓后废弃旧指标。"
+    outputs:
+      - id: projection
+        label: "参考/实际/差异 PNG 与指标 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    optional: true
+  - id: connect
+    parent: lamp_design
+    role: local
+    label: "真实连接与底座灯路"
+    function: "在当前根位和硬件包络上设计可装拆连接、承托、护线与维护路径；已有合格连接且根位未动可复用。保留外购版并完成可行全打印机械版，功能电气件另列。"
+    outputs:
+      - id: connect
+        label: "接口/BOM/灯路与装配说明 JSON/Markdown/PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - manufacturing
+  - id: fdm
+    parent: lamp_design
+    role: local
+    label: "制造分件与导出精度"
+    function: "等待 form/connect 和启用的 logo 检查通过；分件与同构试片，回读毫米 STL/3MF，检查连通、薄片/接口间隙及 float32 精度。失败修几何后更新相关检查，不覆盖原交付。"
+    outputs:
+      - id: fdm
+        label: "制造 STL/3MF、试片和数字检查 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - manufacturing
+  - id: media
+    parent: lamp_design
+    role: local
+    label: "同版 OFF/ON 与按需视频"
+    function: "从通过检查的最终工程渲染同机位双状态，固定几何/曝光/摄影光，仅切灯具光与发光材质。按请求输出视频且解码检查；默认仅静帧，输入参考视频不改变此范围。"
+    outputs:
+      - id: media
+        label: "OFF/ON、装配和灯路 PNG/JPEG"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: video
+        label: "显式请求后的 MP4 与检查记录（可选）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    irreversible:
+      - blender.write
+  - id: web
+    parent: lamp_design
+    role: local
+    label: "交互网页与制作包"
+    function: "等待本版模型/制造件/图片齐备，完成产品卡、BOM、下载、开关灯/亮度模拟；严格 Logo 模式锁定叠合相机。通过最终 HTML 实测加载/交互/移动端，汇总计时并打开本地成果页；不默认发布。"
+    outputs:
+      - id: web
+        label: "最终 HTML/资源与同版制作 ZIP"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: records
+        label: "产品卡、验证与阶段 JSONL/JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - provenance
+  - id: publish
+    parent: lamp_design
+    role: local
+    label: "可选公开发布"
+    function: "仅用户明确请求公开分享且现有授权涵盖发布时，接收已验收最终网页和资产，通过宿主提供的发布能力处理并检查实际 URL；无请求则跳过，不强制特定游戏部署流程。"
+    optional: true
+    irreversible:
+      - publish
+    outputs:
+      - id: page
+        label: "实际可访问的成果网页 URL"
+        kind: url
+        retain: keep
+        semantics:
+          - deliverable

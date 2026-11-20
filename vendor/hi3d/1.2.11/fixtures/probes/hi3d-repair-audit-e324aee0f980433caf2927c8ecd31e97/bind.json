@@ -1,0 +1,16 @@
+{
+  "rig": "Skeleton",
+  "reference_body": "Body.001",
+  "bones": 2,
+  "bounds_max_delta": 4.656612873077393e-10,
+  "targets": [
+    {
+      "object": "Body",
+      "preserved": true
+    }
+  ],
+  "service_glb_sha256": "0ad5726fff865032d192538fe6195a4fcb095eb28c0ca009f8cc2695b4c0db5b",
+  "pose_qa_pending": true,
+  "output_sha256": "f44acc82bffa1512a072b4b179acc6bd843cf9f515952741ecce50e13ef37298",
+  "input_sha256": "bc1ad1b99182a116781ca7a5845a6d9a0dea92ff719495ab295fd23e5ebbf936"
+}

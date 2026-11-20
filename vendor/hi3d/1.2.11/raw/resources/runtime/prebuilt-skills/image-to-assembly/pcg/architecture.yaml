@@ -1,0 +1,157 @@
+schema: pcg.architecture.v1
+entry: image-to-assembly
+kind: agent_workflow
+layout: tree
+note: "部件级流水线；生成前环绕关卡通过后才逐件提交高模，每件下载后在位环绕，空间装配前等齐全部高模。环绕不改写参考可见或设计推断。不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: image_to_assembly
+    parent: null
+    role: agent
+    label: 图片到高精度组装
+    function: 编排参考图或整模到可装零件
+  - id: A
+    parent: image_to_assembly
+    role: local
+    label: 输入与语义结构
+    function: 本 agent 盘点输入并建部件邻接
+    members:
+      - id: inventory
+        label: 输入身份姿态可见区域
+      - id: graph
+        label: 部件 ID、邻接图与来源初值
+    outputs:
+      - id: structure
+        label: 语义结构记录
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: B
+    parent: image_to_assembly
+    role: local
+    label: 三维粗模校正
+    function: 本 agent 校正深度比例承接，并以可环绕粗模与部件树作为四视图付费提交和高模提交前的关卡；环绕只关闭结构问题，不把推断改为已观察
+    members:
+      - id: proxy
+        label: 简单几何粗模
+      - id: views
+        label: 正交与斜视对照
+      - id: orbit_gate
+        label: 旋转、单件或整体、隐藏遮挡
+    outputs:
+      - id: proxy_blend
+        label: 粗模工程
+        kind: file
+        retain: keep
+        semantics: [proxy, deliverable]
+      - id: orbit_review
+        label: 生成前环绕记录（可见集与结构结论；来源标记另记）
+        kind: file
+        retain: keep
+        semantics: [record, deliverable]
+  - id: C
+    parent: image_to_assembly
+    role: local
+    label: 部件四视图
+    function: 本 agent 为每件准备重建视图；隐藏面保持 observed 或 inferred。生成前环绕未通过时不把推断面送去付费生成。文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务
+    members:
+      - id: split
+        label: 按粗模语义拆分
+      - id: sheets
+        label: 前后左右与遮挡标记
+    outputs:
+      - id: part_views
+        label: 部件视图
+        kind: file
+        retain: cache
+        semantics: [derived, cache]
+  - id: D
+    parent: image_to_assembly
+    role: subagent
+    entry: hi3d-api
+    label: 部件高模
+    function: 每件独立派出 hi3d-api。生成前环绕未通过不得 submit。下载后在装配位环绕单件与整体，依赖本件边界、前后或连接的下一件等这次审查通过再提交；流水线不等齐全部高模。未授权不得 submit，参数选择与计费示警走同一 waiting_choice
+    optional: true
+    irreversible:
+      - hi3d.submit
+    members:
+      - id: submit
+        label: Quality 提交
+      - id: recover
+        label: 查询与恢复
+      - id: download
+        label: 下载校验 GLB
+      - id: placed_orbit
+        label: 装配位看单件与整体
+    outputs:
+      - id: part_glb
+        label: 部件原始 GLB
+        kind: file
+        retain: keep
+        semantics: [source, geometry, deliverable]
+      - id: hi3d_record
+        label: 任务记录
+        kind: file
+        retain: cache
+        semantics: [record, cache]
+      - id: part_orbit
+        label: 该件在位环绕记录
+        kind: file
+        retain: keep
+        semantics: [record, deliverable]
+  - id: E
+    parent: image_to_assembly
+    role: local
+    label: 空间装配
+    function: 屏障：全部件高模到齐且各件在位环绕已有记录后精调变换；逐件在位环绕不代替整机精调
+    members:
+      - id: place
+        label: 粗模仅作摆放初值
+      - id: lock
+        label: 尺寸锁与承接审查
+    outputs:
+      - id: assembly
+        label: 配准装配
+        kind: file
+        retain: keep
+        semantics: [derived, deliverable]
+  - id: F
+    parent: image_to_assembly
+    role: local
+    label: 真实接口
+    function: 本 agent 做公母结构
+    members:
+      - id: mates
+        label: 邻接边公端母窝
+      - id: order
+        label: 装配顺序与导向
+    outputs:
+      - id: interfaces
+        label: 接口参数与几何
+        kind: file
+        retain: keep
+        semantics: [derived, deliverable]
+  - id: G
+    parent: image_to_assembly
+    role: local
+    label: 检测与交付
+    function: 本 agent 件间检查与交付；completeness critic
+    members:
+      - id: collide
+        label: 穿透与双向包含
+      - id: visual
+        label: 多视角视觉验收
+      - id: frame_state
+        label: 原点、层级、旋转或替换后
+      - id: critic
+        label: 还缺哪条断言或材料
+    outputs:
+      - id: report
+        label: 验收报告
+        kind: file
+        retain: keep
+        semantics: [record, deliverable]
+      - id: package
+        label: 可打开交付包
+        kind: file
+        retain: keep
+        semantics: [deliverable]

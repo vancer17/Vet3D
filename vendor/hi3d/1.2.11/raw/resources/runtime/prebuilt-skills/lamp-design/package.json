@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "files": {
+    "references/connector-research.md": "skills/connector-select/references/lamp-design-connector-research.md",
+    "references/delivery-policy.md": "skills/delivery-review/references/delivery-policy.md",
+    "references/full-workflow.md": "workflows/product-design/references/full-workflow.md",
+    "scripts/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/blender_stl.py": "skills/print-export/scripts/blender_stl.py",
+    "scripts/check_media.py": "skills/media-check/scripts/check_media.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/coupon_records.py": "skills/fit-coupon/scripts/coupon_records.py",
+    "scripts/encode_sequence.py": "skills/media-encode/scripts/encode_sequence.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/media_tools.py": "skills/media-check/scripts/media_tools.py",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/page_assets.py": "skills/asset-page/scripts/page_assets.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/stl_to_3mf.py": "skills/print-export/scripts/stl_to_3mf.py"
+  },
+  "requires": []
+}

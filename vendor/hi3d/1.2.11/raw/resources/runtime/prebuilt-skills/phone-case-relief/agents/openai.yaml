@@ -1,0 +1,4 @@
+interface:
+  display_name: "手机壳连续浮雕"
+  short_description: "按真实手机包络制作连续浮雕保护壳，保留开口、颜色与装配空间"
+  default_prompt: "使用 $phone-case-relief 根据我的手机尺寸或模型与艺术参考设计浮雕保护壳，验证内腔、功能开口和装配空间，并交付可编辑工程、GLB 与阶段耗时。"

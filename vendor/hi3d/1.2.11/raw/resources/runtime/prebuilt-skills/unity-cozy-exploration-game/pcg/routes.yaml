@@ -1,0 +1,120 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "Unity 第三人称治愈系探索。已有合格资产、绑定或玩法可跳过对应阶段。本机未安装 Unity，检查点不代表 Player 已通过。"
+checkpoints:
+  - id: brief
+    say: "记录主题与交付范围"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - assets/hi3d-project-brief.md
+    irreversible: []
+  - id: project
+    say: "建立工程与任务闭环"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/hi3d-design-scene.md
+    irreversible: []
+  - id: assets
+    say: "准备角色与场景资产"
+    rollback_to: project
+    load:
+      - SKILL.md
+      - references/hi3d-evidence.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: motion
+    say: "接入真实身体动作"
+    rollback_to: assets
+    load:
+      - SKILL.md
+      - references/hi3d-character-motion.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: secondary
+    say: "导入随动并接草地"
+    rollback_to: motion
+    load:
+      - SKILL.md
+      - references/hi3d-character-motion.md
+    irreversible: []
+  - id: play
+    say: "实现玩法存档和菜单"
+    rollback_to: secondary
+    load:
+      - SKILL.md
+      - references/hi3d-unity-runtime.md
+    irreversible: []
+  - id: accept
+    say: "在目标环境做验收"
+    rollback_to: play
+    load:
+      - SKILL.md
+      - assets/hi3d-acceptance-checklist.md
+    irreversible: []
+  - id: deliver
+    say: "构建桌面安装包"
+    rollback_to: accept
+    load:
+      - SKILL.md
+      - references/hi3d-build-delivery.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: full
+    summary: "从主题或空工程做到桌面交付"
+    nodes:
+      - brief
+      - project
+      - assets
+      - motion
+      - secondary
+      - play
+      - accept
+      - deliver
+    rollback_to: brief
+  - id: existing
+    summary: "已有合格资产的工程只改玩法与动作"
+    nodes:
+      - brief
+      - project
+      - motion
+      - secondary
+      - play
+      - accept
+      - deliver
+    shares_input_with: full
+    rollback_to: project
+  - id: package_only
+    summary: "玩法已在目标环境通过，只重新打包"
+    nodes:
+      - brief
+      - accept
+      - deliver
+    shares_input_with: full
+    rollback_to: accept
+choices_example:
+  - id: full
+    title: "从主题做到安装包"
+    route: full
+    confirm: false
+  - id: existing
+    title: "沿用已有工程增量改"
+    route: existing
+    confirm: false
+  - id: package_only
+    title: "只重新打包已通过版本"
+    route: package_only
+    confirm: false
+  - id: back_motion
+    title: "回到身体动作"
+    rollback_to: motion
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

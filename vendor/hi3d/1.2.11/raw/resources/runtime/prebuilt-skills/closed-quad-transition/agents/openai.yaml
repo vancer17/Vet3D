@@ -1,0 +1,4 @@
+interface:
+  display_name: "闭合四边面过渡"
+  short_description: "对未保护的规则 4×4 四边面保留外边链，做成 1 个粗中心面和 14 个闭合过渡面"
+  default_prompt: "使用 $closed-quad-transition 处理这份已有四边面里平缓且未保护的 4×4 片。保留外环，按冻结误差验收 16→15，交付可编辑工程、预览和每片报告。"

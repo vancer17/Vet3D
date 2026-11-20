@@ -1,0 +1,93 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "展示底座：承托、铭牌与预览，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: subject
+    say: "确认主体尺寸"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/support.md
+      - references/workflow.md
+    irreversible: []
+  - id: generate_subject
+    say: "生成新艺术主体"
+    rollback_to: subject
+    load:
+      - SKILL.md
+      - references/workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: base
+    say: "底座与铭牌"
+    rollback_to: subject
+    load:
+      - SKILL.md
+      - references/support.md
+      - references/workflow.md
+    irreversible: []
+  - id: preview
+    say: "装配预览"
+    rollback_to: base
+    load:
+      - SKILL.md
+      - references/support.md
+      - references/workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: review
+    say: "交付核对"
+    rollback_to: preview
+    load:
+      - SKILL.md
+      - references/support.md
+      - references/workflow.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "主体到底座"
+    nodes:
+      - subject
+      - base
+      - preview
+      - review
+    rollback_to: base
+  - id: plaque_only
+    summary: "已有底座，只改铭牌"
+    nodes:
+      - subject
+      - base
+      - preview
+      - review
+  - id: new_subject
+    summary: "生成主体后制作底座"
+    nodes:
+      - subject
+      - generate_subject
+      - base
+      - preview
+      - review
+    shares_input_with: main
+choices_example:
+  - id: new_base
+    title: "新做承托底座"
+    route: main
+    confirm: true
+  - id: edit_plaque
+    title: "已有底座，改铭牌"
+    route: plaque_only
+    confirm: true
+  - id: new_subject
+    title: "生成主体后制作底座"
+    route: new_subject
+    confirm: true
+  - id: back_base
+    title: "回退到上一检查点"
+    rollback_to: base
+    confirm: false

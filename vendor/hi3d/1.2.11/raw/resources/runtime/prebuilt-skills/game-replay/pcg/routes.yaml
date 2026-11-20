@@ -1,0 +1,50 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: contract
+    say: "核对规则与工程输入"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contract.md
+    irreversible: []
+  - id: integrate
+    say: "接入独立核心与适配"
+    rollback_to: contract
+    load:
+      - SKILL.md
+      - references/contract.md
+    irreversible: []
+  - id: verify
+    say: "验证规则和实际使用边界"
+    rollback_to: integrate
+    load:
+      - SKILL.md
+      - references/contract.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "接入并验证"
+    nodes:
+      - contract
+      - integrate
+      - verify
+    rollback_to: integrate
+  - id: review
+    summary: "已有接入只验证"
+    nodes:
+      - contract
+      - verify
+choices_example:
+  - id: integrate
+    title: "接入当前工程"
+    route: main
+    confirm: false
+  - id: review
+    title: "复核已有接入"
+    route: review
+    confirm: false

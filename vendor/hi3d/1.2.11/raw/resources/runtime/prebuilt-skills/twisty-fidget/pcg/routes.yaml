@@ -1,0 +1,184 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "防脱为默认要求；逐侧捕获实测、三维配合与真实试片、实际预览和整件证据均为强制验收，研究分支不代表成品通过。"
+checkpoints:
+  - id: research
+    say: "参考机构"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: prep
+    say: "目标准备"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: profile
+    say: "截面适配"
+    rollback_to: prep
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: petals
+    say: "分瓣与长伸展"
+    rollback_to: profile
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: stops
+    say: "双向实体止挡"
+    rollback_to: petals
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: check
+    say: "运动检查"
+    rollback_to: petals
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: capture
+    say: "捕获余量、材料与配合实测"
+    rollback_to: profile
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: deliver
+    say: "通过验收后交付"
+    rollback_to: accept
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+  - id: preview
+    say: "动画与实际审查"
+    rollback_to: check
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: accept
+    say: "整件连接与证据强制验收"
+    rollback_to: check
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - references/capture-and-fit.md
+      - references/mechanism.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "参考网格→互锁分瓣→默认防脱→证据验收"
+    nodes:
+      - research
+      - prep
+      - profile
+      - petals
+      - stops
+      - capture
+      - check
+      - preview
+      - accept
+      - deliver
+    rollback_to: prep
+  - id: reuse_target
+    summary: "已有合格目标网格，从分瓣开始"
+    nodes:
+      - research
+      - petals
+      - stops
+      - capture
+      - check
+      - preview
+      - accept
+      - deliver
+    shares_input_with: main
+  - id: refine_density
+    summary: "只改分瓣密度，复用已认可裁切"
+    nodes:
+      - profile
+      - petals
+      - stops
+      - capture
+      - check
+      - preview
+      - accept
+      - deliver
+    shares_input_with: main
+  - id: add_stops
+    summary: "保留外形与分瓣，增加双向止挡并复核装配"
+    nodes:
+      - stops
+      - capture
+      - check
+      - preview
+      - accept
+      - deliver
+    shares_input_with: main
+  - id: repair_print_failure
+    summary: "确认实际打印版本→复测弱肩和材料→修复配合与防脱→整环复验"
+    nodes:
+      - research
+      - profile
+      - petals
+      - stops
+      - capture
+      - check
+      - preview
+      - accept
+      - deliver
+    shares_input_with: main
+  - id: study_only
+    summary: "只辨认机构，不改模型"
+    nodes:
+      - research
+    shares_input_with: main
+choices_example:
+  - id: study_first
+    title: "先看清螺旋滑轨再动手"
+    route: main
+    confirm: false
+  - id: have_target
+    title: "已有外形，直接分瓣拉伸"
+    route: reuse_target
+    confirm: false
+  - id: more_petals
+    title: "外形认可了，只加密分瓣"
+    route: refine_density
+    confirm: false
+  - id: rollback_prep
+    title: "回退到目标准备"
+    rollback_to: prep
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

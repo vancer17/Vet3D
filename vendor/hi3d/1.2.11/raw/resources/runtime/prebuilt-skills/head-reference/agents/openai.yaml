@@ -1,0 +1,4 @@
+interface:
+  display_name: "头部参考图"
+  short_description: "准备转正或保留原姿态的四视图，共用裁切与外观，内置逐项评审和人工放行"
+  default_prompt: "使用 $head-reference 选择转正或当前视角四视图；当前视角保留原图 yaw/pitch/roll，仅换观察方向。裁切、造型与外观共用，单图可独立调用。逐项看图检查所选姿态、版本和人工确认，不将相对视角冒充标准正面或把未校准评分当自动检测。"

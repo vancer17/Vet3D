@@ -1,0 +1,4 @@
+interface:
+  display_name: "尺度关联四边面环带"
+  short_description: "对已有四边面按尺度划分保护、缓曲和平缓区，选择性融并并以连续环带连接粗细网格"
+  default_prompt: "使用 $scale-aware-quad-rings 处理这份已有四边面。按冻结的 L、h 和阈值划分红黄灰，保护折边和接缝，只在平缓区融并，并用连续四边环带接回，交付可编辑工程和分区验收。"

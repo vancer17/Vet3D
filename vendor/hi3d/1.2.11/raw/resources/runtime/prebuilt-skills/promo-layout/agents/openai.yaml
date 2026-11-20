@@ -1,0 +1,4 @@
+interface:
+  display_name: "宣传物料"
+  short_description: "按三种固定版式生成分层海报 PNG、SVG/HTML 与素材参数包"
+  default_prompt: "使用 $promo-layout，根据品牌名称和准确文案制作方图、横幅和竖版海报，文字与图像分层，交付 PNG、可编辑稿和参数包。"

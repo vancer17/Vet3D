@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: frame-design
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: frame_design
+    parent: null
+    role: agent
+    label: "作品尺寸、陈列与主题"
+    function: "编排 frame-design"
+  - id: brief
+    parent: frame_design
+    label: "作品尺寸、陈列与主题"
+    function: "本 agent 作品尺寸、陈列与主题"
+    outputs:
+      - id: brief
+        label: "作品尺寸、陈列与主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "作品尺寸、陈列与主题"
+  - id: research
+    parent: frame_design
+    label: "轮廓、装裱与连接研究"
+    function: "本 agent 轮廓、装裱与连接研究"
+    outputs:
+      - id: research
+        label: "轮廓、装裱与连接研究"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "轮廓、装裱与连接研究"
+  - id: form
+    parent: frame_design
+    label: "艺术边框与局部纹样"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "艺术边框与局部纹样"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: structure
+    parent: frame_design
+    label: "背板、支撑与装拆"
+    function: "本 agent 背板、支撑与装拆"
+    outputs:
+      - id: structure
+        label: "背板、支撑与装拆"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "背板、支撑与装拆"
+  - id: fdm
+    parent: frame_design
+    label: "结构试片与打印套件"
+    function: "本 agent 结构试片与打印套件"
+    outputs:
+      - id: fdm
+        label: "结构试片与打印套件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "结构试片与打印套件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: frame_design
+    label: "装裱和展示视频"
+    function: "本 agent 装裱和展示视频"
+    outputs:
+      - id: media
+        label: "装裱和展示视频"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "装裱和展示视频"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: frame_design
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

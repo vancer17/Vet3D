@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: pub-roblox-game
+kind: agent_skill
+layout: linear
+tasks:
+- id: root
+  parent: null
+  role: agent
+  label: Roblox 游戏发布
+  function: 按当前输入编排实际阶段，复用已完成结果与授权；缺失外部平台能力时如实记录。
+  outputs: []
+- id: target
+  parent: root
+  role: local
+  label: 核对发布目标
+  function: 要打开 Studio 时先检索本机可启动程序，安装包不算；没有则等用户在输入面板回复后再检索，回复内容不作为放行条件。确认新建或更新、所有者、Place 与已有授权；复用已有可恢复版本，不创建虚假账号信息。
+  outputs: []
+- id: preflight
+  parent: target
+  role: local
+  label: 核对工程与账号前提
+  function: 检查 Studio 验收、导入资产权限、账号资格和内容问卷；不能操作平台时记录具体阻塞并完成独立检查。
+  outputs:
+  - id: preflight_report
+    label: hi3d-publish-review.md 准备检查与阻塞
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: target
+- id: upload
+  parent: preflight
+  role: local
+  label: 上传或复用版本
+  function: 首次默认 Studio，既有已配置自动化环境才调用 roblox-api；仅在授权范围上传，已有成功回执跳过；未知提交核回版本。
+  outputs:
+  - id: upload_receipt
+    label: hi3d-publication-record.json 上传状态、版本及实际手续
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: preflight
+  irreversible:
+  - publish
+- id: audience
+  parent: upload
+  role: local
+  label: 设置已授权访问范围
+  function: 公网要求已获授权时在 Dashboard 保存 Public；私测跳过。资格阻塞如实记录，不以上传成功冒充公开。
+  outputs:
+  - id: audience_record
+    label: hi3d-publication-record.json 实际可见性与限制
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: upload
+  irreversible:
+  - publish
+- id: verify
+  parent: audience
+  role: local
+  label: 验证公开多人访问
+  function: 两真实合格账号同服验证目标版本及所需共享行为，聊天按资格和需求单独验收；交付真实链接及缺口。
+  outputs:
+  - id: publication_record
+    label: hi3d-publication-record.json 最终版本、链接、手续与验收状态
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: publish_review
+    label: hi3d-publish-review.md 实测来源及待完成事项
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: audience

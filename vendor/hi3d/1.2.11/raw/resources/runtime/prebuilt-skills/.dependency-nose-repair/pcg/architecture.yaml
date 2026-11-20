@@ -1,0 +1,68 @@
+schema: pcg.architecture.v1
+entry: nose-repair
+kind: agent_skill
+layout: linear
+note: parent 表示编排归属；实际前置条件见 function。算子由代码执行，阶段不自动创建子 agent。
+tasks:
+- id: nose_repair
+  parent: null
+  role: agent
+  label: nose-repair
+  function: 编排阶段并检查交接；已有合格产物从对应阶段续接。
+- id: source
+  parent: nose_repair
+  role: local
+  label: 校验 source 与 donor
+  function: 核对高模、注册 donor、模板哈希及同源坐标；已有结果可直接进入 audit。
+  outputs: []
+- id: prepare
+  parent: source
+  role: local
+  label: 准备鼻部区域
+  function: source 通过后运行 prepare；保存源绑定与鼻翼/鼻小柱 ROI；提供同源投射唇点时自动保护口唇并保留鼻部核心，冲突时停止。
+  outputs:
+  - id: prepare_0
+    label: profile.json：源绑定及区域参数
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: source
+- id: transplant
+  parent: prepare
+  role: local
+  label: 切除、移植与接缝
+  function: prepare 通过后在新目录切除错误面、移植 donor 并求解 Poisson 接缝；原文件不覆盖。
+  outputs:
+  - id: transplant_0
+    label: repaired.glb：修复几何
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: transplant_1
+    label: repair_provenance.npz：来源映射
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: prepare
+- id: audit
+  parent: transplant
+  role: local
+  label: 局部验收
+  function: transplant 后检查真实开放边、接缝、自交和区域外不变；小范围接触修正仅按 guide 有界执行并重新验收。
+  outputs:
+  - id: audit_0
+    label: 局部几何审计 JSON
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: audit_1
+    label: workflow-timings.jsonl：实际耗时
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: transplant
