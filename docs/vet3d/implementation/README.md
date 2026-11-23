@@ -10,7 +10,7 @@
 
 当前 `src/vet3d/infrastructure/hi3d_inventory/`、`src/vet3d/infrastructure/hi3d_reference/`、`scripts/hi3d/` 和 `tests/hi3d/` 提供发行盘点、ASAR 读取、抽离、优先级派生、参考包及证据核查。它们不证明 Vet3D 产品工作区、执行器、LLM 网关、上下文或业务编排已实现。
 
-[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)和 [L0-02 身份与关联](work-items/L0-02.md)当前为 **已完成**，接口、运行方式和验证记录由各实施卡维护；其他产品条目保持 **未实施**。宿主与模块决策见 [ADR 0001](../adr/0001-service-host-and-composition.md)，身份边界决策见 [ADR 0002](../adr/0002-identity-and-relations.md)。
+[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)、[L0-02 身份与关联](work-items/L0-02.md)和 [L0-03 文件、来源、单位与视图契约](work-items/L0-03.md)当前为 **已完成**，接口、运行方式和验证记录由各实施卡维护；其他产品条目保持 **未实施**。宿主、身份及内容视图的决策分别见 [ADR 0001](../adr/0001-service-host-and-composition.md)、[ADR 0002](../adr/0002-identity-and-relations.md)和 [ADR 0003](../adr/0003-content-and-view-contracts.md)。
 
 | 文档 | 维护内容 |
 | --- | --- |
@@ -19,6 +19,7 @@
 | [工作条目模板](work-item-template.md) | 单项实施的接口、状态源、依赖注入、失败落盘、验证及完成记录。进入当前阶段的条目再据此建立实施卡。 |
 | [L0-01 实施卡](work-items/L0-01.md) | 本项当前接口语义、运行入口、实现出处、验证记录及放行边界的唯一说明；其他导航引用本卡。 |
 | [L0-02 实施卡](work-items/L0-02.md) | 本项身份、关联、局部校验和验证范围的唯一说明；其他导航引用本卡。 |
+| [L0-03 实施卡](work-items/L0-03.md) | 本项内容、定位、来源、单位、视图及验证范围的唯一说明；其他导航引用本卡。 |
 | [架构决策记录](../adr/0001-service-host-and-composition.md) | 已接受的设计选择、原因、替代方案与历史决策；不重复维护当前接口。 |
 | `docs/hi3d/` | 固定版本参考行为、工具原文、资源和证据边界；产品改进在 Vet3D 文档中维护。 |
 

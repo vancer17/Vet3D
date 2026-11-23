@@ -37,5 +37,7 @@ files = [
     "src/vet3d/bootstrap",
     "src/vet3d/host",
     "src/vet3d/identity",
+    "src/vet3d/artifacts",
+    "src/vet3d/modeling",
     "tests/runtime",
 ]
