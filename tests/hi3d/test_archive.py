@@ -4,6 +4,7 @@
 """验证 Hi3D 归档输出的路径边界。"""
 
 from pathlib import Path
+import os
 import subprocess
 import sys
 from tempfile import TemporaryDirectory
@@ -85,4 +86,75 @@ class ArchiveTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
                 self.assertIn("inventory.lock.json", result.stderr)
                 self.assertNotIn("archive output overlaps", result.stderr)
+                self.assertFalse(output.exists())
+
+    def test_ordinary_parent_segments_reach_inventory_read(self) -> None:
+        """A link-free spelling change must not be mistaken for a symlink."""
+        for level in ("p0", "p1"):
+            with self.subTest(level=level):
+                output = self.release / ".." / "release" / f"archived-{level}"
+                result = self.run_archive(output, level=level)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn("inventory.lock.json", result.stderr)
+                self.assertNotIn("without symlinks", result.stderr)
+                self.assertFalse(output.exists())
+
+    def test_normalized_paths_still_cannot_overlap_inputs(self) -> None:
+        """Canonicalization cannot bypass protected input or source boundaries."""
+        cases = (
+            (self.release / ".." / "release" / "inventory",
+             "archive output overlaps a locked release input directory"),
+            (self.resources / ".." / "resources",
+             "archive must use a separate directory"),
+        )
+        for level in ("p0", "p1"):
+            for output, diagnostic in cases:
+                with self.subTest(level=level, output=output):
+                    result = self.run_archive(output, level=level)
+                    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                    self.assertIn(diagnostic, result.stderr)
+
+    def test_output_link_component_is_rejected_before_publication(self) -> None:
+        """An actual link remains invalid even when its resolved target is safe."""
+        target = self.root / "ordinary-output-parent"
+        target.mkdir()
+        link = self.root / "linked-output-parent"
+        try:
+            link.symlink_to(target, target_is_directory=True)
+        except OSError as error:
+            self.skipTest(f"Cannot create test directory symlink: {error}")
+        for level in ("p0", "p1"):
+            with self.subTest(level=level):
+                result = self.run_archive(link / f"archived-{level}", level=level)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn("symlink", result.stderr)
+                self.assertEqual(list(target.iterdir()), [])
+
+    @unittest.skipUnless(os.name == "nt", "Windows short-path alias regression")
+    def test_windows_short_path_is_not_rejected_as_a_link(self) -> None:
+        """Accept an actual 8.3 alias when the filesystem supplies one."""
+        import ctypes
+
+        parent = self.root / "Long ordinary directory for short name regression"
+        parent.mkdir()
+        get_short_path = ctypes.WinDLL("kernel32", use_last_error=True).GetShortPathNameW
+        get_short_path.argtypes = (ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint)
+        get_short_path.restype = ctypes.c_uint
+        required = get_short_path(str(parent), None, 0)
+        if not required:
+            self.skipTest("Filesystem does not provide a Windows short path")
+        buffer = ctypes.create_unicode_buffer(required)
+        written = get_short_path(str(parent), buffer, required)
+        self.assertGreater(written, 0)
+        self.assertLess(written, required)
+        short_parent = Path(buffer.value)
+        if str(short_parent).casefold() == str(parent).casefold():
+            self.skipTest("8.3 short names are disabled on this filesystem")
+        for level in ("p0", "p1"):
+            with self.subTest(level=level):
+                output = short_parent / f"archived-{level}"
+                result = self.run_archive(output, level=level)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn("inventory.lock.json", result.stderr)
+                self.assertNotIn("without symlinks", result.stderr)
                 self.assertFalse(output.exists())

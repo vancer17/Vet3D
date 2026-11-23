@@ -19,6 +19,25 @@ from .records import FileFingerprint
 RECEIPT = "archive.lock.json"
 
 
+def _canonical_output(path: Path) -> Path:
+    """Reject real links, then normalize an ordinary output path.
+
+    Windows short names and ordinary parent segments can change under resolve()
+    without traversing a link. Inspect existing components before resolving so
+    those aliases remain usable while symlinks and reparse points stay rejected.
+    """
+    absolute = path.absolute()
+    for component in reversed((absolute, *absolute.parents)):
+        try:
+            info = component.lstat()
+        except FileNotFoundError:
+            continue
+        _regular_or_directory(info, str(component))
+        if not component.is_dir():
+            raise ValueError(f"archive output path is not a directory: {component}")
+    return absolute.resolve()
+
+
 def _read_originals(
     resources: Path, batch: _Batch
 ) -> tuple[dict[str, bytes], list[FileFingerprint], list[str]]:
@@ -157,8 +176,8 @@ def archive_main(argv: list[str] | None = None, *, level: Literal["P0", "P1"] = 
     try:
         release = args.release_dir.resolve(strict=True)
         resources = args.resources_root.resolve(strict=True)
-        output = args.output_dir.absolute()
-        if output != output.resolve() or output.is_relative_to(resources) or resources.is_relative_to(output):
+        output = _canonical_output(args.output_dir)
+        if output.is_relative_to(resources) or resources.is_relative_to(output):
             raise ValueError("archive must use a separate directory without symlinks")
         for name in ("inventory", "extraction"):
             directory = (release / name).resolve()
