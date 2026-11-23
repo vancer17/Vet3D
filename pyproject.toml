@@ -1,4 +1,4 @@
-# 文件信息：Vet3D L0-01 的安装、构建和开发检查配置。
+# 文件信息：Vet3D 产品包的安装、构建和开发检查配置。
 # 运行时使用标准库；参考原件和产品包分开，环境配置不定义业务能力。
 [build-system]
 requires = ["hatchling==1.33.0"]
@@ -36,5 +36,6 @@ files = [
     "src/vet3d/adapters",
     "src/vet3d/bootstrap",
     "src/vet3d/host",
+    "src/vet3d/identity",
     "tests/runtime",
 ]
