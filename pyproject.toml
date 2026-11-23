@@ -46,5 +46,6 @@ files = [
     "src/vet3d/assessment",
     "src/vet3d/delivery",
     "src/vet3d/workspaces",
+    "src/vet3d/resources",
     "tests/runtime",
 ]
