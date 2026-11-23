@@ -1,5 +1,5 @@
 # 文件信息：Vet3D 产品包的安装、构建和开发检查配置。
-# 运行时使用标准库；参考原件和产品包分开，环境配置不定义业务能力。
+# 运行时使用标准库与 SQLAlchemy 注册存储；参考原件和产品包分开，环境配置不定义业务能力。
 [build-system]
 requires = ["hatchling==1.33.0"]
 build-backend = "hatchling.build"
@@ -10,7 +10,9 @@ version = "0.1.0"
 description = "Vet3D 后端应用的最小装配骨架"
 readme = "README.md"
 requires-python = ">=3.14,<3.15"
-dependencies = []
+dependencies = [
+    "sqlalchemy==2.0.58",
+]
 
 [project.scripts]
 vet3d-demo = "vet3d.host:main"
@@ -43,5 +45,6 @@ files = [
     "src/vet3d/execution",
     "src/vet3d/assessment",
     "src/vet3d/delivery",
+    "src/vet3d/workspaces",
     "tests/runtime",
 ]
