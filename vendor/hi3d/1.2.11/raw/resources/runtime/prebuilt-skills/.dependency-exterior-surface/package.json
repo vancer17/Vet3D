@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py"
+  },
+  "requires": []
+}

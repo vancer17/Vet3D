@@ -1,0 +1,77 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: scope
+  say: 范围与能力预检
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/hi3d-defaults.md
+  irreversible: []
+- id: assets
+  say: 工程与资产
+  rollback_to: scope
+  load:
+  - SKILL.md
+  - references/hi3d-production.md
+  irreversible: []
+- id: rules
+  say: 规则与复制
+  rollback_to: assets
+  load:
+  - SKILL.md
+  - references/hi3d-production.md
+  irreversible: []
+- id: validation
+  say: 分层验收
+  rollback_to: rules
+  load:
+  - SKILL.md
+  - references/hi3d-validation.md
+  irreversible: []
+- id: publish
+  say: 发布与公网验证
+  rollback_to: validation
+  load:
+  - SKILL.md
+  - references/hi3d-validation.md
+  irreversible:
+  - publish
+  confirm_required: true
+- id: delivery
+  say: 交付与缺口
+  rollback_to: publish
+  load:
+  - SKILL.md
+  - references/hi3d-lessons.md
+  irreversible: []
+routes:
+- id: main
+  summary: Roblox 游戏制作与发布
+  nodes:
+  - scope
+  - assets
+  - rules
+  - validation
+  - publish
+  - delivery
+  rollback_to: scope
+- id: review
+  summary: 复核已有结果，不重复生成或上传
+  nodes:
+  - scope
+  - validation
+  - delivery
+choices_example:
+- id: main
+  title: 按已确认范围继续
+  route: main
+  confirm: false
+- id: review
+  title: 复核已有结果
+  route: review
+  confirm: false

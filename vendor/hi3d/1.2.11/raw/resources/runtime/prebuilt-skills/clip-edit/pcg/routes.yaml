@@ -1,0 +1,73 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+checkpoints:
+  - id: intake
+    say: "素材与时间线"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: prefer
+    say: "画幅时长与样式"
+    rollback_to: intake
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: review_plan
+    say: "检查时间线"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: preview_cut
+    say: "低分辨率预览"
+    rollback_to: review_plan
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: produce
+    say: "导出成片"
+    rollback_to: preview_cut
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "成片与封面"
+    rollback_to: produce
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "预览后导出成片"
+    nodes: [intake, prefer, review_plan, preview_cut, produce, deliver]
+  - id: silent
+    summary: "无声导出"
+    nodes: [intake, prefer, review_plan, preview_cut, produce, deliver]
+    shares_input_with: main
+  - id: review_only
+    summary: "已有成片只验收"
+    nodes: [intake, deliver]
+choices_example:
+  - id: preview_then_export
+    title: "先预览再导出成片"
+    route: main
+    confirm: false
+  - id: silent_export
+    title: "无声导出跳过混音"
+    route: silent
+    confirm: false
+  - id: inspect
+    title: "仅检查已有成片"
+    route: review_only
+    confirm: false
+  - id: revise_order
+    title: "返回调整素材顺序"
+    rollback_to: intake
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

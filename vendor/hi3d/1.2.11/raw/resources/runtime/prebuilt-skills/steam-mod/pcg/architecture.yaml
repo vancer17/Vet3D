@@ -1,0 +1,61 @@
+schema: pcg.architecture.v1
+entry: steam-mod
+kind: agent_workflow
+layout: tree
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: 编排创意到 Steam Mod
+    function: 依次核对游戏支持、现有资产、内容映射与预览；需发布且已有授权时才显式交接 pub-steam-mod，缺游戏或平台条件时保留离线结果。
+    outputs: []
+  - id: intake
+    parent: root
+    role: local
+    label: 盘点现有成果与真实目标
+    function: 从实际工作文件与报告盘点可复用源资产、许可证和已验范围，核对 App/游戏版本、加载器及 Workshop 前提；已有合格输入直接复用。
+    outputs:
+      - id: intake_inventory
+        label: hi3d-steam-mod-inventory.md 来源资产与目标缺项清单
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: align
+    parent: root
+    role: local
+    label: 转换游戏资源与构建内容目录
+    function: intake 后只对已确认目标资源逐项对齐类型、引用和目录，游戏专属工具验证可加载；缺游戏证据时仅给缺项表，不假造 mod 目录。
+    outputs:
+      - id: mapping
+        label: hi3d-mod-asset-map.json 已核实目标映射与待解决缺项
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: content
+        label: 游戏可加载内容目录（仅游戏实测通过时）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: review
+    parent: root
+    role: local
+    label: 制作平台预览并离线预检
+    function: 等 align 确认真实内容目录后组织预览、物品字段与许可，steam-ugc 进行离线字段检查；无内容目录只输出阻塞，不声称 ready。
+    outputs:
+      - id: metadata
+        label: hi3d-workshop-item-draft.json 物品字段与适用版本草稿
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: review_report
+        label: hi3d-steam-mod-review.md 内容与字段准备检查
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: publish
+    parent: root
+    role: local
+    label: 按需交接独立发布 skill
+    function: 等 review 的实际内容、App 支持、账号连接及已有授权齐备后显式调用 pub-steam-mod；无授权或准备路线跳过本阶段。
+    outputs: []
+    irreversible: [publish]

@@ -1,0 +1,239 @@
+schema: pcg.architecture.v1
+entry: portrait-reconstruction
+kind: agent_workflow
+layout: tree
+note: 根下五阶段为图像处理、几何生成、几何后处理、纹理生成、几何拆分。parent 表示归属而非执行顺序；保留旧子检查点 id 供已有产物续接，不自动创建子 agent。
+tasks:
+- id: portrait_reconstruction
+  parent: null
+  role: agent
+  label: 可打印头雕
+  function: 按五阶段编排可打印头雕；已有合格产物续接。修鼻/去噪默认关闭但必须询问确认，纹理默认使用已验收的生成 front；不包含眼球修复。按所请求终点交付，不将造型目标当作网格已通过打印检查。文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务
+- id: photo
+  parent: reference
+  role: local
+  label: 输入与条件
+  function: 在任何执行前确认原图、已有模型、所需终点及已有明确后处理答复；保留原图作身份/来源依据，不作默认纹理 condition。后处理未答复留待 postprocess 必答门；已有几何任务不重新生图。
+  outputs: []
+- id: reference
+  parent: portrait_reconstruction
+  role: local
+  label: 图像处理
+  function: photo 后选择 aligned 转正或 current 当前视角四视图；裁切、颈部、背景、造型与材料共用，head/front 单图仍独立可用，不串行。Hi3D 实际请求按所选分支组合 A/H/E/B/C/D，先用独立工具的 Python check-image-prompt 检查最终4000字符上限；超限用配方中的 H/E 紧凑表达替换长块并等义精简，复查通过才生成，追加修订后重新计数。保存实际发送文本绑定评审，完整长说明保留为语义依据，不叠加长短版、不截断必选约束。按模式验收基准后补视图，所有生成和修订携带 H；大片发体形成雕刻发流，独立悬垂细丝可适度加粗或局部删除，邻近主体碎细发必须合并成连续发流，过细表面发流可适度加宽，保留发型与雕刻层次，不膨胀成绳管、不一律删刘海。复用 head-reference 基础评审及本 workflow 策略，分别检查实体发束、中尺度雕刻发流、细发分类处理、刘海根部连接与避免浓妆中明显假睫毛效果（保留自然睫毛、原妆容和眼睑/眉毛，不逐根追查）；悬垂发梢本身不判失败，细颈/断根仍须修订。两种四视图携带 E 并通过 ear_hair_consistency 整组硬项：耳朵位置及头发遮挡一致，不要求露耳、不主动拨开头发，正常遮挡可通过；缺项或矛盾不交给 geometry。aligned 检查转正；current 对照原图分别保留 yaw/pitch/roll，并检查固定头姿仅换相机。记录版本、证据及修订建议，人工确认且重验 approved 只表示图像就绪，geometry 另验服务视角契约。仅图像目标在此结束，不称自动检测已校准。
+  outputs:
+  - id: reference_0
+    label: 实际生成的头部或正面参考图（外观按所选配方；复用不重复生成）
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: reference_1
+    label: 有序四视图及语义 manifest（仅 four-views 分支）
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: reference_review
+    label: 完整评审请求/响应 JSON（绑定各分支输入、prompt、例图、源码与策略版本）
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+  - id: reference_decision
+    label: 内置评审状态/修订建议 JSON 与可选静态 HTML
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+  - id: reference_confirmation
+    label: 实际人工确认 JSON（如已确认，绑定当前 review_id）
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+  rollback_to: photo
+  optional: true
+- id: geometry
+  parent: portrait_reconstruction
+  role: local
+  label: 几何生成
+  function: 四视图及绑定版本的评审全通过、真实人工确认且重验 approved 后，还须确认服务视角兼容。aligned 使用 screen-nose-direction-v1，right 鼻尖朝画面右、left 朝左；四格 front/right/back/left 经公共 API 重排为 front/back/left/right，提交前核对实际图像和 dry-run，不二次交换或推断 Runtime 槽位。current 相对视角适配尚未验证，暂停提交并交付图像，不改名 front、不用槽位绕过、不静默转正。满足契约后才由 hi3d-api 生成 quality。已有高模保留实际来源，不因规则更新自动重提；仅所选后处理需要时准备分析纹理，不算最终纹理。保留原任务及高模。
+  outputs:
+  - id: geometry_0
+    label: 原始 quality GLB
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: geometry_1
+    label: Hi3D job 记录
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: reference
+  irreversible:
+  - hi3d.submit
+  optional: true
+- id: postprocess
+  parent: portrait_reconstruction
+  role: local
+  label: 几何后处理
+  function: 进入本阶段必须询问不使用（默认）、仅修鼻、仅去噪或两项都做；同任务同输入已有明确答复可复用。未答复保持 waiting_choice，不允许预选、空值或继续全流程冒充确认，不越过 freeze。已确认后进入对应子路线，仅准备所选操作依赖，freeze 后返回原路线和终点。只在已有任务记录中保存真实答复、输入版本与跳过原因；仅图像、仅几何或仅拆分目标不进入本阶段。
+  rollback_to: reference
+  outputs: []
+- id: analysis
+  parent: postprocess
+  role: local
+  label: 面部语义与关键点
+  function: 仅所选修鼻或去噪需要时调用 portrait-analysis，绑定本次渲染与真实相机。修鼻需要关键点和分割，去噪只取所需语义数据；已有合格同源数据则复用。灰模不能冒充合格关键点彩图。
+  outputs:
+  - id: analysis_0
+    label: 同源渲染与真实相机
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: analysis_1
+    label: Sapiens2 检测及叠加图
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: postprocess
+  irreversible:
+  - mdf.invoke
+  optional: true
+- id: register
+  parent: postprocess
+  role: local
+  label: 可见面部注册
+  function: 仅所选修鼻缺少同源 donor 时，在 analysis 通过后调用 face-fit。交接原高模与同源观测，取回局部 donor；仅去噪不运行此步，不生成光头参考或替换原高模。
+  outputs:
+  - id: register_0
+    label: 注册 donor NPZ：转换至 source GLB 坐标并绑定来源
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: register_1
+    label: 注册质量记录
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: analysis
+  optional: true
+- id: nose
+  parent: postprocess
+  role: local
+  label: 鼻部移植（可选）
+  function: 仅选择修鼻时使用已有或 register 生成的同源 donor 调用 nose-repair，保留 highmesh 区域外几何；未选则无修复输出。
+  outputs:
+  - id: nose_0
+    label: 鼻修复 GLB
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: nose_1
+    label: 来源与局部审计
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: register
+  optional: true
+- id: denoise
+  parent: postprocess
+  role: local
+  label: 几何去噪（可选）
+  function: 仅选择去噪时对当前验收几何准备来源绑定的语义权重并调用带权 Taubin；启用后保留 80 轮起点与显式位移上限，保护眼唇、鼻子和头发。若先修鼻必须在最新版本重新投影。未选不准备权重、不执行脚本；仅去噪不要求 donor。
+  outputs:
+  - id: denoise_0
+    label: 去噪 GLB
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: denoise_1
+    label: 语义权重与位移报告
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: postprocess
+  optional: true
+- id: freeze
+  parent: postprocess
+  role: local
+  label: 验收并确定最终几何
+  function: 先核对同输入的真实后处理答复，缺失则回到 postprocess 等待；所有所选操作通过后引用最后合格模型，明确不使用则原样引用原高模，不伪造 repaired/denoised 文件。任何已选操作失败则停止，不能把失败当作跳过。保留答复、来源和验收记录，纹理接收该真实版本。
+  rollback_to: postprocess
+  outputs: []
+- id: texture
+  parent: portrait_reconstruction
+  role: local
+  label: 纹理生成
+  function: freeze 后默认通过 hi3d-api 以本任务图像阶段已生成并验收的 front 为 condition；从 manifest/评审定位实际路径与哈希，并绑定冻结几何和 job。不用原照片、渲染同名图或整张四格图代替；无合格 front（含 current 相对视图）或材料冲突时询问，不自动补图或改名。已有纹理仅在几何和 condition 对应且验收有效时复用；核对服务是否改变几何。拆分标签由既有分割流程补齐/复用，统一白模双请求调度尚未接入。
+  outputs:
+  - id: texture_0
+    label: 最终纹理 GLB
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: texture_1
+    label: 纹理 job、参考图来源绑定与几何比较
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: freeze
+  irreversible:
+  - hi3d.submit
+  optional: true
+- id: split
+  parent: portrait_reconstruction
+  role: local
+  label: 几何拆分
+  function: 仅拆分或完整五阶段目标调用 head-hair-split，交接彩色 GLB 及已有标签。补齐标签后运行 html，不运行 split；面映射/亮度/图数据准备后交付并主动打开 HTML，由用户调阈值、点击 mincut 和下载漫反射 FBX。默认不求解、不代点页面，review 负责 HTML 交付。仅用户明确要求代执行并确认阈值时走 CLI 分区，缺输入或页面失败如实报告，不回退自动切割。
+  rollback_to: freeze
+  optional: true
+  outputs:
+  - id: split_html
+    label: 交互分割 HTML（必交付并主动打开，待用户操作）
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+  - id: split_manifest
+    label: HTML 来源与待处理状态 JSON
+    kind: file
+    retain: keep
+    semantics: [provenance]
+  - id: split_0
+    label: 原纹理头发、其余头部与组合 GLB（仅明确代执行后）
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+  - id: split_1
+    label: 面标签 NPY 与分割/对应验证 JSON（仅明确代执行后）
+    kind: file
+    retain: keep
+    semantics: [deliverable]
+- id: review
+  parent: split
+  role: local
+  label: 同步展示与交付
+  function: 检查实际目标出口；完整任务在 split 后交付，只要整头纹理时可从 texture 进入，仅后处理时可从 freeze 进入。只展示实际生成版本，保留同坐标对比与真实耗时；此检查归属最终交付，不强制先拆分。
+  outputs:
+  - id: review_0
+    label: 同步旋转 HTML
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_1
+    label: 交付清单与阶段耗时
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: freeze

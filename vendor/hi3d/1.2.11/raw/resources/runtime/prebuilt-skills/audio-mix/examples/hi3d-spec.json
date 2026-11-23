@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "duration": 1,
+  "tracks": [
+    {
+      "path": "hi3d-tone.wav",
+      "end": 1,
+      "gainDb": -6,
+      "fadeIn": 0.1,
+      "fadeOut": 0.1
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "艺术相框"
+  short_description: "按作品尺寸制作艺术相框及全打印装配方案，主动打开成果页，视频按需"
+  default_prompt: "请用 $frame-design 从作品净尺寸、展示方式、装饰参考和打印条件引导我制作艺术相框，尽可能完成含背板、支座与全部连接件的全打印版；持续完成图片、3D与制作文件并主动打开成果网页。视频默认不渲染，交付后再询问。"
+policy:
+  allow_implicit_invocation: true

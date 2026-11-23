@@ -1,0 +1,4 @@
+interface:
+  display_name: "治愈系探索"
+  short_description: "把主题或已有 Unity 工程做成第三人称治愈系探索游戏，并交付 Windows/Mac 包"
+  default_prompt: "使用 $unity-cozy-exploration-game，用已有角色做一个小型第三人称治愈系探索游戏，包含走路、任务链、存档和桌面打包说明。"

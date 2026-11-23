@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "examples": {
+    "appointment": {
+      "actor": "前台",
+      "scene": "到店预约",
+      "entity": "预约",
+      "primaryAction": "确认到店",
+      "fields": [
+        {"id": "guest", "label": "访客姓名", "type": "string", "required": true},
+        {"id": "slot", "label": "时段", "type": "string", "required": true},
+        {"id": "status", "label": "状态", "type": "enum", "required": true, "options": ["待确认", "已确认", "已完成", "已取消"]}
+      ],
+      "statusField": "status",
+      "records": [
+        {"id": "ex-1", "guest": "示例访客", "slot": "10:00", "status": "待确认", "example": true}
+      ]
+    },
+    "inventory": {
+      "actor": "仓管",
+      "scene": "货架盘点",
+      "entity": "库存项",
+      "primaryAction": "更新数量",
+      "fields": [
+        {"id": "sku", "label": "编号", "type": "string", "required": true},
+        {"id": "name", "label": "名称", "type": "string", "required": true},
+        {"id": "qty", "label": "数量", "type": "number", "required": true},
+        {"id": "status", "label": "状态", "type": "enum", "required": true, "options": ["在库", "待补", "下架"]}
+      ],
+      "statusField": "status",
+      "records": [
+        {"id": "ex-1", "sku": "A-01", "name": "示例零件", "qty": 3, "status": "在库", "example": true}
+      ]
+    },
+    "works": {
+      "actor": "创作者",
+      "scene": "作品归档",
+      "entity": "作品",
+      "primaryAction": "登记新作品",
+      "fields": [
+        {"id": "title", "label": "标题", "type": "string", "required": true},
+        {"id": "status", "label": "状态", "type": "enum", "required": true, "options": ["草稿", "待审", "已发布"]}
+      ],
+      "statusField": "status",
+      "records": [
+        {"id": "ex-1", "title": "示例作品", "status": "草稿", "example": true}
+      ]
+    }
+  }
+}

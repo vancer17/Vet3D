@@ -1,0 +1,187 @@
+schema: pcg.architecture.v1
+entry: hi3d-game-demo
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项/回退图。"
+tasks:
+  - id: hi3d_game_demo
+    parent: null
+    role: agent
+    label: Hi3D 精度展示游戏
+    function: "所有制作阶段以 brief 已有用户选择或明确委托为前提；依赖素材必须到齐，认可玩法不扩大收费/发布授权。编排最小可玩精度 demo 按 references/game-atoms.md 条件接入游戏原子能力，复用现有工程，仅验证本次改动。"
+  - id: brief
+    parent: hi3d_game_demo
+    role: local
+    label: "提问、素材与展示玩法确认"
+    function: "读取 references/hi3d-game-brief.md，复用消息、附件、已有工程与认可记录；只提问关键缺项，实际查看并索取所需素材，展示具体玩法方案。将方案和用户选择/明确委托依据写入任务目录 hi3d-game-brief.md；无认可或委托依据时停留此处，不启动生成或游戏实现。必需素材未到只阻塞依赖步骤；局部修改仅确定差异，继续任务复用已完成检查点。"
+    members:
+      - id: questions
+        label: "简短提问并复用已有答案"
+      - id: materials
+        label: "查看素材、区分必需与可选缺项"
+      - id: objects
+        label: 看图区分对象与多视图
+      - id: spec
+        label: 档位、几何贴图与尺度
+      - id: device
+        label: 设备预算与交付方式
+      - id: proposal
+        label: "展示核心交互闭环与首版范围"
+      - id: decision
+        label: "记录选择或明确委托后进入制作"
+    outputs:
+      - id: spec
+        label: "玩法方案、素材清单与选择依据（Markdown）"
+        kind: file
+        retain: keep
+        semantics: [brief, deliverable]
+  - id: generate
+    parent: hi3d_game_demo
+    role: subagent
+    entry: hi3d-api
+    label: 生成或恢复模型
+    function: 派出独立 hi3d-api
+    irreversible:
+      - hi3d.submit
+    members:
+      - id: submit
+        label: 提交生成任务
+      - id: recover
+        label: 查询与恢复
+      - id: download
+        label: 下载并校验 GLB
+    outputs:
+      - id: glb
+        label: 原始 GLB
+        kind: file
+        retain: keep
+        semantics: [source, deliverable, geometry]
+      - id: params
+        label: 生成参数
+        kind: file
+        retain: cache
+        semantics: [record, cache]
+      - id: record
+        label: 任务记录
+        kind: file
+        retain: cache
+        semantics: [record, cache]
+  - id: lod
+    parent: hi3d_game_demo
+    role: subagent
+    entry: mdf-call
+    label: 带纹理减面
+    function: 派出独立 mdf-call / mesh-lod
+    optional: true
+    irreversible:
+      - mdf.invoke
+    members:
+      - id: contract
+        label: 核对 mesh-lod 契约
+      - id: invoke
+        label: 调用减面
+      - id: textures
+        label: 纹理法线与元数据交接
+    outputs:
+      - id: mesh
+        label: LOD 网格
+        kind: file
+        retain: cache
+        semantics: [derived, lod, cache]
+      - id: textures
+        label: 纹理法线元数据
+        kind: file
+        retain: cache
+        semantics: [derived, lod, cache]
+  - id: rig
+    parent: hi3d_game_demo
+    role: subagent
+    entry: rig-retarget
+    label: 角色绑定与动作
+    function: 派出独立 rig-retarget
+    optional: true
+    members:
+      - id: source
+        label: 已有模型与动作来源
+      - id: export
+        label: 检查工程并导出游戏资产
+    outputs:
+      - id: project
+        label: 已检查工程
+        kind: file
+        retain: keep
+        semantics: [rig, deliverable]
+      - id: export
+        label: 游戏资产
+        kind: file
+        retain: keep
+        semantics: [derived, game, deliverable]
+  - id: autorig
+    parent: rig
+    role: subagent
+    entry: mdf-call
+    label: auto-rig 身体绑定
+    function: rig-retarget 再派出 mdf-call
+    optional: true
+    irreversible:
+      - mdf.invoke
+    members:
+      - id: http
+        label: HTTP 调用 auto-rig
+      - id: weights
+        label: 高模回迁与局部拉伸修复
+    outputs:
+      - id: rigged
+        label: 绑定模型
+        kind: file
+        retain: cache
+        semantics: [derived, rig, cache]
+  - id: playable
+    parent: hi3d_game_demo
+    role: local
+    label: 最小可玩闭环
+    function: 本 agent 本地阶段
+    members:
+      - id: loop
+        label: 进入、操作、反馈、重来
+      - id: assets
+        label: 接入资产并保留精度
+      - id: interact
+        label: 统一显示与交互
+      - id: perf
+        label: 定位瓶颈后优化
+      - id: accept
+        label: 增量验收
+    outputs:
+      - id: game
+        label: 可玩工程
+        kind: file
+        retain: keep
+        semantics: [deliverable, game]
+  - id: publish
+    parent: hi3d_game_demo
+    role: subagent
+    entry: game-deploy
+    label: GitHub Pages 发布
+    function: 派出独立 game-deploy
+    optional: true
+    irreversible:
+      - publish
+    members:
+      - id: static
+        label: 静态适配
+      - id: url
+        label: 发布 URL
+      - id: anonymous
+        label: 匿名可玩验收
+    outputs:
+      - id: site
+        label: 静态站点
+        kind: file
+        retain: cache
+        semantics: [derived, publish, cache]
+      - id: page
+        label: 发布 URL
+        kind: url
+        retain: keep
+        semantics: [deliverable, publish]

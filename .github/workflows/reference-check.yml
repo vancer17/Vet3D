@@ -1,0 +1,69 @@
+name: Reference portability
+
+on:
+  push:
+    branches: [main, "publish/**"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_reference:
+        description: "Download and verify all Hi3D LFS reference assets"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  GIT_LFS_SKIP_SMUDGE: "1"
+
+jobs:
+  unit:
+    name: Python ${{ matrix.python }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.13"]
+    steps:
+      # Official v6 refs resolved on 2026-11-20; pin the fetched implementation.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          lfs: false
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run isolated standard-library tests
+        run: python -B -m unittest discover -s tests/hi3d -v
+
+  full-reference:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_reference }}
+    name: Full LFS reference verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GIT_LFS_SKIP_SMUDGE: "0"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          lfs: true
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.13"
+      - name: Verify LFS objects and reference hashes
+        run: |
+          git lfs fsck
+          python -B scripts/hi3d/verify-reference.py --reference-dir vendor/hi3d/1.2.11
+          python -B scripts/hi3d/export-evidence.py --reference-dir vendor/hi3d/1.2.11 --verify
+      - name: Materialize verified resources
+        run: python -B scripts/hi3d/materialize-reference.py --reference-dir vendor/hi3d/1.2.11 --output-dir .cache/hi3d/1.2.11
+      - name: Recompute the locked inventory
+        run: |
+          python -B scripts/hi3d/inventory.py --resources-root .cache/hi3d/1.2.11/resources --output-dir .cache/hi3d-inventory-check
+          python -c "from pathlib import Path; original=Path('docs/hi3d/upstream/1.2.11/inventory'); actual=Path('.cache/hi3d-inventory-check'); names=('inventory.jsonl','inventory.lock.json'); assert all((original/name).read_bytes()==(actual/name).read_bytes() for name in names), 'materialized inventory differs from locked release'"

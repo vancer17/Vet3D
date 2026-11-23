@@ -1,0 +1,4 @@
+interface:
+  display_name: "连通块面低模"
+  short_description: "把已有角色、手办或雕塑高模做成真实连通的块面低模和有限纯色分区"
+  default_prompt: "使用 $connected-faceted-lowpoly，把这个带纹理的人物模型做成保留姿态的连通块面低模，简化五官和衣纹，用少量纯色分区，并交付同坐标 Blender 对照工程和 GLB。"

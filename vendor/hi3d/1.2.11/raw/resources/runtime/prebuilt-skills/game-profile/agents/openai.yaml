@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏帧预算分析"
+  short_description: "游戏卡顿、手机掉帧或需要画质分档；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-profile 处理当前游戏需求，复用已有工程并验证输入输出。"

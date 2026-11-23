@@ -1,0 +1,4 @@
+interface:
+  display_name: "场景搭建与渲染"
+  short_description: "以真实 Hi3D 高模搭建影视与游戏环境，交付高清静帧、可编辑工程与成果页"
+  default_prompt: "使用 $scene-render 制作具有视觉冲击力的高模环境场景，完成静帧与工程交付，再询问是否需要视频及运镜要求。"

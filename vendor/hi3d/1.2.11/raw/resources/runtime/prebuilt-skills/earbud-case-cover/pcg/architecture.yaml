@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: earbud-case-cover
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: earbud_case_cover
+    parent: null
+    role: agent
+    label: "充电盒品牌型号与主题"
+    function: "编排 earbud-case-cover"
+  - id: brief
+    parent: earbud_case_cover
+    label: "充电盒品牌型号与主题"
+    function: "本 agent 充电盒品牌型号与主题"
+    outputs:
+      - id: brief
+        label: "充电盒品牌型号与主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "充电盒品牌型号与主题"
+  - id: research
+    parent: earbud_case_cover
+    label: "尺寸、开合与接口研究"
+    function: "本 agent 尺寸、开合与接口研究"
+    outputs:
+      - id: research
+        label: "尺寸、开合与接口研究"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "尺寸、开合与接口研究"
+  - id: form
+    parent: earbud_case_cover
+    label: "艺术外套与精密内腔"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "艺术外套与精密内腔"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: fit
+    parent: earbud_case_cover
+    label: "分盖、铰链避让与固定"
+    function: "本 agent 分盖、铰链避让与固定"
+    outputs:
+      - id: fit
+        label: "分盖、铰链避让与固定"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "分盖、铰链避让与固定"
+  - id: fdm
+    parent: earbud_case_cover
+    label: "适配试片与打印套件"
+    function: "本 agent 适配试片与打印套件"
+    outputs:
+      - id: fdm
+        label: "适配试片与打印套件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "适配试片与打印套件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: earbud_case_cover
+    label: "开盖、充电与装配展示"
+    function: "本 agent 开盖、充电与装配展示"
+    outputs:
+      - id: media
+        label: "开盖、充电与装配展示"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "开盖、充电与装配展示"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: earbud_case_cover
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

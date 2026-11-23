@@ -1,0 +1,134 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "阶段由执行者按 SKILL.md 编排；检查点用于续接与回退，不代表已有自动执行或物理验证。"
+checkpoints:
+  - id: brief
+    say: "纹样与目标软件"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible: []
+  - id: research
+    say: "笔刷类型与目标表面"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible: []
+  - id: source
+    say: "真实Hi3D纹样来源"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: brush
+    say: "高度笔刷、印章与边饰"
+    rollback_to: source
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible: []
+  - id: apply
+    say: "平面和曲面应用及试片"
+    rollback_to: brush
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible: []
+  - id: media
+    say: "导入和应用展示"
+    rollback_to: apply
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: web
+    say: "网页与资产包"
+    rollback_to: media
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/configuration.md
+      - references/diy-printing.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "从输入与研究持续完成完整数字交付"
+    nodes:
+      - brief
+      - research
+      - source
+      - brush
+      - apply
+      - media
+      - web
+    rollback_to: research
+  - id: reuse_asset
+    summary: "复用已有资产，重新核对所选制造条件"
+    nodes:
+      - brief
+      - research
+      - source
+      - brush
+      - apply
+      - media
+      - web
+    shares_input_with: main
+  - id: printed_diy
+    summary: "按允许材料完成可打印连接；功能件及未满足条件显式说明"
+    nodes:
+      - brief
+      - research
+      - source
+      - brush
+      - apply
+      - media
+      - web
+    shares_input_with: main
+  - id: concept_only
+    summary: "用户明确限定为概念或研究时缩减"
+    nodes:
+      - brief
+      - research
+    shares_input_with: main
+choices_example:
+  - id: new_design
+    title: "开始新设计"
+    route: main
+    confirm: false
+  - id: have_asset
+    title: "已有模型或纹样"
+    route: reuse_asset
+    confirm: false
+  - id: diy
+    title: "按已有材料设计打印连接"
+    route: printed_diy
+    confirm: false
+  - id: review_structure
+    title: "回到结构研究"
+    rollback_to: research
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

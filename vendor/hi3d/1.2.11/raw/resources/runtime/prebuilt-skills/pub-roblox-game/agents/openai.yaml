@@ -1,0 +1,4 @@
+interface:
+  display_name: Roblox 游戏发布
+  short_description: 发布已有 Roblox 工程，记录实际手续并验证公网多人。
+  default_prompt: 使用 $pub-roblox-game 处理本次 Roblox 需求，复用已有工程、事实与授权，交付真实结果和未验证项。

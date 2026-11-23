@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/product_audit.py": "skills/mesh-audit/scripts/product_audit.py",
+    "scripts/product_core.py": "skills/shape-build/scripts/product_core.py"
+  },
+  "requires": []
+}

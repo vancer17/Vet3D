@@ -1,0 +1,12 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "roblox-api",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "contract",
+    "operate",
+    "upload",
+    "verify"
+  ]
+}

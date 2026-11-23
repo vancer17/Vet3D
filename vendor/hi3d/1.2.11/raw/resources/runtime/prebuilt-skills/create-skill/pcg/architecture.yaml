@@ -1,0 +1,44 @@
+schema: pcg.architecture.v1
+entry: create-skill
+kind: agent_workflow
+layout: tree
+tasks:
+  - id: create_skill
+    parent: null
+    role: agent
+    label: "创建 Skill"
+    function: "从本对话成功经验或用户提供的已有 Skill 整理可复用草稿并提交 Runtime 结构校验，不将整理完成视为运行验证。"
+    outputs: []
+  - id: understand
+    parent: create_skill
+    role: local
+    label: "理解需求"
+    function: "总结对话时提炼成功经验，整合已有 Skill 时保留用户提供的能力及限制而不假设已运行；确认目标、输入输出及验收标准。多个相关 Skill 默认整合为一个草稿，组织方式不明时才澄清；明确分别保留时尊重要求并说明一线程一草稿链的边界。"
+    optional: false
+    outputs: []
+  - id: clarify
+    parent: create_skill
+    role: local
+    label: "补充信息"
+    function: "必要时通过 user_interaction 最多两问；信息足够跳过，仍不足不提交。"
+    optional: true
+    outputs: []
+  - id: write
+    parent: create_skill
+    role: local
+    label: "编写草稿"
+    function: "按 writing.md 在 skill-drafts/<name>/ 编写唯一 SKILL.md 入口及必要资源；多 Skill 保留内部模块和按需读取方式，避免正文拼接与嵌套独立入口，保留用户修改。"
+    optional: false
+    outputs:
+      - id: draft_source
+        label: "Skill 草稿目录（SKILL.md 与必要资源）"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: submit
+    parent: create_skill
+    role: local
+    label: "提交校验"
+    function: "调用 skill_draft_submit，按 issues 修复；取得草稿修订 ID，说明尚未安装和运行。"
+    optional: false
+    outputs: []

@@ -1,0 +1,1618 @@
+{
+  "version": "V5.1",
+  "units": "mm",
+  "overlap_tolerance_mm3": 0.02,
+  "results": [
+    {
+      "frame_mm": [
+        150.0,
+        100.0
+      ],
+      "parts": 12,
+      "access": {
+        "diameter": 4.3999999999999995,
+        "start_z": 15.7,
+        "end_z": 37.2,
+        "neck_width": 3.0,
+        "chamber_inner_x": 68.8
+      },
+      "pressure_screw_length_mm": 10.0,
+      "stations": [
+        {
+          "xy_mm": [
+            -71.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028897970036,
+          "nut_rotation_30_contact_mm3": 0.28166112527741305,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": 0.8000000549316408,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -71.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028897970356,
+          "nut_rotation_30_contact_mm3": 0.28166112527740594,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000009370803835
+              ],
+              "outer_wall_mm": 1.300003988838196
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999971866607666,
+                3.500001056289673
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            71.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270902888199524,
+          "nut_rotation_30_contact_mm3": 0.28166112527745035,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003988838196
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            71.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881994375,
+          "nut_rotation_30_contact_mm3": 0.28166112527744946,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003988838196
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        }
+      ],
+      "max_envelope_overlap_mm3": 0,
+      "pass_": true,
+      "assembly_condition": "LED tray and its four M3 screws removed; captive nuts retained",
+      "scope": "geometric sweeps and local wall measurements; no physical assembly/load test"
+    },
+    {
+      "frame_mm": [
+        100,
+        150
+      ],
+      "parts": 12,
+      "access": {
+        "diameter": 4.3999999999999995,
+        "start_z": 15.7,
+        "end_z": 37.2,
+        "neck_width": 3.0,
+        "chamber_inner_x": 43.8
+      },
+      "pressure_screw_length_mm": 10.0,
+      "stations": [
+        {
+          "xy_mm": [
+            -46.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270903593922628,
+          "nut_rotation_30_contact_mm3": 0.2816611252774113,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -46.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709035939226903,
+          "nut_rotation_30_contact_mm3": 0.2816611252774148,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.2000010013580322,
+                3.500001056289673
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.2000010013580322,
+                3.500001056289673
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            46.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709035314218147,
+          "nut_rotation_30_contact_mm3": 0.2816611252774486,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            46.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270903533019318,
+          "nut_rotation_30_contact_mm3": 0.2816611252774459,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.2999999357223513
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.200000762939453,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000000549316408
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        }
+      ],
+      "max_envelope_overlap_mm3": 0,
+      "pass_": true,
+      "assembly_condition": "LED tray and its four M3 screws removed; captive nuts retained",
+      "scope": "geometric sweeps and local wall measurements; no physical assembly/load test"
+    },
+    {
+      "frame_mm": [
+        180,
+        130
+      ],
+      "parts": 12,
+      "access": {
+        "diameter": 4.3999999999999995,
+        "start_z": 15.7,
+        "end_z": 37.2,
+        "neck_width": 3.0,
+        "chamber_inner_x": 83.8
+      },
+      "pressure_screw_length_mm": 10.0,
+      "stations": [
+        {
+          "xy_mm": [
+            -86.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270902889796968,
+          "nut_rotation_30_contact_mm3": 0.28166112527741305,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000004602432253
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000004602432253
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000009370803835
+              ],
+              "outer_wall_mm": 1.300003988838196
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -86.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028897970818,
+          "nut_rotation_30_contact_mm3": 0.2816611252774308,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000009370803835
+              ],
+              "outer_wall_mm": 1.300003988838196
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999971866607666,
+                3.5000009370803835
+              ],
+              "outer_wall_mm": 1.300003750419617
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            86.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881995477,
+          "nut_rotation_30_contact_mm3": 0.2816611252774681,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            86.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881996103,
+          "nut_rotation_30_contact_mm3": 0.28166112527746723,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003750419617
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        }
+      ],
+      "max_envelope_overlap_mm3": 0,
+      "pass_": true,
+      "assembly_condition": "LED tray and its four M3 screws removed; captive nuts retained",
+      "scope": "geometric sweeps and local wall measurements; no physical assembly/load test"
+    },
+    {
+      "frame_mm": [
+        200,
+        150
+      ],
+      "parts": 12,
+      "access": {
+        "diameter": 4.3999999999999995,
+        "start_z": 15.7,
+        "end_z": 37.2,
+        "neck_width": 3.0,
+        "chamber_inner_x": 93.8
+      },
+      "pressure_screw_length_mm": 10.0,
+      "stations": [
+        {
+          "xy_mm": [
+            -96.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270902889797032,
+          "nut_rotation_30_contact_mm3": 0.2816611252774095,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000009370803835
+              ],
+              "outer_wall_mm": 1.300003988838196
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -96.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.270902889797071,
+          "nut_rotation_30_contact_mm3": 0.2816611252774308,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999971866607666,
+                3.500001056289673
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            96.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881995867,
+          "nut_rotation_30_contact_mm3": 0.28166112527747167,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000004602432253
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003988838196
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003750419617
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            96.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881996733,
+          "nut_rotation_30_contact_mm3": 0.2816611252774708,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000004602432253
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.5000004602432253
+              ],
+              "outer_wall_mm": 1.300003750419617
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.5000006986618044
+              ],
+              "outer_wall_mm": 1.300003750419617
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        }
+      ],
+      "max_envelope_overlap_mm3": 0,
+      "pass_": true,
+      "assembly_condition": "LED tray and its four M3 screws removed; captive nuts retained",
+      "scope": "geometric sweeps and local wall measurements; no physical assembly/load test"
+    },
+    {
+      "frame_mm": [
+        250,
+        200
+      ],
+      "parts": 12,
+      "access": {
+        "diameter": 4.3999999999999995,
+        "start_z": 15.7,
+        "end_z": 37.2,
+        "neck_width": 3.0,
+        "chamber_inner_x": 118.8
+      },
+      "pressure_screw_length_mm": 10.0,
+      "stations": [
+        {
+          "xy_mm": [
+            -121.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028897971884,
+          "nut_rotation_30_contact_mm3": 0.28166112527742726,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -121.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028897971635,
+          "nut_rotation_30_contact_mm3": 0.2816611252774237,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999971866607666,
+                3.5000011754989626
+              ],
+              "outer_wall_mm": 1.300003988838196
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            121.5,
+            -18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881995867,
+          "nut_rotation_30_contact_mm3": 0.28166112527747167,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            121.5,
+            18.0
+          ],
+          "endpoint_checks": [
+            {
+              "thickness_mm": 1.5,
+              "tip_z_mm": 6.0,
+              "under_head_z_mm": 16.0,
+              "head_top_z_mm": 18.0,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 23.200000000000003,
+              "pass_": true
+            },
+            {
+              "thickness_mm": 3.0,
+              "tip_z_mm": 7.5,
+              "under_head_z_mm": 17.5,
+              "head_top_z_mm": 19.5,
+              "shaft_head_key_sweep_overlap_mm3": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "nut_engagement_mm": 1.5999999999999996,
+              "required_straight_key_reach_mm": 21.700000000000003,
+              "pass_": true
+            }
+          ],
+          "nut_loading_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 3.2709028881996995,
+          "nut_rotation_30_contact_mm3": 0.28166112527747433,
+          "preserved_roof_above_nut_trap_mm": 2.6999999999999993,
+          "outer_wall_samples": [
+            {
+              "z_mm": 16,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 20,
+              "material_hits_mm": [
+                2.1999967098236084,
+                3.500000579452515
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            },
+            {
+              "z_mm": 25,
+              "material_hits_mm": [
+                2.1999969482421875,
+                3.500000817871094
+              ],
+              "outer_wall_mm": 1.3000038696289065
+            }
+          ],
+          "inward_neck_obstructions_mm": [],
+          "local_switch_separator_mm": null,
+          "pass": true
+        }
+      ],
+      "max_envelope_overlap_mm3": 0,
+      "pass_": true,
+      "assembly_condition": "LED tray and its four M3 screws removed; captive nuts retained",
+      "scope": "geometric sweeps and local wall measurements; no physical assembly/load test"
+    }
+  ],
+  "pass": true,
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

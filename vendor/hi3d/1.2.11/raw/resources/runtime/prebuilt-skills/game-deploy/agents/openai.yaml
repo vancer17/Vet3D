@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏部署"
+  short_description: "将网页游戏部署到 GitHub Pages，验证静态资源、匿名访问与实际开局"
+  default_prompt: "Use $game-deploy to publish my existing browser game to GitHub Pages and verify anonymous asset loading and playable startup."

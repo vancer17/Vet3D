@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/frame_runtime.py": "tools/run-tools/scripts/config_runtime.py"
+  },
+  "requires": []
+}

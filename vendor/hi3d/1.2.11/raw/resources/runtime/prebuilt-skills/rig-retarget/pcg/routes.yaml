@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "绑骨与动作重定向；auto-rig 调用不可逆。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: pose
+    say: "确认姿态与动作"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dense-skinning.md
+      - references/existing-rig.md
+    irreversible: []
+  - id: rig
+    say: "骨架蒙皮"
+    rollback_to: pose
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dense-skinning.md
+      - references/existing-rig.md
+    irreversible:
+      - mdf.invoke
+    confirm_required: true
+  - id: retarget
+    say: "动作校准"
+    rollback_to: pose
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dense-skinning.md
+      - references/existing-rig.md
+    irreversible: []
+  - id: bake
+    say: "烘焙动作"
+    rollback_to: retarget
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/dense-skinning.md
+      - references/existing-rig.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "新绑到烘焙"
+    nodes:
+      - pose
+      - rig
+      - retarget
+      - bake
+    rollback_to: rig
+  - id: fix_skin
+    summary: "已有绑定，修动作"
+    nodes:
+      - pose
+      - retarget
+      - bake
+choices_example:
+  - id: new_rig
+    title: "新建骨架蒙皮"
+    route: main
+    confirm: true
+  - id: keep_rig
+    title: "已有绑定，重定向"
+    route: fix_skin
+    confirm: true
+  - id: back_rig
+    title: "回退到上一检查点"
+    rollback_to: rig
+    confirm: false

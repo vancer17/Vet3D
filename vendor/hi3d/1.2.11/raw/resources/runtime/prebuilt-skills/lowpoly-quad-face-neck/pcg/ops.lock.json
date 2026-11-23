@@ -1,0 +1,21 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "registry_repo": "blueprint-pcg",
+  "registry_files": [
+    "registry/op.registry.v1.json",
+    "registry/node_contract.snapshot.json"
+  ],
+  "note": "只引用 blueprint-pcg 已有 ship op；未映射阶段保持 agent_workflow，不发明假 op。",
+  "skill": "lowpoly-quad-face-neck",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "inspect_align",
+    "quad_base",
+    "face_neck_regions",
+    "face_neck_retopology",
+    "quad_transition",
+    "bake",
+    "validate_deliver"
+  ]
+}

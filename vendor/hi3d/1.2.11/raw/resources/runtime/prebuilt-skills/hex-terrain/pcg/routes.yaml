@@ -1,0 +1,126 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "正六边形地形。已有合格层跳过。询问现状不授权改模型。源资产不在本包内。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: scope
+    say: "确认任务范围"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/08-baseline-and-sources.md
+    irreversible: []
+  - id: grid
+    say: "地格与地图数据"
+    rollback_to: scope
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/01-grid-and-data.md
+    irreversible:
+      - blender.write
+  - id: surface
+    say: "地表贴图与UV"
+    rollback_to: grid
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/02-textures.md
+    irreversible:
+      - blender.write
+  - id: decor
+    say: "装饰与草坪"
+    rollback_to: surface
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/03-natural-decorations.md
+      - references/04-grass-patches.md
+    irreversible:
+      - blender.write
+  - id: water
+    say: "水域与河流"
+    rollback_to: decor
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/05-water-and-rivers.md
+    irreversible:
+      - blender.write
+  - id: civ
+    say: "文明与城墙"
+    rollback_to: water
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/06-civilization.md
+    irreversible:
+      - blender.write
+  - id: export
+    say: "导出并重导入"
+    rollback_to: scope
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/07-workflow-and-validation.md
+    irreversible:
+      - blender.write
+routes:
+  - id: full
+    summary: "按规则新建一张同类地图并导出"
+    nodes:
+      - scope
+      - grid
+      - surface
+      - decor
+      - water
+      - civ
+      - export
+    rollback_to: scope
+  - id: revise
+    summary: "继续原工程，只重算受影响的层"
+    nodes:
+      - scope
+      - grid
+      - surface
+      - decor
+      - water
+      - civ
+      - export
+    rollback_to: scope
+  - id: module
+    summary: "已有地格，只改贴图、装饰、水或文明中的一层"
+    nodes:
+      - scope
+      - surface
+      - decor
+      - water
+      - civ
+      - export
+    rollback_to: scope
+  - id: accept
+    summary: "已有导出，只重导入验收"
+    nodes:
+      - scope
+      - export
+    rollback_to: scope
+choices_example:
+  - id: full
+    title: "新建一张同类地图"
+    route: full
+    confirm: false
+  - id: revise
+    title: "继续原工程修订"
+    route: revise
+    confirm: true
+  - id: module
+    title: "只改一个模块"
+    route: module
+    confirm: true
+  - id: accept
+    title: "只验收已有导出"
+    route: accept
+    confirm: false

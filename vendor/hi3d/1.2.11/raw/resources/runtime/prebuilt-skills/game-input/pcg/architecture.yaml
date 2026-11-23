@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: game-input
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "游戏输入映射"
+    function: "按已确认目标编排游戏输入映射，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 axis(x,y,deadzone) → [x,y]；actions(pressed,bindings) → 动作布尔表；bindKeyboard(target,bindings,onChange) → dispose；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "将物理按键与语义动作分离；目标为拥有焦点的窗口。触屏 pointercancel、窗口失焦和暂停均清输入。游戏菜单与文本输入优先。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 死区、归一化、文本输入不截获、失焦释放、dispose 幂等；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

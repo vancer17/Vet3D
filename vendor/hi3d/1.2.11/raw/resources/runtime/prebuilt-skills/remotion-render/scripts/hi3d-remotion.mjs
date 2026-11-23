@@ -1,0 +1,15 @@
+import {createRequire} from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const [runtime,propsPath,output,browser]=process.argv.slice(2);
+const require=createRequire(path.join(runtime,'package.json'));
+const {bundle}=require('@remotion/bundler');
+const {selectComposition,renderMedia}=require('@remotion/renderer');
+const inputProps=JSON.parse(fs.readFileSync(propsPath,'utf8'));
+const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'hi3d-template.jsx');
+const serveUrl=await bundle({entryPoint:entry,publicDir:path.join(output,'public'),outDir:path.join(output,'hi3d-bundle'),webpackOverride:config=>({...config,resolve:{...config.resolve,modules:[path.join(runtime,'node_modules'),...(config.resolve?.modules??[])]}})});
+const browserOptions=browser?{browserExecutable:browser}:{};
+const composition=await selectComposition({serveUrl,id:'Creative',inputProps,...browserOptions});
+await renderMedia({serveUrl,composition,inputProps,codec:'h264',outputLocation:path.join(output,'hi3d-video.mp4'),concurrency:1,...browserOptions});
+fs.writeFileSync(path.join(output,'hi3d-render.json'),JSON.stringify({frames:composition.durationInFrames,fps:composition.fps}));

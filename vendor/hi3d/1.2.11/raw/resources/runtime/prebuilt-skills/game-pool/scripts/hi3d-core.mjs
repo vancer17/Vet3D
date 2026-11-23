@@ -1,0 +1,5 @@
+/** Bounded resource slots; generation handles reject callbacks from old leases. */
+export function createPool(capacity){if(!Number.isSafeInteger(capacity)||capacity<1||capacity>100000)throw new Error('invalid pool capacity');return {slots:Array.from({length:capacity},()=>({generation:0,active:false}))};}
+export function acquire(pool){const index=pool.slots.findIndex(x=>!x.active);if(index<0)return {pool,handle:null};const slots=pool.slots.map(x=>({...x}));if(slots[index].generation>=Number.MAX_SAFE_INTEGER)throw new Error('generation exhausted');slots[index]={active:true,generation:slots[index].generation+1};return {pool:{slots},handle:{index,generation:slots[index].generation}};}
+export function isAlive(pool,handle){return !!handle&&Number.isSafeInteger(handle.index)&&handle.index>=0&&pool.slots[handle.index]?.active===true&&pool.slots[handle.index].generation===handle.generation;}
+export function release(pool,handle){if(!isAlive(pool,handle))return pool;return {slots:pool.slots.map((x,i)=>i===handle.index?{...x,active:false}:x)};}

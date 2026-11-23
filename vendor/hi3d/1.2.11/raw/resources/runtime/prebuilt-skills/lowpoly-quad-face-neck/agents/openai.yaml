@@ -1,0 +1,4 @@
+interface:
+  display_name: "低模四边面面颈"
+  short_description: "从已有 low-poly 与同主体高模建立流形四边面，有脸时校准下巴和颈部并烘焙纹理"
+  default_prompt: "使用 $lowpoly-quad-face-neck，以这份已有 low-poly 为拓扑起点、同姿态高模为形状和贴图来源，做成流形四边面；若有脸，先提取下巴再校准颈部，并用全四边面接回，交付可编辑工程、OBJ 贴图包和 GLB。"

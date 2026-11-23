@@ -1,0 +1,132 @@
+schema: pcg.architecture.v1
+entry: hex-terrain
+kind: agent_workflow
+layout: tree
+note: "parent 表示编排归属。已有合格层跳过，不以节点存在触发写工程或收费生成。贴图和模型原件不在本包内。"
+tasks:
+  - id: hex_terrain
+    parent: null
+    role: agent
+    label: 正六边形地形
+    function: 编排 JSON 驱动的 lowpoly 正六边形地形。先确认继续原工程、新建或只改一层，再按受影响层写地格、贴图、装饰、水域和文明，最后重导入验收。询问现状不改模型。
+    outputs: []
+  - id: scope
+    parent: hex_terrain
+    role: local
+    label: 确认任务范围
+    function: 对照基线索引确认地图 JSON、规则版本、blend 和注册 GLB 是否同一最终状态。自然库、文明库和草坪序号独立。源资产缺失时记下不能复现的画面，不把快照路径当成可执行工程。
+    outputs:
+      - id: scope_note
+        label: 任务目录中的范围说明，含继续、新建或单模块，以及缺失的源资产
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: grid
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 地格与地图数据
+    rollback_to: scope
+    irreversible:
+      - blender.write
+    function: 先写地图 JSON 的坐标、海拔、三个环境场和规则引用。需要可见地格时再在后台 Blender 分离 Top 与 Body，底面 Z=0，顶面按 altitude×0.1m，倒角 3cm 且不随柱高拉伸。只改属性时不改网格。已有合格地格跳过。
+    outputs:
+      - id: map_json
+        label: 地图 JSON，含格子、海拔、环境场和规则引用
+        kind: file
+        retain: keep
+        semantics:
+          - source
+      - id: grid_blend
+        label: 含基础地格的 BLEND；只改 JSON 时不新增
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: surface
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 地表贴图与UV
+    rollback_to: grid
+    irreversible:
+      - blender.write
+    function: 在已有地格上铺正六边形等比例 UV。水下优先，水上文明度大于 0 用文明层，其余用自然层。36 张自然贴图、水底和文明贴图必须是已绑定的现有文件。已有合格地表跳过。
+    outputs:
+      - id: surface_blend
+        label: 写上地表 UV 与贴图的 BLEND
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: decor
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 装饰与草坪
+    rollback_to: surface
+    irreversible:
+      - blender.write
+    function: 按密度和碰撞摆自然装饰，缩放 0.6–1.0。草坪一格一个、缩放 1、只转 60° 整数倍，Turf 与 Blades 分开，一格三角草合成一个物体。资产用最终库原尺寸，不再乘已确认过的缩放。已有合格层跳过。
+    outputs:
+      - id: decor_blend
+        label: 含自然装饰与草坪实例的 BLEND
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: water
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 水域与河流
+    rollback_to: decor
+    irreversible:
+      - blender.write
+    function: 水下为 waterLevel 严格大于 altitude，水面高度 (waterLevel−0.25)×0.1m，Alpha 0.7。河流只流向相邻更低或等高格，不重访，一条河一个连通 mesh。河道移除普通装饰，并裁掉覆盖的草坪 Turf 和 Blades。已有合格水域跳过。
+    outputs:
+      - id: water_blend
+        label: 含水面、河流 mesh 和裁剪后草坪的 BLEND
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: civ
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 文明与城墙
+    rollback_to: water
+    irreversible:
+      - blender.write
+    function: 文明度 0–3，水下强制 0。文明格替换自然地表和陆地装饰，保留河流层。墙只出现在地图内部文明与自然的共享边，水口开到墙底，角楼并入墙。布局失败时报告约束，不偷减数量。没有文明输入时跳过。
+    outputs:
+      - id: civ_blend
+        label: 含文明建筑、城墙和水口的 BLEND
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: export
+    parent: hex_terrain
+    role: local
+    optional: true
+    label: 导出并重导入
+    rollback_to: scope
+    irreversible:
+      - blender.write
+    function: 用新文件名导出 GLB，应用实例变换，保留节点名和米制标记。重导入干净场景，对照 blend 检查颜色、透明度和变换。只导出实际完成的层。历史 checks 为 true 不算本次通过。
+    outputs:
+      - id: terrain_glb
+        label: 重导入检查用的 GLB
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: review_note
+        label: 重导入结果与未验证项说明
+        kind: file
+        retain: keep
+        semantics:
+          - validation

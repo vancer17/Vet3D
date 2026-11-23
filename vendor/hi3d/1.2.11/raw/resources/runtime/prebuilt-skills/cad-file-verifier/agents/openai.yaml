@@ -1,0 +1,4 @@
+interface:
+  display_name: "CAD 工程校对"
+  short_description: "检查 CAD 能否打开并继续编辑，校对图层与引用"
+  default_prompt: "使用 $cad-file-verifier 按指定软件和版本核对工程是否还能继续编辑，并列出已验证与未验证项目。"

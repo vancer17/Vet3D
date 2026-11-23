@@ -1,0 +1,58 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: 按已有输入选择续接阶段；服务提交使用已有授权，恢复任务不得重复提交。
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: source
+  say: 校验 source 与 donor
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: prepare
+  say: 准备鼻部区域
+  rollback_to: source
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: transplant
+  say: 切除、移植与接缝
+  rollback_to: prepare
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: audit
+  say: 局部验收
+  rollback_to: transplant
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+routes:
+- id: main
+  summary: 同源 donor 鼻部修复
+  nodes:
+  - source
+  - prepare
+  - transplant
+  - audit
+- id: review_only
+  summary: 仅检查已有修复
+  nodes:
+  - source
+  - audit
+choices_example:
+- id: choose_main
+  title: 同源 donor 鼻部修复
+  route: main
+  confirm: false
+- id: choose_review_only
+  title: 仅检查已有修复
+  route: review_only
+  confirm: false

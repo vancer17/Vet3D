@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "project": null,
+  "version": null,
+  "design_stage": null,
+  "source_sha256": null,
+  "audience": "owner_private",
+  "site_url": null,
+  "entrypoint": null,
+  "files": [],
+  "file_entry_fields": {
+    "path": "relative/to/delivery/root",
+    "role": "image|description|model|video|manufacturing|other",
+    "bytes": null,
+    "sha256": null,
+    "source_sha256": null,
+    "notes": null
+  },
+  "checks": {
+    "build": "not_tested",
+    "model_reimport": "not_tested",
+    "video_decode": "not_requested",
+    "links": "not_tested",
+    "browser_interaction": "not_tested",
+    "mobile_browser": "not_tested",
+    "deployment": "not_tested"
+  },
+  "video_requested": false
+}

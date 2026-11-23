@@ -1,0 +1,4 @@
+interface:
+  display_name: "模型来源规范化"
+  short_description: "将明确选定的来源模型规范为指定高度、坐标与可回溯 NPZ/Blender 输入，保持 UV 和材质来源。"
+  default_prompt: "使用 $source-prepare 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

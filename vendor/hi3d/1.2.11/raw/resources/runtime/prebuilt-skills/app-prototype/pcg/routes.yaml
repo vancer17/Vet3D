@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记业务 App 原型检查点；存档与浏览器验收由独立原子能力执行。"
+checkpoints:
+  - id: business
+    say: "谁、场景、对象与主操作"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/examples.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: data
+    say: "字段、必填与状态"
+    rollback_to: business
+    load:
+      - SKILL.md
+      - references/examples.json
+    irreversible: []
+  - id: prefer
+    say: "列表版式"
+    rollback_to: data
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: flow
+    say: "页面关系预览"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: run
+    say: "生成并实际操作"
+    rollback_to: flow
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: revise
+    say: "按需修改"
+    rollback_to: run
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: revise
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "完整三页原型"
+    nodes: [business, data, prefer, flow, run, revise, deliver]
+  - id: example_data
+    summary: "使用标注示例数据"
+    nodes: [business, data, prefer, flow, run, revise, deliver]
+    shares_input_with: main
+  - id: review_only
+    summary: "已有网页只验收交付"
+    nodes: [business, run, deliver]
+choices_example:
+  - id: build_app
+    title: "制作列表详情编辑原型"
+    route: main
+    confirm: false
+  - id: use_examples
+    title: "使用明确标注的示例数据"
+    route: example_data
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_fields
+    title: "返回修改字段"
+    rollback_to: data
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

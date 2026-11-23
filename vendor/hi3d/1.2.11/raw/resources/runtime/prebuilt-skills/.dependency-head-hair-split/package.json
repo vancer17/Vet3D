@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "files": {
+    "assets/viewer/three.min.js": "workflows/print-kit/assets/viewer/vendor/three.min.js",
+    "assets/viewer/LICENSE-three.txt": "workflows/print-kit/assets/viewer/vendor/LICENSE-three.txt",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/execute.py": "tools/blender-tools/scripts/execute.py",
+    "scripts/asset_scene.py": "tools/blender-tools/scripts/asset_scene.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py",
+    "scripts/timing.py": "tools/run-tools/scripts/timing.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/path_safety.py": "tools/run-tools/scripts/path_safety.py",
+    "scripts/tool_result.py": "tools/run-tools/scripts/tool_result.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "hex-terrain",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["scope", "grid", "surface", "decor", "water", "civ", "export"]
+}

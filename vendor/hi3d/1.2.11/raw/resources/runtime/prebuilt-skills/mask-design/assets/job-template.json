@@ -1,0 +1,188 @@
+{
+  "schema_version": 5,
+  "project": null,
+  "status": "concept",
+  "portrait_path_private": null,
+  "head_raw_path_private": null,
+  "head_calibrated_path_private": null,
+  "head_source": null,
+  "coordinate_convention": "X transverse, -Y anterior, Z up",
+  "measurements": [],
+  "measuring_notes": null,
+  "head_scale_mm_per_model_unit": null,
+  "calibration_report": null,
+  "style": null,
+  "coverage": null,
+  "use_duration_minutes": null,
+  "glasses": null,
+  "printer": {
+    "model": null,
+    "bed_mm": null,
+    "nozzle_mm": null
+  },
+  "material": {
+    "brand_grade": null,
+    "candidate": null
+  },
+  "design_starting_points_not_standards": {
+    "wall_mm": null,
+    "layer_mm": null,
+    "strap_width_mm": null,
+    "strap_thickness_mm": null,
+    "pad_free_mm": null,
+    "pad_compressed_mm": null,
+    "head_error_mm": null,
+    "print_error_mm": null,
+    "assembly_error_mm": null
+  },
+  "evidence": {
+    "head_identity": "not_tested",
+    "calibration": "not_tested",
+    "geometry": "not_tested",
+    "self_intersection": "not_tested",
+    "global_collision": "not_tested",
+    "wall_thickness": "not_tested",
+    "eye_air_access": "not_tested",
+    "strap_passage": "not_tested",
+    "strap_root": "not_tested",
+    "export_reimport": "not_tested",
+    "slicing": "not_tested",
+    "coupon_print": "not_tested",
+    "anchor_load_test": "not_tested",
+    "personal_wear_test": "not_tested",
+    "video_render_decode": "not_requested",
+    "web_build": "not_tested",
+    "web_file_integrity": "not_tested",
+    "web_browser_interaction": "not_tested",
+    "web_deployment": "not_tested",
+    "portrait_processing_review": "not_tested",
+    "breathing_paths": "not_tested",
+    "connection_research": "not_tested",
+    "assembly_and_release": "not_tested",
+    "full_retention_chain": "not_tested",
+    "contact_layer_fit": "not_tested",
+    "retention_cycle_test": "not_tested",
+    "mask_size_fit": "not_tested",
+    "exterior_symmetry": "not_tested",
+    "existing_vent_reuse": "not_tested",
+    "web_open": "not_tested"
+  },
+  "web_delivery": {
+    "manifest": null,
+    "url": null,
+    "audience": "owner_private",
+    "source_sha256": null,
+    "video_manifest": null,
+    "open_result": {
+      "url": null,
+      "tool": null,
+      "opened_at": null,
+      "status": "not_tested",
+      "reason": null
+    }
+  },
+  "head_mode": null,
+  "portrait_prepared_path_private": null,
+  "portrait_processing": {
+    "original_sha256": null,
+    "prepared_sha256": null,
+    "operations": [],
+    "generated_inference": false,
+    "review_status": "not_tested"
+  },
+  "head_input_status": "not_requested",
+  "default_head": {
+    "name": "Default_Adult_Head_v1",
+    "script": "scripts/default_head.py",
+    "used": false,
+    "reason": null,
+    "mesh_path": null,
+    "metadata_path": null
+  },
+  "stage": "intake",
+  "next_action": null,
+  "choices": [],
+  "guidance": {
+    "optional_reply_window_seconds": 60,
+    "continue_on_optional_nonresponse": true,
+    "waiting_for": null,
+    "asked_at": null,
+    "deadline_at": null
+  },
+  "service_jobs": {
+    "head": null,
+    "mask": null
+  },
+  "authorization_references": [],
+  "deliverables": {
+    "editable_source": null,
+    "head_source_record": null,
+    "original_hi3d_shell": null,
+    "view_glb": null,
+    "manufacturing_files": null,
+    "fit_frame": null,
+    "anchor_coupon": null,
+    "images": null,
+    "video": null,
+    "instructions": null,
+    "web": null,
+    "package": null
+  },
+  "timing": {
+    "record_path": null,
+    "summary_path": null,
+    "task_id": null,
+    "started_at": null,
+    "ended_at": null,
+    "wall_elapsed_seconds": null,
+    "missing_time_reason": null,
+    "stages": []
+  },
+  "manufacturing": {
+    "hardware_policy": null,
+    "allowed_filaments": [],
+    "available_tools": [],
+    "printer_flex_compatibility": null,
+    "remaining_purchased_parts": [],
+    "connection_brief": null,
+    "connection_configuration": null,
+    "contact_layer_design": null,
+    "release_path": null,
+    "assumptions": []
+  },
+  "video": {
+    "requested": false,
+    "status": "not_requested",
+    "offered_after_delivery_at": null,
+    "request_reference": null,
+    "source_sha256": null
+  },
+  "fit_review": {
+    "report": null,
+    "head_source_sha256": null,
+    "head_transform_locked": false,
+    "before_dimensions_mm": null,
+    "after_dimensions_mm": null,
+    "region_targets_and_results": [],
+    "export_reimport_status": "not_tested"
+  },
+  "exterior_symmetry": {
+    "intent": null,
+    "plane": null,
+    "baseline": null,
+    "protected_regions": [
+      "forehead_rim",
+      "side_wings"
+    ],
+    "tolerance_mm": null,
+    "final_report": null,
+    "status": "not_tested"
+  },
+  "ventilation": {
+    "existing_ports": [],
+    "decision": null,
+    "reason": null,
+    "final_assembly_paths": "not_tested",
+    "report": null
+  }
+}

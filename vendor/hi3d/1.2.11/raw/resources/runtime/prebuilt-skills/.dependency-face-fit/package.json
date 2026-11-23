@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "files": {
+    "assets/taro/UPSTREAM_LICENSE.txt": "skills/head-template/assets/taro/UPSTREAM_LICENSE.txt",
+    "assets/taro/manifest.json": "skills/head-template/assets/taro/portrait-reconstruction-manifest.json",
+    "assets/taro/regions.json": "skills/head-template/assets/taro/regions.json",
+    "assets/taro/sapiens2_keypoint_names.json": "skills/head-template/assets/taro/sapiens2_keypoint_names.json",
+    "assets/taro/sapiens2_mapping.json": "skills/head-template/assets/taro/sapiens2_mapping.json",
+    "assets/taro/template.npz": "skills/head-template/assets/taro/template.npz",
+    "scripts/blender_io.py": "tools/blender-tools/scripts/head_io.py",
+    "scripts/brush.py": "skills/surface-fit/scripts/brush.py",
+    "scripts/camera_ray.py": "skills/landmark-project/scripts/camera_ray.py",
+    "scripts/collision.py": "skills/mesh-audit/scripts/collision.py",
+    "scripts/contact_repair.py": "skills/surface-fit/scripts/contact_repair.py",
+    "scripts/fit_metrics.py": "skills/surface-fit/scripts/fit_metrics.py",
+    "scripts/geometry_compare.py": "skills/mesh-audit/scripts/geometry_compare.py",
+    "scripts/mesh_io.py": "skills/surface-fit/scripts/mesh_io.py",
+    "scripts/project_sapiens2_landmarks.py": "skills/landmark-project/scripts/project_sapiens2_landmarks.py",
+    "scripts/registered_geometry.py": "skills/surface-fit/scripts/registered_geometry.py",
+    "scripts/sapiens2_landmarks.py": "skills/landmark-project/scripts/sapiens2_landmarks.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/surface.py": "skills/surface-fit/scripts/surface.py",
+    "scripts/template_defaults.py": "skills/head-template/scripts/template_defaults.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/portrait_reconstruction_timing.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py"
+  },
+  "requires": []
+}

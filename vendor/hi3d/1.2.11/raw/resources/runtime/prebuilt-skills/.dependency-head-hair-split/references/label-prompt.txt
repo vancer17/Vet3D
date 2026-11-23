@@ -1,0 +1,7 @@
+Edit this exact front-view render into a two-class semantic material reference.
+Preserve the camera, crop, silhouette, geometry, pose and proportions.
+Make only scalp hair matte white. Make all other model surfaces matte black,
+including face, ears, eyebrows, eyelashes, eyes, lips, teeth, beard, neck and accessories.
+Keep soft three-dimensional form shading and occlusion cues visible.
+Keep the background pure white. Do not add outlines, labels, text, new or missing hair.
+Do not change geometry or style. White = scalp hair; black = everything else on the model.

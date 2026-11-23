@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: motion-base
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: motion_base
+    parent: null
+    role: agent
+    label: "角色与运动需求"
+    function: "编排 motion-base；文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+  - id: brief
+    parent: motion_base
+    label: "角色与运动需求"
+    function: "本 agent 角色与运动需求"
+    outputs:
+      - id: brief
+        label: "角色与运动需求"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "角色与运动需求"
+  - id: research
+    parent: motion_base
+    label: "连接原理与构型"
+    function: "本 agent 连接原理与构型"
+    outputs:
+      - id: research
+        label: "连接原理与构型"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "连接原理与构型"
+  - id: form
+    parent: motion_base
+    label: "自由造型与脚底接口"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "自由造型与脚底接口"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: mechanism
+    parent: motion_base
+    label: "底座、轮轴与止退"
+    function: "本 agent 底座、轮轴与止退"
+    outputs:
+      - id: mechanism
+        label: "底座、轮轴与止退"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "底座、轮轴与止退"
+  - id: fdm
+    parent: motion_base
+    label: "配对试片与打印套件"
+    function: "本 agent 配对试片与打印套件"
+    outputs:
+      - id: fdm
+        label: "配对试片与打印套件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "配对试片与打印套件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: motion_base
+    label: "装配、释放与滚动视频"
+    function: "本 agent 装配、释放与滚动视频"
+    outputs:
+      - id: media
+        label: "装配、释放与滚动视频"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "装配、释放与滚动视频"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: motion_base
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

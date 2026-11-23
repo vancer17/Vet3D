@@ -1,0 +1,958 @@
+{
+  "pass": true,
+  "presets": 5,
+  "saved_STLs_checked": 60,
+  "results": [
+    {
+      "frame_mm": [
+        150,
+        100
+      ],
+      "parts": [
+        {
+          "file": "01_RAIL_BOTTOM.stl",
+          "triangles": 690,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 33564.16146582463,
+          "extents_mm": [
+            150.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "02_RAIL_RIGHT.stl",
+          "triangles": 2160,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 19522.369843279976,
+          "extents_mm": [
+            14.5,
+            100.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "03_RAIL_TOP.stl",
+          "triangles": 660,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 33748.961070501864,
+          "extents_mm": [
+            150.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "04_RAIL_LEFT.stl",
+          "triangles": 2200,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 18819.744015435426,
+          "extents_mm": [
+            14.5,
+            100.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "05_KEY_LB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "06_KEY_RB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "07_KEY_LT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "08_KEY_RT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363773,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "09_PRESSURE_BAR_L.stl",
+          "triangles": 396,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1178.8600293086831,
+          "extents_mm": [
+            7.9,
+            75.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "10_PRESSURE_BAR_R.stl",
+          "triangles": 396,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1178.8600292481663,
+          "extents_mm": [
+            7.9,
+            75.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "11_BACK_LED_TRAY.stl",
+          "triangles": 6418,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 52543.12419124177,
+          "extents_mm": [
+            143.60001,
+            93.6,
+            20.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "14_U_STAND.stl",
+          "triangles": 928,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 9890.351946302404,
+          "extents_mm": [
+            40.0,
+            86.0,
+            12.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "frame_mm": [
+        100,
+        150
+      ],
+      "parts": [
+        {
+          "file": "01_RAIL_BOTTOM.stl",
+          "triangles": 674,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 22275.161057739275,
+          "extents_mm": [
+            100.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "02_RAIL_RIGHT.stl",
+          "triangles": 2148,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 29047.270061229163,
+          "extents_mm": [
+            14.5,
+            150.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "03_RAIL_TOP.stl",
+          "triangles": 644,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 22459.960930532572,
+          "extents_mm": [
+            100.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "04_RAIL_LEFT.stl",
+          "triangles": 2206,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 28344.644088542427,
+          "extents_mm": [
+            14.5,
+            150.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "05_KEY_LB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363773,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "06_KEY_RB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "07_KEY_LT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "08_KEY_RT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "09_PRESSURE_BAR_L.stl",
+          "triangles": 402,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1968.860017096991,
+          "extents_mm": [
+            7.9,
+            125.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "10_PRESSURE_BAR_R.stl",
+          "triangles": 400,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1968.8600170270422,
+          "extents_mm": [
+            7.9,
+            125.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "11_BACK_LED_TRAY.stl",
+          "triangles": 6420,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 52395.30923226651,
+          "extents_mm": [
+            93.6,
+            143.60001,
+            20.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "14_U_STAND.stl",
+          "triangles": 928,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 9890.353855288382,
+          "extents_mm": [
+            40.0,
+            86.00001,
+            12.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "frame_mm": [
+        180,
+        130
+      ],
+      "parts": [
+        {
+          "file": "01_RAIL_BOTTOM.stl",
+          "triangles": 684,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 40337.561293878185,
+          "extents_mm": [
+            180.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "02_RAIL_RIGHT.stl",
+          "triangles": 2160,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 25234.06944244191,
+          "extents_mm": [
+            14.5,
+            130.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "03_RAIL_TOP.stl",
+          "triangles": 660,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 40522.36096928074,
+          "extents_mm": [
+            180.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "04_RAIL_LEFT.stl",
+          "triangles": 2202,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 24531.443614835083,
+          "extents_mm": [
+            14.5,
+            130.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "05_KEY_LB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "06_KEY_RB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "07_KEY_LT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363772,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "08_KEY_RT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762319363773,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "09_PRESSURE_BAR_L.stl",
+          "triangles": 400,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1652.860022845807,
+          "extents_mm": [
+            7.9,
+            105.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "10_PRESSURE_BAR_R.stl",
+          "triangles": 398,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1652.8600227969998,
+          "extents_mm": [
+            7.9,
+            105.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "11_BACK_LED_TRAY.stl",
+          "triangles": 6230,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 78225.52234507332,
+          "extents_mm": [
+            173.60001,
+            123.6,
+            20.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "14_U_STAND.stl",
+          "triangles": 920,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 14450.359981468353,
+          "extents_mm": [
+            70.0,
+            116.0,
+            12.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "frame_mm": [
+        200,
+        150
+      ],
+      "parts": [
+        {
+          "file": "01_RAIL_BOTTOM.stl",
+          "triangles": 690,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 44853.16096405368,
+          "extents_mm": [
+            200.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "02_RAIL_RIGHT.stl",
+          "triangles": 2172,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 29041.869436090343,
+          "extents_mm": [
+            14.5,
+            150.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "03_RAIL_TOP.stl",
+          "triangles": 662,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 45037.960619772195,
+          "extents_mm": [
+            200.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "04_RAIL_LEFT.stl",
+          "triangles": 2214,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 28339.243394188554,
+          "extents_mm": [
+            14.5,
+            150.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "05_KEY_LB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464296,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "06_KEY_RB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464295,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "07_KEY_LT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464295,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "08_KEY_RT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464296,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "09_PRESSURE_BAR_L.stl",
+          "triangles": 402,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1968.860017096991,
+          "extents_mm": [
+            7.9,
+            125.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "10_PRESSURE_BAR_R.stl",
+          "triangles": 400,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 1968.8600170270422,
+          "extents_mm": [
+            7.9,
+            125.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "11_BACK_LED_TRAY.stl",
+          "triangles": 6306,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 98040.18424209447,
+          "extents_mm": [
+            193.60001,
+            143.60001,
+            20.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "14_U_STAND.stl",
+          "triangles": 924,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 17154.354808302447,
+          "extents_mm": [
+            84.0,
+            136.0,
+            12.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "frame_mm": [
+        250,
+        200
+      ],
+      "parts": [
+        {
+          "file": "01_RAIL_BOTTOM.stl",
+          "triangles": 690,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 56142.160923343734,
+          "extents_mm": [
+            250.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "02_RAIL_RIGHT.stl",
+          "triangles": 2172,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 38561.36880905521,
+          "extents_mm": [
+            14.5,
+            200.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "03_RAIL_TOP.stl",
+          "triangles": 664,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 56326.96057906226,
+          "extents_mm": [
+            250.0,
+            14.5,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "04_RAIL_LEFT.stl",
+          "triangles": 2212,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 37858.74276915316,
+          "extents_mm": [
+            14.5,
+            200.0,
+            35.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "05_KEY_LB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464296,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "06_KEY_RB.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464295,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "07_KEY_LT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464295,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "08_KEY_RT.stl",
+          "triangles": 20,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 677.3762047464296,
+          "extents_mm": [
+            11.87939,
+            11.87939,
+            12.6
+          ],
+          "pass": true
+        },
+        {
+          "file": "09_PRESSURE_BAR_L.stl",
+          "triangles": 400,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 2758.860004354361,
+          "extents_mm": [
+            7.9,
+            175.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "10_PRESSURE_BAR_R.stl",
+          "triangles": 400,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 2758.860004339584,
+          "extents_mm": [
+            7.9,
+            175.0,
+            2.0
+          ],
+          "pass": true
+        },
+        {
+          "file": "11_BACK_LED_TRAY.stl",
+          "triangles": 6188,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 159336.1347863852,
+          "extents_mm": [
+            243.60001,
+            193.60001,
+            20.2
+          ],
+          "pass": true
+        },
+        {
+          "file": "14_U_STAND.stl",
+          "triangles": 930,
+          "closed_edges": true,
+          "consistent_winding": true,
+          "zero_area_triangles": 0,
+          "connected_components": 1,
+          "volume_mm3": 23410.350828974482,
+          "extents_mm": [
+            110.0,
+            186.00001,
+            12.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "scope": "B10, light_gap25; saved topology/export regression",
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

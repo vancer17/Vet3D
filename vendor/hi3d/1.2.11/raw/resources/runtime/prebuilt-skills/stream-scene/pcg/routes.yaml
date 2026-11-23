@@ -1,0 +1,121 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "可编辑溪流。水体入口只调用 dcc-preset。已有合格资产或预制可跳过。未安装对应软件时不把空文件称为可打开场景。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: brief
+    say: "记录场景目标"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/brief.md
+    irreversible: []
+  - id: preset
+    say: "打开水体预制"
+    rollback_to: brief
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/preset.md
+    irreversible:
+      - overwrite.source
+      - blender.write
+  - id: assets
+    say: "准备复杂资产"
+    rollback_to: brief
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/assets.md
+    irreversible:
+      - hi3d.submit
+  - id: scene
+    say: "装配溪流场景"
+    rollback_to: preset
+    load:
+      - SKILL.md
+      - references/scene.md
+    irreversible: []
+  - id: art
+    say: "调整画面摆放"
+    rollback_to: scene
+    load:
+      - SKILL.md
+      - references/art.md
+    irreversible: []
+  - id: optimize
+    say: "减面与实例"
+    rollback_to: scene
+    load:
+      - SKILL.md
+      - references/optimize.md
+    irreversible: []
+  - id: accept
+    say: "验收场景效果"
+    rollback_to: scene
+    load:
+      - SKILL.md
+      - references/accept.md
+    irreversible: []
+  - id: offline
+    say: "打包离线附件"
+    rollback_to: accept
+    confirm_required: true
+    load:
+      - SKILL.md
+      - references/offline.md
+    irreversible:
+      - overwrite.source
+routes:
+  - id: full
+    summary: "从参考做到可编辑溪流，网页和减面按需进入"
+    nodes:
+      - brief
+      - preset
+      - assets
+      - scene
+      - art
+      - optimize
+      - accept
+    rollback_to: brief
+  - id: preset_only
+    summary: "只按宿主打开水体预制并复核"
+    nodes:
+      - brief
+      - preset
+      - accept
+    rollback_to: preset
+  - id: revise
+    summary: "已有场景，只改画面、摆放或默认参数"
+    nodes:
+      - brief
+      - art
+      - accept
+    rollback_to: art
+  - id: offline
+    summary: "场景已验收，只打离线包"
+    nodes:
+      - brief
+      - accept
+      - offline
+    rollback_to: accept
+choices_example:
+  - id: full
+    title: "从参考做溪流场景"
+    route: full
+    confirm: false
+  - id: preset_only
+    title: "只打开水体预制"
+    route: preset_only
+    confirm: true
+  - id: revise
+    title: "只改画面参数"
+    route: revise
+    confirm: false
+  - id: offline
+    title: "只打离线包"
+    route: offline
+    confirm: true

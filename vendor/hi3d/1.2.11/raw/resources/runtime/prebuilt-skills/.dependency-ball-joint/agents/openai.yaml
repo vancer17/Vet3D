@@ -1,0 +1,4 @@
+interface:
+  display_name: "球窝接口"
+  short_description: "为明确的两个刚体生成配对球窝和间隙试片，保留局部来源表面；用于可打印活动连接的单点设计。"
+  default_prompt: "使用 $ball-joint 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

@@ -1,0 +1,84 @@
+schema: pcg.architecture.v1
+entry: head-reference
+kind: agent_skill
+layout: linear
+note: 一个图像能力的两种四视图模式，共用裁切/造型/材料；head/front 独立可用，不是前置链。图像由宿主生成，不内置服务或创建子 agent；仅显式复用合格输入。
+tasks:
+  - id: head_reference
+    parent: null
+    role: agent
+    label: 头部参考图准备
+    function: 接收图片、输出目标与 aligned/current 姿态模式，保留身份并交付真实参考图；不延伸到几何重建。
+  - id: input
+    parent: head_reference
+    role: local
+    label: 输入与目标
+    function: 查看原图及已生成图，确定输出目标、四视图姿态模式、必选造型、裁切、外观和输出位置；多输出各自绑定原图，仅按明确续接要求复用合格图。
+    outputs: []
+  - id: prompt
+    parent: input
+    role: local
+    label: 分支提示词
+    rollback_to: input
+    function: 共用主体与必选造型，保持姿态/转正二选一，外观不覆盖造型；所有生成和修订携带必选块。四视图按模式建立基准；aligned 四格 front/right/back/left，right 鼻尖朝画面右、left 朝左，不按相机侧别命名；current 保留原图 yaw/pitch/roll 与相对标签。保存实际提示词；只要提示词时在此结束。
+    outputs:
+      - id: prompts
+        label: 实际使用的提示词 TXT
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: generate
+    parent: prompt
+    role: local
+    label: 生成缺失图像
+    rollback_to: prompt
+    function: 在已有授权内使用宿主图像编辑，各模式从原图开始，不自动串接。four-views 内部按 pose_mode 验收基准再补视图；current 固定头部俯仰/侧倾，仅换相机方向，不摆直。明确续接的合格输入可复用；无工具报告缺失；生成调用失败停止自动重试并报告，用户明确要求后才恢复。成功出图后的质量修订按既有规则继续。
+    irreversible: [network.write]
+    outputs:
+      - id: head_image
+        label: 头部单图 PNG/JPEG（head 分支，不是 front 的前置）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: front_image
+        label: 正面图 PNG/JPEG（所属 front 或 aligned 四视图须明确）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: views
+        label: 四张独立视图 PNG/JPEG（current 包含 view_0，记录 pose_mode）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: review
+    parent: generate
+    role: local
+    label: 身份视角与交接
+    rollback_to: prompt
+    function: 逐图检查范围、身份、造型及视角一致性。aligned 分别检查 yaw/pitch/roll 转正及实际侧图标签，必须声明 screen-nose-direction-v1；旧左右约定另存来源映射后重审，不镜像或改写旧文件。current 对照 source 保留三项姿态，整组检查固定头姿与相对环绕，不强制各投影眼线倾角相同。拆图等比 pad；prepare/check 绑定原图、实际输入、prompt、例图、源码/策略及模式，校验完整矩阵和真实观察证据。失败/不确定/未检查不放行，各模式独立恢复，未校准阶段须真实人工确认。图像 approved 不证明下游支持相对视角，不改名 front，评审脚本不自行生图或建模；成功出图的质量缺陷可按已有授权定向修订，同问题连续两次仍不合格才交回用户。
+    outputs:
+      - id: manifest
+        label: 来源及视图语义 manifest JSON
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: review_report
+        label: 逐项视觉证据及检查响应 JSON（不由代码自动看图）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: review_request
+        label: 绑定原图、实际输入、prompt、例图、策略与源码的检查矩阵 JSON
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: review_decision
+        label: 放行状态、未校准评分与修订建议 JSON（可附静态 HTML）
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: human_confirmation
+        label: 实际人工决定 JSON（如已确认，绑定当前 review_id）
+        kind: file
+        retain: keep
+        semantics: [deliverable]

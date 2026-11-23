@@ -1,0 +1,53 @@
+{
+  "contract_snapshot": "account-backed generator source 2026-09-12; deployment not verified",
+  "parameters": {
+    "model": {
+      "scene": "general",
+      "version": "v3.0",
+      "otherParam": {
+        "generationType": "both",
+        "modelType": "standard",
+        "voxelResolution": "2048",
+        "pbr": 1,
+        "shading": 0.5,
+        "face": 2000000,
+        "format": 2
+      }
+    },
+    "relief": {
+      "scene": "relief",
+      "version": "v2.0",
+      "otherParam": {
+        "modelType": "pro",
+        "heightRelief": 1.3,
+        "rmbg": 1,
+        "degreeRmbg": 0.02,
+        "reliefWidth": 40,
+        "sculpmode": 0
+      }
+    },
+    "split": {
+      "scene": "split-to-print",
+      "version": "v2.1",
+      "otherParam": {
+        "asyncInputParam": "{\"template\":1}",
+        "needRemesh": 0
+      }
+    },
+    "multicolor": {
+      "scene": "multi-color-print",
+      "version": "v3.0",
+      "otherParam": {}
+    },
+    "image-edit": {
+      "editTaskType": "EDIT",
+      "modelName": "GPT Image 2"
+    },
+    "text-to-image": {
+      "editTaskType": "TEXT_TO_IMAGE",
+      "modelName": "GPT Image 2",
+      "imageCount": 1,
+      "aspectRatio": "1:1"
+    }
+  }
+}

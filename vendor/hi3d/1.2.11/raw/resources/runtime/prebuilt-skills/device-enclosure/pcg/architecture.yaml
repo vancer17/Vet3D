@@ -1,0 +1,92 @@
+schema: pcg.architecture.v1
+entry: device-enclosure
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: device_enclosure
+    parent: null
+    role: agent
+    label: "确认设备规格"
+    function: "编排 device-enclosure"
+  - id: spec
+    parent: device_enclosure
+    label: "确认设备规格"
+    function: "本 agent 确认设备规格"
+    outputs:
+      - id: spec
+        label: "确认设备规格"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认设备规格"
+  - id: generate_art
+    parent: device_enclosure
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "生成新艺术纹样"
+    function: "仅本次需要新自由纹样时调用 hi3d-api，沿用其模型参数选择；下载原始 GLB、贴图与任务记录后交给 shell。已有装饰或规则外壳不执行本阶段。"
+    outputs:
+      - id: generate_art
+        label: "艺术纹样原始 GLB、贴图与任务记录"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    members:
+      - id: invoke
+        label: "按已选参数生成并下载模型"
+    irreversible:
+      - hi3d.submit
+  - id: shell
+    parent: device_enclosure
+    label: "外壳与内腔"
+    function: "按设备包络本地构建底壁、内腔、支座和可拆盖；复用已有艺术外形或 generate_art 结果，保护源 UV 和材质。"
+    outputs:
+      - id: shell
+        label: "壳体与内腔候选工程（BLEND）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "本地构建壳体与内腔"
+  - id: fit
+    parent: device_enclosure
+    label: "接口与紧固"
+    function: "本 agent 接口与紧固"
+    outputs:
+      - id: fit
+        label: "接口与紧固"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "接口与紧固"
+  - id: review
+    parent: device_enclosure
+    label: "装配检查"
+    function: "本 agent 装配检查"
+    outputs:
+      - id: review
+        label: "装配检查"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "装配检查"
+    irreversible:
+      - blender.write

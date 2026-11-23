@@ -1,0 +1,59 @@
+schema: pcg.architecture.v1
+entry: roblox-api
+kind: agent_skill
+layout: linear
+tasks:
+- id: root
+  parent: null
+  role: agent
+  label: Roblox 接口适配
+  function: 按当前输入编排实际阶段，复用已完成结果与授权；缺失外部平台能力时如实记录。
+  outputs: []
+- id: contract
+  parent: root
+  role: local
+  label: 核对接口与运行侧
+  function: 从目标操作与官方文档确认运行侧、输入、权限和已有结果，不猜目标 ID。
+  outputs: []
+- id: operate
+  parent: contract
+  role: local
+  label: 本地检查与接口适配
+  function: 需要 Studio 运行、导入或试玩时，先检索本机可启动程序，安装包不算；没有则等用户在输入面板回复后再检索，回复内容不作为放行条件。离线 rbxlx 检查不因此停下。执行静态检查、Luau 适配或诊断；云端分支只在本阶段生成不含凭据的 dry-run 计划。
+  outputs:
+  - id: implementation
+    label: 本次 Luau 改动、静态检查 JSON 或离线上传计划
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: contract
+- id: upload
+  parent: operate
+  role: local
+  label: 按已授权目标单次上传
+  function: 仅云端更新路线执行；先持久化意图，再向既有 Place 单次提交，未知结果不重发。本地路线跳过，不索取发布授权。
+  optional: true
+  irreversible:
+  - publish
+  outputs:
+  - id: upload_receipt
+    label: hi3d-publish.json 真实单次上传结果/未知状态
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: operate
+- id: verify
+  parent: upload
+  role: local
+  label: 核对结果与限制
+  function: 核对本次操作实际结果，区别静态结构、Studio 运行和已上传版本；生成适配说明，已有结果可只复核。
+  outputs:
+  - id: review
+    label: hi3d-api-review.md 接口结果与未验证项
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: operate

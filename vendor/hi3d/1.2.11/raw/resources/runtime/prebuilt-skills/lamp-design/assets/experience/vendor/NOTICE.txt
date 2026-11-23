@@ -1,0 +1,3 @@
+model-viewer 4.2.0: Apache-2.0; LICENSE included. Bundled dependencies retain their license notices in model-viewer.min.js.
+Draco decoder distributed with three 0.182.0: Apache-2.0 decoder copyright notices embedded in distributed JS. three LICENSE included.
+Example renders and GLBs: original lamp studies from this skill project. All local; no CDN or API call required for preview.

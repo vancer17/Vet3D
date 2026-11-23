@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "files": {
+    "references/connector-research.md": "skills/connector-select/references/connector-research.md",
+    "references/delivery-policy.md": "skills/delivery-review/references/delivery-policy.md",
+    "references/full-workflow.md": "workflows/product-design/references/full-workflow.md",
+    "references/print-diy-workflow.md": "skills/print-plan/references/print-diy-workflow.md",
+    "scripts/asset_scene.py": "tools/blender-tools/scripts/asset_scene.py",
+    "scripts/blender_stl.py": "skills/print-export/scripts/blender_stl.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/cli_schemas.py": "tools/run-tools/scripts/cli_schemas.py",
+    "scripts/glb_export.py": "skills/model-preview/scripts/glb_export.py",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/path_safety.py": "tools/run-tools/scripts/path_safety.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/render_scene.py": "tools/blender-tools/scripts/render_scene.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/scene_measure.py": "skills/mesh-audit/scripts/scene_measure.py",
+    "scripts/scene_samples.py": "skills/motion-check/scripts/scene_samples.py",
+    "scripts/source_normalize.py": "skills/source-prepare/scripts/source_normalize.py",
+    "scripts/source_views.py": "skills/model-preview/scripts/source_views.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py",
+    "scripts/surface_pairs.py": "skills/mesh-audit/scripts/surface_pairs.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py",
+    "scripts/validate_stl.py": "skills/mesh-audit/scripts/validate_stl.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py"
+  },
+  "requires": []
+}

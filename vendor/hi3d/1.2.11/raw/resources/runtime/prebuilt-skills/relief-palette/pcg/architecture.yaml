@@ -1,0 +1,80 @@
+schema: pcg.architecture.v1
+entry: relief-palette
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: relief_palette
+    parent: null
+    role: agent
+    label: "确认图案参考"
+    function: "编排 relief-palette"
+  - id: ref
+    parent: relief_palette
+    label: "确认图案参考"
+    function: "本 agent 确认图案参考；文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+    outputs:
+      - id: ref
+        label: "确认图案参考"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认图案参考"
+  - id: relief
+    parent: relief_palette
+    label: "形象浮雕"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: relief
+        label: "形象浮雕"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: case
+    parent: relief_palette
+    label: "外壳附件"
+    function: "本 agent 外壳附件"
+    outputs:
+      - id: case
+        label: "外壳附件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "外壳附件"
+  - id: render
+    parent: relief_palette
+    label: "质感渲染"
+    function: "派出 model-preview"
+    outputs:
+      - id: render
+        label: "质感渲染"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: subagent
+    entry: model-preview
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 model-preview"
+    irreversible:
+      - blender.write

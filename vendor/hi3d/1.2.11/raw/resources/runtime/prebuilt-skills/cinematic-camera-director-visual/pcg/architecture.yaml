@@ -1,0 +1,122 @@
+schema: pcg.architecture.v1
+entry: cinematic-camera-director-visual
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与本地镜头阶段；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: director
+    parent: null
+    role: agent
+    label: 镜头导演
+    function: 遵循 Skill 指引协调场景检查、创作意图核对、轨迹生成、验收、烘焙与交付；依据用户授权和实际环境选择后端。
+    entry: cinematic-camera-director-visual
+    optional: false
+    outputs: []
+  - id: scene
+    parent: director
+    role: local
+    label: 检查场景与视觉判断
+    function: 安全复制或复用输入场景，检查对象、单位、动画及相机；查看实际预览并结合对象清单记录主体候选、证据和不确定项。
+    entry: null
+    optional: false
+    outputs:
+      - id: scene_inventory
+        label: 场景检查数据
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: scene_reading
+        label: 视觉判断与对象映射
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: plan
+    parent: director
+    role: local
+    label: 拟稿与意图确认
+    function: 根据场景证据和用户要求拟写连贯的镜头描述，通过可用的真实弹窗核对主体、运镜及电影参考；取得当前版本确认后，编写符合数据契约的镜头计划。
+    entry: null
+    optional: false
+    outputs:
+      - id: shot_plan
+        label: 镜头计划
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: director_brief
+        label: 镜头画面描述
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: director_answers
+        label: 导演意图问答记录
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: trajectory
+    parent: director
+    role: local
+    label: 生成连续轨迹
+    function: 默认使用本地编译器生成逐帧轨迹；只有后端、授权及适配条件满足时才处理可选上游候选，并记录转换依据。
+    entry: null
+    optional: false
+    outputs:
+      - id: camera_trajectory
+        label: 相机轨迹
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: check
+    parent: director
+    role: local
+    label: 验收运动与场景安全
+    function: 检查数值、运动连续性、碰撞、扫掠、遮挡、构图和动态场景覆盖；未实际检查的项目标记为 not_checked。
+    entry: null
+    optional: false
+    outputs:
+      - id: camera_checks
+        label: 场景验收报告
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: bake
+    parent: director
+    role: local
+    label: 烘焙相机动画
+    function: 基础数值门禁通过后，将轨迹烘焙到新的 Blender 工程副本，并保存基础检查报告。
+    entry: null
+    optional: false
+    outputs:
+      - id: camera_scene
+        label: 相机动画工程副本
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: basic_checks
+        label: 基础数值检查报告
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: deliver
+    parent: director
+    role: local
+    label: 重开预览并交付
+    function: 在新进程重开交付工程，核对相机动画、原场景保留及资源依赖，并生成真实预览；说明未检查或未通过的项目。
+    entry: null
+    optional: false
+    outputs:
+      - id: camera_preview
+        label: 相机动画预览图
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

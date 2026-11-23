@@ -1,0 +1,61 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: 两种四视图基准共享裁切/造型/材料及检查点；aligned 转正，current 保留原图 yaw/pitch/roll。head/front 独立可用，不是前置；旧 four_views 路线仍指 aligned。仅明确续接时复用合格图。
+ui:
+  option_buttons: true
+checkpoints:
+  - id: input
+    say: 确认输出目标、姿态模式与已有输入
+    rollback_to: null
+    load: [SKILL.md, references/prompts.md]
+    irreversible: []
+  - id: prompt
+    say: 组合主体、必选造型、姿态与外观约束
+    rollback_to: input
+    load: [SKILL.md, references/prompts.md]
+    irreversible: []
+  - id: generate
+    say: 按缺失目标生成参考图
+    rollback_to: prompt
+    load: [SKILL.md, references/prompts.md]
+    irreversible: [network.write]
+    confirm_required: true
+  - id: review
+    say: 逐项看图、版本校验与人工放行
+    rollback_to: prompt
+    load: [SKILL.md, references/prompts.md, references/review.md, references/review-base.json]
+    irreversible: []
+routes:
+  - id: head
+    summary: 只保留头部，保持原姿态
+    nodes: [input, prompt, generate, review]
+  - id: front
+    summary: 保留头部并转正，不改表情
+    nodes: [input, prompt, generate, review]
+  - id: four_views
+    summary: 保留头部并生成转正四视图
+    nodes: [input, prompt, generate, review]
+  - id: four_views_current
+    summary: 保留原图左右朝向、抬头低头与侧倾，只换相机方向的相对四视图
+    nodes: [input, prompt, generate, review]
+  - id: review_only
+    summary: 已有合格结果，只检查与整理
+    nodes: [input, review]
+choices_example:
+  - id: choose_four_views
+    title: 转正四视图
+    route: four_views
+    confirm: true
+  - id: choose_current_views
+    title: 当前视角四视图（保留抬头低头与侧倾）
+    route: four_views_current
+    confirm: true
+  - id: choose_head
+    title: 只保留头部
+    route: head
+    confirm: true
+  - id: reuse
+    title: 检查已有结果
+    route: review_only
+    confirm: false

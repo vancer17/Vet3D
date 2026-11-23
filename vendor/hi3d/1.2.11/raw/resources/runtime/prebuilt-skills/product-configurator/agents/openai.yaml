@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品配置器"
+  short_description: "为已有产品模型做颜色、显隐与互斥选项的交互配置页"
+  default_prompt: "使用 $product-configurator，根据已有 GLB 识别部件，做成可改色、可显隐、可恢复默认的配置网页，不要虚构价格。"

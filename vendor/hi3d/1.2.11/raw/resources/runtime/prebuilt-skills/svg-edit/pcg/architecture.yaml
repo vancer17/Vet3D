@@ -1,0 +1,42 @@
+schema: pcg.architecture.v1
+entry: svg-edit
+kind: agent_skill
+layout: linear
+tasks:
+- id: root
+  parent: null
+  role: agent
+  label: SVG 矢量编辑
+  function: 通过白名单操作编辑 SVG 节点、文字、样式、变换和路径布尔，并用 Inkscape 导出 PNG/PDF；保护原输入。
+- id: input
+  parent: root
+  role: local
+  label: 校验输入与资源
+  function: 校验配方和素材路径，核对实际软件及预算；成功缓存需重新核对哈希，无新业务产物。
+  outputs: []
+- id: run
+  parent: input
+  role: local
+  label: 执行SVG 矢量编辑
+  function: 用声明的本地后端执行，另存到任务目录；失败记录错误，超时中断不自动续跑。
+  outputs:
+  - id: native
+    label: hi3d-artwork.svg、PNG/PDF
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: input
+- id: review
+  parent: run
+  role: local
+  label: 回读与验收
+  function: 解析实际输出，检查声明的不变量与源文件哈希；仅通过后写 completed。
+  outputs:
+  - id: result
+    label: hi3d-result.json：产物哈希与实际检查范围
+    kind: file
+    retain: keep
+    semantics:
+    - report
+  rollback_to: run

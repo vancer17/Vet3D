@@ -1,0 +1,4 @@
+interface:
+  display_name: "Taubin 网格光顺"
+  short_description: "按光顺倍数换算轮数，调用 Blender 原生 Taubin 两步并保持拓扑"
+  default_prompt: "使用 $taubin-smooth 对指定三角网格进行 Taubin 光顺，保留原文件，按 PCG 登记产物并检查边界、拓扑和几何变化。"

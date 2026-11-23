@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py"
+  },
+  "requires": [],
+  "profiles": {
+    "sparc3d": {
+      "files": {
+        "SKILL.md": "tools/hi3d-api/references/runtime/entry.md",
+        "references/calling.md": "tools/hi3d-api/references/runtime/calling.md",
+        "references/web-option-gates.md": "tools/hi3d-api/references/web-option-gates.md",
+        "references/desktop-free-retry.md": "tools/hi3d-api/references/runtime/desktop-free-retry.md",
+        "references/desktop-parameters.md": "tools/hi3d-api/references/runtime/desktop-parameters.md",
+        "references/image-generation.md": "tools/hi3d-api/references/runtime/image-generation.md",
+        "references/parameters.md": "tools/hi3d-api/references/runtime/parameters.md",
+        "scripts/defaults.json": "tools/hi3d-api/scripts/runtime/defaults.json",
+        "scripts/hi3d_api.py": "tools/hi3d-api/scripts/runtime/hi3d_api.py",
+        "scripts/hi3d_artifacts.py": "tools/hi3d-api/scripts/runtime/hi3d_artifacts.py",
+        "scripts/hi3d_client.py": "tools/hi3d-api/scripts/runtime/hi3d_client.py",
+        "scripts/hi3d_generation_workflow.py": "tools/hi3d-api/scripts/runtime/hi3d_generation_workflow.py",
+        "scripts/hi3d_image_workflow.py": "tools/hi3d-api/scripts/runtime/hi3d_image_workflow.py",
+        "scripts/hi3d_jobs.py": "tools/hi3d-api/scripts/runtime/hi3d_jobs.py",
+        "scripts/hi3d_parameters.py": "tools/hi3d-api/scripts/runtime/hi3d_parameters.py",
+        "scripts/web_option_gates.py": "tools/hi3d-api/scripts/web_option_gates.py",
+        "scripts/hi3d_progress.py": "tools/hi3d-api/scripts/runtime/hi3d_progress.py",
+        "scripts/hi3d_storage.py": "tools/hi3d-api/scripts/runtime/hi3d_storage.py",
+        "agents/openai.yaml": "tools/hi3d-api/agents/runtime-openai.yaml",
+        "tests/runtime/test_account.py": "tools/hi3d-api/tests/runtime/test_account.py",
+        "tests/runtime/test_recovery.py": "tools/hi3d-api/tests/runtime/test_recovery.py"
+      },
+      "archiveBase": true
+    }
+  }
+}

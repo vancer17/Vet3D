@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: game-profile
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "游戏帧预算分析"
+    function: "按已确认目标编排游戏帧预算分析，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 profile(samples毫秒,{budgetMs}) → p50/p95/p99/meanFps；quality(current,stats,{budgetMs,min,max}) → 档位；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "分别采集首次加载、战斗峰值与重开后的连续帧；标注设备/分辨率/样本窗口。以较长窗口且带冷却应用档位，先调阴影或粒子预算，保留资产质量授权。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 长尾帧、空样本、非有限数、阈值滞回和档位上下界；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

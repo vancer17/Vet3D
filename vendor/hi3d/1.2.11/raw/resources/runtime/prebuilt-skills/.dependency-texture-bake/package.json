@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/cycles_device.py": "tools/blender-tools/scripts/cycles_device.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: game-economy
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "游戏经济账本"
+    function: "按已确认目标编排游戏经济账本，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 transact({balance,receipts},{id,cost,reward}) → 新账本；offlineReward(elapsed秒,rate每秒,cap秒) → 整数奖励；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "交易 ID 在同一次意图及重试中稳定。联网时在服务端事务中调用并存储唯一 ID，客户端数值只能展示。生产链与物品定义仍由具体游戏提供。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 重复 ID 幂等、同 ID 不同载荷拒绝、余额不足、溢出与奖励上限；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

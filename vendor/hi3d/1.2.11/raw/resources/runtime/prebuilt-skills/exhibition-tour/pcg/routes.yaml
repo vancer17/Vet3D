@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记展览导览检查点；GLB 读取与存档由独立原子能力执行。"
+checkpoints:
+  - id: exhibits
+    say: "展品与说明"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/modes.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: space
+    say: "已有空间或虚拟展厅"
+    rollback_to: exhibits
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: prefer
+    say: "浏览与导览"
+    rollback_to: space
+    load:
+      - SKILL.md
+      - references/modes.json
+    irreversible: []
+  - id: layout
+    say: "展位与顺序"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: run
+    say: "进入展厅体验"
+    rollback_to: layout
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: revise
+    say: "按需修改"
+    rollback_to: run
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: revise
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "虚拟展厅完整导览"
+    nodes: [exhibits, space, prefer, layout, run, revise, deliver]
+  - id: existing_space
+    summary: "使用已有空间文件"
+    nodes: [exhibits, space, prefer, layout, run, revise, deliver]
+    shares_input_with: main
+  - id: review_only
+    summary: "已有展厅只验收交付"
+    nodes: [exhibits, run, deliver]
+choices_example:
+  - id: virtual_both
+    title: "虚拟展厅，自由看加自动导览"
+    route: main
+    confirm: false
+  - id: use_space
+    title: "使用已有空间文件"
+    route: existing_space
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_exhibits
+    title: "返回修改展品"
+    rollback_to: exhibits
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

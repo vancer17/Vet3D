@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/cycles_device.py": "tools/blender-tools/scripts/cycles_device.py",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py",
+    "scripts/pose_math.py": "skills/motion-check/scripts/pose_math.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/stage_events.py": "tools/run-tools/scripts/stage_events.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/screw_bottle_timing.py"
+  },
+  "requires": []
+}

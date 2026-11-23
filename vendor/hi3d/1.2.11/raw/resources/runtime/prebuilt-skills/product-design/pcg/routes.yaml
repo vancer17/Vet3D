@@ -1,0 +1,72 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "通用产品七阶段外环；品类工作流组合，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: research
+    say: "需求与研究"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/full-workflow.md
+    irreversible: []
+  - id: concept
+    say: "概念选择"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/full-workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: engineer
+    say: "工程化"
+    rollback_to: concept
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/full-workflow.md
+    irreversible: []
+  - id: deliver
+    say: "制造包交付"
+    rollback_to: engineer
+    load:
+      - SKILL.md
+      - references/code-contract.md
+      - references/full-workflow.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: main
+    summary: "研究到制造包"
+    nodes:
+      - research
+      - concept
+      - engineer
+      - deliver
+    rollback_to: concept
+  - id: reuse
+    summary: "已有概念，做工程"
+    nodes:
+      - research
+      - engineer
+      - deliver
+choices_example:
+  - id: new_product
+    title: "从研究做完整产品"
+    route: main
+    confirm: true
+  - id: have_concept
+    title: "已有概念，做工程"
+    route: reuse
+    confirm: true
+  - id: back_concept
+    title: "回退到上一检查点"
+    rollback_to: concept
+    confirm: false

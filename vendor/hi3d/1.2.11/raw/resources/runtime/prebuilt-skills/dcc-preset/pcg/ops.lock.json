@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "dcc-preset",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["resolve", "apply", "review"]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "柔性随动"
+  short_description: "在 Blender 中为头发末梢、衣摆、宽袖等柔性部位烘焙惯性随动"
+  default_prompt: "使用 $flex-motion，在 Blender 里给这个已绑定角色的头发末梢、衣摆和宽大袖口加上惯性随动，保留身体动作和网格。"

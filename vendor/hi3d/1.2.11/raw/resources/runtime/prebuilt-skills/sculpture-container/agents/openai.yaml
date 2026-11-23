@@ -1,0 +1,4 @@
+interface:
+  display_name: "雕塑收纳容器"
+  short_description: "将艺术实体改为真实空腔和可拆盖容器，验证口沿定位、取盖路径与导出"
+  default_prompt: "使用 $sculpture-container 把这个艺术模型做成带真实内腔和可拆盖的收纳容器，保留外观并验证取放路径。"

@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py"
+  },
+  "requires": []
+}

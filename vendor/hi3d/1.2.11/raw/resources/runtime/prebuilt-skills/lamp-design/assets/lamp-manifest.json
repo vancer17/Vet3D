@@ -1,0 +1,51 @@
+{
+  "name": "New lamp",
+  "revision": "01",
+  "mode": "concept",
+  "units": "mm",
+  "hardware_dimensions_measured": false,
+  "hardware": {
+    "model": null,
+    "source_url": null,
+    "voltage_V": null,
+    "power_W": null,
+    "envelope_mm": null,
+    "installation_envelope_mm": null
+  },
+  "printer": {
+    "bed_mm": null,
+    "edge_margin_mm": 5
+  },
+  "engineering": {
+    "switch": null,
+    "cable_route": null,
+    "strain_relief": null,
+    "retention": null,
+    "service_access": null,
+    "thermal_plan": null
+  },
+  "fits": [],
+  "parts": [],
+  "evidence": {
+    "mesh": {
+      "status": "pending"
+    },
+    "assembly": {
+      "status": "pending"
+    },
+    "slicing": {
+      "status": "pending"
+    },
+    "physical_fit": {
+      "status": "pending"
+    },
+    "thermal": {
+      "status": "pending"
+    }
+  },
+  "hardware_policy": "unspecified",
+  "timing": {
+    "records": null,
+    "summary": null
+  }
+}

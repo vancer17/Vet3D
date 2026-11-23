@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏输入映射"
+  short_description: "键鼠、手柄或触屏操作需要统一为动作；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-input 处理当前游戏需求，复用已有工程并验证输入输出。"

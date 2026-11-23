@@ -1,0 +1,4 @@
+interface:
+  display_name: "浮雕彩妆盘"
+  short_description: "从产品参考与照片制作多色浮雕粉盘、可开合外壳及配件并渲染"
+  default_prompt: "使用 $relief-palette，根据我的产品参考和照片制作可开合的浮雕彩妆盘，并交付 Blender 工程和质感渲染图。"

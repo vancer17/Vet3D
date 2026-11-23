@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记算法演示检查点；不封装宿主内部算法，不走 MDF 部署。"
+checkpoints:
+  - id: algorithm
+    say: "入口脚本与样例"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/modes.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: contract
+    say: "字段与输出结构"
+    rollback_to: algorithm
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: prefer
+    say: "同步或后台任务"
+    rollback_to: contract
+    load:
+      - SKILL.md
+      - references/modes.json
+    irreversible: []
+  - id: limits
+    say: "大小、超时与并发"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: run
+    say: "启动演示并调用"
+    rollback_to: limits
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: revise
+    say: "按需修改"
+    rollback_to: run
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: revise
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "同步返回的本地演示"
+    nodes: [algorithm, contract, prefer, limits, run, revise, deliver]
+  - id: background
+    summary: "带状态查询的后台任务"
+    nodes: [algorithm, contract, prefer, limits, run, revise, deliver]
+    shares_input_with: main
+  - id: review_only
+    summary: "已有演示只验收交付"
+    nodes: [algorithm, run, deliver]
+choices_example:
+  - id: sync_demo
+    title: "短样例同步返回"
+    route: main
+    confirm: false
+  - id: background_jobs
+    title: "后台任务加状态查询"
+    route: background
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_contract
+    title: "返回修改字段"
+    rollback_to: contract
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

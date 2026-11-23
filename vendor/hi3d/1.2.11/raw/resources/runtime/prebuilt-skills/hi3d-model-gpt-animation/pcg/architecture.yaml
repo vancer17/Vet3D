@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: hi3d-model-gpt-animation
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: hi3d_model_gpt_animation
+    parent: null
+    role: agent
+    label: "已有或 Hi3D 模型"
+    function: "编排 hi3d-model-gpt-animation"
+  - id: source
+    parent: hi3d_model_gpt_animation
+    label: "已有或 Hi3D 模型"
+    function: "派出 hi3d-api；条件生成前走参数选择与计费示警，未授权不得 submit"
+    outputs:
+      - id: source
+        label: "已有或 Hi3D 模型"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+  - id: autorig
+    parent: hi3d_model_gpt_animation
+    label: "rig-retarget 绑定与回迁"
+    function: "派出 rig-retarget"
+    outputs:
+      - id: autorig
+        label: "rig-retarget 绑定与回迁"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 rig-retarget"
+  - id: fix
+    parent: hi3d_model_gpt_animation
+    label: "rig-retarget 局部修复"
+    function: "派出 rig-retarget"
+    outputs:
+      - id: fix
+        label: "rig-retarget 局部修复"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 rig-retarget"
+  - id: motion
+    parent: hi3d_model_gpt_animation
+    label: "rig-retarget 动作交接与本包舞台"
+    function: "派出 rig-retarget"
+    outputs:
+      - id: motion
+        label: "rig-retarget 动作交接与本包舞台"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: rig-retarget
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 rig-retarget"

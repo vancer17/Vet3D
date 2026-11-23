@@ -1,0 +1,95 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "首个检查点先提问、盘点素材并确定玩法；已有认可或明确委托复用，未确定时不进入制作。"
+checkpoints:
+  - id: brief
+    say: "提问、素材与展示玩法确认"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/assets.md
+      - references/validation.md
+    irreversible: []
+  - id: generate
+    say: "生成或恢复模型"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/assets.md
+      - references/validation.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: lod
+    say: "减面保精度"
+    rollback_to: generate
+    load:
+      - SKILL.md
+      - references/assets.md
+      - references/validation.md
+    irreversible:
+      - mdf.invoke
+    confirm_required: true
+  - id: playable
+    say: "最小可玩闭环"
+    rollback_to: lod
+    load:
+      - SKILL.md
+      - references/assets.md
+      - references/validation.md
+    irreversible: []
+  - id: publish
+    say: "发布验收"
+    rollback_to: playable
+    load:
+      - SKILL.md
+      - references/assets.md
+      - references/validation.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "图/模型→可玩 demo"
+    nodes:
+      - brief
+      - generate
+      - lod
+      - playable
+      - publish
+    rollback_to: generate
+  - id: reuse_asset
+    summary: "已有合格 GLB，跳过生成"
+    nodes:
+      - brief
+      - playable
+      - publish
+    shares_input_with: main
+  - id: pages
+    summary: "沿用已确认方案交接 game-deploy"
+    nodes:
+      - brief
+      - playable
+      - publish
+    shares_input_with: main
+choices_example:
+  - id: gen_then_play
+    title: "按已展示方案生成并制作"
+    route: main
+    confirm: false
+  - id: skip_gen
+    title: "按已展示方案复用模型制作"
+    route: reuse_asset
+    confirm: false
+  - id: deploy_pages
+    title: "沿用已确认方案交接发布"
+    route: pages
+    confirm: false
+  - id: revise_brief
+    title: "修改玩法或等待素材"
+    rollback_to: brief
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

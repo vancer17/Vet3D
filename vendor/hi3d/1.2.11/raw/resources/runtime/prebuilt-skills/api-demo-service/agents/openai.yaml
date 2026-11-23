@@ -1,0 +1,4 @@
+interface:
+  display_name: "算法演示服务"
+  short_description: "把用户自己的可运行算法封成本地单任务 HTTP 演示和测试页"
+  default_prompt: "使用 $api-demo-service，把这个入口脚本做成只能跑一个算法的本地演示服务和测试页，不要读密钥，也不要把请求拼进命令行。"

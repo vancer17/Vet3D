@@ -1,0 +1,126 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "发光浮雕相框：完整制作做到切片打开；尺寸评审或仅照片板按范围跳过未改阶段。不发送实体打印。"
+checkpoints:
+  - id: inputs
+    say: "确认尺寸、工艺与设备信息"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-inputs-and-sizes.md
+    irreversible: []
+  - id: interface
+    say: "计算照片板尺寸接口"
+    rollback_to: inputs
+    load:
+      - SKILL.md
+      - references/hi3d-inputs-and-sizes.md
+      - references/hi3d-v5-mechanical-interface.md
+    irreversible: []
+  - id: frame
+    say: "按范围复用或生成框体"
+    rollback_to: interface
+    load:
+      - SKILL.md
+      - references/hi3d-frame-generation.md
+      - references/hi3d-v5-mechanical-interface.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: panel
+    say: "按所选工艺准备照片板"
+    rollback_to: interface
+    load:
+      - SKILL.md
+      - references/hi3d-mixed-workflow.md
+      - references/hi3d-uv-workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: validate
+    say: "检查几何、方向与工艺约束"
+    rollback_to: interface
+    load:
+      - SKILL.md
+      - references/hi3d-validation-and-delivery.md
+    irreversible: []
+  - id: slicer
+    say: "配置并打开切片项目"
+    rollback_to: validate
+    load:
+      - SKILL.md
+      - references/hi3d-slicer-workflow.md
+      - references/hi3d-validation-and-delivery.md
+    irreversible: []
+  - id: deliver
+    say: "整理并说明交付物"
+    rollback_to: validate
+    load:
+      - SKILL.md
+      - references/hi3d-validation-and-delivery.md
+      - references/hi3d-acceptance-cases.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从尺寸与工艺做到切片打开"
+    nodes:
+      - inputs
+      - interface
+      - frame
+      - panel
+      - validate
+      - slicer
+      - deliver
+    rollback_to: validate
+  - id: panel_only
+    summary: "复用已有框体，只做照片板"
+    nodes:
+      - inputs
+      - interface
+      - panel
+      - validate
+      - slicer
+      - deliver
+    shares_input_with: main
+    rollback_to: validate
+  - id: size_review
+    summary: "只计算尺寸接口"
+    nodes:
+      - inputs
+      - interface
+      - deliver
+    shares_input_with: main
+    rollback_to: inputs
+  - id: reuse_project
+    summary: "已有项目，修订尺寸或工艺"
+    nodes:
+      - inputs
+      - interface
+      - frame
+      - panel
+      - validate
+      - slicer
+      - deliver
+    shares_input_with: main
+    rollback_to: validate
+choices_example:
+  - id: full
+    title: "完整制作到切片打开"
+    route: main
+    confirm: false
+  - id: panel
+    title: "已有框体，只做照片板"
+    route: panel_only
+    confirm: false
+  - id: sizes
+    title: "只评审外框尺寸"
+    route: size_review
+    confirm: false
+  - id: revise
+    title: "修订已有相框项目"
+    route: reuse_project
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

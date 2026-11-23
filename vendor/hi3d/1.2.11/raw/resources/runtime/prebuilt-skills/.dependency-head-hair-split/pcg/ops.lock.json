@@ -1,0 +1,16 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "head-hair-split",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "input",
+    "reference",
+    "label",
+    "texture",
+    "html",
+    "handoff",
+    "split",
+    "review"
+  ]
+}

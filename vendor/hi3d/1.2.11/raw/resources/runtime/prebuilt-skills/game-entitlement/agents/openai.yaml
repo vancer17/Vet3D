@@ -1,0 +1,4 @@
+interface:
+  display_name: "购买权益归约"
+  short_description: "实现购买后下载、退款撤销或重复支付事件处理；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-entitlement 处理当前游戏需求，复用已有工程并验证输入输出。"

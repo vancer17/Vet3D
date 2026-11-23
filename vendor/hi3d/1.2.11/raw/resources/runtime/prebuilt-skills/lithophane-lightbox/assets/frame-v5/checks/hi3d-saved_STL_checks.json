@@ -1,0 +1,193 @@
+{
+  "pass": true,
+  "units": "mm",
+  "vertex_quantization_mm": 1e-05,
+  "checks": [
+    {
+      "file": "01_RAIL_BOTTOM.stl",
+      "triangles": 690,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 33564.16146582463,
+      "extents_mm": [
+        150.0,
+        14.5,
+        35.2
+      ],
+      "pass": true
+    },
+    {
+      "file": "02_RAIL_RIGHT.stl",
+      "triangles": 2160,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 19522.369843279976,
+      "extents_mm": [
+        14.5,
+        100.0,
+        35.2
+      ],
+      "pass": true
+    },
+    {
+      "file": "03_RAIL_TOP.stl",
+      "triangles": 660,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 33748.961070501864,
+      "extents_mm": [
+        150.0,
+        14.5,
+        35.2
+      ],
+      "pass": true
+    },
+    {
+      "file": "04_RAIL_LEFT.stl",
+      "triangles": 2200,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 18819.744015435426,
+      "extents_mm": [
+        14.5,
+        100.0,
+        35.2
+      ],
+      "pass": true
+    },
+    {
+      "file": "05_KEY_LB.stl",
+      "triangles": 20,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 677.3762319363772,
+      "extents_mm": [
+        11.87939,
+        11.87939,
+        12.6
+      ],
+      "pass": true
+    },
+    {
+      "file": "06_KEY_RB.stl",
+      "triangles": 20,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 677.3762319363772,
+      "extents_mm": [
+        11.87939,
+        11.87939,
+        12.6
+      ],
+      "pass": true
+    },
+    {
+      "file": "07_KEY_LT.stl",
+      "triangles": 20,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 677.3762319363772,
+      "extents_mm": [
+        11.87939,
+        11.87939,
+        12.6
+      ],
+      "pass": true
+    },
+    {
+      "file": "08_KEY_RT.stl",
+      "triangles": 20,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 677.3762319363773,
+      "extents_mm": [
+        11.87939,
+        11.87939,
+        12.6
+      ],
+      "pass": true
+    },
+    {
+      "file": "09_PRESSURE_BAR_L.stl",
+      "triangles": 396,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 1178.8600293086831,
+      "extents_mm": [
+        7.9,
+        75.0,
+        2.0
+      ],
+      "pass": true
+    },
+    {
+      "file": "10_PRESSURE_BAR_R.stl",
+      "triangles": 396,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 1178.8600292481663,
+      "extents_mm": [
+        7.9,
+        75.0,
+        2.0
+      ],
+      "pass": true
+    },
+    {
+      "file": "11_BACK_LED_TRAY.stl",
+      "triangles": 6418,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 52543.12419124177,
+      "extents_mm": [
+        143.60001,
+        93.6,
+        20.2
+      ],
+      "pass": true
+    },
+    {
+      "file": "14_U_STAND.stl",
+      "triangles": 928,
+      "closed_edges": true,
+      "consistent_winding": true,
+      "zero_area_triangles": 0,
+      "connected_components": 1,
+      "volume_mm3": 9890.351946302404,
+      "extents_mm": [
+        40.0,
+        86.0,
+        12.0
+      ],
+      "pass": true
+    }
+  ],
+  "scope": "saved topology and signed volume; not a general self-intersection proof",
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

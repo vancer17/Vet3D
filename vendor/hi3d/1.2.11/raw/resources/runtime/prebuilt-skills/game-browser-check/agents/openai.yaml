@@ -1,0 +1,4 @@
+interface:
+  display_name: "浏览器玩法验收"
+  short_description: "验证游戏真实开局、交互按需资源或重开后报错；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-browser-check 处理当前游戏需求，复用已有工程并验证输入输出。"

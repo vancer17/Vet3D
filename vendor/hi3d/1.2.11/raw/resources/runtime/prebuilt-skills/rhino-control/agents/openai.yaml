@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rhino 应用控制"
+  short_description: "控制 Rhino 5–8，选择 MCP、Python 或桌面操作并验收模型"
+  default_prompt: "使用 $rhino-control 检查当前 Rhino 版本和文档，完成所需模型操作并验收结果。"

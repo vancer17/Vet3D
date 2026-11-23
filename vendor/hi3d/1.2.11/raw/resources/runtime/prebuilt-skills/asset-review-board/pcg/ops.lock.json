@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "asset-review-board",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["versions", "prefer", "criteria", "review", "compare", "import", "deliver"]
+}

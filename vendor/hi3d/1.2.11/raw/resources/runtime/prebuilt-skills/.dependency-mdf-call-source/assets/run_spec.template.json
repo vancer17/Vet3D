@@ -1,0 +1,32 @@
+{
+  "case_id": "example-case-001",
+  "contract_digest": "sha256:example-contract-digest",
+  "endpoint_alias": "example-test-endpoint",
+  "environment": "test",
+  "input_digest": "sha256:example-input-digest",
+  "input_summary": {
+    "artifact_count": 1,
+    "request_kind": "example-operation"
+  },
+  "operation": "example-service-operation",
+  "protocol": "repository-client",
+  "retry_policy": {
+    "automatic": false,
+    "max_attempts": 1
+  },
+  "run_id": "example-run-001",
+  "runtime_provenance": "runtime_provenance.json",
+  "schema_version": 1,
+  "side_effects": [
+    {
+      "name": "result-artifact",
+      "policy": "required"
+    }
+  ],
+  "success_predicate": "project-defined-success-predicate",
+  "timeout_sec": 3600,
+  "trace_id": "example-trace-001",
+  "validators": [
+    "project-defined-output-validator"
+  ]
+}

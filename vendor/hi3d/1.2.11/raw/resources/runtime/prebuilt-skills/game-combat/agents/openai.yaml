@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏战斗结算"
+  short_description: "添加伤害、攻击冷却、击败或重复攻击保护；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-combat 处理当前游戏需求，复用已有工程并验证输入输出。"

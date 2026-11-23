@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD 约束草图"
+  short_description: "FreeCAD 约束草图与真实文件验收"
+  default_prompt: "使用 $cad-sketch 按明确输入执行并核对产物。"

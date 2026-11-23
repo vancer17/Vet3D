@@ -1,0 +1,94 @@
+schema: pcg.architecture.v1
+entry: head-lowpoly
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: head_lowpoly
+    parent: null
+    role: agent
+    label: "输入与 face_config"
+    function: "编排 head-lowpoly"
+  - id: config
+    parent: head_lowpoly
+    label: "输入与 face_config"
+    function: "本 agent 输入与 face_config"
+    outputs:
+      - id: config
+        label: "输入与 face_config"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "输入与 face_config"
+  - id: remesh
+    parent: head_lowpoly
+    label: "减面与眼口环线"
+    function: "本 agent 导出 working_surface.glb，经 Runtime mdf_api 的 retopology 取回四边面 OBJ（dryRun 后由宿主 confirm_required 弹窗确认再正式调用；已有同指纹下载记录则只复用），再做眼口环线修订"
+    outputs:
+      - id: remesh
+        label: "减面与眼口环线"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "减面与眼口环线"
+    irreversible:
+      - mdf.invoke
+  - id: bind
+    parent: head_lowpoly
+    label: "基础绑定与表情"
+    function: "本 agent 基础绑定与表情"
+    outputs:
+      - id: bind
+        label: "基础绑定与表情"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "基础绑定与表情"
+  - id: bake
+    parent: head_lowpoly
+    label: "贴图烘焙"
+    function: "派出 texture-bake"
+    outputs:
+      - id: bake
+        label: "贴图烘焙"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: subagent
+    entry: texture-bake
+    members:
+      - id: invoke
+        label: "调用 texture-bake"
+    irreversible:
+      - blender.write
+  - id: export
+    parent: head_lowpoly
+    label: "导出 GLB/Blender"
+    function: "本 agent 导出 GLB/Blender"
+    outputs:
+      - id: export
+        label: "导出 GLB/Blender"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "导出 GLB/Blender"
+    irreversible:
+      - overwrite.source

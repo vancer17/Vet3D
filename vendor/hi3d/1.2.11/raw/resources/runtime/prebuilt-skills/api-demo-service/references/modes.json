@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "modes": {
+    "sync": "样例能短时完成时同步返回结果。",
+    "background": "带任务 id 的状态查询，适合已知会超时同步窗口的算法。"
+  },
+  "defaultMode": "sync",
+  "defaultLimits": {
+    "maxBytes": 1048576,
+    "timeoutSeconds": 8,
+    "concurrency": 1
+  }
+}

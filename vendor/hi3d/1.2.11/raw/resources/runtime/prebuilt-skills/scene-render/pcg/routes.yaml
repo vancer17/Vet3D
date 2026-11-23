@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "场景搭建与离线静帧；渲染写盘不可逆。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: brief
+    say: "确认场景主题"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/render-delivery.md
+      - references/scene-quality.md
+      - references/video.md
+    irreversible: []
+  - id: layout
+    say: "主角与配景"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/render-delivery.md
+      - references/scene-quality.md
+      - references/video.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: render
+    say: "离线静帧"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/render-delivery.md
+      - references/scene-quality.md
+      - references/video.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: page
+    say: "成果页"
+    rollback_to: render
+    load:
+      - SKILL.md
+      - references/render-delivery.md
+      - references/scene-quality.md
+      - references/video.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "主题到静帧"
+    nodes:
+      - brief
+      - layout
+      - render
+      - page
+    rollback_to: layout
+  - id: revise
+    summary: "已有场景，只改渲染"
+    nodes:
+      - brief
+      - render
+      - page
+choices_example:
+  - id: new_scene
+    title: "新搭场景并渲染"
+    route: main
+    confirm: true
+  - id: rerender
+    title: "已有场景，重出静帧"
+    route: revise
+    confirm: true
+  - id: back_layout
+    title: "回退到上一检查点"
+    rollback_to: layout
+    confirm: false

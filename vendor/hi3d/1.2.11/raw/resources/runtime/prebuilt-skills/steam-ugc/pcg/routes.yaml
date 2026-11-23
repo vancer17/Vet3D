@@ -1,0 +1,41 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: scope
+    say: 核对 Steam App、调用侧与可用 SDK
+    rollback_to: null
+    load: [SKILL.md, references/sources.md, references/contract.md]
+    irreversible: []
+  - id: preflight
+    say: 离线核对物品字段、实际文件与授权
+    rollback_to: scope
+    load: [SKILL.md, references/contract.md]
+    irreversible: []
+  - id: receipt
+    say: 在已有接口连接及授权时记录单次提交回执
+    rollback_to: preflight
+    load: [SKILL.md, references/contract.md]
+    irreversible: [publish]
+    confirm_required: true
+routes:
+  - id: inspect
+    summary: 仅核对接口与离线字段
+    nodes: [scope, preflight]
+    rollback_to: scope
+  - id: submit
+    summary: 满足所有前提且已授权时提交一次
+    nodes: [scope, preflight, receipt]
+    rollback_to: preflight
+choices_example:
+  - id: check_only
+    title: 核对接口与字段
+    route: inspect
+    confirm: false
+  - id: confirmed_submit
+    title: 在已有发布授权内提交
+    route: submit
+    confirm: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频时间线剪辑"
+  short_description: "视频时间线剪辑与真实文件验收"
+  default_prompt: "使用 $media-edit 按明确输入执行并核对产物。"

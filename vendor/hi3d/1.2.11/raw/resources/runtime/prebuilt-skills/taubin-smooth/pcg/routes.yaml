@@ -1,0 +1,59 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: input
+    say: "选择三角网格、光顺倍数或轮数及固定边界"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/pcg.md
+    irreversible: []
+  - id: smooth
+    say: "调用原生 λ/μ 两步并另存新工程"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/pcg.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: review
+    say: "核对重开结果与真实轮廓细节"
+    rollback_to: smooth
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/pcg.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从原始三角网格光顺并验收"
+    nodes:
+      - input
+      - smooth
+      - review
+    rollback_to: input
+  - id: review_only
+    summary: "已有输出仅核对"
+    nodes:
+      - input
+      - review
+choices_example:
+  - id: run
+    title: "按当前参数光顺"
+    route: main
+    confirm: true
+  - id: inspect
+    title: "检查已有结果"
+    route: review_only
+    confirm: false
+  - id: adjust
+    title: "调整参数或固定范围"
+    rollback_to: input
+    confirm: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MetaHuman Fit"
+  short_description: "内置 Taro 模板、固定耳点和多视角耳部拟合，交付 MetaHuman 静态几何"
+  default_prompt: "使用 $metahuman-fit 的随包 Taro 模板和贴图，生成正面无表情、保留肤色纹理的光头参考，去掉眼镜胡须假睫毛及颈部以下，调用 Hi3D quality 几何与纹理并做 3D brush 注册；耳部不匹配时复用固定模板耳点与目标多视角反投影进行局部拟合，有界微调后 bake，交付静态几何、高模、贴图与布线展示，不执行绑定或 DNA 导出。"

@@ -1,0 +1,66 @@
+schema: pcg.architecture.v1
+entry: pub-steam-mod
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: 发布已对齐创意工坊物品
+    function: 按已有内容、实际目标和授权逐步检查、上传及订阅验收；缺账号或 SDK 时停在离线准备，已完成阶段不重复。
+    outputs: []
+  - id: target
+    parent: root
+    role: local
+    label: 核对发布归属与新建更新
+    function: 确认 App 所有者、新建或待更新真实 ID；更新时保留上一版内容与可恢复的清单，缺目标不写远端。
+    outputs: []
+  - id: preflight
+    parent: target
+    role: local
+    label: 离线准备并核验内容
+    function: 调用独立 steam-ugc 契约核对游戏内容目录、预览、权限和发布字段；无游戏加载证据时报告阻塞。
+    outputs:
+      - id: publish_review
+        label: hi3d-steam-publication-review.md 准备检查与阻塞
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: target
+  - id: upload
+    parent: preflight
+    role: local
+    label: 实际上传或更新
+    function: 只在账号可用且已有授权时经 steam-ugc 单次提交；记录 SDK 返回与物品 ID，未知提交查原 ID；review 路线跳过。
+    outputs:
+      - id: upload_record
+        label: hi3d-steam-publication.json 真实上传回执与可恢复状态
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: preflight
+    irreversible: [publish]
+  - id: visibility
+    parent: upload
+    role: local
+    label: 验证实际可见性
+    function: 根据已授权可见范围从其他访问侧核对新旧物品当前状态；review 路线无上传时也可检查已有物品。
+    outputs:
+      - id: visibility_record
+        label: hi3d-steam-publication.json 独立可见性状态
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: upload
+  - id: subscriber
+    parent: visibility
+    role: local
+    label: 独立订阅下载和游戏验收
+    function: 另一合格账号订阅并检查本版文件与游戏载入；不能获得实际账号时标明未执行，不把自己可预览当验收。
+    outputs:
+      - id: subscriber_record
+        label: hi3d-steam-publication.json 订阅下载、游戏加载与未执行状态
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+    rollback_to: visibility

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "orbits": [
+    {"id": "front", "label": "正面", "orbit": "0deg 75deg 2.5m"},
+    {"id": "three_quarter", "label": "四分之三", "orbit": "35deg 70deg 2.5m"},
+    {"id": "top", "label": "俯视", "orbit": "0deg 15deg 2.8m"}
+  ],
+  "styles": {
+    "simple": "简洁展示：突出选项，减少页面装饰。",
+    "product": "商品详情：选项与说明并排。",
+    "fullscreen": "全屏体验：模型占满视口，选项收在侧栏。"
+  }
+}

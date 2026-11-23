@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "stream-scene",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["brief", "preset", "assets", "scene", "art", "optimize", "accept", "offline"]
+}

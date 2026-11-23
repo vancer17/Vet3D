@@ -1,0 +1,4 @@
+interface:
+  display_name: "既有资产成果页"
+  short_description: "将明确版本的本地图片、模型和下载文件生成成果页，并记录实际资产来源。"
+  default_prompt: "使用 $asset-page 从当前已完成的资产生成可查看和下载的版本化成果页。"

@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/planar_core.py": "skills/shape-build/scripts/planar_core.py",
+    "scripts/product/blender_primitives.py": "skills/shape-build/scripts/blender_primitives.py",
+    "scripts/product/glb_export.py": "skills/model-preview/scripts/glb_export.py",
+    "scripts/product/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/product/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/product/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/product/product_core.py": "skills/shape-build/scripts/product_core.py",
+    "scripts/product/product_preview.py": "skills/model-preview/scripts/product_preview.py",
+    "scripts/product/scene_samples.py": "skills/motion-check/scripts/scene_samples.py",
+    "scripts/product_core.py": "skills/shape-build/scripts/product_core.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/scene_samples.py": "skills/motion-check/scripts/scene_samples.py",
+    "scripts/studio_audit.py": "skills/mesh-audit/scripts/studio_audit.py",
+    "scripts/studio_core.py": "skills/shape-build/scripts/studio_core.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py"
+  },
+  "requires": []
+}

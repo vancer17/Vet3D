@@ -1,0 +1,62 @@
+kind: agent_skill
+partition: make
+entry: SKILL.md
+note: "线形检查点：校验配方与预算、预算内建模、核对 STEP/STL。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: input
+    say: "确认配方与预算"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+  - id: build
+    say: "预算内建模"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+  - id: export
+    say: "核对 STEP 与 STL"
+    rollback_to: build
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从配方建模并导出 STEP"
+    nodes:
+      - input
+      - build
+      - export
+    rollback_to: build
+  - id: review_only
+    summary: "已有 STEP，只核对"
+    nodes:
+      - input
+      - export
+choices_example:
+  - id: confirm_build
+    title: "按当前预算执行建模"
+    route: main
+    confirm: true
+  - id: review_only
+    title: "已有 STEP/STL，只核对"
+    route: review_only
+    confirm: false
+  - id: change_spec
+    title: "回退修改配方或细分"
+    rollback_to: input
+    confirm: false
+  - id: back_build
+    title: "回退到建模检查点"
+    rollback_to: build
+    confirm: false

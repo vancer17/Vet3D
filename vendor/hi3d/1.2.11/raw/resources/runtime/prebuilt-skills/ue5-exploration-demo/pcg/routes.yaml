@@ -1,0 +1,117 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "UE5 可编辑展示场景。已有合格概念、模型或绑定可跳过对应阶段。本机未安装虚幻引擎，检查点不代表编辑器或打包已通过。"
+checkpoints:
+  - id: brief
+    say: "记录场景目标"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/art-direction.md
+    irreversible: []
+  - id: concept
+    say: "确定整景概念"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/art-direction.md
+    irreversible: []
+  - id: assets
+    say: "制作可见资产"
+    rollback_to: concept
+    load:
+      - SKILL.md
+      - references/assets.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: rig
+    say: "绑定活动人物"
+    rollback_to: assets
+    load:
+      - SKILL.md
+      - references/assets.md
+    irreversible:
+      - mdf.invoke
+    confirm_required: true
+  - id: project
+    say: "建立可编辑工程"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/ue-environment.md
+    irreversible: []
+  - id: scene
+    say: "搭建样板与外围"
+    rollback_to: project
+    load:
+      - SKILL.md
+      - references/scene.md
+    irreversible: []
+  - id: accept
+    say: "验收画面与运行"
+    rollback_to: scene
+    load:
+      - SKILL.md
+      - references/acceptance.md
+      - assets/production-record.md
+    irreversible: []
+  - id: package
+    say: "按需打包目标平台"
+    rollback_to: accept
+    load:
+      - SKILL.md
+      - references/acceptance.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: full
+    summary: "从文字或参考图做到可编辑 UE 工程"
+    nodes:
+      - brief
+      - concept
+      - assets
+      - rig
+      - project
+      - scene
+      - accept
+    rollback_to: brief
+  - id: existing
+    summary: "只改用户指定的已有工程"
+    nodes:
+      - brief
+      - project
+      - scene
+      - accept
+    shares_input_with: full
+    rollback_to: project
+  - id: package_only
+    summary: "工程已验收，只按要求打包"
+    nodes:
+      - brief
+      - accept
+      - package
+    shares_input_with: full
+    rollback_to: accept
+choices_example:
+  - id: full
+    title: "从文字或参考图做工程"
+    route: full
+    confirm: false
+  - id: existing
+    title: "只改已有 UE 工程"
+    route: existing
+    confirm: false
+  - id: package_only
+    title: "只打包已验收工程"
+    route: package_only
+    confirm: false
+  - id: back_scene
+    title: "回到样板与外围"
+    rollback_to: scene
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

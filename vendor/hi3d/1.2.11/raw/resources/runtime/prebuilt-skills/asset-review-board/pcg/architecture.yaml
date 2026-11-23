@@ -1,0 +1,153 @@
+schema: pcg.architecture.v1
+entry: asset-review-board
+kind: agent_workflow
+layout: tree
+note: "编排资产审阅看板；glb-clips/media-check/game-save/game-browser-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: asset_review_board
+    parent: null
+    role: agent
+    label: "资产审阅编排"
+    function: "收集版本归属与对比偏好，生成批注看板。已有合格页面可从 review 续接。不提供协作账号云端。"
+    outputs: []
+  - id: versions
+    parent: asset_review_board
+    role: local
+    label: "版本与资产归属"
+    function: "收集图片/视频/模型文件、资产 id、版本标签。文件名无法判断时必须给出 assetId。拒绝把无关文件排成序列。无附件时停在版本字段。"
+    outputs: []
+  - id: prefer
+    parent: asset_review_board
+    role: local
+    label: "并排或单版"
+    function: "展示 side_by_side/single；默认并排。仅一版时强制 single。用户未确认前不是事实。"
+    outputs: []
+  - id: criteria
+    parent: asset_review_board
+    role: local
+    label: "审阅维度"
+    function: "可选 appearance/structure/motion/free，默认 free。维度是提示不是质量结论。"
+    outputs: []
+  - id: review
+    parent: asset_review_board
+    role: local
+    label: "写批注并对比"
+    function: "等待 prefer。plan_review 写出 plan.json。inspect_models 校验 GLB。build_board 写入新目录。用户添加/编辑/改状态。批注 loc 按媒体类型绑定原版本。"
+    members:
+      - id: write_board
+        label: "写出看板与媒体副本"
+    outputs:
+      - id: plan
+        label: "审阅 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: board
+        label: "审阅网页目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: glb_clips
+    parent: review
+    role: subagent
+    entry: glb-clips
+    optional: true
+    label: "模型版本读取"
+    function: "有模型版本时独立 glb-clips.read_glb 校验容器；无模型则跳过。"
+    outputs: []
+  - id: media_check
+    parent: review
+    role: subagent
+    entry: media-check
+    optional: true
+    label: "图片视频解码"
+    function: "有图片或视频版本时独立 media-check 核对尺寸/时长并载入；缺失文件不调用。"
+    outputs:
+      - id: report
+        label: "媒体检查报告"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: game_save
+    parent: review
+    role: subagent
+    entry: game-save
+    label: "批注存档"
+    function: "独立 game-save 保存批注、状态与对比开关。刷新后恢复。存储失败提示立刻导出。"
+    outputs: []
+  - id: compare
+    parent: asset_review_board
+    role: local
+    label: "同步相机与播放"
+    function: "可选同步相机与播放。视频 durationSeconds 不同时写出 durationWarning。判断结果写入 plan.durationWarning；本阶段不新增文件。"
+    outputs: []
+  - id: import
+    parent: asset_review_board
+    role: local
+    label: "导入导出"
+    function: "导出当前存档。合并导入默认。覆盖导入需要授权并保留 backup。decode 失败不覆盖现有批注。"
+    outputs:
+      - id: notes
+        label: "批注导出 JSON"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: http_check
+    parent: review
+    role: local
+    label: "loopback 资源检查"
+    function: "check_http GET 页面、模块与已复制图片/视频/模型。"
+    outputs:
+      - id: http
+        label: "HTTP 加载报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: browser_check
+    parent: review
+    role: subagent
+    entry: game-browser-check
+    optional: true
+    label: "浏览器操作验收"
+    function: "独立 game-browser-check 走添加批注/改状态/导入失败；无 Playwright 时跳过。"
+    outputs:
+      - id: browser
+        label: "浏览器检查结果"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: deliver
+    parent: asset_review_board
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的网页与媒体。asset-page 与 delivery-review 打开核对。"
+    outputs:
+      - id: pack
+        label: "审阅资源目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮 HTML 与媒体文件，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

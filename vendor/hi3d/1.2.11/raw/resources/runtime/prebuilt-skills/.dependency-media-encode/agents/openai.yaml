@@ -1,0 +1,4 @@
+interface:
+  display_name: "媒体编码"
+  short_description: "将已完成的有序 PNG/JPEG 帧编码为 MP4，并全片解码、抽取检查图和记录文件哈希。"
+  default_prompt: "使用 $media-encode 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

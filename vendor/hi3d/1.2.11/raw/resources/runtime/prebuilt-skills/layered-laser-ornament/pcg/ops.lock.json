@@ -1,0 +1,22 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "registry_repo": "blueprint-pcg",
+  "registry_files": [
+    "registry/op.registry.v1.json",
+    "registry/node_contract.snapshot.json"
+  ],
+  "note": "input.image 沿用同仓参考 skill 已登记的输入 op；激光几何、导出与验收阶段保持 agent_workflow，不声明未验证的制造 op。",
+  "skill": "layered-laser-ornament",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [
+    "input.image"
+  ],
+  "unmapped": [
+    "spec",
+    "geometry",
+    "audit",
+    "layout",
+    "export",
+    "review"
+  ]
+}

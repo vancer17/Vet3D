@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "api-demo-service",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["algorithm", "contract", "prefer", "limits", "run", "revise", "deliver"]
+}

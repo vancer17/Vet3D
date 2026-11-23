@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "cad-file-verifier",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["scope", "prepare", "inspect", "report"]
+}

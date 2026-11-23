@@ -1,0 +1,104 @@
+schema: pcg.architecture.v1
+entry: face-fit
+kind: agent_skill
+layout: linear
+tasks:
+- id: face_fit
+  parent: null
+  role: agent
+  label: 面部局部注册
+  function: 组合本地适配与共享算子；不生成高模或修改 source。
+- id: source
+  parent: face_fit
+  role: local
+  label: 核对同源观测
+  function: 核对 GLB、分析图、相机、检测和固定模板来源；已有分析直接进入准备。
+  outputs: []
+- id: prepare
+  parent: source
+  role: local
+  label: 语义面部目标
+  function: 腐蚀皮肤分割并结合深度可见性，去除眼唇内部，输出目标点及投影配置。
+  outputs:
+  - id: prepare_0
+    label: target.npz
+    kind: file
+    retain: keep
+    semantics:
+    - intermediate
+  - id: prepare_1
+    label: project.json
+    kind: file
+    retain: keep
+    semantics:
+    - intermediate
+  rollback_to: source
+- id: project
+  parent: prepare
+  role: local
+  label: 关键点反投影
+  function: prepare 后按真实相机 raycast 得到固定模板对应的眼唇三维点。
+  outputs:
+  - id: project_0
+    label: settings.json
+    kind: file
+    retain: keep
+    semantics:
+    - intermediate
+  rollback_to: prepare
+- id: fit
+  parent: project
+  role: local
+  label: 可见面部拟合
+  function: project 通过后执行粗到细 brush，仅将可见面部吸附至皮肤目标，原高模不变。
+  outputs:
+  - id: fit_0
+    label: fit/brush_fit.npz
+    kind: file
+    retain: keep
+    semantics:
+    - intermediate
+  - id: fit_1
+    label: fit/brush_report.json
+    kind: file
+    retain: keep
+    semantics:
+    - intermediate
+  rollback_to: project
+- id: review
+  parent: fit
+  role: local
+  label: 检查并导出 donor
+  function: fit 后保留全模板几何指标，导出源坐标 donor 和局部指标；视觉验收与局部可用性仍需判断。
+  outputs:
+  - id: review_0
+    label: geometry.json
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_1
+    label: registered_glb_coordinates.npz
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_2
+    label: registered.glb
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_3
+    label: landmarks.png
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: review_4
+    label: face_fit_report.json
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: fit

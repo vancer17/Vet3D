@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/check_media.py": "skills/media-check/scripts/check_media.py",
+    "scripts/image_sheet.py": "skills/image-sheet/scripts/image_sheet.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py",
+    "scripts/media_tools.py": "skills/media-check/scripts/media_tools.py"
+  },
+  "requires": []
+}

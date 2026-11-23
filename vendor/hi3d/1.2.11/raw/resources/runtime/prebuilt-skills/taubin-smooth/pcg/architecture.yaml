@@ -1,0 +1,54 @@
+schema: pcg.architecture.v1
+entry: taubin-smooth
+kind: agent_skill
+layout: linear
+tasks:
+  - id: taubin_smooth
+    parent: null
+    role: agent
+    label: "Taubin 光顺"
+    function: "对指定原始三角网格编排 Blender 原生光顺与另存验收；不生成、修补或重拓扑模型。"
+    outputs: []
+  - id: input
+    parent: taubin_smooth
+    role: local
+    label: "网格与参数"
+    function: "读取现有输入，确认对象集合、有限三角坐标、原始/求值网格边界、无形态键、λ/μ 参数和固定顶点策略。用户声明光顺倍数时按 SKILL.md 约定换算为整数 iterations，明确轮数优先，并说明实际轮数；默认从原始输入运行，显式追加时说明新增轮数。检查新输出目录；宿主持久化已有授权与 input 检查点，业务判断不新增产物。已有成功报告走 review_only，校验身份后登记既有槽并直接进入 review。"
+    outputs: []
+  - id: smooth
+    parent: input
+    role: local
+    label: "原生两步光顺与保存"
+    optional: true
+    irreversible:
+      - blender.write
+    rollback_to: input
+    function: "按 input 选择载入独立后台场景，在临时 BMesh 上每轮交替调用正 λ 和负 μ 原生算子。只将坐标写入各对象的 Mesh 副本，检查拓扑与有限值，另存 BLEND 后重开核对坐标、拓扑和世界变换，再原子写 report.json 与 pcg.tool_result.v1 的 tool_result.json，宿主绑定 mesh/report 两个 keep 槽并重投影，数值完成仅进入 review；失败不覆盖来源，未完成输出保留供定位，下次从原始输入写新目录。"
+    members:
+      - id: native_pairs
+        label: "临时 BMesh λ/μ 成对计算，固定顶点不参与写回"
+      - id: coordinate_copy
+        label: "只替换目标 Mesh 副本的坐标，保留其余属性"
+      - id: saved_readback
+        label: "另存重开后写报告及 PCG 短回写，交接真实槽位"
+    outputs:
+      - id: mesh
+        label: "光顺后的完整 Blender 工程（smoothed.blend）"
+        kind: file
+        retain: keep
+        semantics:
+          - smoothed_mesh
+          - deliverable
+      - id: report
+        label: "参数、位移、拓扑与重开验收（report.json）"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+  - id: review
+    parent: smooth
+    role: local
+    label: "轮廓与细节验收"
+    rollback_to: smooth
+    function: "从 session 槽读取上游或已有 BLEND/JSON，核对当前文件哈希、当时源保持断言、对象范围和数值结果，实际查看同视角前后轮廓、边界、薄片与细节才标记完成。需要时补充几何缺陷检查；纯核对不新增业务产物，不重复 append。每轮、回退与 compact 从 session 重投影并探测缺失文件；回退保留旧路径和 traces，效果不足回到 input 调参数并从原始源写新版本，不累积光顺。"
+    outputs: []

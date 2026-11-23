@@ -1,0 +1,11 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "stroke-animate",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "input",
+    "run",
+    "review"
+  ]
+}

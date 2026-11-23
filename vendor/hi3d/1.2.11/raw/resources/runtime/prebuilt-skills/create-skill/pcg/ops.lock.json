@@ -1,0 +1,12 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "create-skill",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "understand",
+    "clarify",
+    "write",
+    "submit"
+  ]
+}

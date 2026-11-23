@@ -1,0 +1,1 @@
+{"mesh_sha256": "f8885cb9776ea5ae64183aa022036bcbefa15c405c2594f8fd4ad67ca843cf14", "bone_names": ["hand.A", "hand.B"], "rig_sha256": "1239f592ce9d854bd991f3191e3a8454b439f8eb855e4f7ec32dc3e12742cc1e", "regions": [{"bounds": [[0.9, -0.1, -0.1], [1.2, 0.1, 0.1]], "forbidden_bones": ["hand.B"]}]}

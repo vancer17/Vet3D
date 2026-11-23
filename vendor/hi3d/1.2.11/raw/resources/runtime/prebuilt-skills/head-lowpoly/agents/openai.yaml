@@ -1,0 +1,4 @@
+interface:
+  display_name: "高模人头转低模"
+  short_description: "高模 GLB 输出低模、albedo、法线贴图、骨骼绑定和表情；光头推荐，带发可用"
+  default_prompt: "使用 $head-lowpoly 将已有高模人头 GLB 制作成低模，交付 albedo、normalmap、基础绑定与 blendshape，并记录实际阶段耗时。推荐光头输入，也处理明确选择的头发网格。"

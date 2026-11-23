@@ -1,0 +1,88 @@
+schema: pcg.architecture.v1
+entry: multiview-parts
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: multiview_parts
+    parent: null
+    role: agent
+    label: "多视图规格"
+    function: "编排 multiview-parts"
+  - id: spec
+    parent: multiview_parts
+    label: "多视图规格"
+    function: "本 agent 多视图规格"
+    outputs:
+      - id: spec
+        label: "多视图规格"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "多视图规格"
+  - id: check
+    parent: multiview_parts
+    label: "参数预检"
+    function: "本 agent 参数预检"
+    outputs:
+      - id: check
+        label: "参数预检"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "参数预检"
+  - id: build
+    parent: multiview_parts
+    label: "分件创建"
+    function: "本 agent 分件创建"
+    outputs:
+      - id: build
+        label: "分件创建"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "分件创建"
+  - id: layout
+    parent: multiview_parts
+    label: "归组排列"
+    function: "本 agent 归组排列"
+    outputs:
+      - id: layout
+        label: "归组排列"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "归组排列"
+  - id: export
+    parent: multiview_parts
+    label: "保存导出"
+    function: "本 agent 保存导出"
+    outputs:
+      - id: export
+        label: "保存导出"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "保存导出"
+    irreversible:
+      - overwrite.source

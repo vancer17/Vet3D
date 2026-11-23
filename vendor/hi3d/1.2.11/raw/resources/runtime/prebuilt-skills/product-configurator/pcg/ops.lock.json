@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "product-configurator",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["asset", "options", "prefer", "price", "preview", "revise", "deliver"]
+}

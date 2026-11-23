@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/blender_io.py": "tools/blender-tools/scripts/head_io.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/head_preview.py": "skills/model-preview/scripts/head_preview.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/surface.py": "skills/surface-fit/scripts/surface.py",
+    "scripts/timing.py": "tools/run-tools/scripts/profiles/portrait_reconstruction_timing.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py"
+  },
+  "requires": []
+}

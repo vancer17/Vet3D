@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/mesh_io.py": "skills/print-export/scripts/mesh_io.py",
+    "scripts/motion_check.py": "skills/motion-check/scripts/motion_check.py",
+    "scripts/pose_math.py": "skills/motion-check/scripts/pose_math.py",
+    "scripts/solid_samples.py": "skills/motion-check/scripts/solid_samples.py"
+  },
+  "requires": []
+}

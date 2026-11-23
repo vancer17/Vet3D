@@ -1,0 +1,4 @@
+interface:
+  display_name: Roblox 接口适配
+  short_description: 适配 Roblox 接口、静态检查与单次云端更新；运行和公开状态另验。
+  default_prompt: 使用 $roblox-api 处理本次 Roblox 需求，复用已有工程、事实与授权，交付真实结果和未验证项。

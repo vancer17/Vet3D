@@ -1,0 +1,77 @@
+schema: pcg.architecture.v1
+entry: print-joints
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: print_joints
+    parent: null
+    role: agent
+    label: "确认姿态选题"
+    function: "编排 print-joints"
+  - id: pose
+    parent: print_joints
+    label: "确认姿态选题"
+    function: "本 agent 确认姿态选题；仅当需要新高模且用户指定 Hi3D 时，dry-run 后把 consent.user_interaction 交给宿主参数面板，参数齐全即提交并下载真实 GLB，已有造型直接跳过生成"
+    outputs:
+      - id: pose
+        label: "确认姿态选题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认姿态选题"
+    irreversible:
+      - hi3d.submit
+  - id: split
+    parent: print_joints
+    label: "解剖分件"
+    function: "本 agent 解剖分件"
+    outputs:
+      - id: split
+        label: "解剖分件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "解剖分件"
+    irreversible:
+      - overwrite.source
+  - id: joint
+    parent: print_joints
+    label: "球窝铰链"
+    function: "本 agent 球窝铰链"
+    outputs:
+      - id: joint
+        label: "球窝铰链"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "球窝铰链"
+  - id: print
+    parent: print_joints
+    label: "试片与导出"
+    function: "本 agent 试片与导出"
+    outputs:
+      - id: print
+        label: "试片与导出"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "试片与导出"
+    irreversible:
+      - overwrite.source

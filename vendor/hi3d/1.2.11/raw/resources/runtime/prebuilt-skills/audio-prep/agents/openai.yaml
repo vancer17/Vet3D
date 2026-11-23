@@ -1,0 +1,4 @@
+interface:
+  display_name: "音频整理"
+  short_description: "裁切首尾静音、淡变并对齐响度后导出 WAV 与实测报告"
+  default_prompt: "使用 $audio-prep，整理这段录音：去掉首尾静音、淡入淡出并对齐响度，导出 WAV 和测量结果。"

@@ -1,0 +1,78 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记宣传物料检查点；矢量与检查由独立原子能力执行。"
+checkpoints:
+  - id: intake
+    say: "品牌文案与素材"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/layouts.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: prefer
+    say: "版式配色与规格"
+    rollback_to: intake
+    load:
+      - SKILL.md
+      - references/layouts.json
+    irreversible: []
+  - id: review_plan
+    say: "检查任务与溢出"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+      - references/layouts.json
+    irreversible: []
+  - id: produce
+    say: "分层生成"
+    rollback_to: review_plan
+    load:
+      - SKILL.md
+      - references/layouts.json
+    irreversible: []
+  - id: preview
+    say: "分尺寸预览"
+    rollback_to: produce
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: preview
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "三种规格完整宣传物料"
+    nodes: [intake, prefer, review_plan, produce, preview, deliver]
+  - id: text_only
+    summary: "无产品图的纯文字版式"
+    nodes: [intake, prefer, review_plan, produce, preview, deliver]
+    shares_input_with: main
+  - id: review_only
+    summary: "已有产物只预览交付"
+    nodes: [intake, preview, deliver]
+choices_example:
+  - id: three_sizes
+    title: "生成方图横幅与竖版"
+    route: main
+    confirm: false
+  - id: copy_only
+    title: "使用纯文字版式"
+    route: text_only
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_copy
+    title: "返回修改文案"
+    rollback_to: intake
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

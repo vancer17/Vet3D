@@ -1,0 +1,81 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记产品配置器检查点；GLB 读取与存档由独立原子能力执行。"
+checkpoints:
+  - id: asset
+    say: "模型与纹理"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/styles.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: options
+    say: "改色、显隐与互斥"
+    rollback_to: asset
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: prefer
+    say: "页面版式"
+    rollback_to: options
+    load:
+      - SKILL.md
+      - references/styles.json
+    irreversible: []
+  - id: price
+    say: "可选报价"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: preview
+    say: "配置体验"
+    rollback_to: price
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: revise
+    say: "按需修改"
+    rollback_to: preview
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: revise
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "含报价的配置页"
+    nodes: [asset, options, prefer, price, preview, revise, deliver]
+  - id: no_price
+    summary: "不报价，只交付配置"
+    nodes: [asset, options, prefer, preview, revise, deliver]
+  - id: review_only
+    summary: "已有页面只验收交付"
+    nodes: [asset, preview, deliver]
+choices_example:
+  - id: with_price
+    title: "制作配置页并收集报价"
+    route: main
+    confirm: false
+  - id: config_only
+    title: "只做配置，不显示价格"
+    route: no_price
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_options
+    title: "返回修改选项"
+    rollback_to: options
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

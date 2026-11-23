@@ -1,0 +1,25 @@
+# TEMPLATE ONLY: user supplies the dedicated private config outside the AI/repo.
+logging:
+  level: INFO
+  stdout: true
+  stderr: true
+nacos:
+  nacos_server_addresses: "<nacos-host>:<port>"
+  namespace: "<test-namespace-id>"
+  cluster_name: DEFAULT
+  username: ""
+  password: ""
+task_queue:
+  endpoints:
+    - "http://<queue-host>:<port>"
+  connect_timeout_sec: 5
+  push_timeout_sec: 10
+  pull_timeout_sec: 30
+  heartbeat_timeout_sec: 5
+  heartbeat_interval_sec: 5
+  heartbeat_ttl_sec: 15
+feishu:
+  enabled: false
+agent_heartbeat:
+  container_dir: /tmp/mdf-health
+  interval_sec: 5

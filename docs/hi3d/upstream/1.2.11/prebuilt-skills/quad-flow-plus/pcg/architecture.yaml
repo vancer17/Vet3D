@@ -1,0 +1,155 @@
+schema: pcg.architecture.v1
+entry: quad-flow-plus
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与本地阶段；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: quad_flow
+    parent: null
+    role: agent
+    label: "四边通 Plus"
+    function: "协调初始方案、基线、反馈修订、保护范围、保形或预算重建，以及验收交付。已验收阶段复用；未完成分支和未入库依赖如实跳过。"
+    optional: false
+    outputs: []
+  - id: inspect_route
+    parent: quad_flow
+    role: local
+    label: "检查输入并选择方案"
+    function: "检查模型、已有四边面和后端是否真能调用。已有选择或合格基线则复用。需要新建初始拓扑时，用宿主 waiting_choice 和本入口四项 choices_example 选择 QRemeshify、AutoRemesher、Instant Meshes 或原四边通。所选后端缺失时，按安装说明列出备份、官方发布、源码构建和不安装，用户选定来源后才安装并重新探测。需要布线参考时先收集输入。运行 scripts/hi3d-quad-judge.py route 只接收实测轮廓和内腔证据。"
+    optional: false
+    rollback_to: null
+    outputs:
+      - id: route_record
+        label: "方案、后端可用性和 route 判定 JSON"
+        kind: file
+        retain: cache
+        semantics:
+          - checkpoint
+  - id: establish_base
+    parent: quad_flow
+    role: local
+    label: "建立或复用初始基线"
+    function: "在工作副本上执行已选初始重拓扑，或复用合格四边面工程。第 4 项才进入标准体对齐或保形基线；插件路线不套用两百万面高模门槛。未通过的网格不作为验收基线。外部重拓扑走预算心跳。"
+    optional: true
+    rollback_to: inspect_route
+    irreversible:
+      - blender.write
+    outputs:
+      - id: baseline_project
+        label: "可编辑四边面基线工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: face_neck_base
+    parent: quad_flow
+    role: subagent
+    entry: lowpoly-quad-face-neck
+    label: "交接面颈四边面基础"
+    function: "只有第 4 项或保形路线需要四边面基础或面颈布线，且对话里已有约两百万面同主体高模时，才派出 lowpoly-quad-face-neck。已合格基础不调用。写实保形不因此改成块面低模。"
+    optional: true
+    outputs:
+      - id: face_neck_project
+        label: "低模四边面面颈交付的工程与贴图"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    members:
+      - id: invoke
+        label: "交接四边面与面颈"
+  - id: adjust_feedback
+    parent: quad_flow
+    role: local
+    label: "按反馈调整初版"
+    function: "用户要求加减面、硬边、均匀度、边流、平滑或对称时，按参数直译做一次最小工作副本修订。不重新弹出初始四选一，不批量扫参，不以参数写入成功代替效果。"
+    optional: true
+    rollback_to: establish_base
+    irreversible:
+      - blender.write
+    outputs:
+      - id: revised_project
+        label: "按反馈修订的四边面工作副本"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: freeze_and_partition
+    parent: quad_flow
+    role: local
+    label: "冻结基线并确定保护范围"
+    function: "需要后续优化时冻结同一对象集合上的 L、h、ε 和保护边链。保形模式交接 scale-aware-quad-rings 做尺度分区。预算重建记录已验证边链、硬保护和允许重建范围，不冒充分区已完成。"
+    optional: true
+    rollback_to: establish_base
+    irreversible:
+      - blender.write
+    outputs:
+      - id: partition_record
+        label: "冻结基线、误差预算和保护集合记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: plan_and_optimize
+    parent: quad_flow
+    role: local
+    label: "规划并执行后续处理"
+    function: "保形模式用 hi3d-quad-judge.py predict 与 verdict 做片区试探；规则 4×4 交接 closed-quad-transition，模板失败则保留原片。大面积减密仍按 scale-aware-quad-rings 逐片验收。预算重建用 hi3d-chain-budget.py 计划数量并核对给定边链，再由执行者另建低面网格。数量达标不写成形状已通过。"
+    optional: true
+    rollback_to: freeze_and_partition
+    irreversible:
+      - blender.write
+    outputs:
+      - id: optimized_project
+        label: "减密或预算重建后的工作副本"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: judge_report
+        label: "面数预测、验收判定或边链核对 JSON"
+        kind: file
+        retain: cache
+        semantics:
+          - checkpoint
+  - id: verify_deliver
+    parent: quad_flow
+    role: local
+    label: "验收并交付"
+    function: "分别检查真实面数、边链、相对冻结基线的形状误差、UV 与导出状态。网格诊断交接 mesh-audit，失效烘焙交接 texture-bake，后台 Blender 交接 blender-tools。导出、登记和预览加载分开记录。静态四边面不写成动画拓扑或打印认证。"
+    optional: false
+    rollback_to: plan_and_optimize
+    irreversible:
+      - blender.write
+    outputs:
+      - id: editable_quad_project
+        label: "最终可编辑四边面工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: final_model
+        label: "最终网格文件，含米单位标记"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: triangulated_preview
+        label: "三角化预览图或预览模型"
+        kind: file
+        retain: keep
+        semantics:
+          - derived
+          - deliverable
+      - id: textures
+        label: "重烘焙后仍需要的贴图"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: acceptance_report
+        label: "中文验收报告，含未通过项"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

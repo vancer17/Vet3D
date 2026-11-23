@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/character/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/image_sheet.py": "skills/image-sheet/scripts/image_sheet.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py"
+  },
+  "requires": []
+}

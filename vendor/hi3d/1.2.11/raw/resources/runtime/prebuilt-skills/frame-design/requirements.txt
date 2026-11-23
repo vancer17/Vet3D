@@ -1,0 +1,4 @@
+numpy>=1.26
+Pillow>=10
+scipy>=1.11
+manifold3d>=3.0

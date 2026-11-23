@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# Immutable upstream evidence: preserve original bytes and line endings.
+vendor/hi3d/1.2.11/raw/** -text
+vendor/hi3d/1.2.11/fixtures/** -text
+
+# Large evidence objects are stored through Git LFS.
+vendor/hi3d/1.2.11/packages/** filter=lfs diff=lfs merge=lfs -text
+vendor/hi3d/1.2.11/raw/resources/app.asar filter=lfs diff=lfs merge=lfs -text
+vendor/hi3d/1.2.11/fixtures/**/*.blend filter=lfs diff=lfs merge=lfs -text
+vendor/hi3d/1.2.11/fixtures/**/*.glb filter=lfs diff=lfs merge=lfs -text
+vendor/hi3d/1.2.11/fixtures/**/*.npz filter=lfs diff=lfs merge=lfs -text

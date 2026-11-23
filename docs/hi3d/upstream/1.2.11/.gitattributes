@@ -1,0 +1,12 @@
+prebuilt-skills/** -text
+inventory/inventory.jsonl -text
+inventory/inventory.lock.json -text
+extraction/extraction.json -text
+extraction/priority.scope.json -text
+extraction/priority.json -text
+extraction/priority.md -text
+extraction/p1/priority.scope.json -text
+extraction/p1/priority.json -text
+extraction/p1/priority.md -text
+archived-p0/** -text
+archived-p1/** -text

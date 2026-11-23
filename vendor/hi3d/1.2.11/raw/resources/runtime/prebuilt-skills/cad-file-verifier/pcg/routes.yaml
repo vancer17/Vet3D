@@ -1,0 +1,70 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: "线形检查点：界定范围、隔离副本、读取快照、写出报告。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: scope
+    say: "界定检查范围"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/adapter.md
+      - references/checks.md
+    irreversible: []
+  - id: prepare
+    say: "准备隔离副本"
+    rollback_to: scope
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/adapter.md
+      - references/checks.md
+    irreversible: []
+  - id: inspect
+    say: "读取工程快照"
+    rollback_to: prepare
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/adapter.md
+      - references/checks.md
+    irreversible: []
+  - id: report
+    say: "写出校对报告"
+    rollback_to: inspect
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/adapter.md
+      - references/checks.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "隔离副本上完成检查并写报告"
+    nodes:
+      - scope
+      - prepare
+      - inspect
+      - report
+  - id: review_only
+    summary: "已有结果，只核对报告"
+    nodes:
+      - scope
+      - report
+choices_example:
+  - id: run_check
+    title: "按当前输入验收"
+    route: main
+    confirm: false
+  - id: review_done
+    title: "已有结果，只核对"
+    route: review_only
+    confirm: false
+  - id: back_report
+    title: "回退到读取检查点"
+    rollback_to: inspect
+    confirm: false

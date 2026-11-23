@@ -1,0 +1,39 @@
+# 由 sparc3d-runtime 生成的 Codex 配置（CODEX_HOME/config.toml）。
+# sparc3d-runtime-config-version: 9
+# 自研模型服务需要兼容 OpenAI Responses API；鉴权 token 通过环境变量 {{ENV_KEY}} 注入（auth/setCredential）。
+
+model = "{{MODEL}}"
+model_provider = "{{PROVIDER}}"
+
+# Agent 行为基线：沙箱失败后升级审批、工作区可写、沙箱内网络完全开放
+approval_policy = "{{APPROVAL_POLICY}}"
+sandbox_mode = "workspace-write"
+
+# O09 完成前禁止模型派生子 agent。multi_agent 旧开关不能关闭 Astra 的 collaboration 工具。
+[features]
+multi_agent = false
+
+[agents]
+enabled = false
+
+# Runtime supplies the authoritative effective set. Never inject host defaults.
+[skills]
+include_instructions = false
+[skills.bundled]
+enabled = false
+
+[model_providers."{{PROVIDER}}"]
+name = "Hi3D 自研模型"
+base_url = "{{BASE_URL}}"
+env_key = "{{ENV_KEY}}"
+wire_api = "responses"
+
+[sandbox_workspace_write]
+network_access = true
+
+# 模型凭据只供 codex provider 读取，不传递给 shell / Blender 子进程。
+[shell_environment_policy]
+inherit = "core"
+exclude = ["{{ENV_KEY}}", "*_SECRET*", "*_TOKEN*", "*_KEY*"]
+
+# skills / MCP / 其他 provider 参数在这里补；打包时由 distribution 覆盖。

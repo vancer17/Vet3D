@@ -1,0 +1,21 @@
+{
+  "placement": "guides",
+  "material": "HairMaterial",
+  "output_collection": "HairCards",
+  "uv_name": "HairUV",
+  "atlas_columns": 8,
+  "seed": 7331,
+  "layers": [
+    {
+      "name": "Hair_Main",
+      "guides": ["HairGuides"],
+      "width": 0.095,
+      "offset": 0.025,
+      "segments": 28,
+      "columns": 2,
+      "lanes": [3, 4, 5],
+      "root_normal": [0, -1, 0],
+      "section_angles_degrees": [0, 80]
+    }
+  ]
+}

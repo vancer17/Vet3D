@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/architecture_ir.py": "tools/pcg-view/scripts/architecture_ir.py",
+    "scripts/asset_scene.py": "tools/blender-tools/scripts/asset_scene.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/execute.py": "tools/blender-tools/scripts/execute.py",
+    "scripts/path_safety.py": "tools/run-tools/scripts/path_safety.py",
+    "scripts/pcg_yaml.py": "tools/package-tools/scripts/pcg_yaml.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/session_schema.py": "tools/run-tools/scripts/session_schema.py",
+    "scripts/timing.py": "tools/run-tools/scripts/timing.py",
+    "scripts/tool_result.py": "tools/run-tools/scripts/tool_result.py",
+    "scripts/view_ir.py": "tools/pcg-view/scripts/view_ir.py"
+  },
+  "requires": []
+}

@@ -1,0 +1,120 @@
+schema: pcg.architecture.v1
+entry: api-demo-service
+kind: agent_workflow
+layout: tree
+note: "编排用户算法的本地 HTTP 演示；game-browser-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: api_demo_service
+    parent: null
+    role: agent
+    label: "算法演示编排"
+    function: "收集用户入口脚本与契约，生成单任务本地服务和测试页。已有合格目录可从 run 续接。不封装宿主内部算法，不部署 MDF。"
+    outputs: []
+  - id: algorithm
+    parent: api_demo_service
+    role: local
+    label: "入口脚本与样例"
+    function: "收集相对路径入口、运行函数名、正常输入样例和预期输出。无脚本时停在算法字段。不读取密钥或宿主内部实现。"
+    outputs: []
+  - id: contract
+    parent: api_demo_service
+    role: local
+    label: "字段与输出结构"
+    function: "确认字段、类型、文件后缀和输出对象。能从用户代码确定的直接展示，歧义才提问。"
+    outputs: []
+  - id: prefer
+    parent: api_demo_service
+    role: local
+    label: "同步或后台任务"
+    function: "展示 sync/background。样例短时完成默认 sync；已知超过窗口则 background。用户未确认前不是事实。"
+    outputs: []
+  - id: limits
+    parent: api_demo_service
+    role: local
+    label: "大小、超时与并发"
+    function: "plan_demo 写出 plan.json。sampleSeconds 已超过 timeout 时拒绝 sync。费用与设备限制单独询问。"
+    outputs:
+      - id: plan
+        label: "演示 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: run
+    parent: api_demo_service
+    role: local
+    label: "启动演示并调用"
+    function: "等待 limits。build_demo 写入新目录。serve_demo 在 loopback 接收 POST /run。校验失败与算法失败分 kind。执行中拒绝超额并发。"
+    members:
+      - id: write_demo
+        label: "写出服务、测试页与算法副本"
+    outputs:
+      - id: demo
+        label: "演示服务目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: http_check
+    parent: run
+    role: local
+    label: "loopback 资源检查"
+    function: "check_http GET 测试页、plan 与脚本；另用 POST /run 验证样例。"
+    outputs:
+      - id: http
+        label: "HTTP 加载报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: browser_check
+    parent: run
+    role: subagent
+    entry: game-browser-check
+    optional: true
+    label: "浏览器操作验收"
+    function: "独立 game-browser-check 走提交/失败提示；无 Playwright 时跳过，仍保留 /run 调用记录。"
+    outputs:
+      - id: browser
+        label: "浏览器检查结果"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: revise
+    parent: api_demo_service
+    role: local
+    label: "按需修改"
+    function: "改字段、限额和结果展示。失败保留可用输入，不自动重复调用收费服务。无改动时 outputs 为空。"
+    outputs: []
+  - id: deliver
+    parent: api_demo_service
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的服务源码、测试页和说明。默认本地。asset-page 与 delivery-review 打开核对。"
+    outputs:
+      - id: pack
+        label: "演示资源目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮 HTML 与服务源码，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

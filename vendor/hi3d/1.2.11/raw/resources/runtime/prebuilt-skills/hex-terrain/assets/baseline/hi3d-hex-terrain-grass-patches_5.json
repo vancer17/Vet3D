@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "units": "meter",
+  "field": {
+    "formula": "F=A(0.9x,0.9y)*clip(d_edge/0.05,0,1)",
+    "source": "hi3d-grass-patch-edge-multiply_1.npz",
+    "approved_preview": "hi3d-grass-patch-preview-f0p900_1.png",
+    "frequency_factor": 0.9,
+    "edge_fade_width_m": 0.05,
+    "assets": [
+      {
+        "id": "GrassPatch_Dry",
+        "N": 0.8,
+        "coverage_fraction": 0.3725885135363281,
+        "texture": "hi3d-grass-patch-dry-albedo_4.png",
+        "base_color_srgb": [
+          143,
+          148,
+          62
+        ]
+      },
+      {
+        "id": "GrassPatch_Moderate",
+        "N": 0.75,
+        "coverage_fraction": 0.6068541194743726,
+        "texture": "hi3d-grass-patch-moderate-albedo_4.png",
+        "base_color_srgb": [
+          106,
+          140,
+          53
+        ]
+      },
+      {
+        "id": "GrassPatch_Wet",
+        "N": 0.7,
+        "coverage_fraction": 0.7890810917146602,
+        "texture": "hi3d-grass-patch-wet-albedo_4.png",
+        "base_color_srgb": [
+          73,
+          123,
+          48
+        ]
+      }
+    ]
+  },
+  "reference_tile_circumradius_m": 1.0,
+  "assets": {
+    "GrassPatch_Dry": {
+      "humidity": "arid",
+      "label": "干旱",
+      "N": 0.8,
+      "root_name": "GrassPatch_Dry",
+      "parts": [
+        "GrassPatch_Dry_Turf",
+        "GrassPatch_Dry_BladesAndAccents"
+      ],
+      "triangle_count": 8501,
+      "mesh_count": 2,
+      "coverage_fraction": 0.37094480916637834,
+      "minimum_unrotated_edge_clearance_m": 0.03429893081780638,
+      "fringe_blades": 802,
+      "micro_blades": 1093,
+      "accents": [],
+      "comparison_position_m": [
+        -2.25,
+        0.0,
+        0.0
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.8225050568580627,
+          -0.9454441070556641,
+          0.0005000000237487257
+        ],
+        "max": [
+          0.7765942811965942,
+          0.8091058135032654,
+          0.06778598576784134
+        ]
+      },
+      "total_blades": 1895,
+      "blade_object_count": 1,
+      "blade_material_count": 1,
+      "decoration_grass_count": 0
+    },
+    "GrassPatch_Moderate": {
+      "humidity": "moderate",
+      "label": "适中",
+      "N": 0.75,
+      "root_name": "GrassPatch_Moderate",
+      "parts": [
+        "GrassPatch_Moderate_Turf",
+        "GrassPatch_Moderate_BladesAndAccents"
+      ],
+      "triangle_count": 11777,
+      "mesh_count": 2,
+      "coverage_fraction": 0.6067500116933696,
+      "minimum_unrotated_edge_clearance_m": 0.031285503658039754,
+      "fringe_blades": 834,
+      "micro_blades": 1871,
+      "accents": [],
+      "comparison_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.8288273215293884,
+          -0.9493575096130371,
+          0.0005000000237487257
+        ],
+        "max": [
+          0.8224582076072693,
+          0.9253204464912415,
+          0.06793853640556335
+        ]
+      },
+      "total_blades": 2705,
+      "blade_object_count": 1,
+      "blade_material_count": 1,
+      "decoration_grass_count": 0
+    },
+    "GrassPatch_Wet": {
+      "humidity": "humid",
+      "label": "湿润",
+      "N": 0.7,
+      "root_name": "GrassPatch_Wet",
+      "parts": [
+        "GrassPatch_Wet_Turf",
+        "GrassPatch_Wet_BladesAndAccents"
+      ],
+      "triangle_count": 13853,
+      "mesh_count": 2,
+      "coverage_fraction": 0.7895815497262891,
+      "minimum_unrotated_edge_clearance_m": 0.02899708588602038,
+      "fringe_blades": 748,
+      "micro_blades": 2523,
+      "accents": [],
+      "comparison_position_m": [
+        2.25,
+        0.0,
+        0.0
+      ],
+      "local_bounds_m": {
+        "min": [
+          -0.8296729326248169,
+          -0.9527815580368042,
+          0.0005000000237487257
+        ],
+        "max": [
+          0.8312230706214905,
+          0.9500114321708679,
+          0.0681629404425621
+        ]
+      },
+      "total_blades": 3271,
+      "blade_object_count": 1,
+      "blade_material_count": 1,
+      "decoration_grass_count": 0
+    }
+  },
+  "files": {
+    "glb": "hi3d-hex-terrain-grass-patches_5.glb",
+    "blend": "hi3d-hex-terrain-grass-patches_5.blend",
+    "json": "hi3d-hex-terrain-grass-patches_5.json",
+    "png": "hi3d-hex-terrain-grass-patches_5.png",
+    "samples_glb": "hi3d-hex-terrain-grass-patch-samples_5.glb",
+    "top_png": "hi3d-hex-terrain-grass-patches-top_5.png"
+  },
+  "placement_contract": {
+    "instances_per_soil_tile": 1,
+    "placement_pivot": "ground_center",
+    "humidity_mapping": {
+      "arid": "GrassPatch_Dry",
+      "moderate": "GrassPatch_Moderate",
+      "humid": "GrassPatch_Wet"
+    },
+    "rotation_z_range_rad": [
+      0,
+      6.283185307179586
+    ],
+    "requires_transformed_footprint_containment_check": true,
+    "nominal_maximum_center_translation_m": 0.025,
+    "minimum_edge_clearance_m": 0.015,
+    "rule": "Rotate/scale/translate the complete asset once; test every transformed vertex against all six tile edges. Reduce scale or translation if it does not fit."
+  },
+  "checks": {
+    "coverage_matches_approved_field_within_1_5_percent": true,
+    "nominal_footprints_inside_hex": true,
+    "two_meshes_per_patch": true,
+    "glb_vertex_colors_and_embedded_images": true,
+    "actual_glb_rendered": true,
+    "no_decoration_grasses": true,
+    "one_blade_object_per_patch": true,
+    "blade_materials_per_patch": 1,
+    "interior_blades_outnumber_fringe": true
+  },
+  "source_models": {
+    "assets": "hi3d-hex-terrain-grass-patches_1.glb",
+    "samples": "hi3d-hex-terrain-grass-patch-samples_1.glb"
+  },
+  "revision": {
+    "decoration_grasses_removed": true,
+    "interior_distribution": "jittered_cells",
+    "interior_cell_spacing_m": 0.027,
+    "one_merged_blade_object_per_patch": true,
+    "accepted_turf_preserved": true
+  }
+}

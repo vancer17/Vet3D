@@ -1,0 +1,16 @@
+{
+  "string_false_behaves_like_true": true,
+  "string_false_differs_from_boolean_false": true,
+  "max_root_location_difference": 0.40000003576278687,
+  "partial_mapping_accepted": {
+    "mapped": 1,
+    "output_bones": 7,
+    "frames": 3
+  },
+  "single_endpoint_accepted": {
+    "target_bone": "arm",
+    "frames": 3
+  },
+  "unknown_top_level_config_key_accepted": true,
+  "non_boolean_calibrated_rejected": "Inspect this character and mark its mapping calibrated"
+}

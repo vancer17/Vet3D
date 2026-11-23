@@ -1,0 +1,127 @@
+schema: pcg.architecture.v1
+entry: water-feature
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: water_feature
+    parent: null
+    role: agent
+    label: "空间、水声与主题"
+    function: "编排 water-feature"
+  - id: brief
+    parent: water_feature
+    label: "空间、水声与主题"
+    function: "本 agent 空间、水声与主题"
+    outputs:
+      - id: brief
+        label: "空间、水声与主题"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "空间、水声与主题"
+  - id: research
+    parent: water_feature
+    label: "水路、泵管与连接研究"
+    function: "本 agent 水路、泵管与连接研究"
+    outputs:
+      - id: research
+        label: "水路、泵管与连接研究"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "水路、泵管与连接研究"
+  - id: form
+    parent: water_feature
+    label: "自由雕塑与水景布局"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: form
+        label: "自由雕塑与水景布局"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+    irreversible:
+      - hi3d.submit
+  - id: structure
+    parent: water_feature
+    label: "连续水路、泵仓与维护"
+    function: "本 agent 连续水路、泵仓与维护"
+    outputs:
+      - id: structure
+        label: "连续水路、泵仓与维护"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "连续水路、泵仓与维护"
+  - id: fdm
+    parent: water_feature
+    label: "管路试片与打印套件"
+    function: "本 agent 管路试片与打印套件"
+    outputs:
+      - id: fdm
+        label: "管路试片与打印套件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "管路试片与打印套件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: water_feature
+    label: "启停与维护展示"
+    function: "本 agent 启停与维护展示"
+    outputs:
+      - id: media
+        label: "启停与维护展示"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "启停与维护展示"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: water_feature
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

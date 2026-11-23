@@ -1,0 +1,72 @@
+{
+  "preset_name": "wide-disc-6turn-small-peg-gap-1p25",
+  "units": "millimeter",
+  "provenance": {
+    "source": "completed conversation workflow and latest accepted digital revision",
+    "reference_revision": 4,
+    "validation_scope": "reference model digital geometry only; not a physical print or a test on arbitrary models",
+    "geometry_recipe": "geometry-recipe.md"
+  },
+  "coil": {
+    "type": "single connected continuous wide-sheet helix",
+    "turns": 6,
+    "outer_diameter_mm": 30.0,
+    "inner_diameter_mm": 8.0,
+    "radial_width_mm": 11.0,
+    "axial_thickness_mm": 2.6,
+    "axial_clear_gap_mm": 1.25,
+    "corner_radius_mm": 0.3,
+    "pitch_mm": 3.85,
+    "centerline_mean_radius_mm": 9.5,
+    "centerline_span_mm": 23.1,
+    "reference_path_steps": 960,
+    "reference_corner_resolution": 4
+  },
+  "ends": {
+    "plate_diameter_mm": 28.0,
+    "plate_thickness_mm": 2.0,
+    "peg_nominal_diameter_mm": 12.0,
+    "peg_insertion_length_mm": 10.0,
+    "d_flat_distance_from_axis_mm": 4.6,
+    "retention": "integral twin snap hooks",
+    "separate_locking_pin": false,
+    "snap_arm_thickness_mm": 1.2,
+    "snap_arm_width_mm": 3.0,
+    "latch_peak_radius_mm": 6.5,
+    "routine_nondestructive_release": false
+  },
+  "socket": {
+    "side_clearance_mm": 0.25,
+    "bottom_clearance_mm": 0.5,
+    "coupon_side_clearances_mm": [0.15, 0.25, 0.35],
+    "entry_lead_length_mm": 0.6,
+    "reference_protection_cylinder_radius_mm": 9.5,
+    "reference_protection_cylinder_depth_mm": 13.0,
+    "reference_conservative_side_wall_envelope_mm": 2.4,
+    "reference_bottom_wall_envelope_mm": 2.5,
+    "new_model_must_recheck_exterior_containment": true
+  },
+  "assembly": {
+    "default_length_policy": "keep six turns, shorten the middle, rigidly reposition bodies",
+    "body_face_gap_mm": 27.1,
+    "connector_length_including_pegs_mm": 47.1,
+    "overall_subject_length": "derive from this input and its cut faces; never fix to the reference subject",
+    "axis_and_cut_positions": "derive from subject semantics and local wall thickness; never reuse reference world coordinates"
+  },
+  "reference_motion_samples": {
+    "separate_axial_compression_mm": 3.0,
+    "nominal_clear_gap_after_compression_mm": 0.75,
+    "separate_horizontal_bend_degrees": 3.0,
+    "simultaneous_combination_tested": false,
+    "recommended_working_travel": null,
+    "scope": "assumed digital envelopes, not FEA or physical performance"
+  },
+  "fabrication": {
+    "material_assumption": "PETG digital prototype",
+    "support_free_claim": false,
+    "physically_printed": false,
+    "elasticity_or_retention_verified": false,
+    "fatigue_or_creep_verified": false,
+    "standing_stability_verified": false
+  }
+}

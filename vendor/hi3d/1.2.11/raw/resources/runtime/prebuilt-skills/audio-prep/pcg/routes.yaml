@@ -1,0 +1,59 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+checkpoints:
+  - id: intake
+    say: "音频与时长探测"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: prefer
+    say: "裁切淡变与响度"
+    rollback_to: intake
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: review_plan
+    say: "检查处理项"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: produce
+    say: "试听与导出"
+    rollback_to: review_plan
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "WAV 与实测"
+    rollback_to: produce
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "裁切淡变响度后导出 WAV"
+    nodes: [intake, prefer, review_plan, produce, deliver]
+  - id: review_only
+    summary: "已有 WAV 只测量交付"
+    nodes: [intake, deliver]
+choices_example:
+  - id: process_export
+    title: "处理并导出 WAV"
+    route: main
+    confirm: false
+  - id: inspect
+    title: "仅测量已有输出"
+    route: review_only
+    confirm: false
+  - id: revise_trim
+    title: "返回调整首尾裁切"
+    rollback_to: prefer
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

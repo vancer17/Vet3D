@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/runtime/hi3d_client.py": "tools/hi3d-api/scripts/runtime/hi3d_client.py",
+    "scripts/runtime/hi3d_storage.py": "tools/hi3d-api/scripts/runtime/hi3d_storage.py",
+    "scripts/runtime/hi3d_artifacts.py": "tools/hi3d-api/scripts/runtime/hi3d_artifacts.py",
+    "scripts/runtime/hi3d_jobs.py": "tools/hi3d-api/scripts/runtime/hi3d_jobs.py",
+    "scripts/runtime/hi3d_progress.py": "tools/hi3d-api/scripts/runtime/hi3d_progress.py",
+    "scripts/runtime/hi3d_parameters.py": "tools/hi3d-api/scripts/runtime/hi3d_parameters.py",
+    "scripts/runtime/defaults.json": "tools/hi3d-api/scripts/runtime/defaults.json"
+  },
+  "requires": [],
+  "profiles": {
+    "sparc3d": {
+      "files": {
+        "SKILL.md": "tools/mdf-call/references/runtime/entry.md",
+        "references/mesh-invoke-api.md": "tools/mdf-call/references/runtime/mesh-invoke-api.md",
+        "scripts/mdf_api.py": "tools/mdf-call/scripts/runtime/mdf_api.py",
+        "scripts/hi3d_client.py": "tools/hi3d-api/scripts/runtime/hi3d_client.py",
+        "scripts/hi3d_storage.py": "tools/hi3d-api/scripts/runtime/hi3d_storage.py",
+        "scripts/hi3d_artifacts.py": "tools/hi3d-api/scripts/runtime/hi3d_artifacts.py",
+        "scripts/hi3d_jobs.py": "tools/hi3d-api/scripts/runtime/hi3d_jobs.py",
+        "scripts/hi3d_progress.py": "tools/hi3d-api/scripts/runtime/hi3d_progress.py",
+        "scripts/hi3d_parameters.py": "tools/hi3d-api/scripts/runtime/hi3d_parameters.py",
+        "scripts/defaults.json": "tools/hi3d-api/scripts/runtime/defaults.json",
+        "agents/openai.yaml": "tools/mdf-call/agents/runtime-openai.yaml",
+        "tests/runtime/test_mdf_api.py": "tools/mdf-call/tests/runtime/test_mdf_api.py"
+      },
+      "archiveBase": true
+    }
+  }
+}

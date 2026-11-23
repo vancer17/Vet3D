@@ -1,0 +1,76 @@
+schema: pcg.architecture.v1
+entry: brep-build
+kind: agent_skill
+layout: linear
+note: "线形进程：检查点顺序前进，rollback_to 回退到更早步骤；不是 workflow 编排树。"
+tasks:
+  - id: brep_build
+    parent: null
+    role: agent
+    label: "参数化 B-rep 实体"
+    function: "编排从毫米配方到 STEP/STL 的原子流程；GPT 只改 JSON；内核走 run-tools 预算；不反求网格、不调用 Hi3D、不写 Blender。"
+    outputs: []
+  - id: input
+    parent: brep_build
+    role: local
+    label: "配方与预算"
+    function: "读取 spec.json，校验 brep-build.v1、毫米单位、实体与布尔命名，拒绝网格反求字段。估算档位并在全新输出目录写入 budget.json 与 progress.json。已有合格 manifest/STEP 且配方哈希未变时走 review_only。中高档未确认则写入 waiting.json，将 session 设为 waiting_choice，不启动 CadQuery。低档直接进入 build，此时无 waiting.json。"
+    outputs:
+      - id: budget
+        label: "墙钟档位与确认状态（budget.json）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: progress
+        label: "心跳进度（progress.json）"
+        kind: file
+        retain: cache
+        semantics:
+          - heartbeat
+      - id: waiting
+        label: "需确认预算或超时说明（waiting.json）"
+        kind: file
+        retain: cache
+        semantics:
+          - waiting_choice
+    members:
+      - id: validate
+        label: "校验配方并估算预算"
+  - id: build
+    parent: input
+    role: local
+    optional: true
+    rollback_to: input
+    function: "用户确认后以 run_budgeted 启动包内 brep_kernel.py。CadQuery 在子进程内建 B-rep；父进程写心跳。到点 terminate/kill，写 waiting.json，不保留半截 STEP。CadQuery 缺失则失败并说明依赖，不伪造 STEP。review_only 跳过本阶段。"
+    members:
+      - id: kernel
+        label: "预算内 CadQuery 子进程"
+    outputs: []
+  - id: export
+    parent: build
+    role: local
+    rollback_to: build
+    function: "核对 manifest.json、parts/<id>.step 与 parts/<id>.stl 均存在，体积为正、单位 mm、spec 哈希匹配。不打开 FreeCAD。超时或未建模时本阶段没有新 STEP；waiting.json 已在 input/build 写出。数字体积不是打印或密封验收。"
+    members:
+      - id: verify
+        label: "核对 STEP/STL 与 manifest"
+    outputs:
+      - id: step
+        label: "B-rep 实体（parts/<id>.step）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: stl
+        label: "毫米细分网格（parts/<id>.stl）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: manifest
+        label: "体积、bbox、细分与配方哈希（manifest.json）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

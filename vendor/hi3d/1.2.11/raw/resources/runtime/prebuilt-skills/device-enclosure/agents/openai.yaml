@@ -1,0 +1,4 @@
+interface:
+  display_name: "艺术设备外壳"
+  short_description: "围绕设备包络制作艺术盒体、可拆盖与接口，验证紧固件和完整维护路径"
+  default_prompt: "使用 $device-enclosure 按设备尺寸制作带艺术纹样的外壳，验证内腔、端口、紧固件和拆盖路径。"

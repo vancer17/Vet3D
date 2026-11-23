@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "记忆空间：照片重建、布置与网页，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: photos
+    say: "确认地点照片"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/asset-pipeline.md
+      - references/interaction.md
+      - references/user-guidance.md
+    irreversible: []
+  - id: rebuild
+    say: "物件重建"
+    rollback_to: photos
+    load:
+      - SKILL.md
+      - references/asset-pipeline.md
+      - references/interaction.md
+      - references/user-guidance.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: story
+    say: "布置与故事"
+    rollback_to: rebuild
+    load:
+      - SKILL.md
+      - references/asset-pipeline.md
+      - references/interaction.md
+      - references/user-guidance.md
+    irreversible: []
+  - id: web
+    say: "交互网页"
+    rollback_to: story
+    load:
+      - SKILL.md
+      - references/asset-pipeline.md
+      - references/interaction.md
+      - references/user-guidance.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "照片到记忆页"
+    nodes:
+      - photos
+      - rebuild
+      - story
+      - web
+    rollback_to: rebuild
+  - id: iterate
+    summary: "已有场景，改故事"
+    nodes:
+      - photos
+      - story
+      - web
+choices_example:
+  - id: new_place
+    title: "从照片重建空间"
+    route: main
+    confirm: true
+  - id: edit_story
+    title: "已有空间，改布置"
+    route: iterate
+    confirm: true
+  - id: back_rebuild
+    title: "回退到上一检查点"
+    rollback_to: rebuild
+    confirm: false

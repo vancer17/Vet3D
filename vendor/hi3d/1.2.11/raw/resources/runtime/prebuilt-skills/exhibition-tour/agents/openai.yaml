@@ -1,0 +1,4 @@
+interface:
+  display_name: "展览导览"
+  short_description: "把展品模型和图片做成单展厅，支持热点、自由看和可暂停导览"
+  default_prompt: "使用 $exhibition-tour，把这些展品做成一个虚拟展厅，可点热点看说明，也能自动导览、暂停和返回起点。"

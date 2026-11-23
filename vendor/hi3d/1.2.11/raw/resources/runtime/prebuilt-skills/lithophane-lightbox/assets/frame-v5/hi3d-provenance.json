@@ -1,0 +1,59 @@
+{
+  "updated_on": "2026-11-02",
+  "source_version": "V5.1",
+  "mechanical_interface": "V5 unchanged",
+  "source_modified": true,
+  "original_V5_source_sha256": "65066e4f100054d0ea91bcaa23db82b2a4b33cf415b7ef1c1cabc3b6436f5508",
+  "current_source_sha256": "1ed4dc2fabab0a0228300cc9c4e92b991d93a19a91fa6760ed467314749bc36a",
+  "fix": "Rear screw-head/key channel with inward neck; nut bearing roof retained; constrained STL tessellation preserves boundaries",
+  "validation_scope": {
+    "B_mm": 10,
+    "light_gap_mm": 25,
+    "pressure_presets": [
+      [
+        150,
+        100
+      ],
+      [
+        100,
+        150
+      ],
+      [
+        180,
+        130
+      ],
+      [
+        200,
+        150
+      ],
+      [
+        250,
+        200
+      ]
+    ],
+    "full_assembly_regression_frame_mm": [
+      150,
+      100
+    ],
+    "physical_print_or_load_test": false
+  },
+  "reports": [
+    "checks/hi3d-pressure_access_checks.json",
+    "checks/hi3d-assembly_checks.json",
+    "checks/hi3d-front_and_bridge_preservation.json",
+    "checks/hi3d-saved_STL_checks.json",
+    "checks/hi3d-preset_export_checks.json",
+    "checks/hi3d-export_geometry_roundtrip.json",
+    "checks/hi3d-verification_summary.json"
+  ],
+  "source_hashes_scope": "Hashes describe the originally supplied source, not this adapted draft.",
+  "draft_adaptation": {
+    "changes": [
+      "portable relative references",
+      "hi3d output names",
+      "GLB metre extras and explicit one-time unit conversion"
+    ],
+    "business_scripts_executed": false,
+    "geometry_revalidated": false
+  }
+}

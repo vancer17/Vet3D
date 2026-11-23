@@ -1,0 +1,79 @@
+schema: pcg.architecture.v1
+entry: scale-aware-quad-rings
+kind: agent_skill
+layout: linear
+tasks:
+  - id: scale_rings
+    parent: null
+    role: agent
+    label: "尺度关联四边面环带"
+    function: "编排已有四边面的尺度测量、红黄灰划分、选择性融并、连续环带和分区验收。不生成几何，不把三角预览当作四边面工程。"
+    outputs: []
+  - id: baseline
+    parent: scale_rings
+    role: local
+    label: "记录基线与尺度"
+    function: "确认可编辑四边面、对象集合和可回退副本。用世界包围盒最大边定义 L，用基准边长中位数定义 h。记录面数、连通片、边界和材质。没有可识别缝线时先向用户要标记。"
+    rollback_to: null
+    outputs:
+      - id: baseline_note
+        label: "L、h、面数和边界记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: classify
+    parent: baseline
+    role: local
+    label: "划分红黄灰区域"
+    function: "按阈值文件识别转角、折边和已确认接缝。红色保护支撑行，黄色限制跨距，灰色作为大面候选。记录各区面积比和支撑行数。用户确认的预设不改阈值。"
+    rollback_to: baseline
+    outputs:
+      - id: region_record
+        label: "红黄灰分区与保护边链记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: remesh
+    parent: classify
+    role: local
+    label: "融并并建立环带"
+    function: "灰区逐片尝试较大面，黄色只降低倍率。失败后缩小跨度重试，不把整片灰区改成保护区。沿粗网格内轮廓建连续四边环带，错开增段，转角单独规划。后台融并走预算心跳。"
+    rollback_to: classify
+    irreversible:
+      - blender.write
+    outputs:
+      - id: remesh_blend
+        label: "融并和环带后的可编辑四边面工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: validate_deliver
+    parent: remesh
+    role: local
+    label: "验收分区并交付"
+    function: "逐片检查四边面、闭环、保护边、非流形、翻面、最小角和极点。红黄灰分别统计保留面数和面积比。网格诊断交接 mesh-audit。交付 BLEND 或 OBJ，以及同相机线框对照。局部失败只回退该片。"
+    rollback_to: remesh
+    irreversible:
+      - blender.write
+    outputs:
+      - id: quad_mesh
+        label: "最终可编辑四边面工程（BLEND 或 OBJ）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: validation_report
+        label: "分区验收与未通过原因"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: wireframe_comparison
+        label: "同相机线框对照图"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable

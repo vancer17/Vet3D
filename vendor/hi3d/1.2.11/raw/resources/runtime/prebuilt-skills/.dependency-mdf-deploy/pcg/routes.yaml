@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "MDF3 服务构建与启动；Docker/网络写不可逆。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: spec
+    say: "确认服务契约"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/deployment-contract.md
+      - references/deployment.md
+      - references/implementation.md
+    irreversible: []
+  - id: build
+    say: "构建镜像"
+    rollback_to: spec
+    load:
+      - SKILL.md
+      - references/deployment-contract.md
+      - references/deployment.md
+      - references/implementation.md
+    irreversible:
+      - network.write
+    confirm_required: true
+  - id: serve
+    say: "启动与回传"
+    rollback_to: build
+    load:
+      - SKILL.md
+      - references/deployment-contract.md
+      - references/deployment.md
+      - references/implementation.md
+    irreversible:
+      - network.write
+    confirm_required: true
+  - id: review
+    say: "队列验收"
+    rollback_to: serve
+    load:
+      - SKILL.md
+      - references/deployment-contract.md
+      - references/deployment.md
+      - references/implementation.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "新建并验收"
+    nodes:
+      - spec
+      - build
+      - serve
+      - review
+    rollback_to: build
+  - id: restart
+    summary: "已有镜像，只重启验证"
+    nodes:
+      - spec
+      - serve
+      - review
+choices_example:
+  - id: new_service
+    title: "新建服务并启动"
+    route: main
+    confirm: true
+  - id: reuse_image
+    title: "已有镜像，重启验证"
+    route: restart
+    confirm: true
+  - id: back_build
+    title: "回退到上一检查点"
+    rollback_to: build
+    confirm: false

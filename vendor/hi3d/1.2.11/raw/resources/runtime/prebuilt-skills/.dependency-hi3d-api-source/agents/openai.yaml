@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hi3D API"
+  short_description: "Hi3D 通用建模、贴纹理与模型处理，支持任务恢复和产物检查"
+  default_prompt: "使用 $hi3d-api 按我的输入规划所需 Hi3D 任务，沿用已有授权并交付可校验的原始产物。"

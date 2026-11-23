@@ -1,0 +1,797 @@
+{
+  "schema_version": 1,
+  "template_sha256": "181869031ca0a395ffa1fd848b53681515412fbe128288f615d9d6e15bffe4e3",
+  "index_base": 0,
+  "method": "Frozen offline calibration from packaged pre-existing template pose and actual template camera; no template inference at case runtime. Solver uses triangle and barycentric weights for subvertex precision; vertex_index is nearest triangle-corner reference.",
+  "records": [
+    {
+      "id": 220,
+      "name": "l_top_end_of_inferior_crus",
+      "ear": "left",
+      "triangle": [
+        4404,
+        22101,
+        8459
+      ],
+      "barycentric": [
+        0.12650142381876012,
+        0.4114275207428443,
+        0.4620710554383956
+      ],
+      "vertex_index": 8459
+    },
+    {
+      "id": 221,
+      "name": "l_top_end_of_superior_crus",
+      "ear": "left",
+      "triangle": [
+        8527,
+        8533,
+        22142
+      ],
+      "barycentric": [
+        0.31894673622167985,
+        0.2309796866689791,
+        0.4500735771093411
+      ],
+      "vertex_index": 22142
+    },
+    {
+      "id": 222,
+      "name": "l_start_of_antihelix",
+      "ear": "left",
+      "triangle": [
+        22067,
+        8388,
+        4369
+      ],
+      "barycentric": [
+        0.5130126813713475,
+        0.39415935062539265,
+        0.09282796800325992
+      ],
+      "vertex_index": 22067
+    },
+    {
+      "id": 223,
+      "name": "l_end_of_antihelix",
+      "ear": "left",
+      "triangle": [
+        4290,
+        21958,
+        8199
+      ],
+      "barycentric": [
+        0.5819020958258063,
+        0.0476705900047442,
+        0.3704273141694495
+      ],
+      "vertex_index": 4290
+    },
+    {
+      "id": 224,
+      "name": "l_midpoint_1_of_antihelix",
+      "ear": "left",
+      "triangle": [
+        22000,
+        4336,
+        8285
+      ],
+      "barycentric": [
+        0.6267259819443025,
+        0.029791225087092022,
+        0.34348279296860545
+      ],
+      "vertex_index": 22000
+    },
+    {
+      "id": 225,
+      "name": "l_midpoint_1_of_inferior_crus",
+      "ear": "left",
+      "triangle": [
+        4132,
+        7940,
+        21931
+      ],
+      "barycentric": [
+        0.10755441711287184,
+        0.08607672869969357,
+        0.8063688541874346
+      ],
+      "vertex_index": 21931
+    },
+    {
+      "id": 226,
+      "name": "l_midpoint_2_of_antihelix",
+      "ear": "left",
+      "triangle": [
+        8283,
+        8282,
+        4335
+      ],
+      "barycentric": [
+        0.2885361905633225,
+        0.31380056388754946,
+        0.3976632455491281
+      ],
+      "vertex_index": 4335
+    },
+    {
+      "id": 227,
+      "name": "l_midpoint_3_of_antihelix",
+      "ear": "left",
+      "triangle": [
+        8300,
+        22009,
+        8269
+      ],
+      "barycentric": [
+        0.4568444056775287,
+        0.39906130559920994,
+        0.14409428872326135
+      ],
+      "vertex_index": 8300
+    },
+    {
+      "id": 228,
+      "name": "l_point_1_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        22128,
+        8481,
+        4404
+      ],
+      "barycentric": [
+        0.007493146870745759,
+        0.25235031573160965,
+        0.7401565373976446
+      ],
+      "vertex_index": 4404
+    },
+    {
+      "id": 229,
+      "name": "l_point_2_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        8396,
+        4098,
+        7905
+      ],
+      "barycentric": [
+        0.7183169884818408,
+        0.04325792069882123,
+        0.23842509081933796
+      ],
+      "vertex_index": 8396
+    },
+    {
+      "id": 230,
+      "name": "l_point_3_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        8101,
+        22022,
+        7983
+      ],
+      "barycentric": [
+        0.11902616909729143,
+        0.7946084484413835,
+        0.08636538246132512
+      ],
+      "vertex_index": 22022
+    },
+    {
+      "id": 231,
+      "name": "l_point_4_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        7926,
+        8102,
+        22020
+      ],
+      "barycentric": [
+        0.20738540412139628,
+        0.15800015734150566,
+        0.6346144385370981
+      ],
+      "vertex_index": 22020
+    },
+    {
+      "id": 232,
+      "name": "l_point_5_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        8376,
+        8332,
+        22055
+      ],
+      "barycentric": [
+        0.6589770710024997,
+        0.10323824025846522,
+        0.2377846887390351
+      ],
+      "vertex_index": 8376
+    },
+    {
+      "id": 233,
+      "name": "l_point_6_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        4340,
+        22010,
+        8298
+      ],
+      "barycentric": [
+        0.7308110358451096,
+        0.11118504805713941,
+        0.1580039160977509
+      ],
+      "vertex_index": 4340
+    },
+    {
+      "id": 234,
+      "name": "l_point_7_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        8091,
+        21913,
+        8092
+      ],
+      "barycentric": [
+        0.8644715219014791,
+        0.11794214721622652,
+        0.017586330882294353
+      ],
+      "vertex_index": 8091
+    },
+    {
+      "id": 235,
+      "name": "l_highest_point_of_antitragus",
+      "ear": "left",
+      "triangle": [
+        21968,
+        8191,
+        4283
+      ],
+      "barycentric": [
+        0.17724500683632005,
+        0.2772280811055018,
+        0.5455269120581782
+      ],
+      "vertex_index": 4283
+    },
+    {
+      "id": 236,
+      "name": "l_bottom_point_of_tragus",
+      "ear": "left",
+      "triangle": [
+        4285,
+        8474,
+        22663
+      ],
+      "barycentric": [
+        0.7468028340442182,
+        0.2358718728198806,
+        0.017325293135901226
+      ],
+      "vertex_index": 4285
+    },
+    {
+      "id": 237,
+      "name": "l_protruding_point_of_tragus",
+      "ear": "left",
+      "triangle": [
+        8245,
+        8246,
+        21979
+      ],
+      "barycentric": [
+        0.2167216311850596,
+        0.3581853846053974,
+        0.425092984209543
+      ],
+      "vertex_index": 21979
+    },
+    {
+      "id": 239,
+      "name": "l_start_point_of_crus_of_helix",
+      "ear": "left",
+      "triangle": [
+        10750,
+        23296,
+        10749
+      ],
+      "barycentric": [
+        0.4502073507312835,
+        0.32416389497056575,
+        0.22562875429815074
+      ],
+      "vertex_index": 10750
+    },
+    {
+      "id": 240,
+      "name": "l_deepest_point_of_concha",
+      "ear": "left",
+      "triangle": [
+        8356,
+        8445,
+        22095
+      ],
+      "barycentric": [
+        0.24109566602806512,
+        0.6153468974415681,
+        0.14355743653036676
+      ],
+      "vertex_index": 8445
+    },
+    {
+      "id": 241,
+      "name": "l_tip_of_ear_lobe",
+      "ear": "left",
+      "triangle": [
+        8041,
+        22670,
+        9521
+      ],
+      "barycentric": [
+        0.48758650070095505,
+        0.5071206838348874,
+        0.005292815464157539
+      ],
+      "vertex_index": 22670
+    },
+    {
+      "id": 242,
+      "name": "l_midpoint_between_22_15",
+      "ear": "left",
+      "triangle": [
+        21997,
+        8275,
+        4327
+      ],
+      "barycentric": [
+        0.6269773356652536,
+        0.20672435312484624,
+        0.1662983112099001
+      ],
+      "vertex_index": 21997
+    },
+    {
+      "id": 244,
+      "name": "l_top_connecting_point_of_helix",
+      "ear": "left",
+      "triangle": [
+        22152,
+        4450,
+        8553
+      ],
+      "barycentric": [
+        0.3905465990346885,
+        0.4239786295995807,
+        0.18547477136573082
+      ],
+      "vertex_index": 4450
+    },
+    {
+      "id": 245,
+      "name": "l_point_8_of_inner_helix",
+      "ear": "left",
+      "triangle": [
+        8396,
+        4098,
+        7905
+      ],
+      "barycentric": [
+        0.5591299424763946,
+        0.30866697423291484,
+        0.1322030832906905
+      ],
+      "vertex_index": 8396
+    },
+    {
+      "id": 246,
+      "name": "r_top_end_of_inferior_crus",
+      "ear": "right",
+      "triangle": [
+        13922,
+        13923,
+        18852
+      ],
+      "barycentric": [
+        0.22054407550246274,
+        0.657752333921413,
+        0.1217035905761243
+      ],
+      "vertex_index": 13923
+    },
+    {
+      "id": 247,
+      "name": "r_top_end_of_superior_crus",
+      "ear": "right",
+      "triangle": [
+        14504,
+        1366,
+        14512
+      ],
+      "barycentric": [
+        0.03832741189027267,
+        0.6893164789591185,
+        0.2723561091506088
+      ],
+      "vertex_index": 1366
+    },
+    {
+      "id": 248,
+      "name": "r_start_of_antihelix",
+      "ear": "right",
+      "triangle": [
+        14262,
+        14366,
+        1262
+      ],
+      "barycentric": [
+        0.12173033331121712,
+        0.8083097801262175,
+        0.06995988656256542
+      ],
+      "vertex_index": 14366
+    },
+    {
+      "id": 249,
+      "name": "r_end_of_antihelix",
+      "ear": "right",
+      "triangle": [
+        1219,
+        18946,
+        14175
+      ],
+      "barycentric": [
+        0.2517622962422442,
+        0.12942476377193896,
+        0.6188129399858168
+      ],
+      "vertex_index": 14175
+    },
+    {
+      "id": 250,
+      "name": "r_midpoint_1_of_antihelix",
+      "ear": "right",
+      "triangle": [
+        18987,
+        14264,
+        1265
+      ],
+      "barycentric": [
+        0.4144031342812393,
+        0.3584393353127742,
+        0.22715753040598655
+      ],
+      "vertex_index": 18987
+    },
+    {
+      "id": 251,
+      "name": "r_midpoint_1_of_inferior_crus",
+      "ear": "right",
+      "triangle": [
+        13920,
+        18918,
+        14120
+      ],
+      "barycentric": [
+        0.35083414623409703,
+        0.2531934604326291,
+        0.39597239333327383
+      ],
+      "vertex_index": 14120
+    },
+    {
+      "id": 252,
+      "name": "r_midpoint_2_of_antihelix",
+      "ear": "right",
+      "triangle": [
+        14259,
+        1264,
+        14260
+      ],
+      "barycentric": [
+        0.07543887042501803,
+        0.8618159480206956,
+        0.06274518155428636
+      ],
+      "vertex_index": 1264
+    },
+    {
+      "id": 253,
+      "name": "r_midpoint_3_of_antihelix",
+      "ear": "right",
+      "triangle": [
+        14279,
+        14250,
+        18996
+      ],
+      "barycentric": [
+        0.6347029098723254,
+        0.08636150437841232,
+        0.2789355857492624
+      ],
+      "vertex_index": 14279
+    },
+    {
+      "id": 254,
+      "name": "r_point_1_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        14436,
+        14377,
+        19088
+      ],
+      "barycentric": [
+        0.4864271242760399,
+        0.12067321460009843,
+        0.3928996611238617
+      ],
+      "vertex_index": 14436
+    },
+    {
+      "id": 255,
+      "name": "r_point_8_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1367,
+        19129,
+        14505
+      ],
+      "barycentric": [
+        0.3747487683556162,
+        0.3573416135686394,
+        0.2679096180757444
+      ],
+      "vertex_index": 1367
+    },
+    {
+      "id": 256,
+      "name": "r_point_3_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1172,
+        19009,
+        14240
+      ],
+      "barycentric": [
+        0.2709463953796764,
+        0.6100284911717646,
+        0.119025113448559
+      ],
+      "vertex_index": 19009
+    },
+    {
+      "id": 257,
+      "name": "r_point_4_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1048,
+        19007,
+        13904
+      ],
+      "barycentric": [
+        0.02993400855019146,
+        0.30882234556823285,
+        0.6612436458815757
+      ],
+      "vertex_index": 13904
+    },
+    {
+      "id": 258,
+      "name": "r_point_5_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1275,
+        19042,
+        14355
+      ],
+      "barycentric": [
+        0.12392301068558798,
+        0.12105824781707014,
+        0.7550187414973419
+      ],
+      "vertex_index": 14355
+    },
+    {
+      "id": 259,
+      "name": "r_point_6_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        18994,
+        14277,
+        1269
+      ],
+      "barycentric": [
+        0.15270392464321098,
+        0.37013222370151166,
+        0.47716385165527736
+      ],
+      "vertex_index": 1269
+    },
+    {
+      "id": 260,
+      "name": "r_point_7_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1164,
+        14068,
+        18900
+      ],
+      "barycentric": [
+        0.0807689365081633,
+        0.49626905943792116,
+        0.4229620040539156
+      ],
+      "vertex_index": 14068
+    },
+    {
+      "id": 261,
+      "name": "r_highest_point_of_antitragus",
+      "ear": "right",
+      "triangle": [
+        14197,
+        14168,
+        1212
+      ],
+      "barycentric": [
+        0.1368058943621373,
+        0.08574096386856478,
+        0.7774531417692979
+      ],
+      "vertex_index": 1212
+    },
+    {
+      "id": 262,
+      "name": "r_bottom_point_of_tragus",
+      "ear": "right",
+      "triangle": [
+        14161,
+        1210,
+        14162
+      ],
+      "barycentric": [
+        0.4497712240866598,
+        0.0077769661766218965,
+        0.5424518097367182
+      ],
+      "vertex_index": 14162
+    },
+    {
+      "id": 263,
+      "name": "r_protruding_point_of_tragus",
+      "ear": "right",
+      "triangle": [
+        14226,
+        18966,
+        14225
+      ],
+      "barycentric": [
+        0.0888561925809237,
+        0.2799339686146361,
+        0.6312098388044403
+      ],
+      "vertex_index": 14225
+    },
+    {
+      "id": 265,
+      "name": "r_start_point_of_crus_of_helix",
+      "ear": "right",
+      "triangle": [
+        16759,
+        16758,
+        20283
+      ],
+      "barycentric": [
+        0.40299805995933874,
+        0.14416308047908713,
+        0.45283885956157416
+      ],
+      "vertex_index": 20283
+    },
+    {
+      "id": 266,
+      "name": "r_deepest_point_of_concha",
+      "ear": "right",
+      "triangle": [
+        14336,
+        19082,
+        14425
+      ],
+      "barycentric": [
+        0.19444246491435424,
+        0.5662345727506392,
+        0.2393229623350066
+      ],
+      "vertex_index": 19082
+    },
+    {
+      "id": 267,
+      "name": "r_tip_of_ear_lobe",
+      "ear": "right",
+      "triangle": [
+        1136,
+        14021,
+        19657
+      ],
+      "barycentric": [
+        0.19142909750606785,
+        0.11084193391015983,
+        0.6977289685837723
+      ],
+      "vertex_index": 19657
+    },
+    {
+      "id": 268,
+      "name": "r_midpoint_between_22_15",
+      "ear": "right",
+      "triangle": [
+        18984,
+        1256,
+        14254
+      ],
+      "barycentric": [
+        0.8399979785475304,
+        0.10453532817986348,
+        0.0554666932726061
+      ],
+      "vertex_index": 18984
+    },
+    {
+      "id": 269,
+      "name": "r_bottom_connecting_point_of_ear_lobe",
+      "ear": "right",
+      "triangle": [
+        14395,
+        14394,
+        1312
+      ],
+      "barycentric": [
+        0.15839515276771665,
+        0.3830797740023262,
+        0.45852507322995717
+      ],
+      "vertex_index": 1312
+    },
+    {
+      "id": 270,
+      "name": "r_top_connecting_point_of_helix",
+      "ear": "right",
+      "triangle": [
+        14531,
+        1380,
+        14532
+      ],
+      "barycentric": [
+        0.4531494570731693,
+        0.10274388801916556,
+        0.44410665490766515
+      ],
+      "vertex_index": 14531
+    },
+    {
+      "id": 271,
+      "name": "r_point_2_of_inner_helix",
+      "ear": "right",
+      "triangle": [
+        1367,
+        19129,
+        14505
+      ],
+      "barycentric": [
+        0.4688506656184697,
+        0.23661488721628138,
+        0.29453444716524885
+      ],
+      "vertex_index": 1367
+    }
+  ],
+  "disabled_ids": [
+    238,
+    243,
+    264
+  ]
+}

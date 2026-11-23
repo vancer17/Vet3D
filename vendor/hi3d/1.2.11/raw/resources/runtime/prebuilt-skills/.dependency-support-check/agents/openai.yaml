@@ -1,0 +1,4 @@
+interface:
+  display_name: "静态支承检查"
+  short_description: "计算明确实体或质量的重心、真实接触支承域与静态几何裕量。"
+  default_prompt: "使用 $support-check 核对当前装配的质量假设、重力和接触点，输出静态支承报告。"

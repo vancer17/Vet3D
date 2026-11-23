@@ -1,0 +1,70 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "雕塑收纳：掏空、盖口与开合，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: art
+    say: "确认雕塑主体"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/workflow.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: cavity
+    say: "内腔底壁"
+    rollback_to: art
+    load:
+      - SKILL.md
+      - references/workflow.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: lid
+    say: "可拆盖路径"
+    rollback_to: cavity
+    load:
+      - SKILL.md
+      - references/workflow.md
+    irreversible: []
+  - id: preview
+    say: "开合预览"
+    rollback_to: lid
+    load:
+      - SKILL.md
+      - references/workflow.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "雕塑到容器"
+    nodes:
+      - art
+      - cavity
+      - lid
+      - preview
+    rollback_to: cavity
+  - id: lid_only
+    summary: "已有内腔，改盖"
+    nodes:
+      - art
+      - lid
+      - preview
+choices_example:
+  - id: hollow
+    title: "掏空并做盖"
+    route: main
+    confirm: true
+  - id: retune_lid
+    title: "已有内腔，改盖口"
+    route: lid_only
+    confirm: true
+  - id: back_cavity
+    title: "回退到上一检查点"
+    rollback_to: cavity
+    confirm: false

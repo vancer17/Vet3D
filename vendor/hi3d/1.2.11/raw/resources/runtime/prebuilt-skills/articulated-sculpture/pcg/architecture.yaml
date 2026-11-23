@@ -1,0 +1,92 @@
+schema: pcg.architecture.v1
+entry: articulated-sculpture
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: articulated_sculpture
+    parent: null
+    role: agent
+    label: "确认雕塑输入"
+    function: "编排 articulated-sculpture"
+  - id: input
+    parent: articulated_sculpture
+    label: "确认雕塑输入"
+    function: "派出 hi3d-api；条件生成前走参数选择与计费示警，未授权不得 submit"
+    outputs:
+      - id: input
+        label: "确认雕塑输入"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+  - id: segment
+    parent: articulated_sculpture
+    label: "语义分节"
+    function: "本 agent 语义分节"
+    outputs:
+      - id: segment
+        label: "语义分节"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "语义分节"
+    irreversible:
+      - overwrite.source
+  - id: hinge
+    parent: articulated_sculpture
+    label: "铰链与间隙"
+    function: "本 agent 铰链与间隙"
+    outputs:
+      - id: hinge
+        label: "铰链与间隙"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "铰链与间隙"
+  - id: motion
+    parent: articulated_sculpture
+    label: "关节动画"
+    function: "本 agent 关节动画"
+    outputs:
+      - id: motion
+        label: "关节动画"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "关节动画"
+    irreversible:
+      - blender.write
+  - id: review
+    parent: articulated_sculpture
+    label: "碰撞与交付"
+    function: "本 agent 碰撞与交付"
+    outputs:
+      - id: review
+        label: "碰撞与交付"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "碰撞与交付"

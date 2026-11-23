@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/mesh_measure.py": "skills/mesh-audit/scripts/mesh_measure.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/stage_events.py": "tools/run-tools/scripts/stage_events.py"
+  },
+  "requires": []
+}

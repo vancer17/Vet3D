@@ -1,0 +1,58 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: "线形检查点：确认截图与意图、框选定位、按缺口索取素材。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: input
+    say: "确认截图、替换意图和已有素材"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+  - id: locate
+    say: "框选要替换的位置并写出裁切"
+    rollback_to: input
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+  - id: request
+    say: "按缺口向用户索取替换物件素材"
+    rollback_to: locate
+    load:
+      - SKILL.md
+      - references/contract.md
+      - references/code-contract.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "从截图定位替换区并列出素材需求"
+    nodes:
+      - input
+      - locate
+      - request
+    rollback_to: locate
+  - id: review_only
+    summary: "已有简报只核对应索取项"
+    nodes:
+      - input
+      - request
+choices_example:
+  - id: do_run
+    title: "按截图定位并列出素材需求"
+    route: main
+    confirm: false
+  - id: skip_locate
+    title: "已有框选，只核对应索取项"
+    route: review_only
+    confirm: false
+  - id: adjust_boxes
+    title: "回退调整框选"
+    rollback_to: locate
+    confirm: false

@@ -1,0 +1,80 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "不改 SKILL.md 正文与 README 索引；本文件只把 e2e 阶段拆成可回退检查点与分支。"
+checkpoints:
+  - id: spec
+    say: "多视图规格"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/modeling.md
+      - references/runtime.md
+    irreversible: []
+  - id: check
+    say: "参数预检"
+    rollback_to: spec
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/modeling.md
+      - references/runtime.md
+    irreversible: []
+  - id: build
+    say: "分件创建"
+    rollback_to: check
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/modeling.md
+      - references/runtime.md
+    irreversible: []
+  - id: layout
+    say: "归组排列"
+    rollback_to: build
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/modeling.md
+      - references/runtime.md
+    irreversible: []
+  - id: export
+    say: "保存导出"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/code.md
+      - references/modeling.md
+      - references/runtime.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+routes:
+  - id: main
+    summary: "多视图→分件排列"
+    nodes:
+      - spec
+      - check
+      - build
+      - layout
+      - export
+    rollback_to: build
+  - id: revise
+    summary: "只修订受影响件"
+    nodes:
+      - build
+      - layout
+    shares_input_with: main
+choices_example:
+  - id: build_all
+    title: "按规格建全部件"
+    route: main
+    confirm: false
+  - id: one_part
+    title: "只改一件"
+    route: revise
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

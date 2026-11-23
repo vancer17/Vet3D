@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "part": "02_RAIL_RIGHT",
+      "preserved_z_range_mm": [
+        -1,
+        15.65
+      ],
+      "symmetric_difference_mm3": 0.0005,
+      "pass": true
+    },
+    {
+      "part": "04_RAIL_LEFT",
+      "preserved_z_range_mm": [
+        -1,
+        15.65
+      ],
+      "symmetric_difference_mm3": 0.0005,
+      "pass": true
+    }
+  ],
+  "scope": "actual old STL versus saved V5.1 engineering mesh; front/slot/nut bridge below Z15.65",
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

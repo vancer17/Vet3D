@@ -1,0 +1,4 @@
+interface:
+  display_name: 眼球几何修复
+  short_description: 切除错误瞳孔几何、补光滑球冠并检查眼睑边界，按需衔接 CR
+  default_prompt: 使用 $eye-repair 处理已有输入，复用有效中间产物，交付结果与实际验收范围。

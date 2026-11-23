@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/cli_schemas.py": "tools/run-tools/scripts/cli_schemas.py",
+    "scripts/frame_diy_runtime.py": "tools/run-tools/scripts/frame_diy_runtime.py",
+    "scripts/frame_runtime.py": "tools/run-tools/scripts/config_runtime.py",
+    "scripts/glb_export.py": "skills/model-preview/scripts/glb_export.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/mesh_snapshot.py": "tools/blender-tools/scripts/mesh_snapshot.py",
+    "scripts/planar_core.py": "skills/shape-build/scripts/planar_core.py",
+    "scripts/planar_preview.py": "skills/model-preview/scripts/planar_preview.py",
+    "scripts/planar_render.py": "skills/model-preview/scripts/planar_render.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/scene_samples.py": "skills/motion-check/scripts/scene_samples.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py"
+  },
+  "requires": []
+}

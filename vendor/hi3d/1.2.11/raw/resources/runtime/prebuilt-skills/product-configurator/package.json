@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/hi3d-core.mjs": "skills/game-save/scripts/hi3d-core.mjs",
+    "scripts/timing.py": "tools/run-tools/scripts/timing.py"
+  },
+  "requires": []
+}

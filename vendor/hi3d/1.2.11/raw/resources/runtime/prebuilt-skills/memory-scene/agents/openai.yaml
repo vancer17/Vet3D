@@ -1,0 +1,4 @@
+interface:
+  display_name: "照片记忆场景"
+  short_description: "引导上传熟悉地点照片，制作可探索、可布置和保存的三维记忆空间"
+  default_prompt: "使用 $memory-scene 引导我上传想留下的房间、家乡或日常地点照片，制作可探索记忆、自由布置的三维场景，并说明怎样打开、交互和保存。"

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "modes": {
+    "free": "自由浏览：只点热点，不自动走镜头。",
+    "auto": "自动导览：按顺序停留，手动操作会暂停。",
+    "both": "两者兼有：可自己看，也可一键走完全程。"
+  },
+  "defaultMode": "both",
+  "defaultDwellSeconds": 4
+}

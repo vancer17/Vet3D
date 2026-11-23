@@ -1,0 +1,46 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: intake
+    say: 核对已有资产与目标游戏证据
+    rollback_to: null
+    load: [SKILL.md, references/alignment.md]
+    irreversible: []
+  - id: align
+    say: 建立游戏资源映射及内容目录
+    rollback_to: intake
+    load: [SKILL.md, references/alignment.md]
+    irreversible: []
+  - id: review
+    say: 核对预览、物品字段和内容目录
+    rollback_to: align
+    load: [SKILL.md, references/alignment.md]
+    irreversible: []
+  - id: publish
+    say: 有授权和平台条件时交接发布
+    rollback_to: review
+    load: [SKILL.md, references/alignment.md]
+    irreversible: [publish]
+    confirm_required: true
+routes:
+  - id: prepare
+    summary: 对齐已有创意并准备候选内容
+    nodes: [intake, align, review]
+    rollback_to: align
+  - id: ship
+    summary: 完成对齐且获授权后调用发布 skill
+    nodes: [intake, align, review, publish]
+    rollback_to: review
+choices_example:
+  - id: prepare_only
+    title: 准备可验收内容目录
+    route: prepare
+    confirm: false
+  - id: publish_ready
+    title: 在已有授权内发布
+    route: ship
+    confirm: true

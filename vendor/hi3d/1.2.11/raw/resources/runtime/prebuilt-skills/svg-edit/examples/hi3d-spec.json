@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "width": 320,
+  "height": 180,
+  "operations": [
+    {
+      "op": "add",
+      "id": "bg",
+      "tag": "rect",
+      "attrs": {
+        "width": 320,
+        "height": 180,
+        "fill": "#13243b"
+      }
+    },
+    {
+      "op": "add",
+      "id": "title",
+      "tag": "text",
+      "attrs": {
+        "x": 30,
+        "y": 100,
+        "fill": "#ffffff",
+        "font-size": 36
+      },
+      "text": "Hi3D SVG"
+    }
+  ],
+  "formats": [
+    "png",
+    "pdf"
+  ]
+}

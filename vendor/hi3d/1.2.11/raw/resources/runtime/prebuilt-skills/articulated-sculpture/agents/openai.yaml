@@ -1,0 +1,4 @@
+interface:
+  display_name: "分节关节雕塑"
+  short_description: "将长形雕塑按语义分节，设计真实铰链并验证整体碰撞与同步关节动画"
+  default_prompt: "使用 $articulated-sculpture 将这个雕塑制作成分节活动摆件，保留细节并验证真实关节和同步动画。"

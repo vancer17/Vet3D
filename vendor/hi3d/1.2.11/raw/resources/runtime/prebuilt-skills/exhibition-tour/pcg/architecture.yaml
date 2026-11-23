@@ -1,0 +1,148 @@
+schema: pcg.architecture.v1
+entry: exhibition-tour
+kind: agent_workflow
+layout: tree
+note: "编排展览导览；glb-clips/media-check/game-save/game-browser-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: exhibition_tour
+    parent: null
+    role: agent
+    label: "展览导览编排"
+    function: "收集展品与空间选择，自动或按用户坐标布置单展厅，生成可导览网页。已有合格页面可从 run 续接。不生成测绘工程。"
+    outputs: []
+  - id: exhibits
+    parent: exhibition_tour
+    role: local
+    label: "展品与说明"
+    function: "收集模型/图片、标题、说明、顺序。缺说明用文件名并 pending。不编造历史。无附件时停在展品字段。"
+    outputs: []
+  - id: space
+    parent: exhibition_tour
+    role: local
+    label: "已有空间或虚拟展厅"
+    function: "existing 必须有真实文件；virtual 按数量规划并写明非测绘。不写 BLEND。"
+    outputs: []
+  - id: prefer
+    parent: exhibition_tour
+    role: local
+    label: "浏览与导览"
+    function: "展示 free/auto/both；默认 both。用户未确认前不是事实。"
+    outputs: []
+  - id: layout
+    parent: exhibition_tour
+    role: local
+    label: "展位与顺序"
+    function: "plan_tour 写出 plan.json。少量展品 auto_layout。可改顺序与说明。内部预览不是强制审批。"
+    outputs:
+      - id: plan
+        label: "导览 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: run
+    parent: exhibition_tour
+    role: local
+    label: "进入展厅体验"
+    function: "等待 layout。inspect_models 校验 GLB。build_hall 写入新目录。用户走热点、暂停/继续、返回起点。缺失展位占位。"
+    members:
+      - id: write_hall
+        label: "写出展厅与资源副本"
+    outputs:
+      - id: hall
+        label: "展厅网页目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: glb_clips
+    parent: run
+    role: subagent
+    entry: glb-clips
+    optional: true
+    label: "展品 GLB 读取"
+    function: "有模型展品时独立 glb-clips.read_glb 校验容器；无模型则跳过。"
+    outputs: []
+  - id: media_check
+    parent: run
+    role: subagent
+    entry: media-check
+    optional: true
+    label: "展品图片解码"
+    function: "有图片展品时独立 media-check 核对尺寸并载入；缺失文件不调用。"
+    outputs:
+      - id: report
+        label: "媒体检查报告"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: game_save
+    parent: run
+    role: subagent
+    entry: game-save
+    label: "导览进度存档"
+    function: "独立 game-save 保存当前展位与暂停状态。"
+    outputs: []
+  - id: http_check
+    parent: run
+    role: local
+    label: "loopback 资源检查"
+    function: "check_http GET 页面、模块与已复制展品/空间。"
+    outputs:
+      - id: http
+        label: "HTTP 加载报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: browser_check
+    parent: run
+    role: subagent
+    entry: game-browser-check
+    optional: true
+    label: "浏览器操作验收"
+    function: "独立 game-browser-check 走热点/暂停/返回起点；无 Playwright 时跳过。"
+    outputs:
+      - id: browser
+        label: "浏览器检查结果"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: revise
+    parent: exhibition_tour
+    role: local
+    label: "按需修改"
+    function: "改展位、停留、镜头与说明。替换单件只重拷该资源。无改动时 outputs 为空。"
+    outputs: []
+  - id: deliver
+    parent: exhibition_tour
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的网页与资源。不把虚拟布置列为三维工程。asset-page 与 delivery-review 打开核对。"
+    outputs:
+      - id: pack
+        label: "展览资源目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮 HTML 与展品文件，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

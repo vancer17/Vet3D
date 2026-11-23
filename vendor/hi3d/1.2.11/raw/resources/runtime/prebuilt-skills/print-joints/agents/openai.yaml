@@ -1,0 +1,4 @@
+interface:
+  display_name: "打印人偶活动关节"
+  short_description: "为 A/T-pose 高模添加真实打印关节，保留细节并验证间隙、运动和导出"
+  default_prompt: "使用 $print-joints 为这个 A-pose 或 T-pose 模型添加可打印活动关节，参考给定样件并保留高模细节。"

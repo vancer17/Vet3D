@@ -1,0 +1,90 @@
+{
+  "mesh_sha256": "1481a4d8be9dff4774b11da6dbcdc9f52cc337f8d91455a0bb04b715ea1e5971",
+  "bone_names": [
+    "hip",
+    "arm",
+    "fore",
+    "finger",
+    "thigh",
+    "shin",
+    "foot"
+  ],
+  "rig_sha256": "3791f8f69e2707a10617657094a76a7a1ef3399685f12e881307d83194cde173",
+  "bone_heads": {
+    "hip": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "arm": [
+      0.20000000298023224,
+      0.0,
+      1.600000023841858
+    ],
+    "fore": [
+      0.8999999761581421,
+      0.0,
+      1.600000023841858
+    ],
+    "finger": [
+      1.600000023841858,
+      0.0,
+      1.600000023841858
+    ],
+    "thigh": [
+      0.20000000298023224,
+      0.0,
+      1.0
+    ],
+    "shin": [
+      0.20000000298023224,
+      0.0,
+      0.5
+    ],
+    "foot": [
+      0.20000000298023224,
+      0.0,
+      0.0
+    ]
+  },
+  "coordinate_space": "body mesh local rest coordinates",
+  "max_weight_sum_error": 0.0,
+  "frames": [
+    {
+      "significant_faces": 0,
+      "large_area_faces": 0,
+      "bad_face_count": 0,
+      "max_edge_ratio": 0.9966791272163391,
+      "max_area_ratio": 0.9832833409309387,
+      "max_edge_growth": -0.0003712847828865051,
+      "worst_face_metrics": [],
+      "frame": 10,
+      "worst": []
+    },
+    {
+      "significant_faces": 0,
+      "large_area_faces": 0,
+      "bad_face_count": 0,
+      "max_edge_ratio": 0.9939346313476562,
+      "max_area_ratio": 0.9756333231925964,
+      "max_edge_growth": -0.0006781294941902161,
+      "worst_face_metrics": [],
+      "frame": 11,
+      "worst": []
+    },
+    {
+      "significant_faces": 0,
+      "large_area_faces": 0,
+      "bad_face_count": 0,
+      "max_edge_ratio": 0.9857958555221558,
+      "max_area_ratio": 0.9566604495048523,
+      "max_edge_growth": -0.0015880689024925232,
+      "worst_face_metrics": [],
+      "frame": 12,
+      "worst": []
+    }
+  ],
+  "motion_observed": true,
+  "pass": true,
+  "input_sha256": "759a870845d88cba755bbd381285cf4a2b7a2434596882a77d6b69186a00e1dd"
+}

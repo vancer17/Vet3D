@@ -1,0 +1,208 @@
+schema: pcg.architecture.v1
+entry: miniature-scene
+kind: agent_workflow
+layout: tree
+note: "parent 表示编排归属；各阶段 function 声明先后与可选条件。已有合格输入跳过对应生产，不以图中的节点存在触发收费、打印或发布。"
+tasks:
+  - id: miniature_scene
+    parent: null
+    role: agent
+    label: "微缩场景编排"
+    function: "按图片、视频、主题或已有工程编排资产与布局，合流后仅执行所请求的树脂/网页分支；记录真实阶段耗时。"
+    outputs: []
+  - id: layout
+    parent: miniature_scene
+    role: local
+    label: "参考、名单与唯一布局"
+    function: "先查看参考；视频选择单一构图时刻并记录辅助帧。核对人物身份/独立动作、尺度基准、保留项及打印/网页范围，建立后续共同引用的布局。"
+    outputs:
+      - id: layout
+        label: "场景布局与资产/质量清单 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - layout
+      - id: references
+        label: "实际裁切或关键帧及标注 PNG/JPEG（按需）"
+        kind: file
+        retain: keep
+        semantics:
+          - reference
+  - id: arch
+    parent: miniature_scene
+    role: local
+    label: "建筑、地形与器械"
+    function: "布局明确后制作规则结构、接触锚点和相机，可与独立人物生成并行；已有合格环境直接复用。局部修订只更新相关语义组。"
+    outputs:
+      - id: arch
+        label: "规则环境候选 BLEND/GLB 与任务构建脚本"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    irreversible:
+      - blender.write
+  - id: generate
+    parent: miniature_scene
+    role: local
+    label: "可选自由形体生成"
+    function: "仅缺少合格资产且授权涵盖生成时，以逐角色已目视检查的参考图调用独立 hi3d-api，dry-run 后使用稳定 job；等待恢复原任务。已有图/高模跳过对应生成，失败仅阻断相关角色。文生图/图生图调用失败停止自动重试并报告，用户明确要求后才恢复；成功出图但效果不佳时按已有授权与原质量修订规则继续，不新增逐轮确认或暂停整项任务"
+    outputs:
+      - id: jobs
+        label: "逐资产 job 与下载清单 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - provenance
+      - id: raw
+        label: "原始参考 PNG/JPEG 与高模 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    optional: true
+    irreversible:
+      - hi3d.submit
+  - id: props
+    parent: miniature_scene
+    role: local
+    label: "派生归一化与资产质量"
+    function: "接收已有或 generate 完成的原始资产，按人物身高、动物体长等语义尺度归一化，保留原件。检查正侧背轮廓、厚度和来源特征；人物分支另查肢体/身份，通过才登记 passed_visual_review，不合格返回参考/修模。"
+    outputs:
+      - id: props
+        label: "逐元素派生 GLB/BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - derived
+      - id: review
+        label: "资产多视角 PNG 与质量记录 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    irreversible:
+      - blender.write
+  - id: assembly
+    parent: miniature_scene
+    role: local
+    label: "布局与真实接触"
+    function: "等待所需 arch 与 props 通过；依唯一布局写根变换，检查旋转模式、最终 matrix_world、支承/接触、遮挡与留白。对战时另查视线/武器目标及手脚接触；缺失角色不得入最终装配或计入完成。"
+    outputs:
+      - id: scene
+        label: "装配场景 BLEND/GLB 与更新布局 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: contacts
+        label: "接触/穿插检查记录与定位图 JSON/PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    irreversible:
+      - blender.write
+  - id: resin
+    parent: miniature_scene
+    role: local
+    label: "可选树脂制造母模"
+    function: "仅打印分支；在 assembly 后按床面/涂装与实际连接分件，检查开放腔/排液及连通性，用 print-export 输出毫米 STL、mesh-audit 回读实际 float32 文件。结构或位置变化回到 assembly 并更新下游。"
+    outputs:
+      - id: parts
+        label: "逐件毫米 STL 与可选几何 3MF"
+        kind: file
+        retain: keep
+        semantics:
+          - manufacturing
+      - id: parts_manifest
+        label: "打印数量/变换/来源表 JSON 或 CSV"
+        kind: file
+        retain: keep
+        semantics:
+          - manufacturing
+      - id: audit
+        label: "STL 回读与整场几何检查 JSON/PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    optional: true
+  - id: render
+    parent: miniature_scene
+    role: local
+    label: "最终工程回读与渲染"
+    function: "装配通过后重新打开最终 BLEND；若树脂修订影响展示，等待该分支回写同版几何。检查外部依赖，按预算生成主视/俯视与局部接触图，修正后重验；输入视频不触发输出动画。"
+    outputs:
+      - id: render
+        label: "最终场景渲染 PNG/JPEG"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: roundtrip
+        label: "BLEND/GLB 重开与单位/部件核对 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    irreversible:
+      - blender.write
+  - id: web
+    parent: miniature_scene
+    role: local
+    label: "可选网页摆放与保存"
+    function: "仅网页分支，等待本版模型与渲染；通过 model-preview 从原件派生轻量 GLB，按唯一 ID 实现所需摆放/重置/保存、展开快照恢复及可选天空盒，实际打开最终 HTML 检查资源和交互。"
+    outputs:
+      - id: derivatives
+        label: "最终网页引用的派生 GLB/纹理与预算记录 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - lod
+      - id: web
+        label: "自包含资源目录的 HTML/JS 与布局 JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: browser
+        label: "真实浏览器与同版下载检查记录 JSON/Markdown"
+        kind: file
+        retain: keep
+        semantics:
+          - validation
+    optional: true
+  - id: delivery
+    parent: miniature_scene
+    role: local
+    label: "同版交付与阶段摘要"
+    function: "等待全部请求分支完成；核对角色数量、模型/图/制造件/网页及 ZIP 当前有效版本，保留源与推定边界。汇总真实阶段和总墙钟；缺项时只交付部分状态。"
+    outputs:
+      - id: package
+        label: "场景与可选打印/网页 ZIP"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: records
+        label: "来源/检查摘要及阶段 JSONL/JSON"
+        kind: file
+        retain: keep
+        semantics:
+          - provenance
+  - id: publish
+    parent: miniature_scene
+    role: local
+    label: "可选公开发布"
+    function: "仅用户明确请求公开分享且现有授权涵盖发布时，接收已验收最终网页和资产，通过宿主提供的发布能力处理并检查实际 URL；无请求则跳过，不强制特定游戏部署流程。"
+    optional: true
+    irreversible:
+      - publish
+    outputs:
+      - id: page
+        label: "实际可访问的成果网页 URL"
+        kind: url
+        retain: keep
+        semantics:
+          - deliverable

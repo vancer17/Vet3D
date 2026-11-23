@@ -1,0 +1,4 @@
+interface:
+  display_name: "角色绑骨与动作适配"
+  short_description: "为人形角色绑定或修复骨骼蒙皮，按目标动画适配并交付可编辑工程"
+  default_prompt: "使用 $rig-retarget 为这个角色建立或调整骨骼绑定，适配指定动画，并保留模型与贴图。"

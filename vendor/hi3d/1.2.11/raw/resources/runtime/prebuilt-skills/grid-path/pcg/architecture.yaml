@@ -1,0 +1,43 @@
+schema: pcg.architecture.v1
+entry: grid-path
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: "网格寻路"
+    function: "按已确认目标编排网格寻路，已有结果可跳过集成，只复核相应行为。"
+    outputs: []
+  - id: contract
+    parent: root
+    role: local
+    label: "核对输入与不变量"
+    function: "读取目标工程与契约，确定 findPath(grid,start,goal,{maxVisited}) → {status,path,visited}；0 可通行，1 阻挡；坐标 [x,y]；确认范围，复用现有有效状态，不新增文件。"
+    outputs: []
+  - id: integrate
+    parent: contract
+    role: local
+    label: "接入规则模块"
+    function: "从实际碰撞代理生成二进制网格，显式换算世界单位和格子坐标。角色半径先膨胀障碍；几何或可走区域改变时重建网格并失效旧路径。"
+    outputs:
+      - id: implementation
+        label: "本次工程模块改动（JS/TS）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: contract
+  - id: verify
+    parent: integrate
+    role: local
+    label: "验证规则与工程行为"
+    function: "检查 最短路径、封死起点、预算耗尽、坐标越界；失败回到集成阶段，报告实际验证环境和剩余服务前提。"
+    outputs:
+      - id: validation
+        label: "实际验证与限制说明（JSON/Markdown）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    rollback_to: integrate

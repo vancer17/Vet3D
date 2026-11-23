@@ -1,0 +1,435 @@
+{
+  "units": "mm",
+  "pair_intersection_tolerance_mm3": 0.02,
+  "parts": 12,
+  "interferences": [],
+  "pair_tests": 23,
+  "panel_tests": [
+    {
+      "thickness": 1.5,
+      "slide_offset_y": 0,
+      "collisions": []
+    },
+    {
+      "thickness": 1.5,
+      "slide_offset_y": 21.75,
+      "collisions": []
+    },
+    {
+      "thickness": 1.5,
+      "slide_offset_y": 43.5,
+      "collisions": []
+    },
+    {
+      "thickness": 1.5,
+      "slide_offset_y": 87.0,
+      "collisions": []
+    },
+    {
+      "thickness": 1.5,
+      "slide_offset_y": 102.0,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "slide_offset_y": 0,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "slide_offset_y": 21.75,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "slide_offset_y": 43.5,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "slide_offset_y": 87.0,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "slide_offset_y": 102.0,
+      "collisions": []
+    }
+  ],
+  "led_tests": [
+    [
+      "LED_1_NOT_FOR_PRINT",
+      "11_BACK_LED_TRAY",
+      0.0
+    ],
+    [
+      "LED_2_NOT_FOR_PRINT",
+      "11_BACK_LED_TRAY",
+      0.0
+    ],
+    [
+      "LED_3_NOT_FOR_PRINT",
+      "11_BACK_LED_TRAY",
+      0.0
+    ]
+  ],
+  "stand_tests": [
+    {
+      "open_angle_deg": 0,
+      "collisions": []
+    },
+    {
+      "open_angle_deg": 25,
+      "collisions": [],
+      "frame_lean_from_vertical_deg": 8.02
+    },
+    {
+      "open_angle_deg": 35,
+      "collisions": [],
+      "frame_lean_from_vertical_deg": 12.79
+    },
+    {
+      "open_angle_deg": 45,
+      "collisions": [],
+      "frame_lean_from_vertical_deg": 17.65
+    },
+    {
+      "open_angle_deg": 55,
+      "collisions": [],
+      "frame_lean_from_vertical_deg": 22.56
+    }
+  ],
+  "clamp_endpoint_tests": [
+    {
+      "thickness": 1.5,
+      "collisions": []
+    },
+    {
+      "thickness": 3.0,
+      "collisions": []
+    }
+  ],
+  "alternate_stand_tests": [
+    {
+      "open_angle_deg": 0,
+      "collisions": []
+    },
+    {
+      "open_angle_deg": 25,
+      "collisions": []
+    },
+    {
+      "open_angle_deg": 35,
+      "collisions": []
+    },
+    {
+      "open_angle_deg": 45,
+      "collisions": []
+    },
+    {
+      "open_angle_deg": 55,
+      "collisions": []
+    }
+  ],
+  "revision_checks": {
+    "integral_back_tray": {
+      "components": 1,
+      "manifold": true,
+      "fixed_hinge_groups": 4,
+      "nominal_fusion_overlap_mm": 0.8,
+      "separate_fixed_hinge_objects": 0,
+      "pass": true
+    },
+    "M4_fastener_clearance": {
+      "checks": [
+        {
+          "mount": 0,
+          "head_D8_L4_overlap_mm3": 0.0,
+          "nut_AF7_T3_2_overlap_mm3": 0.0
+        },
+        {
+          "mount": 1,
+          "head_D8_L4_overlap_mm3": 0.0,
+          "nut_AF7_T3_2_overlap_mm3": 0.0
+        },
+        {
+          "mount": 2,
+          "head_D8_L4_overlap_mm3": 0.0,
+          "nut_AF7_T3_2_overlap_mm3": 0.0
+        },
+        {
+          "mount": 3,
+          "head_D8_L4_overlap_mm3": 0.0,
+          "nut_AF7_T3_2_overlap_mm3": 0.0
+        }
+      ],
+      "pass": true
+    },
+    "four_M3_back_fixings": {
+      "checks": [
+        {
+          "xy_mm": [
+            66.5,
+            -14
+          ],
+          "owner": "02_RAIL_RIGHT",
+          "shaft_overlap_mm3": 0.0,
+          "head_overlap_mm3": 0.0,
+          "nut_overlap_mm3": 0.0,
+          "nut_loading_path": [
+            {
+              "inward_offset_mm": 8,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 6,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 4,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 2,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 0,
+              "overlap_mm3": 0.0
+            }
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 6.857624,
+          "tray_lift_0_5_head_contact_mm3": 7.318604,
+          "nominal_nut_engagement_mm": 2.4,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -66.5,
+            -14
+          ],
+          "owner": "04_RAIL_LEFT",
+          "shaft_overlap_mm3": 0.0,
+          "head_overlap_mm3": 0.0,
+          "nut_overlap_mm3": 0.0,
+          "nut_loading_path": [
+            {
+              "inward_offset_mm": 8,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 6,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 4,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 2,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 0,
+              "overlap_mm3": 0.0
+            }
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 6.857624,
+          "tray_lift_0_5_head_contact_mm3": 7.318604,
+          "nominal_nut_engagement_mm": 2.4,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -8,
+            41.5
+          ],
+          "owner": "03_RAIL_TOP",
+          "shaft_overlap_mm3": 0.0,
+          "head_overlap_mm3": 0.0,
+          "nut_overlap_mm3": 0.0,
+          "nut_loading_path": [
+            {
+              "inward_offset_mm": 8,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 6,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 4,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 2,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 0,
+              "overlap_mm3": 0.0
+            }
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 6.85762,
+          "tray_lift_0_5_head_contact_mm3": 7.318604,
+          "nominal_nut_engagement_mm": 2.4,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -8,
+            -41.5
+          ],
+          "owner": "01_RAIL_BOTTOM",
+          "shaft_overlap_mm3": 0.0,
+          "head_overlap_mm3": 0.0,
+          "nut_overlap_mm3": 0.0,
+          "nut_loading_path": [
+            {
+              "inward_offset_mm": 8,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 6,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 4,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 2,
+              "overlap_mm3": 0.0
+            },
+            {
+              "inward_offset_mm": 0,
+              "overlap_mm3": 0.0
+            }
+          ],
+          "nut_axial_lift_0_5_contact_mm3": 6.85762,
+          "tray_lift_0_5_head_contact_mm3": 7.318604,
+          "nominal_nut_engagement_mm": 2.4,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "scope": "geometric envelopes and capture; not a physical load or thread test"
+    },
+    "pressure_nut_loading": {
+      "checks": [
+        {
+          "xy_mm": [
+            -71.5,
+            -18.0
+          ],
+          "path_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            -71.5,
+            18.0
+          ],
+          "path_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            71.5,
+            -18.0
+          ],
+          "path_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            71.5,
+            18.0
+          ],
+          "path_overlap_mm3": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "latches_removed_and_tray_restored": {
+      "checks": [
+        {
+          "xy_mm": [
+            -66.5,
+            0
+          ],
+          "tray_land_mm3": 3.0,
+          "frame_post_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "xy_mm": [
+            66.5,
+            0
+          ],
+          "tray_land_mm3": 3.0,
+          "frame_post_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "back_tray_removal": {
+      "screws_removed": 4,
+      "lift_checks": [
+        {
+          "tray_lift_z_mm": 0,
+          "collisions": []
+        },
+        {
+          "tray_lift_z_mm": 0.5,
+          "collisions": []
+        },
+        {
+          "tray_lift_z_mm": 2,
+          "collisions": []
+        },
+        {
+          "tray_lift_z_mm": 5,
+          "collisions": []
+        },
+        {
+          "tray_lift_z_mm": 10,
+          "collisions": []
+        }
+      ],
+      "pass": true
+    }
+  },
+  "pass": true,
+  "_evidence_status": {
+    "origin": "user_supplied_archive",
+    "validation": "historical_report_not_rerun_in_this_draft",
+    "not_current_task_result": true
+  }
+}

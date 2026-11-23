@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "files": {
+    "references/geometry.md": "skills/ball-joint/references/geometry.md",
+    "references/runtime.md": "skills/ball-joint/references/runtime.md",
+    "references/validation.md": "skills/ball-joint/references/validation.md",
+    "requirements.txt": "skills/ball-joint/requirements.txt",
+    "scripts/coupon.py": "skills/ball-joint/scripts/coupon.py",
+    "scripts/joints.py": "skills/ball-joint/scripts/joints.py",
+    "scripts/mesh_io.py": "skills/print-export/scripts/mesh_io.py",
+    "tests/test_geometry.py": "skills/ball-joint/tests/test_geometry.py"
+  },
+  "requires": []
+}

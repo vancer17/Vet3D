@@ -1,0 +1,4 @@
+interface:
+  display_name: Roblox 游戏制作与发布
+  short_description: 制作可编辑 Roblox 工程，按预算验收并在授权范围发布。
+  default_prompt: 使用 $create-roblox-game 处理本次 Roblox 需求，复用已有工程、事实与授权，交付真实结果和未验证项。

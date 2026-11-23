@@ -1,0 +1,37 @@
+{
+  "schema": "roblox.publication-record.v1",
+  "status": "prepared",
+  "source_place": null,
+  "owner": null,
+  "universe_id": null,
+  "place_id": null,
+  "start_place_id": null,
+  "version_number": null,
+  "game_url": null,
+  "audience": "unknown",
+  "authorization_evidence": null,
+  "upload_state": "not_performed",
+  "blocked_reason": null,
+  "procedures": [
+    {"action": "existing_account_login", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "account_registration", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "ownership_permission_check", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "maturity_compliance_questionnaire", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "identity_or_age_verification", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "payment_or_subscription", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "api_key_configuration", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "place_version_upload", "status": "not_performed", "actor": null, "evidence": null},
+    {"action": "audience_public", "status": "not_performed", "actor": null, "evidence": null}
+  ],
+  "checks": {
+    "studio_single": "not_tested",
+    "studio_multi": "not_tested",
+    "public_join": "not_tested",
+    "same_server_two_accounts": "not_tested",
+    "shared_state": "not_tested",
+    "chat_if_required": "not_tested",
+    "target_device_performance": "not_tested"
+  },
+  "limitations": [],
+  "recovery": null
+}

@@ -1,0 +1,163 @@
+schema: pcg.architecture.v1
+entry: twisty-fidget
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: twisty_fidget
+    parent: null
+    role: agent
+    label: "参考机构"
+    function: "编排 twisty-fidget"
+  - id: research
+    parent: twisty_fidget
+    label: "参考机构"
+    function: "本 agent 参考机构"
+    outputs:
+      - id: research
+        label: "参考机构"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "参考机构"
+  - id: prep
+    parent: twisty_fidget
+    label: "目标准备"
+    function: "本 agent 目标准备"
+    outputs:
+      - id: prep
+        label: "目标准备"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "目标准备"
+  - id: profile
+    parent: twisty_fidget
+    label: "截面适配"
+    function: "本 agent 截面适配"
+    outputs:
+      - id: profile
+        label: "截面适配"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "截面适配"
+  - id: petals
+    parent: twisty_fidget
+    label: "分瓣与长伸展"
+    function: "本 agent 分瓣与长伸展"
+    outputs:
+      - id: petals
+        label: "分瓣与长伸展"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "分瓣与长伸展"
+  - id: stops
+    parent: twisty_fidget
+    label: "双向实体止挡"
+    function: "本 agent 双向实体止挡"
+    outputs:
+      - id: stops
+        label: "双向实体止挡"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "双向实体止挡"
+  - id: check
+    parent: twisty_fidget
+    label: "运动检查"
+    function: "本 agent 运动检查"
+    outputs:
+      - id: check
+        label: "运动检查"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "运动检查"
+  - id: capture
+    parent: twisty_fidget
+    label: "捕获余量、材料与配合实测"
+    function: "本 agent 捕获余量、材料与配合实测"
+    outputs:
+      - id: capture
+        label: "捕获余量、材料与配合实测"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "捕获余量、材料与配合实测"
+  - id: deliver
+    parent: twisty_fidget
+    label: "通过验收后交付"
+    function: "本 agent 通过验收后交付"
+    outputs:
+      - id: deliver
+        label: "通过验收后交付"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "通过验收后交付"
+  - id: preview
+    parent: twisty_fidget
+    label: "动画与实际审查"
+    function: "本 agent 动画与实际审查"
+    outputs:
+      - id: preview
+        label: "动画与实际审查"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "动画与实际审查"
+    irreversible:
+      - blender.write
+  - id: accept
+    parent: twisty_fidget
+    label: "整件连接与证据强制验收"
+    function: "本 agent 整件连接与证据强制验收"
+    outputs:
+      - id: accept
+        label: "整件连接与证据强制验收"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "整件连接与证据强制验收"

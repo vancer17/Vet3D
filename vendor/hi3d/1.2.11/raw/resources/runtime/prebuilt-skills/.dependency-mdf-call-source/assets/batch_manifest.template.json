@@ -1,0 +1,15 @@
+{
+  "cases": [
+    {
+      "case_id": "example-case-001",
+      "input_digest": "sha256:example-input-digest",
+      "output_directory": "example-case-001",
+      "run_spec": "example-case-001/run_spec.json",
+      "status": "pending"
+    }
+  ],
+  "concurrency": 1,
+  "fail_fast": true,
+  "run_id": "example-batch-001",
+  "schema_version": 1
+}

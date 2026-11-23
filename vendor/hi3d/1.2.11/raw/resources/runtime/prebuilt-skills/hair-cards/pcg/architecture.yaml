@@ -1,0 +1,103 @@
+schema: pcg.architecture.v1
+entry: hair-cards
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: hair_cards
+    parent: null
+    role: agent
+    label: "发型参考"
+    function: "编排 hair-cards"
+  - id: ref
+    parent: hair_cards
+    label: "发型参考"
+    function: "派出 hi3d-api"
+    outputs:
+      - id: ref
+        label: "发型参考"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+  - id: volume
+    parent: hair_cards
+    label: "生成或检查实际 3D 体积参考"
+    function: "本 agent 生成或检查实际 3D 体积参考；条件 3D 生成前走参数选择与计费示警"
+    outputs:
+      - id: volume
+        label: "生成或检查实际 3D 体积参考"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "生成或检查实际 3D 体积参考"
+  - id: guides
+    parent: hair_cards
+    label: "分缝与试束"
+    function: "本 agent 分缝与试束"
+    outputs:
+      - id: guides
+        label: "分缝与试束"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "分缝与试束"
+  - id: cards
+    parent: hair_cards
+    label: "平滑发片"
+    function: "本 agent 平滑发片"
+    outputs:
+      - id: cards
+        label: "平滑发片"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "平滑发片"
+  - id: material
+    parent: hair_cards
+    label: "保形材质与细丝质感"
+    function: "本 agent 保形材质与细丝质感"
+    outputs:
+      - id: material
+        label: "保形材质与细丝质感"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "保形材质与细丝质感"
+  - id: review
+    parent: hair_cards
+    label: "最终文件回读与多视角对照"
+    function: "本 agent 最终文件回读与多视角对照"
+    outputs:
+      - id: review
+        label: "最终文件回读与多视角对照"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "最终文件回读与多视角对照"

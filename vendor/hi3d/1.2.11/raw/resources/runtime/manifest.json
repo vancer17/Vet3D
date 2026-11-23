@@ -1,0 +1,12 @@
+{
+  "runtimeVersion": "1.2.11",
+  "platform": "win32",
+  "arch": "x64",
+  "codexPackage": "@openai/codex-win32-x64",
+  "codexTriple": "x86_64-pc-windows-msvc",
+  "includesPython": true,
+  "prebuiltSkills": {
+    "entries": 147,
+    "files": 3168
+  }
+}

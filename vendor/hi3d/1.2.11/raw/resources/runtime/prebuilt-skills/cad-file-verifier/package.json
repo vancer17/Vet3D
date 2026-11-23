@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py"
+  },
+  "requires": []
+}

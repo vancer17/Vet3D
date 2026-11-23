@@ -1,0 +1,68 @@
+schema: pcg.architecture.v1
+entry: cad-file-verifier
+kind: agent_skill
+layout: linear
+tasks:
+  - id: root
+    parent: null
+    role: agent
+    label: CAD 工程校对
+    function: 验证指定环境中的 CAD 文件能否打开并继续编辑，校对声明必须保留的图层、对象、参数、装配和引用，交付差异报告与可追加实测记录。
+    outputs: []
+  - id: scope
+    parent: root
+    role: local
+    label: 界定检查范围
+    function: 读取任务的模式、目标软件、保留要求、预期变化和授权。识别适配器已实现与当前可执行的能力。不在此阶段打开原文件做写入，也没有新的工程文件。
+    outputs:
+      - id: scope_file
+        label: scope.json，记录模式、目标环境、适配器探针和输入指纹
+        kind: file
+        retain: keep
+        semantics:
+          - report
+  - id: prepare
+    parent: scope
+    role: local
+    label: 准备隔离副本
+    function: 把候选、基线和已存在的依赖复制为工作区内的普通文件。原路径、符号链接和工作区外依赖只读。复制后核对原始字节未变化。
+    rollback_to: scope
+    outputs:
+      - id: workspace_copy
+        label: workspace/ 下的隔离副本及 workspace.json 路径清单
+        kind: file
+        retain: keep
+        semantics:
+          - copy
+  - id: inspect
+    parent: prepare
+    role: local
+    label: 读取工程快照
+    function: 按文件内容识别 STEP、DXF 或 FCStd 并做静态快照。目标软件是 FreeCAD 且可执行文件已授权时，在墙钟预算内无头打开副本；roundtrip 再保存到隔离目录并重新打开。其他目标软件保持原生能力不可执行。ClassCAD 只作为上游会话记入范围，不启动该引擎，也不把它的内部检查当成目标原生证据。预算耗尽写 waiting.json，不把半截原生结果当成通过。
+    rollback_to: prepare
+    outputs:
+      - id: snapshots
+        label: candidate-snapshot.json 与可选的 source-snapshot.json，含读取状态而不是缺字段的空值
+        kind: file
+        retain: keep
+        semantics:
+          - evidence
+  - id: report
+    parent: inspect
+    role: local
+    label: 写出校对报告
+    function: 按稳定标识比较快照，区分预期变化、意外差异、未知和受阻。写出中文 report.md 与 result.json，并把 upstream_build 写入记录。ClassCAD 源端材料单独成节，不计入目标软件原生通过。兼容记录追加成功才标记已更新；写入失败仍保留本地报告。相同指纹的已完成结果直接复用，不重复检查。
+    rollback_to: inspect
+    outputs:
+      - id: report_file
+        label: report.md 中文差异报告
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: result_file
+        label: result.json 机读状态、证据索引和注册表是否更新
+        kind: file
+        retain: keep
+        semantics:
+          - report

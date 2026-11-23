@@ -1,0 +1,57 @@
+{
+  "audit_kind": "allowlisted_implementation_comparison",
+  "exported_cache_implementation_files": [],
+  "limits": [
+    "Only named implementation roots were enumerated.",
+    "Unknown files are listed by relative metadata and require review; not automatically exported.",
+    "Empty audited implementation roots do not prove every other runtime directory has no implementation.",
+    "Release-identical files are referenced through the fixed archive instead of duplicated."
+  ],
+  "not_read_or_exported": [
+    "auth/cookies/tokens",
+    "sessions/archived_sessions",
+    "raw logs",
+    "SQLite/WAL/SHM and runtime configuration",
+    "workspace assets and generated scripts",
+    "capture/drafts/operations/workflow graph state",
+    "installation and managed markers"
+  ],
+  "roots": [
+    {
+      "counts": {
+        "deployment_metadata_excluded_without_reading": 148,
+        "identical_to_release": 3168
+      },
+      "exists": true,
+      "matched_path_hash_list_sha256": "4b7196becc98355137752ff1b565e097645bf237d7c8242ba94fdaaef46ecebe",
+      "role": "deployed_builtin",
+      "source_root": "D:/download/.sparc3d-runtime/environments/prod/codex-home/skills/buildin",
+      "unreviewed": []
+    },
+    {
+      "counts": {},
+      "exists": true,
+      "matched_path_hash_list_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "role": "user_skills",
+      "source_root": "D:/download/.sparc3d-runtime/environments/prod/codex-home/skills/user",
+      "unreviewed": []
+    },
+    {
+      "counts": {},
+      "exists": true,
+      "matched_path_hash_list_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "role": "library_revisions",
+      "source_root": "D:/download/.sparc3d-runtime/environments/prod/skill-library/revisions",
+      "unreviewed": []
+    },
+    {
+      "counts": {},
+      "exists": true,
+      "matched_path_hash_list_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "role": "deployed_tools",
+      "source_root": "D:/download/.sparc3d-runtime/environments/prod/tools",
+      "unreviewed": []
+    }
+  ],
+  "schema_version": 1
+}

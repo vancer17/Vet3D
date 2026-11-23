@@ -1,0 +1,4 @@
+interface:
+  display_name: "打印文件导出"
+  short_description: "将已确认的网格写为毫米制 STL/3MF，并保持部件坐标和真实实体组织。"
+  default_prompt: "使用 $print-export 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

@@ -1,0 +1,103 @@
+schema: pcg.architecture.v1
+entry: create-roblox-game
+kind: agent_workflow
+layout: tree
+tasks:
+- id: root
+  parent: null
+  role: agent
+  label: Roblox 游戏制作与发布
+  function: 按当前输入编排实际阶段，复用已完成结果与授权；缺失外部平台能力时如实记录。
+  outputs: []
+- id: scope
+  parent: root
+  role: local
+  label: 范围与能力预检
+  function: 先检索本机可启动的 Roblox Studio，安装包不算；没有则等用户在输入面板回复后再检索，回复内容不作为放行条件。再读取最新工程、需求和可用账号操作能力；采用可逆技术默认，必要事实与授权不猜测。
+  outputs: []
+- id: assets
+  parent: root
+  role: local
+  label: 工程与资产
+  function: 先建立最小可操作闭环，再接源资产、运行资产与碰撞代理；有合格工程则跳过生成，保留源文件及稳定映射。
+  outputs:
+  - id: place
+    label: 本次可编辑 Place（rbxlx/rbxl）
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: asset_sources
+    label: 按需源资产、运行资产及映射文件
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: scope
+- id: rules
+  parent: root
+  role: local
+  label: 规则与复制
+  function: 调用 roblox-api 核对 Engine 运行侧，制作服务端规则和客户端输入/UI，生命周期与复制只覆盖本次需求。
+  outputs:
+  - id: luau
+    label: 本次服务端/客户端/模块 Luau 与更新后的 Place
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: assets
+- id: validation
+  parent: root
+  role: local
+  label: 分层验收
+  function: 依次静态/纯规则/Studio 多客户端/目标设备验证；有真实采样才条件调用 game-profile，记录未测项。
+  outputs:
+  - id: validation_report
+    label: hi3d-validation.md 分层结果与性能实测
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: performance_budget
+    label: hi3d-performance-budget.json 本次可调整预算
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: rules
+- id: publish
+  parent: root
+  role: local
+  label: 发布与公网验证
+  function: 仅在已有发布授权下调用 pub-roblox-game，交接最终工程和验收；只要工程则跳过，不强制远程或付费服务。
+  outputs:
+  - id: publication_record
+    label: 按需 hi3d-publication-record.json 与真实链接/版本
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: validation
+  optional: true
+  irreversible:
+  - publish
+- id: delivery
+  parent: root
+  role: local
+  label: 交付与缺口
+  function: 汇总同版工程、Luau、源资产、映射、实际验收与发布状态；执行者按统一契约记录阶段时间，不伪称自动计时。
+  outputs:
+  - id: delivery_manifest
+    label: hi3d-delivery.md 文件、验证及缺口
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  - id: stage_records
+    label: hi3d-stages.jsonl 实际阶段起止、状态与耗时
+    kind: file
+    retain: keep
+    semantics:
+    - deliverable
+  rollback_to: publish

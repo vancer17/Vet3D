@@ -1,0 +1,139 @@
+schema: pcg.architecture.v1
+entry: app-prototype
+kind: agent_workflow
+layout: tree
+note: "编排业务 App 原型；game-save/game-browser-check/asset-page/delivery-review 为独立入口。"
+tasks:
+  - id: app_prototype
+    parent: null
+    role: agent
+    label: "业务 App 原型编排"
+    function: "按 brief 收集业务对象与字段，生成列表/详情/编辑页并本地保存；已有合格 HTML 可从 run 续接验收。"
+    outputs: []
+  - id: business
+    parent: app_prototype
+    role: local
+    label: "谁、场景、对象与主操作"
+    function: "确认 actor、scene、entity、primaryAction。可选用 examples.json 的预约/库存/作品预设。缺项停在对应字段，不创建网页。"
+    outputs: []
+  - id: data
+    parent: app_prototype
+    role: local
+    label: "字段、必填与状态"
+    function: "收集 fields、必填、statusField。examplePreset 记录必须 example true；用户数据禁止把编造项标成真实业务。输出 brief。"
+    outputs:
+      - id: brief
+        label: "任务 brief JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: prefer
+    parent: app_prototype
+    role: local
+    label: "列表版式"
+    function: "展示 table/cards/adaptive；默认 adaptive 便于双端演示，用户未确认前不是已核实事实。写入 brief.layout。"
+    outputs: []
+  - id: flow
+    parent: app_prototype
+    role: local
+    label: "页面关系预览"
+    function: "plan_app 写出 plan.json，展示列表→详情→编辑及示例操作。提供继续制作/调整字段/调整流程；内部检查不是强制审批。无新增网页文件。"
+    outputs:
+      - id: plan
+        label: "应用 plan JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: run
+    parent: app_prototype
+    role: local
+    label: "生成并实际操作"
+    function: "等待 flow 的 plan。build_app 写入新目录三页 HTML 与模块。records 经 game-save 持久化。用户完成新增、查看、编辑、筛选；校验错误写在字段旁。刷新后 loadState 恢复。"
+    members:
+      - id: write_pages
+        label: "写出三页与模块"
+      - id: persist
+        label: "本地存档读写"
+    outputs:
+      - id: app
+        label: "原型网页目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: game_save
+    parent: run
+    role: subagent
+    entry: game-save
+    label: "本地 JSON 存档"
+    function: "独立 game-save 提供 encode/decode/writeSave；导入先 decode，失败不覆盖。"
+    outputs: []
+  - id: http_check
+    parent: run
+    role: local
+    label: "loopback 资源检查"
+    function: "check_http 对三页与 JS 模块 GET；失败指出缺失文件。不能代替点击操作。"
+    outputs:
+      - id: http
+        label: "HTTP 加载报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [review]
+  - id: browser_check
+    parent: run
+    role: subagent
+    entry: game-browser-check
+    optional: true
+    label: "浏览器操作验收"
+    function: "独立 game-browser-check 走新增/编辑/筛选步骤；无 Playwright 时跳过并记录未测。"
+    outputs:
+      - id: browser
+        label: "浏览器检查结果"
+        kind: file
+        retain: cache
+        semantics: [review]
+  - id: revise
+    parent: app_prototype
+    role: local
+    label: "按需修改"
+    function: "收集页面、字段或规则修改。迁移数据先导出备份；清空真实记录需授权。无改动时 outputs 为空并复用 run 目录。"
+    outputs: []
+  - id: deliver
+    parent: app_prototype
+    role: local
+    label: "下载与成果页"
+    function: "只打包真实存在的 HTML/JS/CSS/plan。asset-page 生成本地页；delivery-review 打开下载。发布另授权。登录支付同步保持未实现说明。"
+    outputs:
+      - id: page
+        label: "成果页 HTML"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: pack
+        label: "源码与说明目录"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: asset_page
+    parent: deliver
+    role: subagent
+    entry: asset-page
+    label: "本地成果页"
+    function: "独立 asset-page 接收本轮网页与 plan JSON，写出 index.html；不发布。"
+    outputs:
+      - id: index
+        label: "index.html"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+  - id: delivery_review
+    parent: deliver
+    role: subagent
+    entry: delivery-review
+    label: "打开与下载核对"
+    function: "独立 delivery-review 核对同版文件可打开下载；网页交互按实际检查记录。"
+    outputs:
+      - id: list
+        label: "交付清单"
+        kind: file
+        retain: keep
+        semantics: [review]

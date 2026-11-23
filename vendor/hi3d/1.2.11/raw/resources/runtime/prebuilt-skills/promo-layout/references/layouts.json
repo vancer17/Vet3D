@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "note": "推荐像素规格，不是用户事实默认值；实际宽高以本次确认的 brief 为准。",
+  "formats": {
+    "square": {"width": 1080, "height": 1080, "label": "方图"},
+    "banner": {"width": 1920, "height": 1080, "label": "横幅"},
+    "portrait": {"width": 1080, "height": 1920, "label": "竖版海报"}
+  },
+  "regions": {
+    "square": {
+      "image": {"x": 80, "y": 80, "width": 920, "height": 520},
+      "title": {"x": 80, "y": 640, "width": 920, "height": 160, "fontSize": 64},
+      "body": {"x": 80, "y": 820, "width": 920, "height": 180, "fontSize": 32}
+    },
+    "banner": {
+      "image": {"x": 80, "y": 80, "width": 720, "height": 920},
+      "title": {"x": 860, "y": 200, "width": 980, "height": 200, "fontSize": 64},
+      "body": {"x": 860, "y": 440, "width": 980, "height": 480, "fontSize": 32}
+    },
+    "portrait": {
+      "image": {"x": 80, "y": 80, "width": 920, "height": 1100},
+      "title": {"x": 80, "y": 1240, "width": 920, "height": 220, "fontSize": 64},
+      "body": {"x": 80, "y": 1480, "width": 920, "height": 340, "fontSize": 32}
+    }
+  }
+}

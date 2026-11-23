@@ -1,0 +1,4 @@
+interface:
+  display_name: "服务能力选择"
+  short_description: "根据已有输入和目标效果选择 Hi3D/MDF 原子服务，输出精确的服务契约、参数与产物交接方案。"
+  default_prompt: "使用 $service-select 为当前输入和目标选择服务契约及参数，交接给明确的调用工具。"

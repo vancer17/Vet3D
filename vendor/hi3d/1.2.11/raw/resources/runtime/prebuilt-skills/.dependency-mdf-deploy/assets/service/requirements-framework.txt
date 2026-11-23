@@ -1,0 +1,12 @@
+# Compatibility profile for the MDF3 3.2.1 source API, not a universal latest lock.
+# Algorithm dependencies belong in the selected runtime image/base layer.
+PyYAML==6.0.2
+requests==2.32.3
+psutil==7.0.0
+fastapi==0.115.12
+pydantic==2.11.10
+uvicorn==0.34.2
+nacos-sdk-python==2.0.9
+kafka-python==2.0.2
+tos==2.8.7
+crcmod==1.7

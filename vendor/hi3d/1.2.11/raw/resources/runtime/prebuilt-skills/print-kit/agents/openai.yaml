@@ -1,0 +1,4 @@
+interface:
+  display_name: "拆件打印物体建模"
+  short_description: "免胶拆件建模，交付外购配件与全打印两版，各含GLB、STL包和下载展示页"
+  default_prompt: "使用 $print-kit，根据参考设计免胶装配模型，完成外购配件版与全 3D 打印版，每版交付装配 GLB、STL 打印包和可下载两者的展示页，保留源码、试配片与验证。"

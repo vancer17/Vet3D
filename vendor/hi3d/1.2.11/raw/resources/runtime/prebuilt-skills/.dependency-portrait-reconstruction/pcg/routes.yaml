@@ -1,0 +1,172 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: 五阶段编排，main/texture_only 的 postprocess 必须询问并取得明确答复；后处理默认关闭不等于确认跳过。四个 option 进入子路线并在 freeze 返回原路线与终点；局部任务路线继续保留。纹理默认绑定已验收的生成 front。路线是宿主执行说明，不是自动脚本；收费提交只用已有授权，不重复任务。
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: photo
+  say: 输入与条件
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/execution.md
+  irreversible: []
+- id: reference
+  say: 四视图姿态选择、雕刻发流评审与人工放行
+  rollback_to: photo
+  load:
+  - SKILL.md
+  - references/execution.md
+  - references/prompts.md
+  - references/image-review.md
+  - references/image-review-policy.json
+  irreversible: []
+- id: geometry
+  say: 服务视角契约检查与几何生成
+  rollback_to: reference
+  load:
+  - SKILL.md
+  - references/execution.md
+  irreversible:
+  - hi3d.submit
+  confirm_required: true
+- id: postprocess
+  say: 询问几何后处理（默认不使用，须答复）
+  rollback_to: reference
+  load: [SKILL.md, references/execution.md]
+  irreversible: []
+- id: analysis
+  say: 面部语义与关键点
+  rollback_to: postprocess
+  load:
+  - SKILL.md
+  - references/execution.md
+  irreversible:
+  - mdf.invoke
+  confirm_required: true
+- id: register
+  say: 可见面部注册
+  rollback_to: analysis
+  load:
+  - SKILL.md
+  - references/execution.md
+  - references/geometry-comparison.md
+  irreversible: []
+- id: nose
+  say: 鼻部移植（可选）
+  rollback_to: register
+  load:
+  - SKILL.md
+  - references/execution.md
+  - references/geometry-comparison.md
+  irreversible: []
+- id: denoise
+  say: 几何去噪（可选）
+  rollback_to: postprocess
+  load:
+  - SKILL.md
+  - references/execution.md
+  - references/geometry-comparison.md
+  irreversible: []
+- id: freeze
+  say: 验收并确定最终几何
+  rollback_to: postprocess
+  load: [SKILL.md, references/execution.md, references/geometry-comparison.md]
+  irreversible: []
+- id: texture
+  say: 以已验收的生成 front 制作纹理
+  rollback_to: freeze
+  load:
+  - SKILL.md
+  - references/execution.md
+  irreversible:
+  - hi3d.submit
+  confirm_required: true
+- id: split
+  say: 必交付分割 HTML，等待用户操作
+  rollback_to: freeze
+  load: [SKILL.md, references/execution.md]
+  irreversible: []
+- id: review
+  say: 同步展示与交付
+  rollback_to: freeze
+  load:
+  - SKILL.md
+  - references/execution.md
+  - references/geometry-comparison.md
+  irreversible: []
+routes:
+- id: reference_only
+  summary: 转正或当前视角四视图，单图也可独立调用；均检查姿态与头发，不建模
+  nodes:
+  - photo
+  - reference
+- id: main
+  summary: 五阶段头雕流程，后处理先询问确认，纹理默认使用已生成的 front
+  nodes:
+  - photo
+  - reference
+  - geometry
+  - postprocess
+  - freeze
+  - texture
+  - split
+  - review
+- id: repair_only
+  summary: 已有带纹理高模，仅修复
+  nodes:
+  - photo
+  - postprocess
+  - analysis
+  - register
+  - nose
+  - freeze
+  - review
+- id: donor_ready
+  summary: 已有同源 donor，仅修复
+  nodes:
+  - photo
+  - postprocess
+  - nose
+  - freeze
+  - review
+- id: denoise_only
+  summary: 已有高模，仅执行已选择的几何去噪，不修鼻
+  nodes: [photo, postprocess, analysis, denoise, freeze, review]
+- id: selected_postprocess
+  summary: 同时选择修鼻和去噪的子路线，复用合格前置，全部验收后回到主路线
+  nodes: [postprocess, analysis, register, nose, denoise, freeze]
+- id: skip_postprocess
+  summary: 用户明确确认不使用后处理，保留原高模，汇合后返回父路线
+  nodes: [postprocess, freeze]
+- id: nose_postprocess
+  summary: 用户明确选择仅修鼻，复用合格前置，验收后返回父路线
+  nodes: [postprocess, analysis, register, nose, freeze]
+- id: denoise_postprocess
+  summary: 用户明确选择仅几何去噪，不修鼻，验收后返回父路线
+  nodes: [postprocess, analysis, denoise, freeze]
+- id: texture_only
+  summary: 已有几何到整头纹理，不要求修复或拆分
+  nodes: [photo, postprocess, freeze, texture, review]
+- id: split_only
+  summary: 已有带纹理高模，续接标签并必交付交互 HTML，不代切割
+  nodes: [photo, split, review]
+choices_example:
+- id: choose_skip_postprocess
+  title: 不使用后处理（默认，须确认）
+  route: skip_postprocess
+  confirm: true
+- id: choose_nose_postprocess
+  title: 仅修鼻
+  route: nose_postprocess
+  confirm: true
+- id: choose_denoise_postprocess
+  title: 仅几何去噪
+  route: denoise_postprocess
+  confirm: true
+- id: choose_both_postprocess
+  title: 修鼻并几何去噪
+  route: selected_postprocess
+  confirm: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "雕塑展示底座"
+  short_description: "为雕塑和半身像制作静态承托底座与铭牌，保留高模纹理并验证展示交付"
+  default_prompt: "使用 $display-base 为这个雕塑制作匹配比例的静态底座和铭牌，保留主体并交付可编辑工程与真实预览。"

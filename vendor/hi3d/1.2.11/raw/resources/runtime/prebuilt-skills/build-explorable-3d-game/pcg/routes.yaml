@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "首个检查点先提问、盘点素材并确定玩法；已有认可或明确委托复用，未确定时不进入制作。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: brief
+    say: "提问、素材与探索玩法确认"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-game-brief.md
+      - references/asset-pipeline.md
+      - references/character-animation.md
+      - references/design-evidence.md
+    irreversible: []
+  - id: world
+    say: "场景与角色"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/hi3d-game-brief.md
+      - references/asset-pipeline.md
+      - references/character-animation.md
+      - references/design-evidence.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: play
+    say: "交互闭环"
+    rollback_to: world
+    load:
+      - SKILL.md
+      - references/hi3d-game-brief.md
+      - references/asset-pipeline.md
+      - references/character-animation.md
+      - references/design-evidence.md
+    irreversible: []
+  - id: review
+    say: "可玩验收"
+    rollback_to: play
+    load:
+      - SKILL.md
+      - references/hi3d-game-brief.md
+      - references/asset-pipeline.md
+      - references/character-animation.md
+      - references/design-evidence.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "主题到可玩世界"
+    nodes:
+      - brief
+      - world
+      - play
+      - review
+    rollback_to: world
+  - id: extend
+    summary: "已有游戏做扩展"
+    nodes:
+      - brief
+      - play
+      - review
+choices_example:
+  - id: new_world
+    title: "按已展示方案制作新世界"
+    route: main
+    confirm: true
+  - id: extend_map
+    title: "按已确定差异扩展地图"
+    route: extend
+    confirm: false
+  - id: back_world
+    title: "回退到上一检查点"
+    rollback_to: world
+    confirm: false
+  - id: revise_brief
+    title: "修改玩法或等待素材"
+    rollback_to: brief
+    confirm: false

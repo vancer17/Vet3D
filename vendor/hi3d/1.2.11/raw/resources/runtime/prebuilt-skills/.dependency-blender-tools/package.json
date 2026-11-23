@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/frame_runtime.py": "tools/run-tools/scripts/config_runtime.py",
+    "scripts/stage_cli.py": "tools/run-tools/scripts/stage_cli.py",
+    "scripts/cli_schemas.py": "tools/run-tools/scripts/cli_schemas.py"
+  },
+  "requires": []
+}

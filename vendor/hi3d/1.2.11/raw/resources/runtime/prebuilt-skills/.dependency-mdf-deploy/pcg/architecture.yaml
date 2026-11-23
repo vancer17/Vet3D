@@ -1,0 +1,75 @@
+schema: pcg.architecture.v1
+entry: mdf-deploy
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: mdf_deploy
+    parent: null
+    role: agent
+    label: "确认服务契约"
+    function: "编排 mdf-deploy"
+  - id: spec
+    parent: mdf_deploy
+    label: "确认服务契约"
+    function: "本 agent 确认服务契约"
+    outputs:
+      - id: spec
+        label: "确认服务契约"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "确认服务契约"
+  - id: build
+    parent: mdf_deploy
+    label: "构建镜像"
+    function: "本 agent 构建镜像"
+    outputs:
+      - id: build
+        label: "构建镜像"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "构建镜像"
+    irreversible:
+      - network.write
+  - id: serve
+    parent: mdf_deploy
+    label: "启动与回传"
+    function: "本 agent 启动与回传"
+    outputs:
+      - id: serve
+        label: "启动与回传"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "启动与回传"
+    irreversible:
+      - network.write
+  - id: review
+    parent: mdf_deploy
+    label: "队列验收"
+    function: "本 agent 队列验收"
+    outputs:
+      - id: review
+        label: "队列验收"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "队列验收"

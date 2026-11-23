@@ -1,0 +1,95 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "只登记业务检查点与回退分支，不实现生成器或要求逐步审批；回退保留原始输入与已认可版本。"
+checkpoints:
+  - id: spec
+    say: "主题尺寸与层序"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible: []
+  - id: geometry
+    say: "分层几何与连接"
+    rollback_to: spec
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible: []
+  - id: audit
+    say: "几何与细桥检查"
+    rollback_to: geometry
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible: []
+  - id: layout
+    say: "加工排版与试片"
+    rollback_to: geometry
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible: []
+  - id: export
+    say: "格式导出与回读"
+    rollback_to: layout
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: review
+    say: "同版预览与交付"
+    rollback_to: export
+    load:
+      - SKILL.md
+      - references/fabrication.md
+      - references/formats-and-delivery.md
+      - references/geometry-audit.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "参考图或主题→分层激光切割饰品"
+    nodes:
+      - spec
+      - geometry
+      - audit
+      - layout
+      - export
+      - review
+    rollback_to: geometry
+  - id: revise
+    summary: "更换主体或背景并重验受影响层"
+    nodes:
+      - spec
+      - geometry
+      - audit
+      - layout
+      - export
+      - review
+    shares_input_with: main
+    rollback_to: geometry
+choices_example:
+  - id: full_design
+    title: "制作完整饰品文件包"
+    route: main
+    confirm: false
+  - id: change_theme
+    title: "沿用结构调整主题"
+    route: revise
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

@@ -1,0 +1,77 @@
+schema: pcg.architecture.v1
+entry: sculpture-container
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: sculpture_container
+    parent: null
+    role: agent
+    label: "确认雕塑主体"
+    function: "编排 sculpture-container"
+  - id: art
+    parent: sculpture_container
+    label: "确认雕塑主体"
+    function: "派出 hi3d-api；条件生成前走参数选择与计费示警，未授权不得 submit"
+    outputs:
+      - id: art
+        label: "确认雕塑主体"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+  - id: cavity
+    parent: sculpture_container
+    label: "内腔底壁"
+    function: "本 agent 内腔底壁"
+    outputs:
+      - id: cavity
+        label: "内腔底壁"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "内腔底壁"
+    irreversible:
+      - overwrite.source
+  - id: lid
+    parent: sculpture_container
+    label: "可拆盖路径"
+    function: "本 agent 可拆盖路径"
+    outputs:
+      - id: lid
+        label: "可拆盖路径"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "可拆盖路径"
+  - id: preview
+    parent: sculpture_container
+    label: "开合预览"
+    function: "本 agent 开合预览"
+    outputs:
+      - id: preview
+        label: "开合预览"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "开合预览"
+    irreversible:
+      - blender.write

@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "files": {
+    "assets/taro/UPSTREAM_LICENSE.txt": "skills/head-template/assets/taro/UPSTREAM_LICENSE.txt",
+    "assets/taro/eyes_color_map.tga": "skills/head-template/assets/taro/eyes_color_map.tga",
+    "assets/taro/head_color_map.tga": "skills/head-template/assets/taro/head_color_map.tga",
+    "assets/taro/manifest.json": "skills/head-template/assets/taro/manifest.json",
+    "assets/taro/regions.json": "skills/head-template/assets/taro/regions.json",
+    "assets/taro/sapiens2_camera.json": "skills/head-template/assets/taro/sapiens2_camera.json",
+    "assets/taro/sapiens2_ear_mapping.json": "skills/head-template/assets/taro/sapiens2_ear_mapping.json",
+    "assets/taro/sapiens2_keypoint_names.json": "skills/head-template/assets/taro/sapiens2_keypoint_names.json",
+    "assets/taro/sapiens2_mapping.json": "skills/head-template/assets/taro/sapiens2_mapping.json",
+    "assets/taro/sapiens2_mapping_overlay.png": "skills/head-template/assets/taro/sapiens2_mapping_overlay.png",
+    "assets/taro/sapiens2_pose.npz": "skills/head-template/assets/taro/sapiens2_pose.npz",
+    "assets/taro/sapiens2_template_front.png": "skills/head-template/assets/taro/sapiens2_template_front.png",
+    "assets/taro/teeth_color_map.tga": "skills/head-template/assets/taro/teeth_color_map.tga",
+    "assets/taro/template.glb": "skills/head-template/assets/taro/template.glb",
+    "assets/taro/template.mtl": "skills/head-template/assets/taro/template.mtl",
+    "assets/taro/template.npz": "skills/head-template/assets/taro/template.npz",
+    "assets/taro/template.obj": "skills/head-template/assets/taro/template.obj",
+    "assets/taro/template_eyes.npz": "skills/head-template/assets/taro/template_eyes.npz",
+    "scripts/blender_io.py": "tools/blender-tools/scripts/head_io.py",
+    "scripts/brush.py": "skills/surface-fit/scripts/brush.py",
+    "scripts/camera_ray.py": "skills/landmark-project/scripts/camera_ray.py",
+    "scripts/checkpoints.py": "tools/run-tools/scripts/checkpoints.py",
+    "scripts/collision.py": "skills/mesh-audit/scripts/collision.py",
+    "scripts/contact_repair.py": "skills/surface-fit/scripts/contact_repair.py",
+    "scripts/content_journal.py": "tools/run-tools/scripts/profiles/content_journal.py",
+    "scripts/cycles_device.py": "tools/blender-tools/scripts/cycles_device.py",
+    "scripts/ear_fit.py": "skills/surface-fit/scripts/ear_fit.py",
+    "scripts/ear_guard.py": "skills/surface-fit/scripts/ear_guard.py",
+    "scripts/ear_projection.py": "skills/landmark-project/scripts/ear_projection.py",
+    "scripts/fit_metrics.py": "skills/surface-fit/scripts/fit_metrics.py",
+    "scripts/geometry_compare.py": "skills/mesh-audit/scripts/geometry_compare.py",
+    "scripts/glb_clips.py": "skills/glb-clips/scripts/glb_clips.py",
+    "scripts/head_preview.py": "skills/model-preview/scripts/head_preview.py",
+    "scripts/image_sheet.py": "skills/image-sheet/scripts/image_sheet.py",
+    "scripts/material_nodes.py": "tools/blender-tools/scripts/material_nodes.py",
+    "scripts/mesh_io.py": "skills/surface-fit/scripts/mesh_io.py",
+    "scripts/preview_scene.py": "skills/model-preview/scripts/preview_scene.py",
+    "scripts/process_run.py": "tools/run-tools/scripts/process_run.py",
+    "scripts/project_ear_landmarks.py": "skills/landmark-project/scripts/project_ear_landmarks.py",
+    "scripts/project_sapiens2_landmarks.py": "skills/landmark-project/scripts/project_sapiens2_landmarks.py",
+    "scripts/registered_geometry.py": "skills/surface-fit/scripts/registered_geometry.py",
+    "scripts/sapiens2_landmarks.py": "skills/landmark-project/scripts/sapiens2_landmarks.py",
+    "scripts/scene_io.py": "tools/blender-tools/scripts/scene_io.py",
+    "scripts/stage_events.py": "tools/run-tools/scripts/stage_events.py",
+    "scripts/surface.py": "skills/surface-fit/scripts/surface.py",
+    "scripts/texture_bake.py": "skills/texture-bake/scripts/texture_bake.py",
+    "scripts/triangle_arrays.py": "skills/mesh-audit/scripts/triangle_arrays.py",
+    "scripts/render_engine.py": "tools/blender-tools/scripts/render_engine.py"
+  },
+  "requires": [],
+  "profiles": {
+    "sparc3d": {
+      "files": {
+        "scripts/parts_generation.py": "workflows/metahuman-fit/scripts/runtime_parts_generation.py",
+        "scripts/texture_pipeline.py": "workflows/metahuman-fit/scripts/runtime_texture_pipeline.py"
+      }
+    }
+  }
+}

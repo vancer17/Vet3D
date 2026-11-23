@@ -1,0 +1,76 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "可拆件 FDM 套件：连接、双版本与网页，不发明假 op。"
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+  - id: brief
+    say: "确认物体目标"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/delivery.md
+      - references/design-for-assembly.md
+      - references/glue-free-joints.md
+    irreversible: []
+  - id: join
+    say: "免胶连接"
+    rollback_to: brief
+    load:
+      - SKILL.md
+      - references/delivery.md
+      - references/design-for-assembly.md
+      - references/glue-free-joints.md
+    irreversible: []
+  - id: kits
+    say: "双版本导出"
+    rollback_to: join
+    load:
+      - SKILL.md
+      - references/delivery.md
+      - references/design-for-assembly.md
+      - references/glue-free-joints.md
+    irreversible:
+      - overwrite.source
+    confirm_required: true
+  - id: web
+    say: "展示页"
+    rollback_to: kits
+    load:
+      - SKILL.md
+      - references/delivery.md
+      - references/design-for-assembly.md
+      - references/glue-free-joints.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "设计到打印包"
+    nodes:
+      - brief
+      - join
+      - kits
+      - web
+    rollback_to: join
+  - id: hardware
+    summary: "外购配件版优先"
+    nodes:
+      - brief
+      - kits
+      - web
+choices_example:
+  - id: both_kits
+    title: "做全打印与外购两版"
+    route: main
+    confirm: true
+  - id: buy_parts
+    title: "先做外购配件版"
+    route: hardware
+    confirm: true
+  - id: back_join
+    title: "回退到上一检查点"
+    rollback_to: join
+    confirm: false

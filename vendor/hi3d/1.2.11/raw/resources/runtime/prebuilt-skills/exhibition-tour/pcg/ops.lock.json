@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "exhibition-tour",
+  "kind": "agent_workflow",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["exhibits", "space", "prefer", "layout", "run", "revise", "deliver"]
+}

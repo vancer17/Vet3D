@@ -1,0 +1,65 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: source
+  say: 核对同源观测
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: prepare
+  say: 语义面部目标
+  rollback_to: source
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: project
+  say: 关键点反投影
+  rollback_to: prepare
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: fit
+  say: 可见面部拟合
+  rollback_to: project
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: review
+  say: 检查并导出 donor
+  rollback_to: fit
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+routes:
+- id: main
+  summary: 已有分析生成面部 donor
+  nodes:
+  - source
+  - prepare
+  - project
+  - fit
+  - review
+- id: review_only
+  summary: 检查已有拟合结果
+  nodes:
+  - source
+  - review
+choices_example:
+- id: fit
+  title: 运行局部注册
+  route: main
+  confirm: false
+- id: review
+  title: 检查并导出已有拟合
+  route: review_only
+  confirm: false

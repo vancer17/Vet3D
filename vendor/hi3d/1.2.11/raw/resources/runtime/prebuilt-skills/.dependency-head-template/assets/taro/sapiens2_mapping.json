@@ -1,0 +1,2255 @@
+{
+  "schema_version": 1,
+  "template_sha256": "181869031ca0a395ffa1fd848b53681515412fbe128288f615d9d6e15bffe4e3",
+  "template_vertices": 24049,
+  "upstream_commit": "7e5bae88456ac418ff0e58e74106c9fe192055d4",
+  "keypoint_count": 308,
+  "coordinate_semantics": "Sapiens2 original raster xy pixels; zero-based template vertex_index",
+  "camera": {
+    "template_sha256": "181869031ca0a395ffa1fd848b53681515412fbe128288f615d9d6e15bffe4e3",
+    "width": 1024,
+    "height": 1024,
+    "ortho_scale": 0.3100000023841858,
+    "camera_matrix_world": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.6292068494294654e-07,
+        -1.0,
+        -0.9200000166893005
+      ],
+      [
+        0.0,
+        1.0,
+        -1.6292068494294654e-07,
+        1.590000033378601
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "native_to_world": [
+      [
+        0.01,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -0.01
+      ],
+      [
+        0,
+        0.01,
+        0
+      ]
+    ]
+  },
+  "max_pixel_error": 6,
+  "records": [
+    {
+      "keypoint_id": 96,
+      "name": "l_inner_end_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9927541017532349,
+      "detected_xy": [
+        574.1676635742188,
+        428.72430419921875
+      ],
+      "vertex_index": 21835,
+      "vertex_native": [
+        1.8883163928985596,
+        161.53652954101562,
+        10.07651424407959
+      ],
+      "vertex_xy": [
+        574.3753539179575,
+        428.2131520614064
+      ],
+      "pixel_error": 0.551735250706756,
+      "hit_to_vertex_world": 0.00016835482335626265,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 97,
+      "name": "l_outer_end_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9822162389755249,
+      "detected_xy": [
+        668.820556640625,
+        420.76153564453125
+      ],
+      "vertex_index": 8769,
+      "vertex_native": [
+        4.758781433105469,
+        161.7601776123047,
+        9.295618057250977
+      ],
+      "vertex_xy": [
+        669.1932951620064,
+        420.82555551427254
+      ],
+      "pixel_error": 0.3781964423990245,
+      "hit_to_vertex_world": 0.00011555886539295637,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 98,
+      "name": "l_centerpoint_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9894717335700989,
+      "detected_xy": [
+        619.16796875,
+        401.738525390625
+      ],
+      "vertex_index": 22451,
+      "vertex_native": [
+        3.2477588653564453,
+        162.3489227294922,
+        10.496000289916992
+      ],
+      "vertex_xy": [
+        619.2808081466859,
+        401.37796855865855
+      ],
+      "pixel_error": 0.37780148030694577,
+      "hit_to_vertex_world": 0.00011521839676622481,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 99,
+      "name": "l_midpoint_2_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9894906282424927,
+      "detected_xy": [
+        647.133544921875,
+        406.98175048828125
+      ],
+      "vertex_index": 4054,
+      "vertex_native": [
+        4.082335948944092,
+        162.1909942626953,
+        10.273031234741211
+      ],
+      "vertex_xy": [
+        646.8487735344612,
+        406.59470358944367
+      ],
+      "pixel_error": 0.4805205978825141,
+      "hit_to_vertex_world": 0.0001973441839512115,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 100,
+      "name": "l_midpoint_1_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9921671748161316,
+      "detected_xy": [
+        592.218017578125,
+        411.2060852050781
+      ],
+      "vertex_index": 7790,
+      "vertex_native": [
+        2.395679473876953,
+        162.0681915283203,
+        10.242535591125488
+      ],
+      "vertex_xy": [
+        591.134702012349,
+        410.65115533526495
+      ],
+      "pixel_error": 1.2171769696570622,
+      "hit_to_vertex_world": 0.0003749432247382401,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 101,
+      "name": "l_midpoint_6_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9832420349121094,
+      "detected_xy": [
+        658.9556884765625,
+        413.2026062011719
+      ],
+      "vertex_index": 7603,
+      "vertex_native": [
+        4.4533796310424805,
+        161.9887237548828,
+        9.867165565490723
+      ],
+      "vertex_xy": [
+        659.1051841004803,
+        413.2761573351822
+      ],
+      "pixel_error": 0.16660945616853182,
+      "hit_to_vertex_world": 7.257460050771562e-05,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 102,
+      "name": "l_midpoint_5_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9914857149124146,
+      "detected_xy": [
+        633.685546875,
+        402.5512390136719
+      ],
+      "vertex_index": 8730,
+      "vertex_native": [
+        3.764801025390625,
+        162.3194580078125,
+        10.424689292907715
+      ],
+      "vertex_xy": [
+        636.3598780758159,
+        402.3512552252656
+      ],
+      "pixel_error": 2.6817980698186066,
+      "hit_to_vertex_world": 0.0008491454073384214,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 103,
+      "name": "l_midpoint_4_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9866783022880554,
+      "detected_xy": [
+        604.7101440429688,
+        404.89019775390625
+      ],
+      "vertex_index": 8728,
+      "vertex_native": [
+        2.7814979553222656,
+        162.2476806640625,
+        10.397802352905273
+      ],
+      "vertex_xy": [
+        603.8791575594936,
+        404.7222230936621
+      ],
+      "pixel_error": 0.8477936200529896,
+      "hit_to_vertex_world": 0.00026423026473439875,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 104,
+      "name": "l_midpoint_3_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9895879030227661,
+      "detected_xy": [
+        582.0419311523438,
+        419.5517272949219
+      ],
+      "vertex_index": 8725,
+      "vertex_native": [
+        2.1346497535705566,
+        161.79417419433594,
+        10.113411903381348
+      ],
+      "vertex_xy": [
+        582.5123009949938,
+        419.70256725087114
+      ],
+      "pixel_error": 0.49396404847457276,
+      "hit_to_vertex_world": 0.00016056216318530874,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 120,
+      "name": "r_inner_end_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9897886514663696,
+      "detected_xy": [
+        447.7952880859375,
+        429.3544616699219
+      ],
+      "vertex_index": 19180,
+      "vertex_native": [
+        -1.924176573753357,
+        161.4854736328125,
+        9.95007610321045
+      ],
+      "vertex_xy": [
+        448.44010334291687,
+        429.89964466436425
+      ],
+      "pixel_error": 0.8443999129929619,
+      "hit_to_vertex_world": 0.00025626765350794174,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 121,
+      "name": "r_outer_end_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9902971982955933,
+      "detected_xy": [
+        355.94219970703125,
+        420.7797546386719
+      ],
+      "vertex_index": 19266,
+      "vertex_native": [
+        -4.724257946014404,
+        161.77577209472656,
+        9.308219909667969
+      ],
+      "vertex_xy": [
+        355.94709356410203,
+        420.3104344826741
+      ],
+      "pixel_error": 0.4693456707617474,
+      "hit_to_vertex_world": 0.00030288047564772016,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 122,
+      "name": "r_centerpoint_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9858762621879578,
+      "detected_xy": [
+        404.9562683105469,
+        402.0364990234375
+      ],
+      "vertex_index": 19438,
+      "vertex_native": [
+        -3.204932689666748,
+        162.32672119140625,
+        10.466611862182617
+      ],
+      "vertex_xy": [
+        406.13383712973257,
+        402.11133564665977
+      ],
+      "pixel_error": 1.1799444241546728,
+      "hit_to_vertex_world": 0.00035721788358950994,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 123,
+      "name": "r_midpoint_1_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9848061800003052,
+      "detected_xy": [
+        377.5069274902344,
+        406.975341796875
+      ],
+      "vertex_index": 983,
+      "vertex_native": [
+        -4.045903205871582,
+        162.1897430419922,
+        10.229657173156738
+      ],
+      "vertex_xy": [
+        378.3546822274525,
+        406.6360344677107
+      ],
+      "pixel_error": 0.9131361114863152,
+      "hit_to_vertex_world": 0.0003422272902574614,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 124,
+      "name": "r_midpoint_2_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9893009662628174,
+      "detected_xy": [
+        430.736328125,
+        411.7565002441406
+      ],
+      "vertex_index": 963,
+      "vertex_native": [
+        -2.485369920730591,
+        162.03599548339844,
+        10.245060920715332
+      ],
+      "vertex_xy": [
+        429.90262002404563,
+        411.71466337801166
+      ],
+      "pixel_error": 0.8347571628709941,
+      "hit_to_vertex_world": 0.0002537620010966175,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 125,
+      "name": "r_midpoint_3_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9833714962005615,
+      "detected_xy": [
+        365.7744445800781,
+        413.2799987792969
+      ],
+      "vertex_index": 13585,
+      "vertex_native": [
+        -4.4191412925720215,
+        161.98886108398438,
+        9.81718921661377
+      ],
+      "vertex_xy": [
+        366.02578552287787,
+        413.2716213138491
+      ],
+      "pixel_error": 0.2514805190363509,
+      "hit_to_vertex_world": 7.657546361896066e-05,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 126,
+      "name": "r_midpoint_4_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9851799011230469,
+      "detected_xy": [
+        390.7710266113281,
+        402.6709899902344
+      ],
+      "vertex_index": 14710,
+      "vertex_native": [
+        -3.7225089073181152,
+        162.31204223632812,
+        10.392609596252441
+      ],
+      "vertex_xy": [
+        389.0371260717059,
+        402.5962150734422
+      ],
+      "pixel_error": 1.735512134640213,
+      "hit_to_vertex_world": 0.000545020903871589,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 127,
+      "name": "r_midpoint_5_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9839459657669067,
+      "detected_xy": [
+        418.8974609375,
+        405.3316345214844
+      ],
+      "vertex_index": 14707,
+      "vertex_native": [
+        -2.748185157775879,
+        162.21653747558594,
+        10.370112419128418
+      ],
+      "vertex_xy": [
+        421.22123935744656,
+        405.7509530734771
+      ],
+      "pixel_error": 2.361307729427619,
+      "hit_to_vertex_world": 0.0007398951560839453,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 128,
+      "name": "r_midpoint_6_of_upper_lash_line",
+      "region": "eyes",
+      "score": 0.9871774315834045,
+      "detected_xy": [
+        440.37847900390625,
+        420.1742858886719
+      ],
+      "vertex_index": 18803,
+      "vertex_native": [
+        -2.1925575733184814,
+        161.79054260253906,
+        10.076631546020508
+      ],
+      "vertex_xy": [
+        439.5748729738507,
+        419.82252712530646
+      ],
+      "pixel_error": 0.8772211118902824,
+      "hit_to_vertex_world": 0.00026662127257502135,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 144,
+      "name": "l_inner_end_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9967484474182129,
+      "detected_xy": [
+        574.4938354492188,
+        429.3373718261719
+      ],
+      "vertex_index": 7864,
+      "vertex_native": [
+        1.8893864154815674,
+        161.50213623046875,
+        9.95505428314209
+      ],
+      "vertex_xy": [
+        574.4106991797825,
+        429.349241415999
+      ],
+      "pixel_error": 0.08397932161222113,
+      "hit_to_vertex_world": 2.6470790520435718e-05,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 145,
+      "name": "l_outer_end_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9760109186172485,
+      "detected_xy": [
+        666.657958984375,
+        422.6250305175781
+      ],
+      "vertex_index": 8745,
+      "vertex_native": [
+        4.6486616134643555,
+        161.69509887695312,
+        9.431793212890625
+      ],
+      "vertex_xy": [
+        665.5557888895789,
+        422.9752523455391
+      ],
+      "pixel_error": 1.1564749226174762,
+      "hit_to_vertex_world": 0.00048440777536757783,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 146,
+      "name": "l_centerpoint_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9789375066757202,
+      "detected_xy": [
+        625.3829345703125,
+        437.5394287109375
+      ],
+      "vertex_index": 21743,
+      "vertex_native": [
+        3.4562041759490967,
+        161.25393676757812,
+        10.266502380371094
+      ],
+      "vertex_xy": [
+        626.1662273855653,
+        437.5478283865215
+      ],
+      "pixel_error": 0.7833378511067917,
+      "hit_to_vertex_world": 0.0002387364831723332,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 147,
+      "name": "l_midpoint_2_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9888733625411987,
+      "detected_xy": [
+        649.326171875,
+        433.62872314453125
+      ],
+      "vertex_index": 7627,
+      "vertex_native": [
+        4.216907501220703,
+        161.40325927734375,
+        9.954572677612305
+      ],
+      "vertex_xy": [
+        651.2939757432171,
+        432.61537042572974
+      ],
+      "pixel_error": 2.213399149830967,
+      "hit_to_vertex_world": 0.0008219756735427508,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 148,
+      "name": "l_midpoint_1_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9788378477096558,
+      "detected_xy": [
+        599.3396606445312,
+        433.52001953125
+      ],
+      "vertex_index": 7724,
+      "vertex_native": [
+        2.6682589054107666,
+        161.3909149169922,
+        10.16151237487793
+      ],
+      "vertex_xy": [
+        600.1386160686045,
+        433.02313140569294
+      ],
+      "pixel_error": 0.9408653351971729,
+      "hit_to_vertex_world": 0.0003591967674291116,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 149,
+      "name": "l_midpoint_6_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9867289662361145,
+      "detected_xy": [
+        659.042236328125,
+        428.6024169921875
+      ],
+      "vertex_index": 7624,
+      "vertex_native": [
+        4.442385196685791,
+        161.51063537597656,
+        9.75863265991211
+      ],
+      "vertex_xy": [
+        658.7420131103299,
+        429.0684965074871
+      ],
+      "pixel_error": 0.5544042704427371,
+      "hit_to_vertex_world": 0.00027743560326630744,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 150,
+      "name": "l_midpoint_5_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9879938364028931,
+      "detected_xy": [
+        637.87939453125,
+        436.70892333984375
+      ],
+      "vertex_index": 22268,
+      "vertex_native": [
+        3.7770261764526367,
+        161.2838134765625,
+        10.184051513671875
+      ],
+      "vertex_xy": [
+        636.7637024174683,
+        436.56093367654165
+      ],
+      "pixel_error": 1.1254642745103112,
+      "hit_to_vertex_world": 0.0003452686058754295,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 151,
+      "name": "l_midpoint_4_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9744563102722168,
+      "detected_xy": [
+        612.2496337890625,
+        436.2407531738281
+      ],
+      "vertex_index": 7661,
+      "vertex_native": [
+        2.9860706329345703,
+        161.28709411621094,
+        10.273053169250488
+      ],
+      "vertex_xy": [
+        610.636654987361,
+        436.4525662629171
+      ],
+      "pixel_error": 1.6268267883975336,
+      "hit_to_vertex_world": 0.000498392386863936,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 152,
+      "name": "l_midpoint_3_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9894273281097412,
+      "detected_xy": [
+        587.2147216796875,
+        430.5809020996094
+      ],
+      "vertex_index": 3998,
+      "vertex_native": [
+        2.2563743591308594,
+        161.46080017089844,
+        9.985369682312012
+      ],
+      "vertex_xy": [
+        586.5331395477392,
+        430.7146646294485
+      ],
+      "pixel_error": 0.6945837724710704,
+      "hit_to_vertex_world": 0.00022818595998888352,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 161,
+      "name": "r_inner_end_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9935932159423828,
+      "detected_xy": [
+        447.46466064453125,
+        429.9637451171875
+      ],
+      "vertex_index": 14622,
+      "vertex_native": [
+        -1.9436366558074951,
+        161.4726104736328,
+        9.949633598327637
+      ],
+      "vertex_xy": [
+        447.79729289549175,
+        430.32454385702596
+      ],
+      "pixel_error": 0.4907340879214208,
+      "hit_to_vertex_world": 0.00014863059876907246,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 162,
+      "name": "r_outer_end_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.981587290763855,
+      "detected_xy": [
+        358.031982421875,
+        422.6323547363281
+      ],
+      "vertex_index": 824,
+      "vertex_native": [
+        -4.658000469207764,
+        161.7125701904297,
+        9.32423210144043
+      ],
+      "vertex_xy": [
+        358.13572761985006,
+        422.3981359933492
+      ],
+      "pixel_error": 0.256166909778615,
+      "hit_to_vertex_world": 0.00011692524797490366,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 163,
+      "name": "r_centerpoint_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.981634259223938,
+      "detected_xy": [
+        397.5543518066406,
+        438.16436767578125
+      ],
+      "vertex_index": 13612,
+      "vertex_native": [
+        -3.440382480621338,
+        161.22653198242188,
+        10.254919052124023
+      ],
+      "vertex_xy": [
+        398.35639893349986,
+        438.4530703773806
+      ],
+      "pixel_error": 0.8524252715715962,
+      "hit_to_vertex_world": 0.0002796094964957084,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 164,
+      "name": "r_midpoint_1_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9929598569869995,
+      "detected_xy": [
+        374.4598693847656,
+        433.6717224121094
+      ],
+      "vertex_index": 859,
+      "vertex_native": [
+        -4.196847438812256,
+        161.3711700439453,
+        9.920989036560059
+      ],
+      "vertex_xy": [
+        373.36865340995286,
+        433.6753504370221
+      ],
+      "pixel_error": 1.0912220059416642,
+      "hit_to_vertex_world": 0.00035587224662968653,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 165,
+      "name": "r_midpoint_2_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9755526781082153,
+      "detected_xy": [
+        423.2691955566406,
+        434.4470520019531
+      ],
+      "vertex_index": 881,
+      "vertex_native": [
+        -2.688887596130371,
+        161.35679626464844,
+        10.208178520202637
+      ],
+      "vertex_xy": [
+        423.17997170125307,
+        434.15014727491734
+      ],
+      "pixel_error": 0.3100214723312102,
+      "hit_to_vertex_world": 0.00013041059894718083,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 166,
+      "name": "r_midpoint_3_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9946691989898682,
+      "detected_xy": [
+        365.1837463378906,
+        428.54620361328125
+      ],
+      "vertex_index": 828,
+      "vertex_native": [
+        -4.387035369873047,
+        161.5133819580078,
+        9.70845890045166
+      ],
+      "vertex_xy": [
+        367.08631663871336,
+        428.9777709717504
+      ],
+      "pixel_error": 1.950903414951318,
+      "hit_to_vertex_world": 0.00069753202897326,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 167,
+      "name": "r_midpoint_4_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9899729490280151,
+      "detected_xy": [
+        385.4998779296875,
+        437.006591796875
+      ],
+      "vertex_index": 14735,
+      "vertex_native": [
+        -3.7544939517974854,
+        161.25790405273438,
+        10.156073570251465
+      ],
+      "vertex_xy": [
+        387.9805878363841,
+        437.41678059472105
+      ],
+      "pixel_error": 2.5143938615620494,
+      "hit_to_vertex_world": 0.0008232614855262457,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 168,
+      "name": "r_midpoint_5_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9715899229049683,
+      "detected_xy": [
+        410.36053466796875,
+        437.095703125
+      ],
+      "vertex_index": 15095,
+      "vertex_native": [
+        -3.1251943111419678,
+        161.2805633544922,
+        10.264518737792969
+      ],
+      "vertex_xy": [
+        408.76777580655175,
+        436.6682921136383
+      ],
+      "pixel_error": 1.6491091423115682,
+      "hit_to_vertex_world": 0.0005201818569162144,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 169,
+      "name": "r_midpoint_6_of_lower_lash_line",
+      "region": "eyes",
+      "score": 0.9866975545883179,
+      "detected_xy": [
+        435.26251220703125,
+        431.40020751953125
+      ],
+      "vertex_index": 13705,
+      "vertex_native": [
+        -2.3503129482269287,
+        161.4469757080078,
+        9.998531341552734
+      ],
+      "vertex_xy": [
+        434.3638567588879,
+        431.17131778091147
+      ],
+      "pixel_error": 0.9273468212719413,
+      "hit_to_vertex_world": 0.0003172075426178689,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 188,
+      "name": "r_outer_corner_of_mouth",
+      "region": "lips",
+      "score": 1.008604884147644,
+      "detected_xy": [
+        426.919677734375,
+        659.1109008789062
+      ],
+      "vertex_index": 13031,
+      "vertex_native": [
+        -2.5809578895568848,
+        154.55810546875,
+        10.354144096374512
+      ],
+      "vertex_xy": [
+        426.7451335941966,
+        658.7262536331548
+      ],
+      "pixel_error": 0.42239692297033277,
+      "hit_to_vertex_world": 0.00014056484621363302,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 189,
+      "name": "l_outer_corner_of_mouth",
+      "region": "lips",
+      "score": 1.0154221057891846,
+      "detected_xy": [
+        595.582275390625,
+        655.9089965820312
+      ],
+      "vertex_index": 7056,
+      "vertex_native": [
+        2.5096540451049805,
+        154.6380157470703,
+        10.36988353729248
+      ],
+      "vertex_xy": [
+        594.8995394329907,
+        656.0866366332675
+      ],
+      "pixel_error": 0.7054674873090298,
+      "hit_to_vertex_world": 0.00021633929145956974,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 190,
+      "name": "center_of_cupid_bow",
+      "region": "lips",
+      "score": 0.9726816415786743,
+      "detected_xy": [
+        510.7238464355469,
+        628.7015380859375
+      ],
+      "vertex_index": 12104,
+      "vertex_native": [
+        -0.0035851961001753807,
+        155.44960021972656,
+        12.02229118347168
+      ],
+      "vertex_xy": [
+        511.88157287811794,
+        629.2781602048544
+      ],
+      "pixel_error": 1.2933768143323485,
+      "hit_to_vertex_world": 0.000394648886920601,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 191,
+      "name": "center_of_lower_outer_lip",
+      "region": "lips",
+      "score": 0.9882238507270813,
+      "detected_xy": [
+        511.6669921875,
+        687.5879516601562
+      ],
+      "vertex_index": 12071,
+      "vertex_native": [
+        0.00861399993300438,
+        153.7124786376953,
+        11.725968360900879
+      ],
+      "vertex_xy": [
+        512.2845398665663,
+        686.6592097453396
+      ],
+      "pixel_error": 1.1153146104384768,
+      "hit_to_vertex_world": 0.00043719043151081943,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 192,
+      "name": "midpoint_1_of_upper_outer_lip",
+      "region": "lips",
+      "score": 0.9937430620193481,
+      "detected_xy": [
+        464.3719177246094,
+        632.5908813476562
+      ],
+      "vertex_index": 18045,
+      "vertex_native": [
+        -1.4589217901229858,
+        155.31109619140625,
+        11.56183910369873
+      ],
+      "vertex_xy": [
+        463.8085193033486,
+        633.8532634541052
+      ],
+      "pixel_error": 1.3823987716146444,
+      "hit_to_vertex_world": 0.0004453647131199258,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 193,
+      "name": "midpoint_2_of_upper_outer_lip",
+      "region": "lips",
+      "score": 1.0000715255737305,
+      "detected_xy": [
+        556.7939453125,
+        630.97509765625
+      ],
+      "vertex_index": 6096,
+      "vertex_native": [
+        1.3300182819366455,
+        155.40402221679688,
+        11.629647254943848
+      ],
+      "vertex_xy": [
+        555.9335067815665,
+        630.783706661181
+      ],
+      "pixel_error": 0.8814675141538086,
+      "hit_to_vertex_world": 0.0003055255945270104,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 194,
+      "name": "midpoint_1_of_lower_outer_lip",
+      "region": "lips",
+      "score": 0.9946969151496887,
+      "detected_xy": [
+        461.7058410644531,
+        681.0035400390625
+      ],
+      "vertex_index": 18048,
+      "vertex_native": [
+        -1.5306668281555176,
+        153.91677856445312,
+        11.257018089294434
+      ],
+      "vertex_xy": [
+        461.43861871043623,
+        679.910724417736
+      ],
+      "pixel_error": 1.1250127860169292,
+      "hit_to_vertex_world": 0.00034282932514305225,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 195,
+      "name": "midpoint_2_of_lower_outer_lip",
+      "region": "lips",
+      "score": 1.0003477334976196,
+      "detected_xy": [
+        561.642578125,
+        679.120849609375
+      ],
+      "vertex_index": 6160,
+      "vertex_native": [
+        1.5405938625335693,
+        153.9928741455078,
+        11.265491485595703
+      ],
+      "vertex_xy": [
+        562.889293648433,
+        677.3971155205004
+      ],
+      "pixel_error": 2.127336081938413,
+      "hit_to_vertex_world": 0.0006876397632913063,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 196,
+      "name": "midpoint_3_of_upper_outer_lip",
+      "region": "lips",
+      "score": 0.9988473653793335,
+      "detected_xy": [
+        443.7869873046875,
+        645.6389770507812
+      ],
+      "vertex_index": 18023,
+      "vertex_native": [
+        -2.020017385482788,
+        154.95462036132812,
+        11.058238983154297
+      ],
+      "vertex_xy": [
+        445.2742649411058,
+        645.6284676866399
+      ],
+      "pixel_error": 1.4873147664582156,
+      "hit_to_vertex_world": 0.0005914290393175384,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 197,
+      "name": "midpoint_4_of_upper_outer_lip",
+      "region": "lips",
+      "score": 0.9785526990890503,
+      "detected_xy": [
+        489.0898132324219,
+        623.1577758789062
+      ],
+      "vertex_index": 18046,
+      "vertex_native": [
+        -0.689498245716095,
+        155.59486389160156,
+        11.912633895874023
+      ],
+      "vertex_xy": [
+        489.2243161876408,
+        624.4797737351196
+      ],
+      "pixel_error": 1.328822552786963,
+      "hit_to_vertex_world": 0.0004057229590869308,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 198,
+      "name": "midpoint_5_of_upper_outer_lip",
+      "region": "lips",
+      "score": 0.9868107438087463,
+      "detected_xy": [
+        531.9269409179688,
+        622.1991577148438
+      ],
+      "vertex_index": 3119,
+      "vertex_native": [
+        0.556911289691925,
+        155.68389892578125,
+        11.937873840332031
+      ],
+      "vertex_xy": [
+        530.3960372986637,
+        621.5387453961005
+      ],
+      "pixel_error": 1.6672763185354547,
+      "hit_to_vertex_world": 0.0005104684180475803,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 199,
+      "name": "midpoint_6_of_upper_outer_lip",
+      "region": "lips",
+      "score": 1.0064139366149902,
+      "detected_xy": [
+        578.2697143554688,
+        643.20703125
+      ],
+      "vertex_index": 21036,
+      "vertex_native": [
+        2.0186896324157715,
+        154.98867797851562,
+        11.042211532592773
+      ],
+      "vertex_xy": [
+        578.6818763772759,
+        644.5034677815463
+      ],
+      "pixel_error": 1.36037686416227,
+      "hit_to_vertex_world": 0.0005114613905952045,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 200,
+      "name": "midpoint_3_of_lower_outer_lip",
+      "region": "lips",
+      "score": 1.0053447484970093,
+      "detected_xy": [
+        442.7154541015625,
+        671.2346801757812
+      ],
+      "vertex_index": 18033,
+      "vertex_native": [
+        -2.101161479949951,
+        154.20477294921875,
+        10.703736305236816
+      ],
+      "vertex_xy": [
+        442.59389229286955,
+        670.3976226297538
+      ],
+      "pixel_error": 0.8458384057810759,
+      "hit_to_vertex_world": 0.0002697688547557459,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 201,
+      "name": "midpoint_4_of_lower_outer_lip",
+      "region": "lips",
+      "score": 0.983412504196167,
+      "detected_xy": [
+        485.3998107910156,
+        686.5706787109375
+      ],
+      "vertex_index": 18036,
+      "vertex_native": [
+        -0.7921456098556519,
+        153.7467498779297,
+        11.64123249053955
+      ],
+      "vertex_xy": [
+        485.833641991818,
+        685.5271537584513
+      ],
+      "pixel_error": 1.1301123117863177,
+      "hit_to_vertex_world": 0.0004292718583112408,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 202,
+      "name": "midpoint_5_of_lower_outer_lip",
+      "region": "lips",
+      "score": 0.979817271232605,
+      "detected_xy": [
+        538.6694946289062,
+        685.6615600585938
+      ],
+      "vertex_index": 21049,
+      "vertex_native": [
+        0.8134923577308655,
+        153.7483367919922,
+        11.629371643066406
+      ],
+      "vertex_xy": [
+        538.8714892874111,
+        685.4747344678458
+      ],
+      "pixel_error": 0.2751465853373864,
+      "hit_to_vertex_world": 8.565386980544347e-05,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 203,
+      "name": "midpoint_6_of_lower_outer_lip",
+      "region": "lips",
+      "score": 1.0116243362426758,
+      "detected_xy": [
+        580.2506103515625,
+        668.5250244140625
+      ],
+      "vertex_index": 6121,
+      "vertex_native": [
+        2.092803478240967,
+        154.2748565673828,
+        10.705241203308105
+      ],
+      "vertex_xy": [
+        581.130024039899,
+        668.0826024781688
+      ],
+      "pixel_error": 0.9844316149908663,
+      "hit_to_vertex_world": 0.0004277095107885143,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 204,
+      "name": "r_inner_corner_of_mouth",
+      "region": "lips",
+      "score": 0.997469425201416,
+      "detected_xy": [
+        429.8982238769531,
+        658.7974853515625
+      ],
+      "vertex_index": 18516,
+      "vertex_native": [
+        -2.512033224105835,
+        154.5565185546875,
+        10.353777885437012
+      ],
+      "vertex_xy": [
+        429.0218709128759,
+        658.7786729895608
+      ],
+      "pixel_error": 0.8765548600122093,
+      "hit_to_vertex_world": 0.00026983282220882133,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 205,
+      "name": "l_inner_corner_of_mouth",
+      "region": "lips",
+      "score": 1.0046061277389526,
+      "detected_xy": [
+        592.6901245117188,
+        655.6530151367188
+      ],
+      "vertex_index": 6148,
+      "vertex_native": [
+        2.4356205463409424,
+        154.6687469482422,
+        10.402480125427246
+      ],
+      "vertex_xy": [
+        592.454045815206,
+        655.0715154979096
+      ],
+      "pixel_error": 0.6275945991501137,
+      "hit_to_vertex_world": 0.00029924653458597133,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 206,
+      "name": "center_of_upper_inner_lip",
+      "region": "lips",
+      "score": 1.0060536861419678,
+      "detected_xy": [
+        510.8216857910156,
+        649.6046752929688
+      ],
+      "vertex_index": 2906,
+      "vertex_native": [
+        0.002607612870633602,
+        154.83351135253906,
+        11.682476997375488
+      ],
+      "vertex_xy": [
+        512.0861353406127,
+        649.6289683287075
+      ],
+      "pixel_error": 1.2646828911081565,
+      "hit_to_vertex_world": 0.0003833939018429338,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 207,
+      "name": "center_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9857599139213562,
+      "detected_xy": [
+        510.9841003417969,
+        654.0882568359375
+      ],
+      "vertex_index": 12691,
+      "vertex_native": [
+        0.0028783511370420456,
+        154.69961547851562,
+        11.354879379272461
+      ],
+      "vertex_xy": [
+        512.0950784368279,
+        654.0518531222191
+      ],
+      "pixel_error": 1.1115743600907555,
+      "hit_to_vertex_world": 0.0003370764851692402,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 208,
+      "name": "midpoint_1_of_upper_inner_lip",
+      "region": "lips",
+      "score": 0.9966760873794556,
+      "detected_xy": [
+        467.885498046875,
+        652.0299072265625
+      ],
+      "vertex_index": 12353,
+      "vertex_native": [
+        -1.276621699333191,
+        154.74725341796875,
+        11.144115447998047
+      ],
+      "vertex_xy": [
+        469.83030290118876,
+        652.478265558899
+      ],
+      "pixel_error": 1.9958184074554324,
+      "hit_to_vertex_world": 0.000607637168360673,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 209,
+      "name": "midpoint_2_of_upper_inner_lip",
+      "region": "lips",
+      "score": 0.998562216758728,
+      "detected_xy": [
+        554.2633666992188,
+        650.034912109375
+      ],
+      "vertex_index": 6413,
+      "vertex_native": [
+        1.2293827533721924,
+        154.8202667236328,
+        11.276586532592773
+      ],
+      "vertex_xy": [
+        552.6092880571327,
+        650.0664705096979
+      ],
+      "pixel_error": 1.6543796682853738,
+      "hit_to_vertex_world": 0.0005395795094525973,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 210,
+      "name": "midpoint_1_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.984673023223877,
+      "detected_xy": [
+        467.98095703125,
+        654.4894409179688
+      ],
+      "vertex_index": 329,
+      "vertex_native": [
+        -1.312827467918396,
+        154.67088317871094,
+        11.036880493164062
+      ],
+      "vertex_xy": [
+        468.63434461905615,
+        655.0009475682103
+      ],
+      "pixel_error": 0.8297917769781213,
+      "hit_to_vertex_world": null,
+      "method": "aperture_visible_vertex_snap",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 211,
+      "name": "midpoint_2_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9846268892288208,
+      "detected_xy": [
+        554.29443359375,
+        652.694091796875
+      ],
+      "vertex_index": 6404,
+      "vertex_native": [
+        1.279852271080017,
+        154.7529296875,
+        11.137266159057617
+      ],
+      "vertex_xy": [
+        554.2764101776277,
+        652.2907655972019
+      ],
+      "pixel_error": 0.4037287045423491,
+      "hit_to_vertex_world": 0.00036823733683726066,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 212,
+      "name": "midpoint_3_of_upper_inner_lip",
+      "region": "lips",
+      "score": 1.0021353960037231,
+      "detected_xy": [
+        448.3710632324219,
+        655.8533935546875
+      ],
+      "vertex_index": 12238,
+      "vertex_native": [
+        -1.9161524772644043,
+        154.64125061035156,
+        10.670503616333008
+      ],
+      "vertex_xy": [
+        448.70515736683603,
+        655.9797801775509
+      ],
+      "pixel_error": 0.35720088058227917,
+      "hit_to_vertex_world": 0.00012435465519662313,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 213,
+      "name": "midpoint_4_of_upper_inner_lip",
+      "region": "lips",
+      "score": 0.9931179285049438,
+      "detected_xy": [
+        488.9268493652344,
+        649.8599243164062
+      ],
+      "vertex_index": 12379,
+      "vertex_native": [
+        -0.675055205821991,
+        154.79800415039062,
+        11.468435287475586
+      ],
+      "vertex_xy": [
+        489.7014024049897,
+        650.8018525360982
+      ],
+      "pixel_error": 1.2194921821997295,
+      "hit_to_vertex_world": 0.0005106973051104702,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 214,
+      "name": "midpoint_5_of_upper_inner_lip",
+      "region": "lips",
+      "score": 0.9920167922973633,
+      "detected_xy": [
+        532.7684326171875,
+        648.5300903320312
+      ],
+      "vertex_index": 6441,
+      "vertex_native": [
+        0.5911137461662292,
+        154.8747100830078,
+        11.587762832641602
+      ],
+      "vertex_xy": [
+        531.5258216586742,
+        648.2680817521173
+      ],
+      "pixel_error": 1.2699332620913093,
+      "hit_to_vertex_world": 0.0004583181221127362,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 215,
+      "name": "midpoint_6_of_upper_inner_lip",
+      "region": "lips",
+      "score": 1.000767469406128,
+      "detected_xy": [
+        574.3238525390625,
+        653.2604370117188
+      ],
+      "vertex_index": 6282,
+      "vertex_native": [
+        1.9211870431900024,
+        154.7158966064453,
+        10.765527725219727
+      ],
+      "vertex_xy": [
+        575.4611457127821,
+        653.5140538786777
+      ],
+      "pixel_error": 1.165228423183773,
+      "hit_to_vertex_world": 0.00046891080865608964,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 216,
+      "name": "midpoint_3_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9897588491439819,
+      "detected_xy": [
+        448.6645202636719,
+        656.6978149414062
+      ],
+      "vertex_index": 18102,
+      "vertex_native": [
+        -1.9604389667510986,
+        154.62240600585938,
+        10.594456672668457
+      ],
+      "vertex_xy": [
+        447.24227462859096,
+        656.6022604207307
+      ],
+      "pixel_error": 1.4254519679484994,
+      "hit_to_vertex_world": 0.0004323756225626905,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 217,
+      "name": "midpoint_4_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9869526624679565,
+      "detected_xy": [
+        488.9651794433594,
+        654.0188598632812
+      ],
+      "vertex_index": 12667,
+      "vertex_native": [
+        -0.6921027898788452,
+        154.7224578857422,
+        11.2673921585083
+      ],
+      "vertex_xy": [
+        489.1382822133781,
+        653.2973173085244
+      ],
+      "pixel_error": 0.7420163255031637,
+      "hit_to_vertex_world": 0.0004622202317958939,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 218,
+      "name": "midpoint_5_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9856643676757812,
+      "detected_xy": [
+        533.0078125,
+        652.853759765625
+      ],
+      "vertex_index": 21322,
+      "vertex_native": [
+        0.5850251913070679,
+        154.72032165527344,
+        11.293810844421387
+      ],
+      "vertex_xy": [
+        531.3247029448733,
+        653.3678816819344
+      ],
+      "pixel_error": 1.7598804275826732,
+      "hit_to_vertex_world": 0.0006016102534010658,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 219,
+      "name": "midpoint_6_of_lower_inner_lip",
+      "region": "lips",
+      "score": 0.9904311895370483,
+      "detected_xy": [
+        574.0494995117188,
+        654.1723022460938
+      ],
+      "vertex_index": 21137,
+      "vertex_native": [
+        1.871962547302246,
+        154.69073486328125,
+        10.730334281921387
+      ],
+      "vertex_xy": [
+        573.8351494740275,
+        654.3452032552326
+      ],
+      "pixel_error": 0.27539189824588756,
+      "hit_to_vertex_world": 0.00012178125541586224,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": true,
+      "use_policy": "default"
+    },
+    {
+      "keypoint_id": 71,
+      "name": "center_of_nose_root",
+      "region": "nose",
+      "score": 0.9684973955154419,
+      "detected_xy": [
+        510.3782958984375,
+        409.7069396972656
+      ],
+      "vertex_index": 15849,
+      "vertex_native": [
+        -0.02529049664735794,
+        162.1183319091797,
+        10.987015724182129
+      ],
+      "vertex_xy": [
+        511.1645977945897,
+        408.9949013414816
+      ],
+      "pixel_error": 1.0607871096502968,
+      "hit_to_vertex_world": 0.0003211941475820931,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 72,
+      "name": "tip_of_nose_bridge",
+      "region": "nose",
+      "score": 0.9910691976547241,
+      "detected_xy": [
+        509.7368469238281,
+        537.98486328125
+      ],
+      "vertex_index": 2925,
+      "vertex_native": [
+        -0.04784442111849785,
+        158.1978759765625,
+        13.06713581085205
+      ],
+      "vertex_xy": [
+        510.4195907468212,
+        538.4964012478158
+      ],
+      "pixel_error": 0.8531179397208126,
+      "hit_to_vertex_world": 0.0002613067408525948,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 73,
+      "name": "midpoint_1_of_nose_bridge",
+      "region": "nose",
+      "score": 0.9783235788345337,
+      "detected_xy": [
+        509.2193298339844,
+        475.2930603027344
+      ],
+      "vertex_index": 2933,
+      "vertex_native": [
+        -0.03234977275133133,
+        160.1081085205078,
+        12.032711029052734
+      ],
+      "vertex_xy": [
+        510.931413966368,
+        475.39711294516854
+      ],
+      "pixel_error": 1.7152431398368186,
+      "hit_to_vertex_world": 0.0005247778901405727,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 74,
+      "name": "midpoint_2_of_nose_bridge",
+      "region": "nose",
+      "score": 0.9683675765991211,
+      "detected_xy": [
+        509.7697448730469,
+        441.7866516113281
+      ],
+      "vertex_index": 2937,
+      "vertex_native": [
+        -0.028753984719514847,
+        161.1678009033203,
+        11.3645601272583
+      ],
+      "vertex_xy": [
+        511.05019096366675,
+        440.39308455206344
+      ],
+      "pixel_error": 1.8925039866936446,
+      "hit_to_vertex_world": 0.0006131256573409849,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 75,
+      "name": "midpoint_3_of_nose_bridge",
+      "region": "nose",
+      "score": 0.9931046962738037,
+      "detected_xy": [
+        509.23516845703125,
+        507.00494384765625
+      ],
+      "vertex_index": 17064,
+      "vertex_native": [
+        -0.03987598791718483,
+        159.1368408203125,
+        12.66189193725586
+      ],
+      "vertex_xy": [
+        510.6828060866725,
+        507.48027463497624
+      ],
+      "pixel_error": 1.5236778085039948,
+      "hit_to_vertex_world": 0.0004812993877570154,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 178,
+      "name": "tip_of_nose",
+      "region": "nose",
+      "score": 0.9883590936660767,
+      "detected_xy": [
+        509.77557373046875,
+        541.98681640625
+      ],
+      "vertex_index": 17088,
+      "vertex_native": [
+        -0.04836927726864815,
+        158.0901641845703,
+        13.070530891418457
+      ],
+      "vertex_xy": [
+        510.402253563156,
+        542.0543649118578
+      ],
+      "pixel_error": 0.6303097756712887,
+      "hit_to_vertex_world": 0.00019167414322701832,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 179,
+      "name": "bottom_center_of_nose",
+      "region": "nose",
+      "score": 0.9879856109619141,
+      "detected_xy": [
+        509.6690673828125,
+        577.8995361328125
+      ],
+      "vertex_index": 2917,
+      "vertex_native": [
+        -0.03418057784438133,
+        156.97830200195312,
+        11.703109741210938
+      ],
+      "vertex_xy": [
+        510.87093834053366,
+        578.7816905367437
+      ],
+      "pixel_error": 1.490868938367394,
+      "hit_to_vertex_world": 0.0005861133686751695,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 180,
+      "name": "r_outer_corner_of_nose",
+      "region": "nose",
+      "score": 0.9597914814949036,
+      "detected_xy": [
+        465.6619567871094,
+        577.1508178710938
+      ],
+      "vertex_index": 18576,
+      "vertex_native": [
+        -1.4142282009124756,
+        157.03671264648438,
+        10.946802139282227
+      ],
+      "vertex_xy": [
+        465.2848494646253,
+        576.8522591378854
+      ],
+      "pixel_error": 0.48098570648829997,
+      "hit_to_vertex_world": 0.00015150057186911022,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 181,
+      "name": "l_outer_corner_of_nose",
+      "region": "nose",
+      "score": 0.9626237750053406,
+      "detected_xy": [
+        554.1480102539062,
+        576.1106567382812
+      ],
+      "vertex_index": 7193,
+      "vertex_native": [
+        1.232338547706604,
+        157.0279998779297,
+        11.031744003295898
+      ],
+      "vertex_xy": [
+        552.7069246176218,
+        577.1400610979011
+      ],
+      "pixel_error": 1.770988748329545,
+      "hit_to_vertex_world": 0.000567339097416443,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "optional_after_target_review"
+    },
+    {
+      "keypoint_id": 182,
+      "name": "inner_corner_of_r_nostril",
+      "region": "nose",
+      "score": 0.9800827503204346,
+      "detected_xy": [
+        490.79986572265625,
+        570.2579345703125
+      ],
+      "vertex_index": 17129,
+      "vertex_native": [
+        -0.6234526038169861,
+        157.2783966064453,
+        11.480335235595703
+      ],
+      "vertex_xy": [
+        491.40595285810997,
+        568.8688893925197
+      ],
+      "pixel_error": 1.515515793950018,
+      "hit_to_vertex_world": 0.000490027093027117,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 183,
+      "name": "outer_corner_of_r_nostril",
+      "region": "nose",
+      "score": 0.991681694984436,
+      "detected_xy": [
+        466.86334228515625,
+        570.2453002929688
+      ],
+      "vertex_index": 19478,
+      "vertex_native": [
+        -1.347944974899292,
+        157.26837158203125,
+        11.415139198303223
+      ],
+      "vertex_xy": [
+        467.4743340748023,
+        569.200038934382
+      ],
+      "pixel_error": 1.2107362531821722,
+      "hit_to_vertex_world": 0.0005920803122785482,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 184,
+      "name": "upper_corner_of_r_nostril",
+      "region": "nose",
+      "score": 0.9887180924415588,
+      "detected_xy": [
+        475.0431213378906,
+        555.2428588867188
+      ],
+      "vertex_index": 20567,
+      "vertex_native": [
+        -1.108312964439392,
+        157.7109832763672,
+        12.243547439575195
+      ],
+      "vertex_xy": [
+        475.3899204239544,
+        554.5795708789564
+      ],
+      "pixel_error": 0.7484788489570395,
+      "hit_to_vertex_world": 0.0003906598312164114,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 185,
+      "name": "inner_corner_of_l_nostril",
+      "region": "nose",
+      "score": 0.9835777282714844,
+      "detected_xy": [
+        528.3565063476562,
+        569.7450561523438
+      ],
+      "vertex_index": 11098,
+      "vertex_native": [
+        0.46645018458366394,
+        157.2298126220703,
+        11.583710670471191
+      ],
+      "vertex_xy": [
+        527.4079027529078,
+        570.4737275335244
+      ],
+      "pixel_error": 1.1961650227796232,
+      "hit_to_vertex_world": 0.0004398543364653239,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 186,
+      "name": "outer_corner_of_l_nostril",
+      "region": "nose",
+      "score": 0.9916966557502747,
+      "detected_xy": [
+        552.8457641601562,
+        569.2826538085938
+      ],
+      "vertex_index": 4723,
+      "vertex_native": [
+        1.2158395051956177,
+        157.2657470703125,
+        11.349483489990234
+      ],
+      "vertex_xy": [
+        552.161923991773,
+        569.2867328354373
+      ],
+      "pixel_error": 0.6838523337346685,
+      "hit_to_vertex_world": 0.0002821679637278618,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 187,
+      "name": "upper_corner_of_l_nostril",
+      "region": "nose",
+      "score": 0.9817678928375244,
+      "detected_xy": [
+        544.0811767578125,
+        554.9367065429688
+      ],
+      "vertex_index": 11238,
+      "vertex_native": [
+        0.9315530061721802,
+        157.68612670898438,
+        12.357060432434082
+      ],
+      "vertex_xy": [
+        542.7712990639956,
+        555.4006388101428
+      ],
+      "pixel_error": 1.3896088375094744,
+      "hit_to_vertex_world": 0.00045921906553632997,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    },
+    {
+      "keypoint_id": 77,
+      "name": "tip_of_chin",
+      "region": "contour",
+      "score": 1.0059916973114014,
+      "detected_xy": [
+        512.85205078125,
+        778.1190795898438
+      ],
+      "vertex_index": 2974,
+      "vertex_native": [
+        -0.009203482419252396,
+        150.98728942871094,
+        10.600630760192871
+      ],
+      "vertex_xy": [
+        511.69598819597314,
+        776.6783683349756
+      ],
+      "pixel_error": 1.847195068470215,
+      "hit_to_vertex_world": 0.0007190277203406702,
+      "method": "ray_hit_nearest_3d_vertex",
+      "accepted": true,
+      "default_enabled": false,
+      "use_policy": "inspection_only"
+    }
+  ],
+  "reuse_scope": "Only identical template content and unchanged Sapiens2 keypoint definition. Re-detect and raycast each new target; never reuse target coordinates.",
+  "calibration": {
+    "render": "sapiens2_template_front.png",
+    "pose": "sapiens2_pose.npz",
+    "names": "sapiens2_keypoint_names.json",
+    "camera": "sapiens2_camera.json",
+    "eyes": "template_eyes.npz",
+    "eye_geometry": "Original Taro eye meshes, extraction head vertices verified identical to bundled template. Used only for calibration rendering; mapped indices always address the head.",
+    "review": "Eye/lip overlay inspected; nose bridge/tip optional, nostril edges and chin inspection only. No complete face contour in this 308-point definition."
+  },
+  "scores_note": "Raw model scores, not calibrated probabilities; values can exceed one."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "head-reference",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": ["input", "prompt", "generate", "review"]
+}

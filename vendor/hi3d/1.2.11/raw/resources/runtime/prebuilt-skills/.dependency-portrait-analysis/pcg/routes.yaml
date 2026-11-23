@@ -1,0 +1,70 @@
+kind: agent_skill
+partition: software
+entry: SKILL.md
+note: 按已有输入选择续接阶段；服务提交使用已有授权，恢复任务不得重复提交。
+ui:
+  option_buttons: true
+  choice_role: option
+checkpoints:
+- id: source
+  say: 确认模型与推理项
+  rollback_to: null
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: render
+  say: 准备同源渲染
+  rollback_to: source
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+- id: infer
+  say: Sapiens2 推理
+  rollback_to: render
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible:
+  - mdf.invoke
+  confirm_required: true
+- id: review
+  say: 核对检测与交接
+  rollback_to: infer
+  load:
+  - SKILL.md
+  - references/guide.md
+  irreversible: []
+routes:
+- id: main
+  summary: 渲染并分析
+  nodes:
+  - source
+  - render
+  - infer
+  - review
+- id: render_ready
+  summary: 已有同源渲染
+  nodes:
+  - source
+  - infer
+  - review
+- id: review_only
+  summary: 已有检测产物
+  nodes:
+  - source
+  - review
+choices_example:
+- id: choose_main
+  title: 渲染并分析
+  route: main
+  confirm: true
+- id: choose_render_ready
+  title: 已有同源渲染
+  route: render_ready
+  confirm: true
+- id: choose_review_only
+  title: 已有检测产物
+  route: review_only
+  confirm: false

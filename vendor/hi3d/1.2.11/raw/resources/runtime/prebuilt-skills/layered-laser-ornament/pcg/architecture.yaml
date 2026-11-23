@@ -1,0 +1,104 @@
+schema: pcg.architecture.v1
+entry: layered-laser-ornament
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: layered_laser_ornament
+    parent: null
+    role: agent
+    label: "主题尺寸与层序"
+    function: "编排 layered-laser-ornament"
+  - id: spec
+    parent: layered_laser_ornament
+    label: "主题尺寸与层序"
+    function: "本 agent 主题尺寸与层序"
+    outputs:
+      - id: spec
+        label: "主题尺寸与层序"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "主题尺寸与层序"
+  - id: geometry
+    parent: layered_laser_ornament
+    label: "分层几何与连接"
+    function: "本 agent 分层几何与连接"
+    outputs:
+      - id: geometry
+        label: "分层几何与连接"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "分层几何与连接"
+  - id: audit
+    parent: layered_laser_ornament
+    label: "几何与细桥检查"
+    function: "派出 mesh-audit"
+    outputs:
+      - id: audit
+        label: "几何与细桥检查"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: mesh-audit
+    members:
+      - id: invoke
+        label: "调用 mesh-audit"
+  - id: layout
+    parent: layered_laser_ornament
+    label: "加工排版与试片"
+    function: "本 agent 加工排版与试片"
+    outputs:
+      - id: layout
+        label: "加工排版与试片"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "加工排版与试片"
+  - id: export
+    parent: layered_laser_ornament
+    label: "格式导出与回读"
+    function: "本 agent 格式导出与回读"
+    outputs:
+      - id: export
+        label: "格式导出与回读"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "格式导出与回读"
+    irreversible:
+      - overwrite.source
+  - id: review
+    parent: layered_laser_ornament
+    label: "同版预览与交付"
+    function: "本 agent 同版预览与交付"
+    outputs:
+      - id: review
+        label: "同版预览与交付"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "同版预览与交付"

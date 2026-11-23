@@ -1,0 +1,6 @@
+interface:
+  display_name: "浮雕笔刷"
+  short_description: "提取有尺度的笔刷并验证实际应用，交付图片与3D成果页，视频按需"
+  default_prompt: "请用 $relief-brush 从纹样参考、目标软件、覆盖尺寸和用途引导我制作笔刷，验证真实应用；有实体附件时尽可能完成全打印版；持续完成图片、3D与制作文件并主动打开成果网页。视频默认不渲染，交付后再询问。"
+policy:
+  allow_implicit_invocation: true

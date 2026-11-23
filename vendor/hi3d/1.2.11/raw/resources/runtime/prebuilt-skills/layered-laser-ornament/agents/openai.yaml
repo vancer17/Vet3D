@@ -1,0 +1,4 @@
+interface:
+  display_name: "分层激光切割饰品"
+  short_description: "从参考图制作分层激光切割矢量文件、试切片与装配交付包"
+  default_prompt: "使用 $layered-laser-ornament，按这张参考图制作适用于 3 mm 板材的分层激光切割饰品，交付矢量文件、效果图与装配说明。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "依赖打包工具"
+  short_description: "按显式依赖生成完整分发目录，检查来源、路径和引用"
+  default_prompt: "使用 $package-tools 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

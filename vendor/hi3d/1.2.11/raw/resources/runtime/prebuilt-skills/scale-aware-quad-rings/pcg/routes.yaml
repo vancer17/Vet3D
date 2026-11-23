@@ -1,0 +1,74 @@
+kind: agent_skill
+partition: make
+entry: SKILL.md
+note: "已有四边面按冻结尺度划分红黄灰，再选择性融并和建环带。已有分区可以只建环带或只验收。"
+checkpoints:
+  - id: baseline
+    say: "记录基线与尺度"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/hi3d-scale-aware-thresholds.md
+    irreversible: []
+  - id: classify
+    say: "划分红黄灰区域"
+    rollback_to: baseline
+    load:
+      - SKILL.md
+      - references/hi3d-scale-aware-thresholds.md
+    irreversible: []
+  - id: remesh
+    say: "融并并建立环带"
+    rollback_to: classify
+    load:
+      - SKILL.md
+      - references/hi3d-scale-aware-thresholds.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: validate_deliver
+    say: "验收分区并交付"
+    rollback_to: remesh
+    load:
+      - SKILL.md
+      - references/hi3d-scale-aware-thresholds.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+routes:
+  - id: main
+    summary: "从基线划分到融并、环带和验收"
+    nodes:
+      - baseline
+      - classify
+      - remesh
+      - validate_deliver
+    rollback_to: classify
+  - id: plan_only
+    summary: "只冻结基线并划分区域，不改网格"
+    nodes:
+      - baseline
+      - classify
+    rollback_to: baseline
+  - id: review_only
+    summary: "分区和融并已完成，只验收交付"
+    nodes:
+      - baseline
+      - validate_deliver
+    rollback_to: validate_deliver
+choices_example:
+  - id: full
+    title: "划分并融并建环带"
+    route: main
+    confirm: false
+  - id: plan
+    title: "只划分红黄灰"
+    route: plan_only
+    confirm: false
+  - id: review
+    title: "只验收已有结果"
+    route: review_only
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

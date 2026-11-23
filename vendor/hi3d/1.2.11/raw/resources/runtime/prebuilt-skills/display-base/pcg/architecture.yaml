@@ -1,0 +1,86 @@
+schema: pcg.architecture.v1
+entry: display-base
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: display_base
+    parent: null
+    role: agent
+    label: "确认主体尺寸"
+    function: "编排 display-base"
+  - id: subject
+    parent: display_base
+    label: "确认主体尺寸"
+    function: "盘点已有主体、正面、尺寸和底部承托面；需要新艺术主体时选择 generate_subject，已有主体直接交给 base。"
+    outputs: []
+    role: local
+    members:
+      - id: work
+        label: "盘点主体与承托要求"
+  - id: generate_subject
+    parent: display_base
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "生成新艺术主体"
+    function: "仅缺少艺术主体且本次要求生成时调用 hi3d-api，沿用其模型参数选择；下载原始 GLB、材质与任务记录后交给 base。已有主体跳过，不因底座或铭牌修订重提。"
+    outputs:
+      - id: generate_subject
+        label: "艺术主体原始 GLB、材质与任务记录"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    members:
+      - id: invoke
+        label: "按已选参数生成并下载模型"
+    irreversible:
+      - hi3d.submit
+  - id: base
+    parent: display_base
+    label: "底座与铭牌"
+    function: "复用已有主体或 generate_subject 的原始模型，本地建立承托、层体和铭牌；plaque_only 仅修订文字并保留已有底座。"
+    outputs:
+      - id: base
+        label: "底座与铭牌候选工程（BLEND）"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "本地制作底座与铭牌"
+  - id: preview
+    parent: display_base
+    label: "装配预览"
+    function: "本 agent 装配预览"
+    outputs:
+      - id: preview
+        label: "装配预览"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "装配预览"
+    irreversible:
+      - blender.write
+  - id: review
+    parent: display_base
+    label: "交付核对"
+    function: "本 agent 交付核对"
+    outputs:
+      - id: review
+        label: "交付核对"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "交付核对"

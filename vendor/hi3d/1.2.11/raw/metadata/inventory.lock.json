@@ -1,0 +1,45 @@
+{
+  "anchors_sha256": {
+    "app.asar": "71cc584505ab56eb7dfbd542d54941308c9b629ebae4f84785e4f546d9e0e09a",
+    "runtime/dist/runtime.mjs": "85f69d28261dd6ee3322e4cbd4a9a670ca60c80775ed6ebe322553424734de47",
+    "runtime/manifest.json": "c2d8e8e33ed0bc6bcd1efea446dcde8d6b03bfd2a4f9ac7cf14368cab5fa41b6",
+    "runtime/prebuilt-skills/.workflow-bundle.json": "e28217bb9d3acad0aed5798a4f5dd2148b86e20abfbf02b7fcc322cdd5fd29d6",
+    "runtime/prebuilt-skills/prebuilt.json": "f0bb55cf3e73ff50524162f401ea41a6c2321ad3a13e42052d56d90885be0cb8"
+  },
+  "asar": {
+    "members": 1043,
+    "verified_integrity": 1043
+  },
+  "disk": {
+    "arch": "x64",
+    "hidden_entries": 45,
+    "platform": "win32",
+    "prebuilt_declared_only_files": 148,
+    "prebuilt_entries": 147,
+    "prebuilt_files": 3168,
+    "profile": "sparc3d",
+    "public_entries": 102,
+    "runtime_version": "1.2.11",
+    "unlisted_prebuilt_paths": [],
+    "workflow_mappings": 3020
+  },
+  "evidence_defaults": {
+    "dependency_or_host_reference": null,
+    "isolated_execution": null,
+    "observed_in_rollout": null
+  },
+  "inventory_file": "inventory.jsonl",
+  "inventory_sha256": "07fd787489ee93fa5d1e4b8e926db7db27275c174058a88bcf4a0a0d9b01e312",
+  "records": 7740,
+  "records_by_scope": {
+    "asar-member": 1043,
+    "prebuilt-skill": 3169,
+    "resources": 4,
+    "runtime": 3524
+  },
+  "schema_version": 1,
+  "source_mapping": {
+    "source_paths_with_delivery_variants": 8,
+    "unique_source_paths": 2305
+  }
+}

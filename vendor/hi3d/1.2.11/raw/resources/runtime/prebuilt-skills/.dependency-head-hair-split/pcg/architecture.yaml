@@ -1,0 +1,150 @@
+schema: pcg.architecture.v1
+entry: head-hair-split
+kind: agent_workflow
+layout: tree
+tasks:
+  - id: head_hair_split
+    parent: null
+    role: agent
+    label: "带原纹理头发与头部分离"
+    function: "顺序编排同源输入、标签准备及交互 HTML 交付；默认停止等待用户操作，不代执行图割。已有中间产物只续接所需阶段。"
+    outputs: []
+  - id: input
+    parent: head_hair_split
+    role: local
+    label: "输入与坐标核对"
+    function: "确认静态单 mesh/primitive、纹理、Y-up/+Z 正面和原件；已有标签模型走 from_labels，不创建任何新文件。"
+    outputs: []
+  - id: reference
+    parent: head_hair_split
+    role: local
+    label: "正面渲染"
+    function: "input 通过后 prepare 渲染同源正面并保存相机。已有合格渲染可跳过；方向错误回 input。输出通过人工正面检查后才能 label。"
+    optional: true
+    outputs:
+      - id: image
+        label: "正面 PNG"
+        kind: file
+        retain: keep
+        semantics: [reference]
+      - id: camera
+        label: "相机 JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: prompt
+        label: "图像编辑提示词 TXT"
+        kind: file
+        retain: keep
+        semantics: [reference]
+  - id: label
+    parent: head_hair_split
+    role: local
+    label: "语义标签参考图"
+    function: "等待 reference PNG 验收后，用宿主原生图像编辑制作白头发/黑其余头部、白背景且保留光影的 PNG。已有同源标签图可跳过；轮廓或眉耳错误回 reference，不启动贴图。"
+    optional: true
+    outputs:
+      - id: image
+        label: "语义标签 PNG"
+        kind: file
+        retain: keep
+        semantics: [reference]
+  - id: texture
+    parent: head_hair_split
+    role: local
+    label: "独立贴图任务"
+    function: "只在 label 已通过且授权涵盖提交时调用独立公共 hi3d-api 贴纹理，原模型与标签 PNG 输入；持久化 job，查询同一任务并下载标签 GLB。未知提交保留原记录只恢复，不回退重发。"
+    optional: true
+    irreversible:
+      - hi3d.submit
+    outputs:
+      - id: job
+        label: "原任务 job JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: mesh
+        label: "黑白标签 GLB"
+        kind: file
+        retain: keep
+        semantics: [reference]
+  - id: html
+    parent: head_hair_split
+    role: local
+    label: "交互 HTML 准备"
+    function: "等待源彩色 GLB 和标签 GLB；严格面映射、连续亮度采样及共享图预处理，嵌入模型/原漫反射图/算法和双色 viewer。此阶段不执行 mincut，不生成分件；默认 Otsu 仅初始化滑块。"
+    outputs:
+      - id: html
+        label: "离线交互分割 HTML（必交付）"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: manifest
+        label: "来源/映射与待用户操作状态 JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: handoff
+    parent: head_hair_split
+    role: local
+    label: "打开 HTML 并等待用户"
+    function: "返回 html 阶段真实文件链接并主动打开。缓存复用仍须交付；页面打不开报告原因，不转为代切。用户自行调阈值、点击 mincut、下载双对象漫反射 FBX；agent 不代点按钮，也不把页面就绪说成最终分件已完成。此阶段不创建新文件。"
+    outputs: []
+  - id: split
+    parent: head_hair_split
+    role: local
+    label: "图割与原纹理回写"
+    function: "仅在 HTML 已交付且用户明确要求 agent 代切割、确认阈值后执行。sample、mincut、严格面映射及原 buffer/材质回写，全部面恰好一次。没有真实答复不能填 confirmed-cut；源码/参数改变仅用新本地目录复用标签模型，失败不交付半成品。"
+    optional: true
+    outputs:
+      - id: head
+        label: "原纹理头部 GLB"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: hair
+        label: "原纹理头发 GLB"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: combined
+        label: "组合 GLB"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: labels
+        label: "逐面标签 NPY"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+      - id: report
+        label: "完整性报告 JSON"
+        kind: file
+        retain: keep
+        semantics: [deliverable]
+      - id: cut
+        label: "阈值和图割 JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]
+  - id: review
+    parent: head_hair_split
+    role: local
+    label: "多视图验收"
+    function: "读取 split 报告与三个 GLB，复读并检查同尺度正背左右、单独头发和头部；重点眉耳与发际线。需要调阈值回 split，保留旧版；记录实际视觉范围及任务耗时。"
+    outputs:
+      - id: views
+        label: "同版本多视角 PNG"
+        kind: file
+        retain: keep
+        semantics: [review]
+      - id: review
+        label: "视觉检查说明"
+        kind: file
+        retain: keep
+        semantics: [review]
+      - id: timings
+        label: "阶段记录 JSONL 与摘要 JSON"
+        kind: file
+        retain: keep
+        semantics: [provenance]

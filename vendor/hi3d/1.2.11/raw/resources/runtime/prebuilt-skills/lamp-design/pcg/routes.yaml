@@ -1,0 +1,154 @@
+kind: agent_workflow
+partition: make
+entry: SKILL.md
+note: "按当前范围选择分支；已有资产跳过生成，授权标记仅适用于实际执行的写入/提交。专项资料按入口条件读取；中高预算与中断选择由宿主统一处理。"
+checkpoints:
+  - id: research
+    say: "需求与有效约束"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/design-research.md
+    irreversible: []
+  - id: concept
+    say: "概念与选择（按需）"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/concept-image-standard.md
+      - references/cavity-form-and-registration.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: generate
+    say: "自由外壳生成（可跳过）"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/hi3d.md
+    irreversible:
+      - hi3d.submit
+    confirm_required: true
+  - id: form
+    say: "三维与结构"
+    rollback_to: research
+    load:
+      - SKILL.md
+      - references/engineering.md
+      - references/shell-engineering.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: logo
+    say: "严格 Logo 校验（按需）"
+    rollback_to: form
+    load:
+      - SKILL.md
+      - references/radial-lamp.md
+    irreversible: []
+  - id: connect
+    say: "连接与灯路"
+    rollback_to: form
+    load:
+      - SKILL.md
+      - references/print-diy-workflow.md
+      - references/diy-printing.md
+    irreversible: []
+  - id: fdm
+    say: "FDM 与精度检查"
+    rollback_to: connect
+    load:
+      - SKILL.md
+      - references/fdm.md
+    irreversible: []
+  - id: media
+    say: "同版开关灯媒体"
+    rollback_to: form
+    load:
+      - SKILL.md
+      - references/rendering.md
+    irreversible:
+      - blender.write
+    confirm_required: true
+  - id: web
+    say: "最终网页与制作包"
+    rollback_to: form
+    load:
+      - SKILL.md
+      - references/web-gallery.md
+      - references/timing.md
+    irreversible: []
+  - id: publish
+    say: "公开发布（仅明确请求时）"
+    rollback_to: web
+    load:
+      - SKILL.md
+      - references/web-gallery.md
+    irreversible:
+      - publish
+    confirm_required: true
+routes:
+  - id: main
+    summary: "文字/图片到完整数字灯具"
+    nodes:
+      - research
+      - concept
+      - generate
+      - form
+      - connect
+      - fdm
+      - media
+      - web
+  - id: reuse_model
+    summary: "已有模型或局部修订，跳过生成"
+    nodes:
+      - research
+      - form
+      - connect
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: strict_logo
+    summary: "严格顶视 Logo 放射灯"
+    nodes:
+      - research
+      - form
+      - logo
+      - connect
+      - fdm
+      - media
+      - web
+    shares_input_with: main
+  - id: concept_only
+    summary: "本次只出概念"
+    nodes:
+      - research
+      - concept
+    shares_input_with: main
+  - id: publish_page
+    summary: "已验收网页的可选公开发布"
+    nodes:
+      - web
+      - publish
+    shares_input_with: main
+choices_example:
+  - id: pick_concept
+    title: "选定一款，继续建模"
+    route: main
+    confirm: false
+  - id: have_model
+    title: "已有模型，直接修订"
+    route: reuse_model
+    confirm: false
+  - id: align_logo
+    title: "严格对齐 Logo 顶视"
+    route: strict_logo
+    confirm: false
+  - id: stop_concept
+    title: "本次只出概念图"
+    route: concept_only
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

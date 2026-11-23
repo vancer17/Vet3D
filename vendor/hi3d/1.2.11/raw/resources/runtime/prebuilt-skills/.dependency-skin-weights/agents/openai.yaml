@@ -1,0 +1,4 @@
+interface:
+  display_name: "蒙皮权重处理"
+  short_description: "对已有网格与骨骼权重执行局部约束修复或图正则求解，保留范围外权重并输出质量指标。"
+  default_prompt: "使用 $skin-weights 完成当前明确范围内的任务，保留已有输入并报告实际结果。"

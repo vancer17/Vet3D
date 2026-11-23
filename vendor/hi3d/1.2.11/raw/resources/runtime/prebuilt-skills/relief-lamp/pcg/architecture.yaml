@@ -1,0 +1,117 @@
+schema: pcg.architecture.v1
+entry: relief-lamp
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: relief_lamp
+    parent: null
+    role: agent
+    label: "透光浮雕灯"
+    function: "编排输入识别、按需浮雕生成、光学厚度与结构、连接配合与筒面局部修订、建模交付；切片仅在明确同意后继续"
+  - id: intake
+    parent: relief_lamp
+    label: "识别输入与续接"
+    function: "判断新建、修改、打印设置或答疑；复用已有合格资产，记录实物待确认项。只问工艺时不进入生成。"
+    outputs: []
+    role: local
+    members:
+      - id: classify
+        label: "分类输入并写状态"
+    rollback_to: null
+  - id: generate
+    parent: relief_lamp
+    role: subagent
+    entry: hi3d-api
+    optional: true
+    label: "按需准备图像与浮雕"
+    function: "文字先文生图再图生浮雕；已有合格图片只提交 relief；已有浮雕网格跳过。核对返回是网格、EXR 还是预览，不以预览冒充可打印灯罩。"
+    outputs:
+      - id: relief_source
+        label: "源图、浮雕原始结果与任务记录"
+        kind: file
+        retain: keep
+        semantics:
+          - source
+    members:
+      - id: invoke
+        label: "按已选参数生成并下载"
+    irreversible:
+      - hi3d.submit
+  - id: build
+    parent: relief_lamp
+    label: "处理透光与灯具结构"
+    function: "按亮度或形体目标建立闭合灯罩、框体、灯托、维修盖和紧固件；安装槽落在加厚带上。同结构筒形灯按案例修订圆柱插销、底部向上螺丝、六角母孔和空白筒面，数值只作起点。后台 Blender 走预算心跳。局部修订不重新生成合格外观。"
+    outputs:
+      - id: lamp_blend
+        label: "可编辑整灯 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: model
+        label: "光学厚度、结构与局部修订"
+    rollback_to: intake
+    irreversible:
+      - blender.write
+  - id: deliver
+    parent: relief_lamp
+    label: "交付模型并询问切片"
+    function: "导出同版 GLB 与毫米 STL，做网格、尺度和开合检查，给出开关灯对照与工艺建议表。局部修订另交参数前后值、同相机对照和重打范围。用户要求先 review 或未同意切片时结束于建模交付。"
+    outputs:
+      - id: assembly_glb
+        label: "装配 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: print_stl
+        label: "各打印件毫米 STL"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: preview_png
+        label: "同相机开关灯对照 PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: process_note
+        label: "部件清单、工艺建议、检查记录；局部修订含参数前后值与重打范围"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: export
+        label: "导出、检查并询问切片"
+    rollback_to: build
+    irreversible:
+      - blender.write
+  - id: slice
+    parent: relief_lamp
+    label: "配置可选整灯切片"
+    function: "仅在用户同意后探测兼容切片器与真实设备，按颜色和工艺分盘，为灯罩写入对象级覆盖并回读刀路。几何已修订时用新 STL 替换旧对象并检查接缝，不沿用旧 G-code。不发送或启动实体打印。"
+    outputs:
+      - id: slicer_project
+        label: "整灯原生切片工程"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: slice_note
+        label: "切片配置与检查摘要"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    optional: true
+    members:
+      - id: configure
+        label: "探测软件并写出工程"
+    rollback_to: deliver

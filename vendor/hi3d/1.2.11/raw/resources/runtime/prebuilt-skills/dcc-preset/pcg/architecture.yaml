@@ -1,0 +1,52 @@
+schema: pcg.architecture.v1
+entry: dcc-preset
+kind: agent_skill
+layout: linear
+tasks:
+  - id: dcc_preset
+    parent: null
+    role: agent
+    label: DCC 预制
+    function: 按软件、版本和主题从 scripts/catalog.py 选出一条水体预制，并只执行该条写明的文件操作。
+    outputs: []
+  - id: resolve
+    parent: dcc_preset
+    role: local
+    label: 检索预制
+    function: 用版本号过滤 unreal、houdini、blender 的水体预制。5.7 以下的虚幻、20.5 以下的 Houdini、4.2 以下的 Blender 标为不适用。未知 id 在此停止。本阶段不打开宿主，也不改工程。
+    outputs:
+      - id: preset_list
+        label: result.json 中的预制列表、最低版本和适用标记
+        kind: file
+        retain: keep
+        semantics:
+          - report
+  - id: apply
+    parent: resolve
+    role: local
+    label: 写入预制
+    rollback_to: resolve
+    irreversible:
+      - overwrite.source
+      - blender.write
+    function: 虚幻在版本门槛通过后把名单中的插件 Enabled 设为 true；默认只给出将改动的名称，--write 才替换 .uproject。Houdini 在 hython 确认 oceanspectrum 存在后另存 HIP。Blender 另存带流体域和液体流入的 BLEND。缺程序、版本过低或版本冲突时不写文件。不烘焙，不启动编辑器。
+    outputs:
+      - id: preset_file
+        label: 改后的 .uproject，或新建的 .hip / .blend；预演和拒绝时没有新文件
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+  - id: review
+    parent: apply
+    role: local
+    label: 核对结果
+    rollback_to: apply
+    function: 对照 result.json 的 status、changed 和版本来源。already_enabled 表示没有新改动。applied 只证明插件项或预设文件已写。不把该状态当成水面、浮力或场景验收。
+    outputs:
+      - id: review_result
+        label: result.json，含 status、插件或输出路径、版本来源
+        kind: file
+        retain: keep
+        semantics:
+          - report

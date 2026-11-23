@@ -1,0 +1,13 @@
+{
+  "schema": "pcg.ops.lock.v1",
+  "skill": "pub-roblox-game",
+  "kind": "agent_skill",
+  "blueprint_pcg_ops": [],
+  "unmapped": [
+    "target",
+    "preflight",
+    "upload",
+    "audience",
+    "verify"
+  ]
+}

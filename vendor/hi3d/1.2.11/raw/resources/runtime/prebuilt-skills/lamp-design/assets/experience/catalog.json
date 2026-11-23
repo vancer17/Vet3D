@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "default_style": "04",
+  "styles": [
+    {
+      "id": "04",
+      "name": "回庭",
+      "title": "双层洞庭",
+      "description": "偏心留白、宽内缘，光从两级凹面展开。",
+      "revision": "V9",
+      "status": "光学设计样机，未验证实物",
+      "files": [
+        "on.png",
+        "off.png",
+        "on.mp4",
+        "off.mp4",
+        "lamp.glb"
+      ]
+    },
+    {
+      "id": "02",
+      "name": "浮丘",
+      "title": "起伏软雕塑",
+      "description": "圆润体量与连续肋纹，柔光顺着曲面流动。",
+      "revision": "V7",
+      "status": "光学设计样机，未验证实物",
+      "files": [
+        "on.png",
+        "off.png",
+        "on.mp4",
+        "off.mp4",
+        "lamp.glb"
+      ]
+    },
+    {
+      "id": "01",
+      "name": "叠界",
+      "title": "深阶凹窗",
+      "description": "棱面与下凹台阶，五处光窗各自点亮。",
+      "revision": "V6",
+      "status": "光学设计样机，未验证实物",
+      "files": [
+        "on.png",
+        "off.png",
+        "on.mp4",
+        "off.mp4",
+        "lamp.glb"
+      ]
+    },
+    {
+      "id": "05",
+      "name": "簇序",
+      "title": "错层叠石",
+      "description": "错动体块与层间光缝，关灯也有雕塑感。",
+      "revision": "V6",
+      "status": "光学设计样机，未验证实物",
+      "files": [
+        "on.png",
+        "off.png",
+        "on.mp4",
+        "off.mp4",
+        "lamp.glb"
+      ]
+    }
+  ]
+}

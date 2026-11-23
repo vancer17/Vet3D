@@ -1,0 +1,80 @@
+{
+  "source_repository": "https://github.com/EpicGames/MetaHuman-DNA-Calibration",
+  "source_revision": "8297ff1bd6f1692a6e221aa8395a66486e5a53c9",
+  "character": "Taro",
+  "template_source": "data/dna_files/Taro.dna",
+  "extraction": "scripts/dna_io.py extract; original vertex order and per-corner UVs retained",
+  "scope": "MetaHuman LOD0 head template and matching atlases; no DNA runtime or executable upstream software bundled",
+  "license": "Epic MetaHuman DNA Calibration License and applicable Epic content terms; not relicensed as unrestricted open-source assets",
+  "files": {
+    "UPSTREAM_LICENSE.txt": {
+      "bytes": 7697,
+      "sha256": "93203f12b0cd8590606ef0cc1f26e2db2278186df86c2a29d188913fe7255881"
+    },
+    "eyes_color_map.tga": {
+      "bytes": 3145772,
+      "sha256": "9f7e00bacfa2bcccc343127054c3e2a942ffb3074d627e77ef98afaab7ed12d6"
+    },
+    "head_color_map.tga": {
+      "bytes": 3145772,
+      "sha256": "d4d12d38b3fd1f4a833a0e6a75f0f4e8d226928b0c3dfcc1484a07f08d045ec3"
+    },
+    "teeth_color_map.tga": {
+      "bytes": 3145772,
+      "sha256": "5f069b9779cb9a8d5fe3f0ea7148a821cb90054b6c5a004f7707eb4cd1ac4bca"
+    },
+    "template.npz": {
+      "bytes": 1474174,
+      "sha256": "181869031ca0a395ffa1fd848b53681515412fbe128288f615d9d6e15bffe4e3"
+    },
+    "regions.json": {
+      "bytes": 461122,
+      "sha256": "917bcc150076fa57001c50f7253c1b2ee506e8509cc5ad9e592331755ebf92e7"
+    },
+    "template.obj": {
+      "bytes": 4565527,
+      "sha256": "e80f3be556e36d605d62b2b25af3f31ec76ba82b01642db5ca331618f81aa6cd"
+    },
+    "template.mtl": {
+      "bytes": 65,
+      "sha256": "cadfc310d59e8171d05420f6cb2c038957dce0298913ea28612072611ad91265"
+    },
+    "template.glb": {
+      "bytes": 2212548,
+      "sha256": "807ea41fcfdbfa6ce5f92e2005a3fac03653534a20315f6756c127c9133fed96"
+    },
+    "sapiens2_template_front.png": {
+      "bytes": 1150155,
+      "sha256": "44f5c443afd5e93f1ec7a44a732b1f9fb40d8a517776f9898847707bfae6d08b"
+    },
+    "sapiens2_pose.npz": {
+      "bytes": 3948,
+      "sha256": "7227a96d73a1f409a39e4ffd10e3fa7c2bdbd2cc93f1b6efe358326f442e3de6"
+    },
+    "sapiens2_keypoint_names.json": {
+      "bytes": 11523,
+      "sha256": "4fb377f7eb087522948c84e17ea48321c353f16d980dc8a8da607cc0ec6ce2e9"
+    },
+    "sapiens2_camera.json": {
+      "bytes": 643,
+      "sha256": "1b78e41ff58b3027c853a1e9ab3680ada5fb23defc50815b7f57b8cad4d2cdf4"
+    },
+    "template_eyes.npz": {
+      "bytes": 58105,
+      "sha256": "4a4f77c9826741bc52b301d1e11535081c4294303b39ab194caf023e7390a669"
+    },
+    "sapiens2_mapping.json": {
+      "bytes": 59279,
+      "sha256": "c66a6febd2efb7bb03128a1f8885d1fea25ffdd612d31406caea4c3dd3b124bc"
+    },
+    "sapiens2_mapping_overlay.png": {
+      "bytes": 799728,
+      "sha256": "1b0cac50fddcefc7b90409dc76f89be4c64a29a7c9b59a5aa160cffaa49e0943"
+    },
+    "sapiens2_ear_mapping.json": {
+      "bytes": 15674,
+      "sha256": "650a6cf2c4db3b1bf591894d0ad4050be7b4c593bfedeff324b457a992332648"
+    }
+  },
+  "viewable_exports": "OBJ preserves NPZ vertex order and quads; MTL references head_color_map.tga. GLB embeds skin texture, triangulates quads and splits UV seams; coordinates unchanged. Head skin only."
+}

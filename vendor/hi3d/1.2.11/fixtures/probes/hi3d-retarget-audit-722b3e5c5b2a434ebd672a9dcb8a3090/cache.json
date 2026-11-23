@@ -1,0 +1,14 @@
+{
+  "cache_sha256": "9515d4c010643c59afb7dfa42d2e3423a66c5a4e89b0858f37b862904c6505f1",
+  "fps": 30,
+  "frames": 3,
+  "input_sha256": "89d27771aed14552db99b7eb999707a286f5ae85b01be3e867c2a6e647d1c7ae",
+  "output": "{PROBE_ROOT}/hi3d-retarget-audit-722b3e5c5b2a434ebd672a9dcb8a3090/cache.npz",
+  "rig": "Source",
+  "rig_sha256": "4da0e188f0619b77b76f1a6a80e902ec766414585a5fbedfb95278fdf06a53a2",
+  "source_fps": 30,
+  "source_frames": [
+    0.0,
+    2.0
+  ]
+}

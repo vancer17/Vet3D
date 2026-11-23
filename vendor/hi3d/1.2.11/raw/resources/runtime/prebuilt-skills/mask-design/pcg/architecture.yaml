@@ -1,0 +1,128 @@
+schema: pcg.architecture.v1
+entry: mask-design
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与显式独立入口；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: mask_design
+    parent: null
+    role: agent
+    label: "输入与简报"
+    function: "编排 mask-design"
+  - id: brief
+    parent: mask_design
+    label: "输入与简报"
+    function: "本 agent 输入与简报"
+    outputs:
+      - id: brief
+        label: "输入与简报"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "输入与简报"
+  - id: sources
+    parent: mask_design
+    label: "头型与外壳"
+    function: "派出 hi3d-api；条件生成前走参数选择与计费示警，未授权不得 submit"
+    optional: true
+    irreversible:
+      - hi3d.submit
+    outputs:
+      - id: sources
+        label: "头型与外壳"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: hi3d-api
+    members:
+      - id: invoke
+        label: "调用 hi3d-api"
+  - id: cavity
+    parent: mask_design
+    label: "内腔与试戴骨架"
+    function: "本 agent 内腔与试戴骨架"
+    outputs:
+      - id: cavity
+        label: "内腔与试戴骨架"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "内腔与试戴骨架"
+  - id: retention
+    parent: mask_design
+    label: "按材料设计固定、止退与释放"
+    function: "本 agent 按材料设计固定、止退与释放"
+    outputs:
+      - id: retention
+        label: "按材料设计固定、止退与释放"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "按材料设计固定、止退与释放"
+  - id: fdm
+    parent: mask_design
+    label: "FDM 拆件"
+    function: "本 agent FDM 拆件"
+    outputs:
+      - id: fdm
+        label: "FDM 拆件"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: work
+        label: "FDM 拆件"
+    irreversible:
+      - overwrite.source
+  - id: media
+    parent: mask_design
+    label: "适配图与视频"
+    function: "本 agent 适配图与视频"
+    outputs:
+      - id: media
+        label: "适配图与视频"
+        kind: file
+        retain: cache
+        semantics:
+          - derived
+          - cache
+    role: local
+    members:
+      - id: work
+        label: "适配图与视频"
+    irreversible:
+      - blender.write
+  - id: web
+    parent: mask_design
+    label: "网页与制作包"
+    function: "派出 game-deploy"
+    outputs:
+      - id: web
+        label: "网页与制作包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: game-deploy
+    members:
+      - id: invoke
+        label: "调用 game-deploy"
+    irreversible:
+      - publish

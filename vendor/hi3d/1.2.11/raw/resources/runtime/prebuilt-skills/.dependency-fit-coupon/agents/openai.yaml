@@ -1,0 +1,4 @@
+interface:
+  display_name: "配对试片"
+  short_description: "裁切真实配合接口并组织间隙试片系列，保留来源、朝向和待测记录。"
+  default_prompt: "使用 $fit-coupon 为当前明确的配合双方生成试片并记录来源和公差定义。"

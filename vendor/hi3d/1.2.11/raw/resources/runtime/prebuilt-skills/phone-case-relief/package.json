@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/page_assets.py": "skills/asset-page/scripts/page_assets.py"
+  },
+  "requires": []
+}

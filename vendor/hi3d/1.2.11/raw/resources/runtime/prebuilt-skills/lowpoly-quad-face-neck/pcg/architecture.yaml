@@ -1,0 +1,182 @@
+schema: pcg.architecture.v1
+entry: lowpoly-quad-face-neck
+kind: agent_workflow
+layout: tree
+note: "执行架构：编排 agent 与本地阶段；不是 routes.yaml 的用户选项图。宿主编排提示见 tools/pcg-view/references/host-orchestration.md。"
+tasks:
+  - id: quad_face_neck
+    parent: null
+    role: agent
+    label: "低模四边面与面颈"
+    function: "先确认对话里有约两百万面的高模；缺低模时才派出风格化低模，再编排配准、流形四边面、有脸时的下巴与颈部校准、烘焙和交付"
+  - id: stylized_lowpoly
+    parent: quad_face_neck
+    label: "补风格化低模"
+    function: "对话里没有可用低模时，用已确认的高模派出 connected-faceted-lowpoly，取回低模。已有合格低模不调用。没有约两百万面的高模时不进入本阶段，也不生模。"
+    outputs:
+      - id: stylized_glb
+        label: "风格化低模交付的低模 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: subagent
+    entry: connected-faceted-lowpoly
+    optional: true
+    members:
+      - id: invoke
+        label: "交接风格化低模"
+  - id: inspect_align
+    parent: quad_face_neck
+    label: "核对资产对齐"
+    function: "高模与低模都已确定后，确认主体、姿态、坐标和可复用工程。语义锚点初始化后再做表面拟合；不可靠时停止后续投射与烘焙，并记录缺项。复制后工作，划定冻结区、重建区和过渡带。"
+    outputs:
+      - id: align_note
+        label: "主体、姿态、配准与冻结区记录"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: inspect
+        label: "核对资产并记录对齐"
+    rollback_to: null
+  - id: quad_base
+    parent: quad_face_neck
+    label: "建立流形四边面"
+    function: "已有合格四边面直接复用。否则按邻接与转折把三角低模收成四边面或相容四边格，保留主要轮廓和块面，不跨独立部件焊接。后台配对与投射走预算心跳。"
+    outputs:
+      - id: quad_blend
+        label: "以原低模为起点的可编辑四边面 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: quad
+        label: "配对或构建四边格"
+    rollback_to: inspect_align
+    irreversible:
+      - blender.write
+  - id: face_neck_regions
+    parent: quad_face_neck
+    label: "提取面颈区域"
+    function: "识别人脸或拟人脸。有脸时先提取颏部、下颌缘和颏下转折，再标出五官、颈前、颈侧/颈后和颈根。明确无脸时本阶段不产生面颈分区，并在说明中记录跳过。漏选下巴不能记为不适用。"
+    outputs:
+      - id: region_note
+        label: "各语义区的存在性、高低模面区和处理状态"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: extract
+        label: "提取下巴与颈部块面"
+    rollback_to: quad_base
+    irreversible:
+      - blender.write
+  - id: face_neck_retopology
+    parent: quad_face_neck
+    label: "重排五官下颌"
+    function: "围绕眼和口建立闭合四边环线，边流延续到下巴和现有颈部，并按语义表面投射。无脸分支不进入本阶段。头部资产没有颈部时不新增颈部。"
+    outputs:
+      - id: face_blend
+        label: "已校准五官、下巴和现有颈部的 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: retopo
+        label: "重排环线并投射"
+    rollback_to: face_neck_regions
+    irreversible:
+      - blender.write
+  - id: quad_transition
+    parent: quad_face_neck
+    label: "四边面衔接"
+    function: "重建区与冻结区共享边界，面部、下巴、颈部和颈根的过渡保持全四边面。无脸时不安排面颈过渡带，整体连接留到验收。"
+    outputs:
+      - id: transition_blend
+        label: "衔接带已为四边面的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: loop_note
+        label: "命名边链、预选环线与极点中断说明"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: join
+        label: "用四边面接回冻结区"
+    rollback_to: face_neck_retopology
+    irreversible:
+      - blender.write
+  - id: bake
+    parent: quad_face_neck
+    label: "烘焙局部贴图"
+    function: "几何合格后用 texture-bake 从高模烘焙颜色；需要且源可信时再烘焙法线。面颈使用分区 cage，过渡带融合旧贴图。高模无贴图时不投色冒充，并在说明中记录缺失。"
+    outputs:
+      - id: baked_blend
+        label: "已绑定烘焙贴图的可编辑 BLEND"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: texture_png
+        label: "面颈或整模烘焙颜色 PNG，及任务要求时的法线 PNG"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: bake_color
+        label: "分区烘焙并融合接边"
+    rollback_to: quad_transition
+    irreversible:
+      - blender.write
+  - id: validate_deliver
+    parent: quad_face_neck
+    label: "验收登记交付"
+    function: "用 mesh-audit 测量连通与非流形，并按验收文件核对四边面、边链、区域覆盖和采样形状。导出 OBJ 包与米制 GLB；宿主工具可用时再登记并加载真实版本。导出、登记、加载分开记录。"
+    outputs:
+      - id: obj_pack
+        label: "不三角化的 OBJ、MTL 与贴图包"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: preview_glb
+        label: "带米制物理单位标记的预览 GLB"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: compare_png
+        label: "同视角贴图、无贴图与线框对照，含下巴底面和颈侧"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+      - id: check_report
+        label: "分区域几何、拓扑、贴图和宿主交付状态报告"
+        kind: file
+        retain: keep
+        semantics:
+          - deliverable
+    role: local
+    members:
+      - id: check
+        label: "验收、导出并登记"
+    rollback_to: bake
+    irreversible:
+      - blender.write

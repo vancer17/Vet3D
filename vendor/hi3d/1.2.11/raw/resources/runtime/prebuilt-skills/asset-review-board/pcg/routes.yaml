@@ -1,0 +1,82 @@
+kind: agent_workflow
+partition: software
+entry: SKILL.md
+note: "登记资产审阅检查点；GLB 读取、媒体检查与存档由独立原子能力执行。"
+checkpoints:
+  - id: versions
+    say: "版本与资产归属"
+    rollback_to: null
+    load:
+      - SKILL.md
+      - references/review.json
+      - references/timing-and-revision.md
+    irreversible: []
+  - id: prefer
+    say: "并排或单版"
+    rollback_to: versions
+    load:
+      - SKILL.md
+      - references/review.json
+    irreversible: []
+  - id: criteria
+    say: "审阅维度"
+    rollback_to: prefer
+    load:
+      - SKILL.md
+      - references/review.json
+    irreversible: []
+  - id: review
+    say: "写批注并对比"
+    rollback_to: criteria
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: compare
+    say: "同步相机与播放"
+    rollback_to: review
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: import
+    say: "导入导出"
+    rollback_to: review
+    load:
+      - SKILL.md
+    irreversible: []
+  - id: deliver
+    say: "下载与成果页"
+    rollback_to: import
+    load:
+      - SKILL.md
+      - references/timing-and-revision.md
+    irreversible: []
+routes:
+  - id: main
+    summary: "多版本并排审阅"
+    nodes: [versions, prefer, criteria, review, compare, import, deliver]
+  - id: single
+    summary: "单版切换审阅"
+    nodes: [versions, prefer, criteria, review, import, deliver]
+  - id: review_only
+    summary: "已有看板只验收交付"
+    nodes: [versions, review, deliver]
+choices_example:
+  - id: side_by_side
+    title: "并排对比多版本"
+    route: main
+    confirm: false
+  - id: single_pane
+    title: "单版切换"
+    route: single
+    confirm: false
+  - id: inspect
+    title: "仅检查已有结果"
+    route: review_only
+    confirm: false
+  - id: revise_versions
+    title: "返回修改版本归属"
+    rollback_to: versions
+    confirm: false
+ui:
+  option_buttons: true
+  choice_role: option

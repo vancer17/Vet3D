@@ -1,0 +1,4 @@
+interface:
+  display_name: "平面驾驶与赛道检查点"
+  short_description: "添加简单赛车、车辆驾驶或顺序计时检查点；明确范围并验证关键边界。"
+  default_prompt: "使用 $game-vehicle 处理当前游戏需求，复用已有工程并验证输入输出。"
