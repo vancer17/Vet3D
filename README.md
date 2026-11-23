@@ -3,7 +3,7 @@ Agent-powered pipeline for generating animatable 3D animal assets from images, b
 
 ## Development
 
-Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小应用入口与装配骨架](docs/vet3d/implementation/work-items/L0-01.md)、[L0-02 身份与关联](docs/vet3d/implementation/work-items/L0-02.md)和 [L0-03 文件、来源、单位与视图契约](docs/vet3d/implementation/work-items/L0-03.md)，采用独立 CPython 3.14 环境、uv 和 Hatchling；运行命令、当前范围与验证记录见各实施卡。M0 尚未完成。
+Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小应用入口与装配骨架](docs/vet3d/implementation/work-items/L0-01.md)、[L0-02 身份与关联](docs/vet3d/implementation/work-items/L0-02.md)、[L0-03 文件、来源、单位与视图契约](docs/vet3d/implementation/work-items/L0-03.md)和 [L0-04 独立事实、结果与交接守卫](docs/vet3d/implementation/work-items/L0-04.md)，采用独立 CPython 3.14 环境、uv 和 Hatchling；运行命令、当前范围与验证记录见各实施卡。M0 尚未完成。
 
 [宿主与装配决策](docs/vet3d/adr/0001-service-host-and-composition.md)记录技术选择及边界。Hi3D 参考工具与产品实现分别维护。
 
