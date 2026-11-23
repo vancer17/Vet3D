@@ -14,6 +14,7 @@ dependencies = []
 
 [project.scripts]
 vet3d-demo = "vet3d.host:main"
+vet3d-contract-probe = "vet3d.host:probe_main"
 
 [dependency-groups]
 dev = ["mypy==2.4.1"]

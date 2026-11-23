@@ -1,6 +1,6 @@
-# 文件信息：L0-03 文件内容、位置和来源及 L0-04 文件观察的公共入口。
-# 边界：公开唯一具体类型和纯校验，不暴露 I/O、配置或重复身份。
-"""公开可独立使用的文件引用与内容交接契约。"""
+# 文件信息：L0-03 文件契约、L0-04 文件观察及 L0-05 产物访问端口的公共入口。
+# 边界：公开唯一具体类型、纯校验和访问接口，不执行 I/O 或装配具体存储。
+"""公开文件引用、内容交接契约及消费方访问端口。"""
 
 from ._checks import ArtifactContractError
 from .content import ContentFingerprint, FileReference
@@ -9,6 +9,7 @@ from .observations import (
     FileMissing, FileObservation, FilePresent, FileUnavailable, require_matching_file,
     validate_file_observation,
 )
+from .ports import ArtifactAccess, LocatedArtifact
 from .provenance import ImportOrigin
 from .validation import (
     validate_content_binding, validate_content_observation, validate_file_location,
@@ -22,4 +23,5 @@ __all__ = [
     "validate_file_set", "validate_import_origin",
     "FileMissing", "FileObservation", "FilePresent", "FileUnavailable",
     "require_matching_file", "validate_file_observation",
+    "ArtifactAccess", "LocatedArtifact",
 ]

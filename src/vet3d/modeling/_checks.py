@@ -5,7 +5,7 @@
 
 
 class ModelingContractError(ValueError):
-    """表示建模引用、视图选择或空间约定不满足本项规则。"""
+    """表示建模引用、生成交接、视图准备或空间约定不满足规则。"""
 
 
 def require_type(value: object, expected: type[object]) -> None:
@@ -33,17 +33,17 @@ def require_set(values: object, expected: type[object]) -> None:
 
 
 def require_text(value: object) -> None:
-    """核对必保要求的文本边界，保留原文且不解释其语义。
+    """核对建模要求或诊断的文本边界，保留原文且不解释其语义。
 
-    :param value: 待记录的要求文字。
+    :param value: 待记录的要求或诊断文字。
     :raises TypeError: 输入不是字符串。
     :raises ModelingContractError: 文本空白或无法编码为 UTF-8。
     """
     require_type(value, str)
     assert isinstance(value, str)
     if not value.strip():
-        raise ModelingContractError("必保要求不能是空白文本")
+        raise ModelingContractError("建模要求或诊断不能是空白文本")
     try:
         value.encode("utf-8")
     except UnicodeEncodeError as error:
-        raise ModelingContractError("必保要求必须可编码为 UTF-8") from error
+        raise ModelingContractError("建模要求或诊断必须可编码为 UTF-8") from error

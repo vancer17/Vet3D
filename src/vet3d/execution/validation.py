@@ -1,10 +1,11 @@
-# 文件信息：L0-04 执行事实的身份核对与局部观察对账。
+# 文件信息：L0-04 执行事实及 L0-05 取消回执的身份核对与局部观察对账。
 # 边界：只处理显式输入，顺序由调用方确认；不读墙钟、不持久化、不生成新尝试。
 """保留可信执行观察，不用查询或等待诊断覆盖终态。"""
 
 from vet3d.identity import AttemptIdentity
 
 from ._checks import ExecutionContractError, require_type
+from .cancellation import CancellationAcknowledged, CancellationReceipt, CancellationUnconfirmed
 from .diagnostics import QueryUnavailable, SubmissionUnconfirmed, WaitEnded
 from .observations import (
     AttemptActive, AttemptCancelled, AttemptFailed, AttemptObservation, AttemptSucceeded,
@@ -22,13 +23,13 @@ def _require_observation(value: object) -> None:
 
 
 def validate_attempt_fact(
-    fact: AttemptObservation | QueryUnavailable | SubmissionUnconfirmed | WaitEnded,
+    fact: AttemptObservation | QueryUnavailable | SubmissionUnconfirmed | WaitEnded | CancellationReceipt,
     *,
     attempt: AttemptIdentity,
 ) -> None:
     """核对事实指向给定的原尝试，不解析或复制其上游归属。
 
-    :param fact: 确认观察或具有尝试关联的诊断。
+    :param fact: 确认观察、具有尝试关联的诊断或取消命令回执。
     :param attempt: 调用方已解析的确切执行尝试。
     :raises TypeError: 输入不是规定的事实或尝试记录。
     :raises ExecutionContractError: 事实引用了其他尝试。
@@ -36,6 +37,7 @@ def validate_attempt_fact(
     if type(fact) not in (
         AttemptActive, AttemptSucceeded, AttemptFailed, AttemptCancelled,
         QueryUnavailable, SubmissionUnconfirmed, WaitEnded,
+        CancellationAcknowledged, CancellationUnconfirmed,
     ):
         raise TypeError("此位置必须使用具有关联尝试的执行事实")
     require_type(attempt, AttemptIdentity)
@@ -54,7 +56,7 @@ def reconcile_observation(
     :param last: 上一次可信观察；None 表示尚无可信观察。
     :param current: 调用方确认较新的可信观察。
     :returns: 本次可信观察，不产生其他阶段的完成结论。
-    :raises TypeError: 输入是查询、提交、等待诊断或其他非观察对象。
+    :raises TypeError: 输入是查询、提交、等待诊断、取消回执或其他非观察对象。
     :raises ExecutionContractError: 尝试错配、可信终态冲突或终态倒退。
     """
     _require_observation(current)

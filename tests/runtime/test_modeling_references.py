@@ -1,5 +1,5 @@
 # 文件信息：L0-03 建模照片引用与五向选择契约测试。
-# 作用：验证任务主体基准、单次操作输入和重建视图的不同作用域。
+# 作用：验证任务主体基准、单次操作输入和业务准备视图的不同作用域。
 # 边界：使用合成字节声明摘要；不读取真实照片，不证明照片方向或动物一致性。
 """通过业务不变量验证引用集合，不将结构通过解释为视觉质量合格。"""
 
@@ -13,13 +13,13 @@ from vet3d.identity import ArtifactId, ArtifactIdentity, IdentityRelationError, 
 from vet3d.modeling import (
     ImageOperationReferences,
     ModelingContractError,
-    ReconstructionView,
+    PreparedView,
     ReviewReference,
-    SelectedViews,
+    PreparedViews,
     TaskReferences,
     ViewDirection,
     validate_operation_references,
-    validate_selected_views,
+    validate_prepared_views,
     validate_task_references,
 )
 
@@ -39,10 +39,10 @@ class ModelingReferenceTests(unittest.TestCase):
             task_id=self.task.id,
             subject_reference_id=self.front_file.artifact_id,
             preserve_features=("保留左侧斑纹",),
-            required_directions=frozenset(ViewDirection),
+            required_preparation_directions=frozenset(ViewDirection),
         )
-        self.reconstruction = tuple(
-            ReconstructionView(artifact_id=file.artifact_id, direction=direction)
+        self.prepared_views = tuple(
+            PreparedView(artifact_id=file.artifact_id, direction=direction)
             for direction, (file, _) in self.photos.items()
         )
         self.files = tuple(file for file, _ in self.photos.values())
@@ -64,7 +64,7 @@ class ModelingReferenceTests(unittest.TestCase):
         )
 
     def test_subject_and_operation_main_are_independent_and_reusable(self) -> None:
-        """操作可使用另一主图，主体基准可同时作为补充或重建照片。"""
+        """操作可使用另一主图，主体基准可同时作为补充或业务准备照片。"""
         validate_task_references(
             self.references, task=self.task, files=(self.front_file,), artifacts=(self.front_identity,)
         )
@@ -80,8 +80,8 @@ class ModelingReferenceTests(unittest.TestCase):
             files=(self.left_file, self.front_file),
             artifacts=(self.front_identity, self.left_identity),
         )
-        validate_selected_views(
-            SelectedViews(reconstruction=self.reconstruction, review_only=()),
+        validate_prepared_views(
+            PreparedViews(views=self.prepared_views, review_only=()),
             references=self.references,
             task=self.task,
             files=self.files,
@@ -89,26 +89,26 @@ class ModelingReferenceTests(unittest.TestCase):
         )
 
     def test_review_only_and_unknown_direction_do_not_fill_a_required_view(self) -> None:
-        """验收参考可不标方向；即使标顶视也不能补齐缺失的重建顶视。"""
-        selection = SelectedViews(
-            reconstruction=self.reconstruction,
+        """验收参考可不标方向；即使标顶视也不能补齐缺失的业务准备顶视。"""
+        prepared = PreparedViews(
+            views=self.prepared_views,
             review_only=(ReviewReference(artifact_id=self.review_file.artifact_id),),
         )
-        validate_selected_views(
-            selection,
+        validate_prepared_views(
+            prepared,
             references=self.references,
             task=self.task,
             files=(*self.files, self.review_file),
             artifacts=(*self.artifacts, self.review_identity),
         )
-        without_top = tuple(view for view in self.reconstruction if view.direction is not ViewDirection.TOP)
+        without_top = tuple(view for view in self.prepared_views if view.direction is not ViewDirection.TOP)
         top_file, _ = self.photos[ViewDirection.TOP]
         for direction in (None, ViewDirection.TOP):
             with self.subTest(review_direction=direction):
                 with self.assertRaises(ModelingContractError):
-                    validate_selected_views(
-                        SelectedViews(
-                            reconstruction=without_top,
+                    validate_prepared_views(
+                        PreparedViews(
+                            views=without_top,
                             review_only=(ReviewReference(artifact_id=top_file.artifact_id, direction=direction),),
                         ),
                         references=self.references,
@@ -118,12 +118,12 @@ class ModelingReferenceTests(unittest.TestCase):
                     )
 
     def test_distinct_artifact_ids_cannot_reuse_content_to_fill_two_views(self) -> None:
-        """相同内容换一个文件身份后仍不能同时充当前向和左向重建输入。"""
+        """相同内容换一个文件身份后仍不能同时充当前向和左向业务准备输入。"""
         duplicate_file, duplicate_identity = self._photo(b"front")
-        selection = SelectedViews(
-            reconstruction=(
-                ReconstructionView(artifact_id=self.front_file.artifact_id, direction=ViewDirection.FRONT),
-                ReconstructionView(artifact_id=duplicate_file.artifact_id, direction=ViewDirection.LEFT),
+        prepared = PreparedViews(
+            views=(
+                PreparedView(artifact_id=self.front_file.artifact_id, direction=ViewDirection.FRONT),
+                PreparedView(artifact_id=duplicate_file.artifact_id, direction=ViewDirection.LEFT),
             ),
             review_only=(),
         )
@@ -131,35 +131,35 @@ class ModelingReferenceTests(unittest.TestCase):
             task_id=self.task.id,
             subject_reference_id=self.front_file.artifact_id,
             preserve_features=(),
-            required_directions=frozenset({ViewDirection.FRONT, ViewDirection.LEFT}),
+            required_preparation_directions=frozenset({ViewDirection.FRONT, ViewDirection.LEFT}),
         )
         with self.assertRaises(ModelingContractError):
-            validate_selected_views(
-                selection,
+            validate_prepared_views(
+                prepared,
                 references=references,
                 task=self.task,
                 files=(self.front_file, duplicate_file),
                 artifacts=(self.front_identity, duplicate_identity),
             )
 
-    def test_selected_roles_and_reconstruction_directions_are_unambiguous(self) -> None:
-        """同一选择内的文件角色互斥，两个不同文件不能占据同一重建方向。"""
-        front = ReconstructionView(artifact_id=self.front_file.artifact_id, direction=ViewDirection.FRONT)
+    def test_prepared_roles_and_directions_are_unambiguous(self) -> None:
+        """同一选择内的文件角色互斥，两个不同文件不能占据同一业务准备方向。"""
+        front = PreparedView(artifact_id=self.front_file.artifact_id, direction=ViewDirection.FRONT)
         with self.assertRaises(ModelingContractError):
-            SelectedViews(
-                reconstruction=(front,),
+            PreparedViews(
+                views=(front,),
                 review_only=(ReviewReference(artifact_id=self.front_file.artifact_id),),
             )
         with self.assertRaises(ModelingContractError):
-            SelectedViews(
-                reconstruction=(
+            PreparedViews(
+                views=(
                     front,
-                    ReconstructionView(artifact_id=self.left_file.artifact_id, direction=ViewDirection.FRONT),
+                    PreparedView(artifact_id=self.left_file.artifact_id, direction=ViewDirection.FRONT),
                 ),
                 review_only=(),
             )
         with self.assertRaises(ModelingContractError):
-            SelectedViews(reconstruction=(front, front), review_only=())
+            PreparedViews(views=(front, front), review_only=())
         with self.assertRaises(ModelingContractError):
             ImageOperationReferences(
                 main_image_id=self.front_file.artifact_id,
@@ -216,18 +216,18 @@ class ModelingReferenceTests(unittest.TestCase):
                 ),
             )
 
-    def test_selected_views_require_exact_records_in_the_task_workspace(self) -> None:
+    def test_prepared_views_require_exact_records_in_the_task_workspace(self) -> None:
         """完整五向声明不能绕过缺件、额外内容或跨工作区的解析边界。"""
-        selection = SelectedViews(reconstruction=self.reconstruction, review_only=())
+        prepared = PreparedViews(views=self.prepared_views, review_only=())
         for files in (self.files[:-1], (*self.files, self.review_file), (*self.files, self.front_file)):
             with self.subTest(files=files):
                 with self.assertRaises((ModelingContractError, ArtifactContractError, IdentityRelationError)):
-                    validate_selected_views(
-                        selection, references=self.references, task=self.task, files=files, artifacts=self.artifacts
+                    validate_prepared_views(
+                        prepared, references=self.references, task=self.task, files=files, artifacts=self.artifacts
                     )
         with self.assertRaises((ModelingContractError, ArtifactContractError, IdentityRelationError)):
-            validate_selected_views(
-                selection,
+            validate_prepared_views(
+                prepared,
                 references=self.references,
                 task=self.task,
                 files=self.files,
@@ -258,7 +258,7 @@ class ModelingReferenceTests(unittest.TestCase):
     def test_direction_and_reference_collections_reject_implicit_coercion(self) -> None:
         """原始字符串、空需求和可变集合不能悄悄进入稳定业务契约。"""
         with self.assertRaises(TypeError):
-            ReconstructionView(artifact_id=self.front_file.artifact_id, direction=cast(ViewDirection, "front"))
+            PreparedView(artifact_id=self.front_file.artifact_id, direction=cast(ViewDirection, "front"))
         with self.assertRaises(TypeError):
             ReviewReference(artifact_id=cast(ArtifactId, TaskId(uuid4())))
         with self.assertRaises(TypeError):
@@ -266,12 +266,12 @@ class ModelingReferenceTests(unittest.TestCase):
                 task_id=self.task.id,
                 subject_reference_id=self.front_file.artifact_id,
                 preserve_features=(),
-                required_directions=cast(frozenset[ViewDirection], {ViewDirection.FRONT}),
+                required_preparation_directions=cast(frozenset[ViewDirection], {ViewDirection.FRONT}),
             )
         with self.assertRaises(ModelingContractError):
             TaskReferences(
                 task_id=self.task.id,
                 subject_reference_id=self.front_file.artifact_id,
                 preserve_features=(),
-                required_directions=frozenset(),
+                required_preparation_directions=frozenset(),
             )

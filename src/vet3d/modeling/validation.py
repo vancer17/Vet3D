@@ -1,5 +1,5 @@
-# 文件信息：L0-03 的建模引用和入选视图交接校验。
-# 作用：核对任务范围、确切文件集合、重建必需方向和重复内容。
+# 文件信息：L0-03 的建模引用和业务准备视图交接校验。
+# 作用：核对任务范围、确切文件集合、必需准备方向和重复内容。
 # 边界：只检查显式提供的数据，不读取图片、不判断同一个体或真实方向、不声明验收通过。
 """在无模型和宿主依赖时检查建模输入的确定性约束。"""
 
@@ -7,7 +7,7 @@ from vet3d.artifacts import FileReference, validate_file_set
 from vet3d.identity import ArtifactId, ArtifactIdentity, TaskIdentity
 
 from ._checks import ModelingContractError, require_type
-from .references import ImageOperationReferences, SelectedViews, TaskReferences
+from .references import ImageOperationReferences, PreparedViews, TaskReferences
 
 
 def _validate_task(references: TaskReferences, task: TaskIdentity) -> None:
@@ -101,33 +101,33 @@ def validate_operation_references(
     _validate_files(expected, task=task, files=files, artifacts=artifacts)
 
 
-def validate_selected_views(
-    selection: SelectedViews,
+def validate_prepared_views(
+    prepared: PreparedViews,
     *,
     references: TaskReferences,
     task: TaskIdentity,
     files: tuple[FileReference, ...],
     artifacts: tuple[ArtifactIdentity, ...],
 ) -> None:
-    """核对入选视图的必需覆盖和独立内容，不把参考图静默转为重建图。
+    """核对业务准备的必需覆盖和独立内容，不限定单次生成输入数量。
 
-    :param selection: 明确区分重建与仅验收用途的入选结果。
-    :param references: 任务主体基准、必保要求和必需重建方向。
+    :param prepared: 明确区分准备图与额外验收参考的业务准备结果。
+    :param references: 任务主体基准、必保要求和必需准备方向。
     :param task: 已解析的所属任务。
-    :param files: 基准和全部入选条目的确切内容引用并集。
+    :param files: 基准和全部准备条目的确切内容引用并集。
     :param artifacts: 与内容引用一一对应的身份记录。
     :raises TypeError: 传入结构类型错误。
-    :raises ValueError: 引用范围、必需方向、图片描述或重建内容独立性不满足。
+    :raises ValueError: 引用范围、准备方向、图片描述或准备内容独立性不满足。
     """
-    require_type(selection, SelectedViews)
+    require_type(prepared, PreparedViews)
     _validate_task(references, task)
     expected = frozenset({references.subject_reference_id}) | frozenset(
-        view.artifact_id for view in selection.reconstruction
-    ) | frozenset(reference.artifact_id for reference in selection.review_only)
+        view.artifact_id for view in prepared.views
+    ) | frozenset(reference.artifact_id for reference in prepared.review_only)
     index = _validate_files(expected, task=task, files=files, artifacts=artifacts)
-    directions = frozenset(view.direction for view in selection.reconstruction)
-    if not references.required_directions <= directions:
-        raise ModelingContractError("入选重建图缺少必需方向，验收参考不能填补该缺口")
-    contents = [index[view.artifact_id].content for view in selection.reconstruction]
+    directions = frozenset(view.direction for view in prepared.views)
+    if not references.required_preparation_directions <= directions:
+        raise ModelingContractError("业务准备图缺少必需方向，额外验收参考不能填补该缺口")
+    contents = [index[view.artifact_id].content for view in prepared.views]
     if len(set(contents)) != len(contents):
-        raise ModelingContractError("同一确切内容不能通过不同身份重复充当重建方向")
+        raise ModelingContractError("同一确切内容不能通过不同身份重复充当业务准备方向")

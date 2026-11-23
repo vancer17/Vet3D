@@ -1,7 +1,13 @@
-# 文件信息：L0-01 演示适配器的公共入口。
-# 本包只导出明确的演示实现，不进行插件发现或环境驱动的能力切换。
-"""公开无外部依赖的演示适配器。"""
+# 文件信息：L0-01 演示及 L0-05 生成链路替身适配器的公共入口。
+# 边界：只导出明确实现，不进行插件发现、环境驱动能力切换或全局装配。
+"""公开内存实现与显式合成替身，不宣告真实建模能力。"""
 
 from .demo import DemoAdapter
+from .reconstruction import (
+    FiveViewGenerator, FourViewGenerator, MemoryReconstructionRepository, SyntheticArtifactAccess,
+)
 
-__all__ = ["DemoAdapter"]
+__all__ = [
+    "DemoAdapter", "FiveViewGenerator", "FourViewGenerator",
+    "MemoryReconstructionRepository", "SyntheticArtifactAccess",
+]
