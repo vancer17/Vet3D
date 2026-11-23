@@ -320,3 +320,14 @@ class LocalWorkspaceDirectories(WorkspaceDirectories):
         """
         descriptor = self._open_workspace(self._name(workspace_id))
         os.close(descriptor)
+
+    def open_handle(self, workspace_id: WorkspaceId) -> int:
+        """向同线程受信文件适配器交付经核对的目录句柄，不授予执行权限。
+
+        调用装配必须已经核对该工作区完成持久注册；本方法不读取注册库。
+
+        :param workspace_id: 原已登记工作区身份。
+        :returns: 由调用方负责关闭的目录描述符。
+        :raises OSError: 目录缺失、不安全或本实例已观察的对象被替换。
+        """
+        return self._open_workspace(self._name(workspace_id))
