@@ -1,6 +1,6 @@
 # 文件信息：L1-05 环境配置与真实存储、诊断的有限装配入口。
 # 作用：把冻结配置一次性注入现有端口，统一释放存储及诊断所有者。
-# 边界：不判断业务能力、模型质量或发布资格，不探测或执行解释器。
+# 边界：只按显式调用运行受信环境探针，不执行资源脚本或判断业务资格。
 """为可信宿主装配本地基础设施，不把 Settings 传入业务服务。"""
 
 import asyncio
@@ -11,10 +11,11 @@ import sys
 from types import TracebackType
 
 from vet3d.identity import WorkspaceId
-from vet3d.operations import DiagnosticStatus
-from vet3d.resources import InterpreterRequirement
+from vet3d.operations import DiagnosticStatus, EnvironmentReport
+from vet3d.resources import InterpreterRequirement, ResourceReference
 
 from .diagnostics import DiagnosticRuntime, open_diagnostics
+from .environment import EnvironmentRuntime
 from .resources import ResourceRuntime, initialize_resources, open_resources
 from .settings import Settings
 from .workspaces import (
@@ -59,6 +60,7 @@ class OperationsRuntime:
         self.workspaces = workspaces
         self.resources = resources
         self.diagnostics = diagnostics
+        self._environment = EnvironmentRuntime(settings, resources, runtime_id=diagnostics.runtime_id)
         self._loop = asyncio.get_running_loop()
         self._closing: asyncio.Task[DiagnosticStatus] | None = None
 
@@ -98,14 +100,33 @@ class OperationsRuntime:
             (entry.path for entry in self._settings.interpreters if entry.runtime == requirement.runtime), None,
         )
 
+    async def check_environment(self, reference: ResourceReference) -> EnvironmentReport:
+        """检查原资源闭包的运行环境，返回机器可读的局部证据。
+
+        :param reference: 已由可信宿主选择的固定资源身份，不是执行授权。
+        :returns: 原运行关联下的新观察，不登记任务、资产或发布事实。
+        """
+        self._check_open()
+        return await self._environment.check(reference)
+
     def _check_open(self) -> None:
         """拒绝跨事件循环调用及关闭后的新装配，不创建业务状态。"""
         if asyncio.get_running_loop() is not self._loop or self._closing is not None:
             raise RuntimeError("本地装配已开始关闭或调用来自其他事件循环")
 
     async def _finish_close(self) -> DiagnosticStatus:
-        """先排空真实存储，再停止诊断接收，保持所有者直到实际关闭。"""
+        """先结束探针清理，再关闭独立存储与诊断，最后交付实际关闭错误。"""
         errors: list[Exception] = []
+        while True:
+            try:
+                await self._environment.aclose()
+                break
+            except asyncio.CancelledError:
+                continue
+            except Exception as error:
+                # 探针从未持有业务存储；保留其现场，不遗留无关根锁和诊断线程。
+                errors.append(error)
+                break
         for owner in (self.workspaces, self.resources):
             while True:
                 try:
@@ -124,7 +145,7 @@ class OperationsRuntime:
             except asyncio.CancelledError:
                 continue
         if errors:
-            raise BaseExceptionGroup("本地存储关闭失败；诊断已排空", errors)
+            raise BaseExceptionGroup("本地资源关闭失败；独立存储及诊断已执行关闭", errors)
         return status
 
     async def aclose(self) -> DiagnosticStatus:

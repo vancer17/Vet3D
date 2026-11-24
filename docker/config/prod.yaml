@@ -1,5 +1,5 @@
 # 文件信息：生产容器的最小环境配置模板，不声明模型供应商或执行能力。
-# 作用：与开发使用不同宿主挂载；解释器在部署后确有消费需求时显式指定。
+# 作用：与开发使用不同宿主挂载；解释器路径仅提供 L2-01 的候选，不代表可用性。
 workspaces:
   root: /var/lib/vet3d/workspaces
 files:
@@ -15,4 +15,8 @@ resources:
     max_total_bytes: 1073741824
 diagnostics:
   root: /var/log/vet3d
-interpreters: []
+interpreters:
+  - runtime: Python
+    path: /opt/venv/bin/python
+  - runtime: Blender Python
+    path: /opt/blender/blender

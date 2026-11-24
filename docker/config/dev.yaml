@@ -15,4 +15,8 @@ resources:
     max_total_bytes: 1073741824
 diagnostics:
   root: /var/log/vet3d
-interpreters: []
+interpreters:
+  - runtime: Python
+    path: /opt/venv/bin/python
+  - runtime: Blender Python
+    path: /opt/blender/blender

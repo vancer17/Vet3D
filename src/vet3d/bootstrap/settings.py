@@ -12,7 +12,7 @@ from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, PlainValidat
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict, YamlConfigSettingsSource
 
 from vet3d.adapters import ResourceLimits
-from vet3d.operations import DiagnosticLimits
+from vet3d.operations import DiagnosticLimits, ProbeLimits
 
 
 def _integer(value: object) -> int:
@@ -93,6 +93,21 @@ def _diagnostic_limits(value: object) -> DiagnosticLimits:
         return DiagnosticLimits(**_integer_fields(value))
     except TypeError as cause:
         raise ValueError("诊断预算字段不符合 DiagnosticLimits") from cause
+
+
+def _probe_limits(value: object) -> ProbeLimits:
+    """把部署输入交给唯一探针预算，不复制字段或接受架构开关。
+
+    :param value: 原预算对象或配置源中的字段映射。
+    :returns: 经原类型校验的冻结探针预算。
+    :raises ValueError: 字段名、类型或限额不符合探针要求。
+    """
+    if type(value) is ProbeLimits:
+        return value
+    try:
+        return ProbeLimits(**_integer_fields(value))
+    except TypeError as cause:
+        raise ValueError("探针预算字段不符合 ProbeLimits") from cause
 
 
 class WorkspaceSettings(BaseModel):
@@ -184,6 +199,7 @@ class Settings(BaseSettings):
     :param resources: 现有固定资源宿主的装配参数。
     :param diagnostics: 运维诊断输出及读取的装配参数。
     :param interpreters: 按原运行环境名称查询的候选位置元组。
+    :param environment_probe: 固定受信探针的部署预算，不定义业务能力。
     """
 
     model_config = SettingsConfigDict(
@@ -196,6 +212,7 @@ class Settings(BaseSettings):
     resources: ResourceSettings
     diagnostics: DiagnosticSettings
     interpreters: tuple[InterpreterLocation, ...] = ()
+    environment_probe: Annotated[ProbeLimits, PlainValidator(_probe_limits)] = Field(default_factory=ProbeLimits)
 
     @classmethod
     def settings_customise_sources(
