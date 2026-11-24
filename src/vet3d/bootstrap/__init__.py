@@ -1,4 +1,4 @@
-# 文件信息：演示、生成契约探针及工作区／文件／资源存储的装配公共入口。
+# 文件信息：演示、生成契约及配置／诊断／真实存储的装配公共入口。
 # 作用：构造应用、初始化日志及执行有期限调用；业务不反向导入本包。
 # 边界：导入不执行探针，不读取环境，不选择真实供应商或建立持久记录。
 """公开显式依赖注入、控制台日志与有限宿主调用入口。"""
@@ -15,6 +15,11 @@ from .resources import (
     PinnedResources, ResourceBusyError, ResourceClosedError, ResourceRuntime, ResourceTimeoutError,
     initialize_resources, open_resources,
 )
+from .settings import Settings, load_settings
+from .diagnostics import (
+    DiagnosticBusyError, DiagnosticClosedError, DiagnosticRuntime, is_diagnostics_active, open_diagnostics,
+)
+from .operations import OperationsRuntime, initialize_operations, open_operations
 
 __all__ = [
     "InvocationTimeoutError", "assemble_application", "build_demo_application",
@@ -25,4 +30,7 @@ __all__ = [
     "WorkspaceFiles", "WorkspaceArtifacts",
     "PinnedResources", "ResourceBusyError", "ResourceClosedError", "ResourceRuntime", "ResourceTimeoutError",
     "initialize_resources", "open_resources",
+    "Settings", "load_settings", "DiagnosticRuntime", "open_diagnostics",
+    "DiagnosticBusyError", "DiagnosticClosedError", "is_diagnostics_active",
+    "OperationsRuntime", "initialize_operations", "open_operations",
 ]

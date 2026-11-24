@@ -1,11 +1,13 @@
-# 文件信息：L0-01 控制台日志的唯一初始化位置。
+# 文件信息：有限演示命令的控制台日志初始化位置。
 # 固定短事件默认可见；单记录有界、无队列和日志文件，写入错误不静默吞掉。
-# 文件轮转、持久日志与多进程收集留给实际部署的 Operations 条目。
+# 持久诊断由 L1-05 单独装配；本入口不得替换仍在运行的诊断所有者。
 """配置独立的 Vet3D 控制台日志，不修改根 logger。"""
 
 import logging
 import sys
 from typing import TextIO
+
+from .diagnostics import is_diagnostics_active
 
 _MAX_RECORD_CHARS = 4096
 
@@ -53,7 +55,10 @@ def configure_logging() -> None:
     """初始化或替换本宿主拥有的处理器，避免重复装配导致重复输出。
 
     :returns: 无返回值；后续关键事件输出到当前 stderr。
+    :raises RuntimeError: 已有持久诊断所有者，不能移除其处理器。
     """
+    if is_diagnostics_active():
+        raise RuntimeError("持久诊断仍在运行，不能替换其日志处理器")
     logger = logging.getLogger("vet3d")
     for handler in logger.handlers[:]:
         logger.removeHandler(handler)

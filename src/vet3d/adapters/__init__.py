@@ -14,6 +14,7 @@ from .artifact_files import LocalArtifactFileStore, validate_file_byte_limit
 from .resource_io import ResourceLimits
 from .resource_build import build_resource_bundle
 from .resource_files import LocalResourceReader, LocalResourceStore
+from .diagnostic_files import LocalDiagnosticFiles
 
 __all__ = [
     "DemoAdapter", "FiveViewGenerator", "FourViewGenerator",
@@ -24,4 +25,5 @@ __all__ = [
     "LocalArtifactFileStore", "validate_file_byte_limit",
     "ResourceLimits", "build_resource_bundle",
     "LocalResourceReader", "LocalResourceStore",
+    "LocalDiagnosticFiles",
 ]

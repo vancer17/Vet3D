@@ -1,0 +1,57 @@
+# 文件信息：L1-05 唯一开发编排，源码联调与容器内开发依赖使用各自路径。
+# 作用：运行真实的有限基础设施探针；当前没有 BFF 服务、端口或后台保活命令。
+name: vet3d-dev
+services:
+  vet3d:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+    image: vet3d:dev
+    user: "${VET3D_DOCKER_UID:-1000}:${VET3D_DOCKER_GID:-1000}"
+    init: true
+    read_only: true
+    network_mode: none
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777
+    restart: "no"
+    stop_grace_period: 30s
+    logging:
+      driver: local
+      options:
+        max-size: "4m"
+        max-file: "3"
+    volumes:
+      - type: bind
+        source: ../src
+        target: /app/src
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_DEV_CONFIG:-./config/dev.yaml}
+        target: /etc/vet3d/config.yaml
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_DEV_ROOT:-../.cache/docker/dev}/data
+        target: /var/lib/vet3d
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_DEV_ROOT:-../.cache/docker/dev}/inputs
+        target: /inputs
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_DEV_ROOT:-../.cache/docker/dev}/resource-source
+        target: /resource-source
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_DEV_ROOT:-../.cache/docker/dev}/logs
+        target: /var/log/vet3d
+        bind: {create_host_path: false}

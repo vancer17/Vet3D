@@ -182,7 +182,13 @@ class ReconstructionService:
             return existing
         # 首次登记已确认，直接使用原意图；额外读回失败不应阻断首次提交。
         original = ReconstructionRecord(request)
-        _LOGGER.info("reconstruction_submit attempt_id=%s", request.attempt.id.value)
+        _LOGGER.info(
+            "reconstruction_submit attempt_id=%s", request.attempt.id.value,
+            extra={
+                "workspace_id": str(self._task.workspace_id.value), "task_id": str(self._task.id.value),
+                "attempt_id": str(request.attempt.id.value),
+            },
+        )
         try:
             event = await self._generator.submit(request)
         except (Exception, asyncio.CancelledError) as error:
@@ -212,7 +218,13 @@ class ReconstructionService:
         if not isinstance(event, (ReconstructionUpdate, QueryUnavailable)):
             raise TypeError("查询回包不符合生成端口契约")
         result = await self._record(original, event)
-        _LOGGER.debug("reconstruction_queried attempt_id=%s", attempt_id.value)
+        _LOGGER.debug(
+            "reconstruction_queried attempt_id=%s", attempt_id.value,
+            extra={
+                "workspace_id": str(self._task.workspace_id.value), "task_id": str(self._task.id.value),
+                "attempt_id": str(attempt_id.value),
+            },
+        )
         return result
 
     async def cancel(self, attempt_id: AttemptId) -> ReconstructionRecord | CapabilityUnavailable:

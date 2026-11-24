@@ -1,0 +1,52 @@
+# 文件信息：L1-05 唯一生产编排，仅挂载已准备的数据和只读配置、输入及资源源目录。
+# 作用：以固定非 root 身份运行产品 wheel；当前默认入口是有限探针，尚未交付常驻服务。
+name: vet3d-prod
+services:
+  vet3d:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: prod
+    image: vet3d:prod
+    user: "10001:10001"
+    init: true
+    read_only: true
+    network_mode: none
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777
+    restart: "no"
+    stop_grace_period: 30s
+    logging:
+      driver: local
+      options:
+        max-size: "4m"
+        max-file: "3"
+    volumes:
+      - type: bind
+        source: ${VET3D_PROD_CONFIG:-./config/prod.yaml}
+        target: /etc/vet3d/config.yaml
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_PROD_ROOT:?请设置已准备的生产目录绝对路径}/data
+        target: /var/lib/vet3d
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_PROD_ROOT:?请设置已准备的生产目录绝对路径}/inputs
+        target: /inputs
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_PROD_ROOT:?请设置已准备的生产目录绝对路径}/resource-source
+        target: /resource-source
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${VET3D_PROD_ROOT:?请设置已准备的生产目录绝对路径}/logs
+        target: /var/log/vet3d
+        bind: {create_host_path: false}

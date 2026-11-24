@@ -1,0 +1,21 @@
+# 文件信息：Docker 构建上下文白名单，仅传送产品源码、测试和锁定的包配置。
+# 作用：排除 Hi3D 原件、Git 历史、本机虚拟环境、运行数据和未明确列入的凭证。
+**
+!pyproject.toml
+!uv.lock
+!.python-version
+!README.md
+!LICENSE
+!src/
+!src/vet3d/
+!src/vet3d/**
+src/vet3d/infrastructure/
+!tests/
+!tests/runtime/
+!tests/runtime/**
+**/__pycache__/
+**/*.pyc
+**/.env
+**/.env.*
+!docker/
+!docker/Dockerfile

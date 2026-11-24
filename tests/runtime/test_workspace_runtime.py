@@ -305,15 +305,16 @@ class WorkspaceRuntimeTests(unittest.IsolatedAsyncioTestCase):
         logger = logging.getLogger("vet3d")
         original_info = logger.info
 
-        def emit(message: object, *args: object) -> None:
+        def emit(message: object, *args: object, extra: dict[str, str] | None = None) -> None:
             """只让真实提交后的完成诊断失败。
 
             :param message: 固定日志格式。
             :param args: 日志关联字段。
+            :param extra: 由原身份单向产生的结构化诊断关联。
             """
             if message == "workspace_%s_completed workspace_id=%s" and args[0] == "create":
                 raise OSError("测试日志输出失败")
-            original_info(message, *args)
+            original_info(message, *args, extra=extra)
 
         original_handler = loop.get_exception_handler()
         loop.set_exception_handler(capture_error)

@@ -1,0 +1,18 @@
+# 文件信息：生产容器的最小环境配置模板，不声明模型供应商或执行能力。
+# 作用：与开发使用不同宿主挂载；解释器在部署后确有消费需求时显式指定。
+workspaces:
+  root: /var/lib/vet3d/workspaces
+files:
+  input_root: /inputs
+  max_file_bytes: 104857600
+resources:
+  root: /var/lib/vet3d/resources
+  source_root: /resource-source
+  limits:
+    max_manifest_bytes: 1048576
+    max_files: 1024
+    max_file_bytes: 104857600
+    max_total_bytes: 1073741824
+diagnostics:
+  root: /var/log/vet3d
+interpreters: []

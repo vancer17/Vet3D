@@ -10,7 +10,7 @@
 
 当前 `src/vet3d/infrastructure/hi3d_inventory/`、`src/vet3d/infrastructure/hi3d_reference/`、`scripts/hi3d/` 和 `tests/hi3d/` 提供发行盘点、ASAR 读取、抽离、优先级派生、参考包及证据核查。它们不证明 Vet3D 产品工作区、执行器、LLM 网关、上下文或业务编排已实现。
 
-[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)、[L0-02 身份与关联](work-items/L0-02.md)、[L0-03 文件、来源、单位与视图契约](work-items/L0-03.md)和 [L0-04 独立事实、结果与交接守卫](work-items/L0-04.md)及 [L0-05 最小生成端口与装配探针](work-items/L0-05.md)为 **已完成**，包括准备语义修订。[L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)和 [L1-04](work-items/L1-04.md)已完成各卡限定的本期范围，其他产品条目保持 **未实施**。接口、运行方式和验证记录由各实施卡维护。设计理由分别见 [ADR 0001](../adr/0001-service-host-and-composition.md)、[ADR 0002](../adr/0002-identity-and-relations.md)、[ADR 0003](../adr/0003-content-and-view-contracts.md)、[ADR 0004](../adr/0004-independent-facts-and-outcomes.md)及 [ADR 0005](../adr/0005-preparation-and-generation-ports.md)；ADR 0003 的视图参与语义由 ADR 0005 修订。
+[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)、[L0-02 身份与关联](work-items/L0-02.md)、[L0-03 文件、来源、单位与视图契约](work-items/L0-03.md)和 [L0-04 独立事实、结果与交接守卫](work-items/L0-04.md)及 [L0-05 最小生成端口与装配探针](work-items/L0-05.md)为 **已完成**，包括准备语义修订。[L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)、[L1-04](work-items/L1-04.md)和 [L1-05](work-items/L1-05.md)已完成各卡限定的本期范围，其他产品条目保持 **未实施**。接口、运行方式和验证记录由各实施卡维护。设计理由分别见 [ADR 0001](../adr/0001-service-host-and-composition.md)、[ADR 0002](../adr/0002-identity-and-relations.md)、[ADR 0003](../adr/0003-content-and-view-contracts.md)、[ADR 0004](../adr/0004-independent-facts-and-outcomes.md)及 [ADR 0005](../adr/0005-preparation-and-generation-ports.md)；ADR 0003 的视图参与语义由 ADR 0005 修订。
 
 | 文档 | 维护内容 |
 | --- | --- |
@@ -26,6 +26,7 @@
 | [L1-02 实施卡](work-items/L1-02.md) | 当前文件保存与观察接口、输入范围、字节副作用、恢复及验证；理由见 [ADR 0007](../adr/0007-managed-file-storage-boundaries.md)。 |
 | [L1-03 实施卡](work-items/L1-03.md) | 当前资源清单、构建与安装、固定快照读取、恢复及验证记录；理由见 [ADR 0008](../adr/0008-managed-resource-snapshots.md)。 |
 | [L1-04 实施卡](work-items/L1-04.md) | 当前单资产持久目录、真实 ArtifactAccess、独立有界文件 I/O 与短元数据调用、恢复及验证记录；理由见 [ADR 0009](../adr/0009-single-artifact-catalog.md)。 |
+| [L1-05 实施卡](work-items/L1-05.md) | 当前统一配置、关联诊断、Docker 宿主、恢复和真实验证；理由见 [ADR 0010](../adr/0010-settings-diagnostics-and-docker.md)。 |
 | [架构决策记录](../adr/0001-service-host-and-composition.md) | 已接受的设计选择、原因、替代方案与历史决策；不重复维护当前接口。 |
 | `docs/hi3d/` | 固定版本参考行为、工具原文、资源和证据边界；产品改进在 Vet3D 文档中维护。 |
 
@@ -129,7 +130,7 @@ flowchart TD
 
 ## 阶段验收
 
-下表规定实施里程碑的放行要求。当前 L0-01～L0-05 已完成，**M0 按 [L0-05](work-items/L0-05.md)的最小消费链范围放行**，不代表所有未来端口或生产能力齐备；L1-01～L1-04 已完成各自本期范围，M1 尚未放行，M2～M4 保持未实施。进入下一阶段依赖本阶段所需条目已验收。上层骨架可以提前使用替身开发，接真实能力前必须补齐对应门槛。
+下表规定实施里程碑的放行要求。当前 L0-01～L0-05 已完成，**M0 按 [L0-05](work-items/L0-05.md)的最小消费链范围放行**，不代表所有未来端口或生产能力齐备；L1-01～L1-05 已完成各自本期范围，M1 尚未放行，M2～M4 保持未实施。进入下一阶段依赖本阶段所需条目已验收。上层骨架可以提前使用替身开发，接真实能力前必须补齐对应门槛。
 
 | 里程碑 | 对应层与范围 | 放行证据 |
 | --- | --- | --- |
@@ -189,6 +190,6 @@ P0、P1 是 Hi3D 证据归档和抽离标签。开发优先级另分为 **首期
 
 ## 后续逐项实施入口
 
-当前 [L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)和 [L1-04](work-items/L1-04.md)已完成各自本期范围；后续按分层清单及实际消费者接通 L1-05 与 L2／L3 所需能力。其他条目进入当前范围后，再按[工作条目模板](work-item-template.md)补齐输入输出、状态源、注入依赖、异常恢复及验收。工作区登记、资产登记、文件观察和资源声明不能互相推导，也不代表图像已解码或 LLM 已感知。
+当前 [L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)、[L1-04](work-items/L1-04.md)和 [L1-05](work-items/L1-05.md)已完成各自本期范围；后续按分层清单及实际消费者接通 L2／L3 所需能力。其他条目进入当前范围后，再按[工作条目模板](work-item-template.md)补齐输入输出、状态源、注入依赖、异常恢复及验收。工作区登记、资产登记、文件观察和资源声明不能互相推导，也不代表图像已解码或 LLM 已感知。
 
 更新进度时，实施卡是详细证据记录，分层清单维护汇总状态，本页维护阶段放行。设计已写成文档只代表规划完成；产品状态须由实现和验证证据更新。

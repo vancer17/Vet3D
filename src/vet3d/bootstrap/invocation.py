@@ -3,6 +3,7 @@
 """管理一次演示调用的宿主生命周期。"""
 
 import asyncio
+from collections.abc import Mapping
 import logging
 import math
 from uuid import uuid4
@@ -25,6 +26,7 @@ def _record_termination(
     call_id: str,
     *,
     with_traceback: bool = False,
+    context: Mapping[str, str] | None = None,
 ) -> None:
     """记录异常终态，日志故障作为原因附加而不替换原终态。
 
@@ -33,12 +35,14 @@ def _record_termination(
     :param event: 不含请求内容的固定事件名称。
     :param call_id: 宿主本次调用的关联串。
     :param with_traceback: 非预期异常是否在本边界记录一次堆栈。
+    :param context: 生产者已知身份的单向诊断投影，不用于业务决策。
     :raises BaseException: 日志失败时重新抛出原终态，并保留日志故障原因链。
     """
     try:
         _LOGGER.log(
             level, "%s call_id=%s reason=%s", event, call_id, type(error).__name__,
             exc_info=error if with_traceback else None,
+            extra=context,
         )
     except Exception as logging_error:
         error.add_note("本次终态日志写入失败；日志故障保留在异常原因链中。")

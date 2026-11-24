@@ -1,0 +1,18 @@
+# 文件信息：开发容器的环境配置模板，不包含凭证、业务路线或发布资格。
+# 作用：路径均为容器内路径；用户自有配置通过只读挂载替换，宿主不回写本模板。
+workspaces:
+  root: /var/lib/vet3d/workspaces
+files:
+  input_root: /inputs
+  max_file_bytes: 104857600
+resources:
+  root: /var/lib/vet3d/resources
+  source_root: /resource-source
+  limits:
+    max_manifest_bytes: 1048576
+    max_files: 1024
+    max_file_bytes: 104857600
+    max_total_bytes: 1073741824
+diagnostics:
+  root: /var/log/vet3d
+interpreters: []

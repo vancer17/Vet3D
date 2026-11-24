@@ -33,6 +33,19 @@ from .invocation import _record_termination
 _LOGGER = logging.getLogger("vet3d")
 
 
+def _log_context(identity: str, artifact_id: ArtifactId | None) -> dict[str, str]:
+    """把调用方已有的原身份投影为可过滤字段，不从日志文字推导关联。
+
+    :param identity: 原工作区 UUID 文本；存储启动事件使用 storage 且不赋予工作区。
+    :param artifact_id: 已知的原产物身份，不从路径解析。
+    :returns: 本事件实际掌握的关联字段。
+    """
+    context = {} if identity == "storage" else {"workspace_id": identity}
+    if artifact_id is not None:
+        context["artifact_id"] = str(artifact_id.value)
+    return context
+
+
 class WorkspaceBusyError(RuntimeError):
     """表示宿主尚有实际存储调用在途，本次请求没有取得准入。"""
 
@@ -164,29 +177,34 @@ class WorkspaceRuntime:
         """
         worker.pending.discard(future)
         error = future.exception()
+        context = _log_context(identity, artifact_id)
         if error is None and artifact_id is not None:
             result = future.result()
             if isinstance(result, FileUnavailable):
                 _LOGGER.warning(
                     "workspace_%s_unavailable workspace_id=%s artifact_id=%s reason=%s",
                     event, identity, artifact_id.value, result.reason,
+                    extra=context,
                 )
             else:
                 _LOGGER.info(
                     "workspace_%s_completed workspace_id=%s artifact_id=%s result=%s",
                     event, identity, artifact_id.value, type(result).__name__,
+                    extra=context,
                 )
         elif error is None:
-            _LOGGER.info("workspace_%s_completed workspace_id=%s", event, identity)
+            _LOGGER.info("workspace_%s_completed workspace_id=%s", event, identity, extra=context)
         elif isinstance(error, (WorkspaceContractError, ArtifactContractError, TypeError, ValueError, FileExistsError)):
             _LOGGER.warning(
                 "workspace_%s_rejected workspace_id=%s artifact_id=%s reason=%s",
                 event, identity, artifact_id.value if artifact_id else "-", type(error).__name__,
+                extra=context,
             )
         else:
             _LOGGER.error(
                 "workspace_%s_failed workspace_id=%s artifact_id=%s", event, identity,
                 artifact_id.value if artifact_id else "-", exc_info=error,
+                extra=context,
             )
 
     async def _invoke[T](
@@ -224,10 +242,14 @@ class WorkspaceRuntime:
             raise WorkspaceClosedError("工作区宿主已经开始关闭")
         if not selected.available():
             raise WorkspaceBusyError("受管存储繁忙；本次未提交")
+        context = _log_context(identity, artifact_id)
         if artifact_id is None:
-            _LOGGER.info("workspace_%s_started workspace_id=%s", event, identity)
+            _LOGGER.info("workspace_%s_started workspace_id=%s", event, identity, extra=context)
         else:
-            _LOGGER.info("workspace_%s_started workspace_id=%s artifact_id=%s", event, identity, artifact_id.value)
+            _LOGGER.info(
+                "workspace_%s_started workspace_id=%s artifact_id=%s", event, identity, artifact_id.value,
+                extra=context,
+            )
         future: asyncio.Future[object] = self._loop.run_in_executor(selected.executor, operation)
         selected.pending.add(future)
         future.add_done_callback(partial(self._observe, selected, event, identity, artifact_id))
@@ -238,12 +260,12 @@ class WorkspaceRuntime:
                 await asyncio.wait({future})
                 return cast(T, future.result())
         except asyncio.CancelledError as error:
-            _record_termination(error, logging.INFO, "workspace_wait_cancelled", identity)
+            _record_termination(error, logging.INFO, "workspace_wait_cancelled", identity, context=context)
             raise
         except TimeoutError:
             if deadline.expired():
                 timeout = WorkspaceTimeoutError("等待超时；实际存储结果须按原身份对账")
-                _record_termination(timeout, logging.INFO, "workspace_wait_timed_out", identity)
+                _record_termination(timeout, logging.INFO, "workspace_wait_timed_out", identity, context=context)
                 raise timeout from None
             raise
 
