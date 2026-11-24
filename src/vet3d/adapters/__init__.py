@@ -8,6 +8,7 @@ from .reconstruction import (
 )
 from .workspace_directories import LocalWorkspaceDirectories, ManagedWorkspaceRoot
 from .workspace_repository import SqliteWorkspaceRepository, WorkspaceStorageError
+from .artifact_repository import SqliteArtifactRepository
 from .staged_inputs import open_staged_input
 from .artifact_files import LocalArtifactFileStore, validate_file_byte_limit
 from .resource_io import ResourceLimits
@@ -18,7 +19,7 @@ __all__ = [
     "DemoAdapter", "FiveViewGenerator", "FourViewGenerator",
     "MemoryReconstructionRepository", "SyntheticArtifactAccess",
     "LocalWorkspaceDirectories", "ManagedWorkspaceRoot",
-    "SqliteWorkspaceRepository", "WorkspaceStorageError",
+    "SqliteWorkspaceRepository", "WorkspaceStorageError", "SqliteArtifactRepository",
     "open_staged_input",
     "LocalArtifactFileStore", "validate_file_byte_limit",
     "ResourceLimits", "build_resource_bundle",

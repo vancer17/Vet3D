@@ -1,14 +1,16 @@
 # 文件信息：L1-02 受管文件适配器的真实文件系统验证。
-# 作用：核对作用域、字节复制、实际摘要、链接拒绝、无覆盖提交与失败副作用。
+# 作用：核对作用域、字节复制、无覆盖提交、并行文件 I/O 与失败副作用。
 # 证据边界：本机本地文件系统和有限故障注入，不证明恶意同 UID 隔离或断电恢复。
 """通过公开适配器与真实源句柄验证文件行为，不建立资产登记替身。"""
 
 import errno
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import os
 from pathlib import Path
 import stat
 import tempfile
+from threading import Barrier
 from typing import BinaryIO
 import unittest
 from unittest.mock import patch
@@ -101,6 +103,149 @@ class ArtifactFileTests(unittest.TestCase):
         result = self.store.store_new(self.artifact, self._reference(b""), self._source(b""))
         self.assertEqual(result.observed.byte_size, 0)
         self.assertEqual(self.store.observe(self.artifact, result.location), result)
+
+    def test_independent_workspaces_copy_in_parallel_without_sharing_cursor(self) -> None:
+        """两个文件 worker 同时处理不同工作区，源游标与控制线程保持独立。"""
+        other_workspace = WorkspaceId(uuid4())
+        self.workspaces.create(workspace_id=other_workspace, display_name="另一动物")
+        other_store = LocalArtifactFileStore(self.root, other_workspace, max_file_bytes=1024)
+        other_artifact = ArtifactIdentity(ArtifactId(uuid4()), other_workspace)
+        data = b"parallel original animal"
+        source = self._source(data)
+        source.seek(7)
+        entered = Barrier(2)
+        original = LocalArtifactFileStore._fingerprint
+
+        def concurrent_fingerprint(
+            store: LocalArtifactFileStore, descriptor: int, *, target: int | None = None,
+            expected_bytes: int | None = None,
+        ) -> ContentFingerprint:
+            """要求两个实际文件调用都进入复制，再继续各自的独立描述符操作。
+
+            :param store: 本次文件调用绑定的固定工作区适配器。
+            :param descriptor: 实际源文件描述符。
+            :param target: 本次独占暂存文件。
+            :param expected_bytes: 调用方预期原件长度。
+            :returns: 实际读取复制后取得的摘要与长度。
+            """
+            entered.wait(timeout=5)
+            return original(store, descriptor, target=target, expected_bytes=expected_bytes)
+
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            with patch.object(LocalArtifactFileStore, "_fingerprint", new=concurrent_fingerprint):
+                first = executor.submit(self.store.store_new, self.artifact, self._reference(data), source)
+                second = executor.submit(other_store.store_new, other_artifact, self._reference(data, other_artifact), source)
+                first_result, second_result = first.result(timeout=10), second.result(timeout=10)
+            self.assertEqual(executor.submit(self.store.observe, self.artifact, first_result.location).result(timeout=5), first_result)
+            self.assertEqual(executor.submit(other_store.observe, other_artifact, second_result.location).result(timeout=5), second_result)
+        self.assertEqual(source.tell(), 7)
+        self.assertEqual(self._target().read_bytes(), data)
+        self.root.validate()
+
+    def test_parallel_same_target_has_exactly_one_no_replace_commit(self) -> None:
+        """同一目标并发复制只允许一个提交成功，失败者不覆盖或移除已提交字节。"""
+        entered = Barrier(2)
+        original = LocalArtifactFileStore._fingerprint
+
+        def concurrent_fingerprint(
+            store: LocalArtifactFileStore, descriptor: int, *, target: int | None = None,
+            expected_bytes: int | None = None,
+        ) -> ContentFingerprint:
+            """将两次复制停在目标存在检查之后，真实竞争无覆盖文件提交。
+
+            :param store: 固定工作区文件适配器。
+            :param descriptor: 本次源描述符。
+            :param target: 本次独占暂存描述符。
+            :param expected_bytes: 当前请求保留的预期字节数。
+            :returns: 真实复制所得内容观察。
+            """
+            entered.wait(timeout=5)
+            return original(store, descriptor, target=target, expected_bytes=expected_bytes)
+
+        successes: list[FilePresent] = []
+        conflicts = 0
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            with patch.object(LocalArtifactFileStore, "_fingerprint", new=concurrent_fingerprint):
+                first = executor.submit(self.store.store_new, self.artifact, self._reference(b"first"), self._source(b"first"))
+                second = executor.submit(self.store.store_new, self.artifact, self._reference(b"second"), self._source(b"second"))
+                for future in (first, second):
+                    try:
+                        successes.append(future.result(timeout=10))
+                    except FileExistsError:
+                        conflicts += 1
+        self.assertEqual(len(successes), 1)
+        self.assertEqual(conflicts, 1)
+        self.assertEqual(successes[0].observed, self._reference(self._target().read_bytes()).content)
+        self.assertEqual(list(self._files().iterdir()), [self._target()])
+
+    def test_file_workers_reject_closed_root(self) -> None:
+        """原根关闭后即使保留文件作用域，worker 也不能继续读写或重取所有权。"""
+        source = self._source(b"x")
+        self.root.close()
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            with self.assertRaises(RuntimeError):
+                executor.submit(self.store.store_new, self.artifact, self._reference(b"x"), source).result(timeout=5)
+            with self.assertRaises(RuntimeError):
+                executor.submit(self.store.observe, self.artifact, self.store.location_for(self.artifact)).result(timeout=5)
+        self.assertFalse(self._files().exists())
+
+    def test_frozen_file_scope_rejects_replaced_workspace_and_lock(self) -> None:
+        """工作区和锁即使换成相同权限的新对象，文件 worker 仍拒绝原作用域失效。"""
+        location = self.store.location_for(self.artifact)
+        workspace = self.path / "workspaces" / str(self.workspace_id.value)
+        lock = self.path / ".control" / "writer.lock"
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            for path in (workspace, lock):
+                with self.subTest(path=path.name):
+                    previous = path.with_name(path.name + "-original")
+                    path.rename(previous)
+                    try:
+                        if path == workspace:
+                            path.mkdir(mode=0o700)
+                        else:
+                            path.touch(mode=0o600)
+                        result = executor.submit(self.store.observe, self.artifact, location).result(timeout=5)
+                        self.assertIsInstance(result, FileUnavailable)
+                    finally:
+                        if path.is_dir():
+                            path.rmdir()
+                        else:
+                            path.unlink()
+                        previous.rename(path)
+
+    def test_file_scope_checks_root_again_after_reading(self) -> None:
+        """读取期间根被替换时不得返回可信文件观察，已写出的原文件保留在原根。"""
+        stored = self.store.store_new(self.artifact, self._reference(b"animal"), self._source(b"animal"))
+        previous = self.path.with_name("original-managed")
+        original = LocalArtifactFileStore._fingerprint
+
+        def replace_root_after_read(
+            store: LocalArtifactFileStore, descriptor: int, *, target: int | None = None,
+            expected_bytes: int | None = None,
+        ) -> ContentFingerprint:
+            """在真实读取完成后替换根名称，检验结束边界的路径与身份复核。
+
+            :param store: 固定工作区文件适配器。
+            :param descriptor: 实际打开的目标文件。
+            :param target: 当前观察没有写入目标。
+            :param expected_bytes: 当前观察没有预期内容长度。
+            :returns: 原文件实际字节观察。
+            """
+            observed = original(store, descriptor, target=target, expected_bytes=expected_bytes)
+            self.path.rename(previous)
+            self.path.mkdir(mode=0o700)
+            return observed
+
+        try:
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                with patch.object(LocalArtifactFileStore, "_fingerprint", new=replace_root_after_read):
+                    observed = executor.submit(self.store.observe, self.artifact, stored.location).result(timeout=5)
+            self.assertIsInstance(observed, FileUnavailable)
+        finally:
+            if previous.exists():
+                self.path.rmdir()
+                previous.rename(self.path)
+        self.assertEqual(self._target().read_bytes(), b"animal")
 
     def test_scope_and_noncanonical_location_fail_before_io(self) -> None:
         """跨区、错引用和替代路径属于契约错误，不创建文件集合。"""

@@ -1,13 +1,14 @@
 # 文件信息：L1-01 的 Debian 本地受管根、固定写入锁和身份目录适配器。
-# 作用：把受信工作区创建意图映射为私有 UUID 目录，保留可对账的创建残留。
+# 作用：管理私有 UUID 目录及根所有权，并交付固定工作区的独立文件 I/O 作用域。
 # 边界：仅支持独占管理的本地文件系统；目录与 flock 都不是不可信代码执行沙箱。
 """通过保留的目录描述符访问工作区，不向业务层暴露可任意解析的路径。"""
 
 import fcntl
 import os
 import stat
+from dataclasses import dataclass
 from pathlib import Path
-from threading import get_ident
+from threading import Event, get_ident
 
 from vet3d.identity import WorkspaceId
 from vet3d.workspaces import WorkspaceDirectories
@@ -56,6 +57,97 @@ def _open_parent(path: Path) -> int:
         raise
 
 
+def _file_identity(descriptor: int) -> tuple[int, int]:
+    """提取当前描述符的设备与 inode，供固定文件作用域核对原对象。
+
+    :param descriptor: 当前持有的目录或控制文件描述符。
+    :returns: 文件系统对象身份，不作为业务身份或访问授权。
+    """
+    info = os.fstat(descriptor)
+    return info.st_dev, info.st_ino
+
+
+def _require_identity(descriptor: int, expected: tuple[int, int]) -> None:
+    """拒绝安全属性相同但已替换原对象的目录或控制文件。
+
+    :param descriptor: 本次操作独立打开的描述符。
+    :param expected: 装配时从原根观察并冻结的设备与 inode。
+    :raises OSError: 当前对象与原观察身份不一致。
+    """
+    if _file_identity(descriptor) != expected:
+        raise OSError("受管文件作用域内的原对象已被替换")
+
+
+@dataclass(frozen=True, slots=True)
+class _WorkspaceFileScope:
+    """让文件 worker 独立打开固定工作区，不共享根句柄或目录观察字典。
+
+    :param path: 装配时确认的绝对受管根路径。
+    :param name: 由固定工作区身份派生的目录名。
+    :param closed: 唯一根生命周期标记；仅根所有者在排空 I/O 后设置。
+    :param identities: 父目录、根、控制目录、集合、锁及工作区的原对象身份。
+    """
+
+    path: Path
+    name: str
+    closed: Event
+    identities: tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]
+
+    def _open_checked(self, parent: int, name: str, *, directory: bool, index: int) -> int:
+        """打开一个原受管对象，同时核对路径、安全属性与冻结身份。
+
+        :param parent: 本次操作独立持有的父目录描述符。
+        :param name: 固定布局中的单个目录项名称。
+        :param directory: 是否要求私有目录，否则要求私有控制文件。
+        :param index: 该对象在冻结身份元组中的位置。
+        :returns: 调用方负责关闭的独立描述符。
+        :raises OSError: 路径不安全、对象缺失或原身份已经变化。
+        """
+        flags = _DIRECTORY_FLAGS if directory else os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK
+        descriptor = os.open(name, flags, dir_fd=parent)
+        try:
+            _validate_entry(descriptor, parent, name, directory=directory)
+            _require_identity(descriptor, self.identities[index])
+            return descriptor
+        except BaseException:
+            os.close(descriptor)
+            raise
+
+    def open_handle(self) -> int:
+        """逐次打开并核对完整布局，只交付本次拥有的工作区描述符。
+
+        文件操作开始和结束都调用此方法；根所有者必须先排空实际文件 I/O，
+        再关闭根并释放 flock。本方法不改变根线程或注册库的所有权。
+
+        :returns: 调用方负责关闭的工作区句柄，不共享流游标。
+        :raises RuntimeError: 根已经关闭，原作用域不允许继续读写。
+        :raises OSError: 任一路径、安全属性或冻结对象身份失效。
+        """
+        if self.closed.is_set():
+            raise RuntimeError("受管根已关闭")
+        descriptors: list[int] = []
+        try:
+            parent = _open_parent(self.path)
+            descriptors.append(parent)
+            _require_identity(parent, self.identities[0])
+            root = self._open_checked(parent, self.path.name, directory=True, index=1)
+            descriptors.append(root)
+            control = self._open_checked(root, ".control", directory=True, index=2)
+            descriptors.append(control)
+            workspaces = self._open_checked(root, "workspaces", directory=True, index=3)
+            descriptors.append(workspaces)
+            lock = self._open_checked(control, "writer.lock", directory=False, index=4)
+            descriptors.append(lock)
+            workspace = self._open_checked(workspaces, self.name, directory=True, index=5)
+            descriptors.append(workspace)
+            if self.closed.is_set():
+                raise RuntimeError("受管根已关闭")
+            return descriptors.pop()
+        finally:
+            for descriptor in reversed(descriptors):
+                os.close(descriptor)
+
+
 class ManagedWorkspaceRoot:
     """持有受管根的目录描述符与写入所有权，供 Bootstrap 封闭于单线程。
 
@@ -72,7 +164,7 @@ class ManagedWorkspaceRoot:
         self._path = path
         self._parent, self._root, self._control, self._workspaces, self._lock = descriptors
         self._thread = get_ident()
-        self._closed = False
+        self._closed = Event()
         self._directories = LocalWorkspaceDirectories(self)
 
     @classmethod
@@ -177,7 +269,7 @@ class ManagedWorkspaceRoot:
         :raises OSError: 原目录或固定锁被删除、替换、改权或改属主。
         """
         self._check_thread()
-        if self._closed:
+        if self._closed.is_set():
             raise RuntimeError("受管根已关闭")
         current_parent = _open_parent(self._path)
         try:
@@ -225,11 +317,34 @@ class ManagedWorkspaceRoot:
         :raises RuntimeError: 跨线程关闭。
         """
         self._check_thread()
-        if self._closed:
+        if self._closed.is_set():
             return
-        self._closed = True
+        self._closed.set()
         for descriptor in (self._lock, self._workspaces, self._control, self._root, self._parent):
             os.close(descriptor)
+
+    def file_scope(self, workspace_id: WorkspaceId) -> _WorkspaceFileScope:
+        """在控制线程冻结固定工作区作用域，供已核对登记的文件适配器使用。
+
+        :param workspace_id: 装配已经核对持久登记的唯一工作区身份。
+        :returns: 可供多个文件 worker 使用、没有长期目录句柄的具体作用域。
+        :raises RuntimeError: 根已关闭或构造调用不在根所属线程。
+        :raises OSError: 根或工作区不安全、缺失或已观察原对象被替换。
+        """
+        workspace = self._directories.open_handle(workspace_id)
+        try:
+            self._check()
+            _validate_entry(workspace, self._workspaces, str(workspace_id.value), directory=True)
+            return _WorkspaceFileScope(
+                self._path, str(workspace_id.value), self._closed,
+                (
+                    _file_identity(self._parent), _file_identity(self._root),
+                    _file_identity(self._control), _file_identity(self._workspaces),
+                    _file_identity(self._lock), _file_identity(workspace),
+                ),
+            )
+        finally:
+            os.close(workspace)
 
 
 class LocalWorkspaceDirectories(WorkspaceDirectories):

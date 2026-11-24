@@ -1,5 +1,5 @@
 # 文件信息：L1-02 公开文件宿主和私有暂存输入的真实生命周期验证。
-# 作用：验证固定作用域、输入门槛、异步取消及关闭不能提前释放源句柄和根锁。
+# 作用：验证固定作用域、有界文件并行、控制操作独立及取消关闭时的资源归属。
 # 证据边界：真实本地文件配合可控阻塞点；不证明执行沙箱、来源登记或断电持久性。
 """以公开装配调用核对文件字节与运行生命周期的交接。"""
 
@@ -197,7 +197,7 @@ class FileRuntimeTests(unittest.IsolatedAsyncioTestCase):
             os.chdir(previous)
 
     async def test_cancelled_wait_keeps_source_and_root_until_actual_completion(self) -> None:
-        """取消等待后仍独占源和根，关闭也等待实际保存终结才释放资源。"""
+        """取消等待后保留源及原文件名额，另一名额可用且关闭仍等待实际保存。"""
         entered, release = threading.Event(), threading.Event()
         sources: list[BinaryIO] = []
         with patch.object(LocalArtifactFileStore, "store_new", _held_store(entered, release, sources)):
@@ -208,8 +208,9 @@ class FileRuntimeTests(unittest.IsolatedAsyncioTestCase):
                 with self.assertRaises(asyncio.CancelledError):
                     await operation
                 self.assertFalse(sources[0].closed)
-                with self.assertRaises(WorkspaceBusyError):
-                    await self.files.observe(self.artifact, self.files.location_for(self.artifact))
+                self.assertIsInstance(
+                    await self.files.observe(self.artifact, self.files.location_for(self.artifact)), FileMissing,
+                )
                 closing = asyncio.create_task(self.runtime.aclose())
                 await asyncio.sleep(0)
                 self.assertFalse(closing.done())
@@ -239,8 +240,8 @@ class FileRuntimeTests(unittest.IsolatedAsyncioTestCase):
                     with self.assertRaises(WorkspaceTimeoutError):
                         await operation
                     self.assertFalse(sources[0].closed)
-                    with self.assertRaises(WorkspaceBusyError):
-                        await self.runtime.read(self.workspace_id)
+                    record = await self.runtime.read(self.workspace_id)
+                    self.assertIsNotNone(record)
                 finally:
                     release.set()
                 await self.runtime.aclose()
@@ -250,6 +251,111 @@ class FileRuntimeTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNotNone(failures[0].exc_info)
         self.assertIn(str(self.artifact.id.value), failures[0].getMessage())
         self.assertIn(str(self.workspace_id.value), failures[0].getMessage())
+
+    async def test_long_copy_allows_another_workspace_and_metadata_to_progress(self) -> None:
+        """实际读源期间另一工作区能保存及观察文件，短注册查询不被复制占用。"""
+        other_id = WorkspaceId(uuid4())
+        await self.runtime.create(workspace_id=other_id, display_name="并行动物")
+        other_artifact = ArtifactIdentity(ArtifactId(uuid4()), other_id)
+        other_reference = FileReference(other_artifact.id, self.reference.content)
+        other_source = self.inputs / "other.rgb"
+        other_source.write_bytes(self.data)
+        other_source.chmod(0o600)
+        entered, release = threading.Event(), threading.Event()
+        original_read = os.pread
+        source_identity = self.source.stat().st_dev, self.source.stat().st_ino
+
+        def read_with_pause(descriptor: int, size: int, offset: int) -> bytes:
+            """真实读出指定源的首块后暂停，让其余文件和控制调用竞争运行资源。
+
+            :param descriptor: 当前真实文件描述符。
+            :param size: 有界读取请求的长度。
+            :param offset: 不改变流游标的读取位置。
+            :returns: 该描述符的实际字节。
+            """
+            data = original_read(descriptor, size, offset)
+            info = os.fstat(descriptor)
+            if offset == 0 and (info.st_dev, info.st_ino) == source_identity:
+                entered.set()
+                if not release.wait(5):
+                    raise TimeoutError("测试未放行实际复制")
+            return data
+
+        with patch("vet3d.adapters.artifact_files.os.pread", new=read_with_pause):
+            operation = asyncio.create_task(self.files.store_new(self.artifact, self.reference, self.source.name))
+            try:
+                await _wait_event(entered)
+                record = await self.runtime.read(self.workspace_id)
+                self.assertIsNotNone(record)
+                other_files = await self.runtime.files(other_id, input_root=self.inputs, max_file_bytes=1024)
+                saved = await other_files.store_new(other_artifact, other_reference, other_source.name)
+                self.assertEqual(await other_files.observe(other_artifact, saved.location), saved)
+                self.assertFalse(operation.done())
+            finally:
+                release.set()
+            saved_original = await operation
+        self.assertEqual(await self.files.observe(self.artifact, saved_original.location), saved_original)
+
+    async def test_saturation_retains_cancelled_slot_and_close_drains_all_files(self) -> None:
+        """两个实际调用占满文件名额时拒绝排队，取消不腾位且关闭逐一排空。"""
+        first_entered, second_entered = threading.Event(), threading.Event()
+        first_release, second_release = threading.Event(), threading.Event()
+        first_sources: list[BinaryIO] = []
+        second_sources: list[BinaryIO] = []
+        first_store = _held_store(first_entered, first_release, first_sources)
+        second_store = _held_store(second_entered, second_release, second_sources)
+        second_artifact = ArtifactIdentity(ArtifactId(uuid4()), self.workspace_id)
+        second_reference = FileReference(second_artifact.id, self.reference.content)
+
+        def hold_each_store(
+            adapter: LocalArtifactFileStore, artifact: ArtifactIdentity, reference: FileReference, source: BinaryIO,
+        ) -> FilePresent:
+            """按原产物身份分别控制两份真实文件操作，不更改实际存储规则。
+
+            :param adapter: 本次固定工作区文件适配器。
+            :param artifact: 两次保存各自的原产物身份。
+            :param reference: 对应的预期原件引用。
+            :param source: 宿主已打开且尚需保留的源句柄。
+            :returns: 放行后的实际保存观察。
+            """
+            operation = first_store if artifact == self.artifact else second_store
+            return operation(adapter, artifact, reference, source)
+
+        with patch.object(LocalArtifactFileStore, "store_new", new=hold_each_store):
+            first = asyncio.create_task(self.files.store_new(self.artifact, self.reference, self.source.name))
+            second = asyncio.create_task(self.files.store_new(second_artifact, second_reference, self.source.name))
+            closing: asyncio.Task[None] | None = None
+            try:
+                await _wait_event(first_entered)
+                await _wait_event(second_entered)
+                second.cancel()
+                with self.assertRaises(asyncio.CancelledError):
+                    await second
+                with self.assertRaises(WorkspaceBusyError):
+                    await self.files.observe(self.artifact, self.files.location_for(self.artifact))
+                self.assertIsNotNone(await self.runtime.read(self.workspace_id))
+                closing = asyncio.create_task(self.runtime.aclose())
+                await asyncio.sleep(0)
+                first_release.set()
+                await first
+                self.assertTrue(first_sources[0].closed)
+                self.assertFalse(second_sources[0].closed)
+                self.assertFalse(closing.done())
+                with self.assertRaises(WorkspaceClosedError):
+                    await self.files.observe(self.artifact, self.files.location_for(self.artifact))
+                with self.assertLogs("vet3d", level="ERROR"), self.assertRaises(BlockingIOError):
+                    await open_workspaces(self.root)
+            finally:
+                first_release.set()
+                second_release.set()
+            assert closing is not None
+            await closing
+        self.assertTrue(second_sources[0].closed)
+        async with await open_workspaces(self.root) as reopened:
+            files = await reopened.files(self.workspace_id, input_root=self.inputs, max_file_bytes=1024)
+            for artifact in (self.artifact, second_artifact):
+                location = files.location_for(artifact)
+                self.assertEqual(await files.observe(artifact, location), FilePresent(location, self.reference.content))
 
 
 class StagedInputTests(unittest.TestCase):

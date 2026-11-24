@@ -1,8 +1,9 @@
-# 文件信息：L0 文件契约与访问端口、L1-02 文件存储契约的公共入口。
+# 文件信息：L0 文件契约、L1-02 文件存储及 L1-04 单资产登记的公共入口。
 # 边界：公开唯一具体类型、纯校验和访问接口，不执行 I/O 或装配具体存储。
 """公开文件引用、内容交接契约及消费方访问端口。"""
 
 from ._checks import ArtifactContractError
+from .catalog import ArtifactRegistrationConflict, ArtifactRepository, validate_registration
 from .content import ContentFingerprint, FileReference
 from .locations import WorkspaceFileLocation, WorkspaceRelativePath
 from .observations import (
@@ -25,4 +26,5 @@ __all__ = [
     "FileMissing", "FileObservation", "FilePresent", "FileUnavailable",
     "require_matching_file", "validate_file_observation",
     "ArtifactAccess", "LocatedArtifact", "ArtifactFileStore", "validate_file_scope",
+    "ArtifactRegistrationConflict", "ArtifactRepository", "validate_registration",
 ]

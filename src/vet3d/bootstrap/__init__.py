@@ -8,7 +8,7 @@ from .invocation import InvocationTimeoutError, invoke_demo
 from .logging_setup import configure_logging
 from .reconstruction import assemble_reconstruction, run_reconstruction_probe
 from .workspaces import (
-    WorkspaceBusyError, WorkspaceClosedError, WorkspaceFiles, WorkspaceRuntime, WorkspaceTimeoutError,
+    WorkspaceArtifacts, WorkspaceBusyError, WorkspaceClosedError, WorkspaceFiles, WorkspaceRuntime, WorkspaceTimeoutError,
     initialize_workspaces, open_workspaces,
 )
 from .resources import (
@@ -22,7 +22,7 @@ __all__ = [
     "assemble_reconstruction", "run_reconstruction_probe",
     "WorkspaceBusyError", "WorkspaceClosedError", "WorkspaceRuntime", "WorkspaceTimeoutError",
     "initialize_workspaces", "open_workspaces",
-    "WorkspaceFiles",
+    "WorkspaceFiles", "WorkspaceArtifacts",
     "PinnedResources", "ResourceBusyError", "ResourceClosedError", "ResourceRuntime", "ResourceTimeoutError",
     "initialize_resources", "open_resources",
 ]

@@ -1,5 +1,5 @@
 # 文件信息：L1-02 固定工作区的真实普通文件保存与观察适配器。
-# 作用：以已有产物身份定位字节，复制受信暂存原件，计算摘要并无覆盖提交。
+# 作用：以独立描述符并行复制及观察固定工作区的字节，计算摘要并无覆盖提交。
 # 边界：不登记产物、不推导授权、不解码素材；受管根仍要求同 UID 可信独占管理。
 # 恢复：失败保留已提交目标；仅清理本次拥有的临时文件，未知残留不扫描认领。
 """将文件端口接到受管目录和真实描述符，保持字节事实与业务登记独立。"""
@@ -89,13 +89,13 @@ def _write_all(descriptor: int, data: bytes) -> None:
 class LocalArtifactFileStore(ArtifactFileStore):
     """在固定工作区内保存和观察文件，由 Bootstrap 核对注册并管理源句柄寿命。
 
-    :param root: 同线程持有写入锁的受管根。
+    :param root: 构造时由控制线程持有写入锁的受管根；实际文件操作使用独立作用域。
     :param workspace_id: 实例唯一工作区作用域，不接受逐次命令重新定义。
     :param max_file_bytes: 装配注入的单文件实际 I/O 上限，不定义业务验收资格。
     """
 
     def __init__(self, root: ManagedWorkspaceRoot, workspace_id: WorkspaceId, *, max_file_bytes: int) -> None:
-        """绑定具体存储和资源限额，不初始化目录、不访问注册库。
+        """在根所属线程冻结已有目录作用域和资源限额，不初始化目录或访问注册库。
 
         :param root: 当前存储所有者提供的受管根。
         :param workspace_id: 已由装配核对登记的工作区身份。
@@ -106,7 +106,7 @@ class LocalArtifactFileStore(ArtifactFileStore):
         if type(workspace_id) is not WorkspaceId:
             raise TypeError("文件存储需要 WorkspaceId")
         validate_file_byte_limit(max_file_bytes)
-        self._root = root
+        self._scope = root.file_scope(workspace_id)
         self._workspace_id = workspace_id
         self._max_file_bytes = max_file_bytes
 
@@ -121,13 +121,13 @@ class LocalArtifactFileStore(ArtifactFileStore):
         return WorkspaceFileLocation(artifact.id, WorkspaceRelativePath(f"files/{artifact.id.value}"))
 
     def _open_files(self, *, create: bool) -> tuple[int, int] | None:
-        """通过根的既有校验取得工作区与文件集合句柄。
+        """从固定作用域独立取得工作区与文件集合句柄。
 
         :param create: 保存新文件时才允许建立缺失的 files 集合。
         :returns: 调用方关闭的工作区及 files 描述符；只读时集合不存在返回空值。
         :raises OSError: 工作区不存在、集合不安全或目录同步失败。
         """
-        workspace = self._root.directories.open_handle(self._workspace_id)
+        workspace = self._scope.open_handle()
         files: int | None = None
         try:
             if create:
@@ -160,7 +160,7 @@ class LocalArtifactFileStore(ArtifactFileStore):
         :param workspace: 当前实际操作持有的工作区句柄。
         :raises OSError: 根或工作区被替换、缺失或改权。
         """
-        current = self._root.directories.open_handle(self._workspace_id)
+        current = self._scope.open_handle()
         try:
             original_info, current_info = os.fstat(workspace), os.fstat(current)
             if (original_info.st_dev, original_info.st_ino) != (current_info.st_dev, current_info.st_ino):

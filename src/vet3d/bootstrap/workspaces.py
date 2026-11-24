@@ -1,5 +1,5 @@
-# 文件信息：L1-01 工作区和 L1-02 文件存储的显式装配与异步宿主边界。
-# 作用：在一个专用线程内管理真实目录、注册库和服务，提供无等待队列的有限准入。
+# 文件信息：工作区、真实文件及单资产目录的显式装配与异步宿主边界。
+# 作用：短元数据操作保持线程封闭，耗时文件 I/O 使用独立有限线程，无内部等待队列。
 # 边界：等待取消不终止已开始的 I/O；实际工作及关闭完成前不释放根级写入资格。
 """装配工作区服务并管理线程封闭、期限、诊断和关闭。"""
 
@@ -19,8 +19,9 @@ from vet3d.adapters import (
     open_staged_input, validate_file_byte_limit,
 )
 from vet3d.artifacts import (
-    ArtifactContractError, ArtifactFileStore, FileObservation, FilePresent, FileReference,
-    FileUnavailable, WorkspaceFileLocation,
+    ArtifactAccess, ArtifactContractError, ArtifactFileStore, ArtifactRepository,
+    FileObservation, FilePresent, FileReference, FileUnavailable, ImportOrigin,
+    LocatedArtifact, WorkspaceFileLocation, require_matching_file, validate_registration,
 )
 from vet3d.identity import ArtifactId, ArtifactIdentity, WorkspaceId
 from vet3d.workspaces import (
@@ -44,13 +45,37 @@ class WorkspaceTimeoutError(TimeoutError):
     """表示宿主等待期限耗尽，不证明实际存储操作已停止或未提交。"""
 
 
+class _WorkspaceWorker:
+    """持有一个部署限额对应的线程池及事件循环内的真实在途集合。"""
+
+    def __init__(self, limit: int, name: str) -> None:
+        """建立有限执行资源，不建立业务状态或内部等待队列。
+
+        :param limit: 实际并行名额上限。
+        :param name: 用于线程诊断的固定名称。
+        """
+        if type(limit) is not int or limit <= 0:
+            raise ValueError("文件并行上限必须为非布尔正整数")
+        self.limit = limit
+        self.executor = ThreadPoolExecutor(max_workers=limit, thread_name_prefix=name)
+        self.pending: set[asyncio.Future[object]] = set()
+
+    def available(self) -> bool:
+        """只从实际 Future 终态派生剩余名额，不复制繁忙状态。
+
+        :returns: 当前是否可以立即提交一次实际操作。
+        """
+        return sum(not future.done() for future in self.pending) < self.limit
+
+
 class WorkspaceRuntime:
     """持有一个根的线程封闭存储，通过装配函数初始化后使用。"""
 
-    def __init__(self, root: Path) -> None:
+    def __init__(self, root: Path, *, max_file_operations: int = 2) -> None:
         """建立本事件循环内的资源所有者，尚不打开目录或注册库。
 
         :param root: Bootstrap 已解析的部署存储根，仅供内部初始化使用。
+        :param max_file_operations: 独立文件线程的有界并行资源上限。
         :raises TypeError: 根不是 Path。
         :raises ValueError: 根包含禁止的上级路径段。
         :raises RuntimeError: 当前没有运行中的事件循环。
@@ -61,11 +86,11 @@ class WorkspaceRuntime:
             raise ValueError("工作区存储根不能包含上级路径段")
         self._path = Path(os.path.abspath(root))
         self._loop = asyncio.get_running_loop()
-        self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="vet3d-workspaces")
+        self._file_worker = _WorkspaceWorker(max_file_operations, "vet3d-files")
+        self._control_worker = _WorkspaceWorker(1, "vet3d-workspaces")
         self._root: ManagedWorkspaceRoot | None = None
         self._repository: SqliteWorkspaceRepository | None = None
         self._service: WorkspaceService | None = None
-        self._pending: asyncio.Future[object] | None = None
         self._closing: asyncio.Task[None] | None = None
 
     def _initialize(self) -> None:
@@ -126,15 +151,18 @@ class WorkspaceRuntime:
             raise WorkspaceClosedError("工作区宿主只能由装配时的事件循环使用")
 
     def _observe(
-        self, event: str, identity: str, artifact_id: ArtifactId | None, future: asyncio.Future[object],
+        self, worker: _WorkspaceWorker, event: str, identity: str,
+        artifact_id: ArtifactId | None, future: asyncio.Future[object],
     ) -> None:
         """始终观察实际工作终态，等待者取消后也不丢失晚期异常。
 
+        :param worker: 本次真实操作所占的线程资源。
         :param event: 固定操作名称。
         :param identity: 已知工作区身份；启动阶段为 storage。
         :param artifact_id: 文件调用的原产物身份，仅用于诊断关联。
         :param future: 不直接交给调用方取消的实际工作 Future。
         """
+        worker.pending.discard(future)
         error = future.exception()
         if error is None and artifact_id is not None:
             result = future.result()
@@ -164,14 +192,16 @@ class WorkspaceRuntime:
     async def _invoke[T](
         self, operation: Callable[[], T], *, event: str, identity: str,
         timeout_seconds: float | None, artifact_id: ArtifactId | None = None,
+        worker: _WorkspaceWorker | None = None,
     ) -> T:
         """在无内部等待队列的准入后，异步等待实际存储调用。
 
-        :param operation: 将在唯一工作线程执行的具体调用。
+        :param operation: 在指定资源线程中执行的具体调用。
         :param event: 固定诊断事件。
         :param identity: 本次调用的原身份。
         :param timeout_seconds: 仅限制等待的正有限秒数；None 表示由调用方管理期限。
         :param artifact_id: 可选产物诊断关联，不决定准入或存储行为。
+        :param worker: 指定文件线程池；省略时使用唯一元数据线程。
         :returns: 实际存储调用的结果。
         :raises WorkspaceBusyError: 原实际调用尚未终结，没有提交本次操作。
         :raises WorkspaceClosedError: 已开始关闭或事件循环不符。
@@ -185,21 +215,22 @@ class WorkspaceRuntime:
             isinstance(timeout_seconds, bool) or not math.isfinite(timeout_seconds) or timeout_seconds <= 0
         ):
             raise ValueError("等待期限必须为正有限秒数")
-        if self._pending is not None and not self._pending.done():
+        selected = self._control_worker if worker is None else worker
+        if not selected.available():
             raise WorkspaceBusyError("受管存储繁忙；本次未提交，请沿原身份对账")
         # 在提交前处理已有取消；后续直到保存 Future 没有协程挂起点。
         await asyncio.sleep(0)
         if self._closing is not None:
             raise WorkspaceClosedError("工作区宿主已经开始关闭")
-        if self._pending is not None and not self._pending.done():
+        if not selected.available():
             raise WorkspaceBusyError("受管存储繁忙；本次未提交")
         if artifact_id is None:
             _LOGGER.info("workspace_%s_started workspace_id=%s", event, identity)
         else:
             _LOGGER.info("workspace_%s_started workspace_id=%s artifact_id=%s", event, identity, artifact_id.value)
-        future: asyncio.Future[object] = self._loop.run_in_executor(self._executor, operation)
-        self._pending = future
-        future.add_done_callback(partial(self._observe, event, identity, artifact_id))
+        future: asyncio.Future[object] = self._loop.run_in_executor(selected.executor, operation)
+        selected.pending.add(future)
+        future.add_done_callback(partial(self._observe, selected, event, identity, artifact_id))
         deadline = asyncio.timeout(timeout_seconds)
         try:
             async with deadline:
@@ -291,6 +322,32 @@ class WorkspaceRuntime:
         )
         return WorkspaceFiles(self, workspace_id, source_root, store)
 
+    def _bind_artifacts(self, workspace_id: WorkspaceId, max_file_bytes: int) -> WorkspaceArtifacts:
+        """在控制线程绑定同一所有者的资产仓储及独立文件作用域。
+
+        :param workspace_id: 已登记的固定工作区。
+        :param max_file_bytes: 文件观察的部署字节上限。
+        :returns: 实际消费 ArtifactAccess 的具体装配入口。
+        """
+        store = self._bind_file_store(workspace_id, max_file_bytes)
+        assert self._repository is not None
+        return WorkspaceArtifacts(self, workspace_id, self._repository.artifacts(workspace_id), store)
+
+    async def artifacts(self, workspace_id: WorkspaceId, *, max_file_bytes: int) -> WorkspaceArtifacts:
+        """建立固定工作区的真实资产目录消费者，不暴露根路径或上传权限。
+
+        :param workspace_id: 已完成登记的实例作用域。
+        :param max_file_bytes: 显式文件观察资源上限，不进入业务协议。
+        :returns: 可注入生成服务的真实 ArtifactAccess，兼有可信单资产登记入口。
+        """
+        if type(workspace_id) is not WorkspaceId:
+            raise TypeError("资产装配必须使用 WorkspaceId")
+        validate_file_byte_limit(max_file_bytes)
+        return await self._invoke(
+            partial(self._bind_artifacts, workspace_id, max_file_bytes),
+            event="artifacts_bind", identity=str(workspace_id.value), timeout_seconds=None,
+        )
+
     def _close_storage(self) -> None:
         """在原工作线程内关闭注册库，再释放根级写入资格。"""
         try:
@@ -320,17 +377,18 @@ class WorkspaceRuntime:
     async def _finish_close(self) -> None:
         """停止准入后排空原调用并关闭，最后回收线程资源。"""
         try:
-            if self._pending is not None:
+            for future in tuple(self._control_worker.pending | self._file_worker.pending):
                 try:
-                    await self._drain(self._pending)
+                    await self._drain(future)
                 except BaseException:
                     # 原调用错误由 _observe 及原调用方观察，关闭仍须继续。
                     pass
-            closing = self._loop.run_in_executor(self._executor, self._close_storage)
+            closing = self._loop.run_in_executor(self._control_worker.executor, self._close_storage)
             await self._drain(closing)
         finally:
-            # 存储任务实际终结后才 join；此时不再有阻塞 I/O 在途。
-            self._executor.shutdown(wait=True)
+            # 先排空所有文件调用，再释放原根；此时回收线程不会等待文件 I/O。
+            self._file_worker.executor.shutdown(wait=True)
+            self._control_worker.executor.shutdown(wait=True)
 
     def _observe_close(self, task: asyncio.Task[None]) -> None:
         """在关闭等待者取消时仍保留关闭失败诊断。
@@ -440,6 +498,7 @@ class WorkspaceFiles:
         return await self._runtime._invoke(
             partial(self._store_new, artifact, reference, input_name), event="file_store",
             identity=str(self._workspace_id.value), artifact_id=artifact.id, timeout_seconds=timeout_seconds,
+            worker=self._runtime._file_worker,
         )
 
     async def observe(
@@ -457,16 +516,153 @@ class WorkspaceFiles:
         return await self._runtime._invoke(
             partial(self._store.observe, artifact, location), event="file_observe",
             identity=str(self._workspace_id.value), artifact_id=artifact.id, timeout_seconds=timeout_seconds,
+            worker=self._runtime._file_worker,
         )
 
 
-async def initialize_workspaces(root: Path) -> WorkspaceRuntime:
+class WorkspaceArtifacts(ArtifactAccess):
+    """组合固定工作区的持久目录及真实观察，不把登记视为文件或业务通过。"""
+
+    def __init__(
+        self, runtime: WorkspaceRuntime, workspace_id: WorkspaceId,
+        repository: ArtifactRepository, store: ArtifactFileStore,
+    ) -> None:
+        """由 Bootstrap 注入窄端口，业务消费方只依赖 ArtifactAccess。
+
+        :param runtime: 持有控制线程、文件线程和根锁的资源所有者。
+        :param workspace_id: 固定的工作区及诊断关联。
+        :param repository: 仅在控制线程调用的同步资产仓储。
+        :param store: 各次调用独立取得文件描述符的实际文件端口。
+        """
+        self._runtime = runtime
+        self._workspace_id = workspace_id
+        self._repository = repository
+        self._store = store
+
+    def _metadata[T](self, operation: Callable[[], T]) -> T:
+        """在唯一控制线程核对根仍受管后执行短仓储操作。
+
+        :param operation: 固定仓储上的具体查询或单件提交。
+        :returns: 仓储实际结果，不将异常降级为空。
+        """
+        self._runtime._ready_service()
+        return operation()
+
+    async def _call[T](self, operation: Callable[[], T], artifact_id: ArtifactId, event: str) -> T:
+        """经所属宿主准入后调度短元数据调用，不把仓储交给文件线程。
+
+        :param operation: 当前确切资产的仓储操作。
+        :param artifact_id: 原产物诊断关联。
+        :param event: 固定诊断名称。
+        :returns: 已完成的元数据结果。
+        """
+        return await self._runtime._invoke(
+            partial(self._metadata, operation), event=event, identity=str(self._workspace_id.value),
+            artifact_id=artifact_id, timeout_seconds=None,
+        )
+
+    async def resolve(self, artifact_id: ArtifactId) -> LocatedArtifact | None:
+        """查询已提交登记，文件缺失或改变不回写此元数据事实。
+
+        :param artifact_id: 本次请求的确切产物身份。
+        :returns: 原登记；没有登记时为空，查询失败仍传播异常。
+        """
+        if type(artifact_id) is not ArtifactId:
+            raise TypeError("资产解析必须使用 ArtifactId")
+        return await self._call(partial(self._repository.get, artifact_id), artifact_id, "artifact_resolve")
+
+    async def get_origin(self, artifact_id: ArtifactId) -> ImportOrigin | None:
+        """读取原出处，空值不证明未登记或来自真实拍摄。
+
+        :param artifact_id: 要核对的原产物身份。
+        :returns: 原导入说明；是否登记由 resolve 单独回答。
+        """
+        if type(artifact_id) is not ArtifactId:
+            raise TypeError("出处查询必须使用 ArtifactId")
+        return await self._call(partial(self._repository.get_origin, artifact_id), artifact_id, "artifact_origin")
+
+    async def observe(self, location: WorkspaceFileLocation) -> FileObservation:
+        """先核对已登记位置，再观察实际字节，不比较或改写原摘要。
+
+        :param location: 从确切登记取得的原相对位置。
+        :returns: 独立的文件存在、缺失或不可用事实。
+        :raises ArtifactContractError: 未登记或位置不匹配，不能以文件存在认领资产。
+        """
+        if type(location) is not WorkspaceFileLocation:
+            raise TypeError("资产观察必须使用 WorkspaceFileLocation")
+        record = await self.resolve(location.artifact_id)
+        if record is None or record.location != location:
+            raise ArtifactContractError("资产观察需要确切的已登记位置")
+        return await self._runtime._invoke(
+            partial(self._store.observe, record.artifact, location), event="artifact_observe",
+            identity=str(self._workspace_id.value), artifact_id=record.artifact.id,
+            timeout_seconds=None, worker=self._runtime._file_worker,
+        )
+
+    def _existing(self, record: LocatedArtifact, origin: ImportOrigin | None) -> LocatedArtifact | None:
+        """只对已有记录调用仓储的精确重放检查，不产生首次登记。
+
+        :param record: 本次原身份、内容及位置声明。
+        :param origin: 本次原出处声明。
+        :returns: 完全匹配的原登记；未登记则为空。
+        """
+        if self._repository.get(record.artifact.id) is None:
+            return None
+        return self._repository.register(record, origin=origin)
+
+    async def register(
+        self, artifact: ArtifactIdentity, reference: FileReference, *,
+        origin: ImportOrigin | None = None, timeout_seconds: float | None = 5.0,
+    ) -> LocatedArtifact:
+        """首次登记前核对真实文件，原身份精确重放只读回不可变记录。
+
+        文件接收与目录登记分开；未完成观察不会自动推进后续数据库提交。
+        已提交记录的重放不声称当前文件仍在，实际使用须另行 observe。
+
+        :param artifact: 调用方已保留的原产物身份和工作区。
+        :param reference: 原完整内容引用，不能由脚本报告替代实际字节。
+        :param origin: 实际已知的导入出处，可为空，不推断来源类别。
+        :param timeout_seconds: 整次等待期限，不进入登记记录或业务能力。
+        :returns: 单件已提交登记；不代表验收或发布。
+        :raises WorkspaceTimeoutError: 等待超时，已提交阶段需按原身份对账。
+        :raises asyncio.CancelledError: 等待取消，已开始的实际 I/O 仍会终结。
+        """
+        location = self._store.location_for(artifact)
+        record = LocatedArtifact(artifact, reference, location)
+        validate_registration(record, workspace_id=self._workspace_id, origin=origin)
+        if timeout_seconds is not None and (
+            isinstance(timeout_seconds, bool) or not math.isfinite(timeout_seconds) or timeout_seconds <= 0
+        ):
+            raise ValueError("等待期限必须为正有限秒数")
+        deadline = asyncio.timeout(timeout_seconds)
+        try:
+            async with deadline:
+                existing = await self._call(partial(self._existing, record, origin), artifact.id, "artifact_replay")
+                if existing is not None:
+                    return existing
+                observation = await self._runtime._invoke(
+                    partial(self._store.observe, artifact, location), event="artifact_verify",
+                    identity=str(self._workspace_id.value), artifact_id=artifact.id,
+                    timeout_seconds=None, worker=self._runtime._file_worker,
+                )
+                require_matching_file(observation, reference=reference, artifact=artifact)
+                return await self._call(
+                    partial(self._repository.register, record, origin=origin), artifact.id, "artifact_register",
+                )
+        except TimeoutError:
+            if deadline.expired():
+                raise WorkspaceTimeoutError("登记等待超时；仅按原产物身份查询已提交事实") from None
+            raise
+
+
+async def initialize_workspaces(root: Path, *, max_file_operations: int = 2) -> WorkspaceRuntime:
     """显式初始化新的受管存储，失败或取消时释放本次取得的资源。
 
     :param root: 不存在或安全空目录的部署根。
+    :param max_file_operations: 耗时文件 I/O 的有界并行上限，默认两个名额。
     :returns: 已打开的线程封闭工作区宿主。
     """
-    runtime = WorkspaceRuntime(root)
+    runtime = WorkspaceRuntime(root, max_file_operations=max_file_operations)
     try:
         await runtime._invoke(runtime._initialize, event="initialize", identity="storage", timeout_seconds=None)
     except BaseException:
@@ -475,13 +671,14 @@ async def initialize_workspaces(root: Path) -> WorkspaceRuntime:
     return runtime
 
 
-async def open_workspaces(root: Path) -> WorkspaceRuntime:
+async def open_workspaces(root: Path, *, max_file_operations: int = 2) -> WorkspaceRuntime:
     """只打开既有完整存储，缺库或布局异常不会触发初始化。
 
     :param root: 已初始化的部署根。
+    :param max_file_operations: 本次部署的文件并行上限，不改变持久业务记录。
     :returns: 已核对并取得单写入资格的宿主。
     """
-    runtime = WorkspaceRuntime(root)
+    runtime = WorkspaceRuntime(root, max_file_operations=max_file_operations)
     try:
         await runtime._invoke(runtime._open, event="open", identity="storage", timeout_seconds=None)
     except BaseException:

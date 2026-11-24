@@ -1,5 +1,5 @@
-# 文件信息：L1-01 单写入装配使用的 SQLite 注册仓储。
-# 作用：以短事务保存创建意图和首次注册提交，并拒绝缺失或不匹配的注册库。
+# 文件信息：L1-01 工作区仓储及 L1-04 共用注册数据库的生命周期入口。
+# 作用：保存工作区事实，统一连接参数与 Schema 检查，并装配同线程单资产仓储。
 # 边界：仅在 Bootstrap 所属工作线程使用；不创建目录、不授予文件或执行权限。
 # 恢复：只打开既有库并接受 SQLite 日志恢复，不迁移、补表、扫描目录或伪造登记。
 """实现同步注册端口，由受信装配持有根锁并限定数据库父目录。"""
@@ -8,11 +8,13 @@ import os
 import sqlite3
 import stat
 import threading
+from collections.abc import Iterator
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import final
 
-from sqlalchemy import CheckConstraint, UniqueConstraint, create_engine, inspect, text
+from sqlalchemy import CheckConstraint, ForeignKeyConstraint, UniqueConstraint, create_engine, inspect, text
 from sqlalchemy.engine import Connection, Engine
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import NullPool
@@ -25,6 +27,7 @@ from vet3d.workspaces import (
     WorkspaceRepository,
 )
 
+from .artifact_repository import SqliteArtifactRepository
 from .workspace_tables import WorkspaceRow, WorkspaceTableBase
 
 
@@ -159,6 +162,10 @@ class SqliteWorkspaceRepository(WorkspaceRepository):
             synchronous = connection.execute("PRAGMA synchronous").fetchone()
             if synchronous is None or synchronous[0] != 3:
                 raise WorkspaceStorageError("注册库无法启用 EXTRA 同步")
+            connection.execute("PRAGMA foreign_keys=ON")
+            foreign_keys = connection.execute("PRAGMA foreign_keys").fetchone()
+            if foreign_keys is None or foreign_keys[0] != 1:
+                raise WorkspaceStorageError("注册库无法启用外键约束")
             self._assert_usable()
             connection.autocommit = False
             return connection
@@ -203,16 +210,89 @@ class SqliteWorkspaceRepository(WorkspaceRepository):
                 if isinstance(constraint, CheckConstraint)
             }
             actual_checks = {constraint["sqltext"] for constraint in inspector.get_check_constraints(table_name)}
+            expected_foreign = {
+                (
+                    tuple(element.parent.name for element in constraint.elements),
+                    constraint.referred_table.schema,
+                    constraint.referred_table.name,
+                    tuple(element.column.name for element in constraint.elements),
+                    tuple(
+                        (key, value)
+                        for key, value in (
+                            ("deferrable", constraint.deferrable), ("initially", constraint.initially),
+                            ("match", constraint.match), ("ondelete", constraint.ondelete),
+                            ("onupdate", constraint.onupdate),
+                        )
+                        if value is not None
+                    ),
+                )
+                for constraint in table.constraints
+                if isinstance(constraint, ForeignKeyConstraint)
+            }
+            observed_foreign = inspector.get_foreign_keys(table_name)
+            actual_foreign = {
+                (
+                    tuple(constraint["constrained_columns"]), constraint.get("referred_schema"),
+                    constraint["referred_table"], tuple(constraint["referred_columns"]),
+                    tuple(sorted(constraint.get("options", {}).items())),
+                )
+                for constraint in observed_foreign
+            }
+            expected_indexes = {
+                (index.name, index.unique, tuple(column.name for column in index.columns))
+                for index in table.indexes
+            }
+            actual_indexes = {
+                (index["name"], bool(index["unique"]), tuple(index["column_names"]))
+                for index in inspector.get_indexes(table_name)
+            }
             if (
                 observed_columns != expected_columns
                 or inspector.get_pk_constraint(table_name)["constrained_columns"]
                 != [column.name for column in table.primary_key.columns]
                 or actual_unique != expected_unique
                 or actual_checks != expected_checks
-                or inspector.get_foreign_keys(table_name)
-                or inspector.get_indexes(table_name)
+                or actual_foreign != expected_foreign
+                or actual_indexes != expected_indexes
             ):
                 raise WorkspaceStorageError("注册库列或约束不符合当前结构")
+
+    @contextmanager
+    def _transaction(self) -> Iterator[Session]:
+        """为同包窄仓储提供独立短事务，保持唯一连接及关闭所有者。
+
+        :yields: 仅供适配器在当前所属线程使用的本次 Session。
+        :raises WorkspaceStorageError: 原所有者已关闭、跨线程或库被替换。
+        """
+        self._assert_usable()
+        with Session(self._engine) as session, session.begin():
+            yield session
+        self._assert_usable()
+
+    def artifacts(self, workspace_id: WorkspaceId) -> SqliteArtifactRepository:
+        """为已提交工作区装配单资产仓储，不另建连接所有者或持有事务。
+
+        :param workspace_id: 子仓储之后固定使用的工作区身份。
+        :returns: 共享本实例线程、连接配置和关闭寿命的资产仓储。
+        :raises WorkspaceContractError: 工作区尚未提交注册。
+        """
+        with self._transaction() as session:
+            self._require_registered_workspace(session, workspace_id)
+        return SqliteArtifactRepository(self, workspace_id)
+
+    def _require_registered_workspace(self, session: Session, workspace_id: WorkspaceId) -> None:
+        """在调用方的短事务内核对已提交工作区，共用唯一行编解码。
+
+        :param session: 所属适配器的当前事务，不向业务层暴露。
+        :param workspace_id: 必须已提交注册的原身份。
+        :raises TypeError: 工作区身份类型错误。
+        :raises WorkspaceContractError: 工作区缺失、未提交或记录损坏。
+        """
+        if type(workspace_id) is not WorkspaceId:
+            raise TypeError("工作区身份必须是 WorkspaceId")
+        row = session.get(WorkspaceRow, str(workspace_id.value))
+        if row is None or _record_from_row(row).registered_at is None:
+            raise WorkspaceContractError("资产仓储需要已提交的工作区登记")
 
     def _sync_initialization(self) -> None:
         """在首次建表提交后同步数据库和父目录，不宣称覆盖所有断电场景。

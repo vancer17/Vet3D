@@ -13,6 +13,8 @@ Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小�
 
 [L1-03 受管资源与固定快照读取](docs/vet3d/implementation/work-items/L1-03.md)已完成当前 Debian 范围验收，当前契约和验证记录由该卡维护；资源安装、解释器可执行性与业务验收分别交接。选择理由见 [ADR 0008](docs/vet3d/adr/0008-managed-resource-snapshots.md)。
 
+[L1-04 单资产持久目录与真实 ArtifactAccess](docs/vet3d/implementation/work-items/L1-04.md)已完成本期范围，登记、重开对账及文件 I/O 与短元数据调用的并发边界由该卡维护；实际验证见该卡第 7 节，M1 尚未放行。选择理由见 [ADR 0009](docs/vet3d/adr/0009-single-artifact-catalog.md)。
+
 [宿主与装配决策](docs/vet3d/adr/0001-service-host-and-composition.md)记录技术选择及边界。Hi3D 参考工具与产品实现分别维护。
 
 ## Documentation

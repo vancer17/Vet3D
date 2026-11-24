@@ -1,6 +1,6 @@
-# 文件信息：L1-02 真实文件观察接入 L0-05 生成消费方的集成验证。
-# 作用：通过 Bootstrap 保存和观察真实字节，以测试内显式元数据驱动已有生成守卫。
-# 证据边界：元数据、生成器和生成仓储仍为替身；不实现产品 resolve，也不证明图像或动物质量。
+# 文件信息：L1-04 真实资产目录及文件观察接入 L0-05 生成消费方的集成验证。
+# 作用：通过 Bootstrap 保存、登记和观察真实字节，驱动已有生成守卫。
+# 证据边界：只有生成器和执行仓储仍为替身；合成字节不证明图像或动物质量。
 """验证字节交接和生成前拒绝，不将五向标签夹具宣称为真实图片方向证据。"""
 
 import hashlib
@@ -12,10 +12,10 @@ from uuid import uuid4
 from vet3d.adapters import FiveViewGenerator, FourViewGenerator, MemoryReconstructionRepository
 from vet3d.application import ReconstructionRecord, ReconstructionService
 from vet3d.artifacts import (
-    ArtifactAccess, ArtifactContractError, ContentFingerprint, FileMissing, FileObservation,
-    FilePresent, FileReference, LocatedArtifact, WorkspaceFileLocation,
+    ArtifactContractError, ContentFingerprint, FileMissing,
+    FilePresent, FileReference, LocatedArtifact,
 )
-from vet3d.bootstrap import WorkspaceFiles, initialize_workspaces
+from vet3d.bootstrap import initialize_workspaces
 from vet3d.execution import AttemptActive, AttemptSucceeded, InputInsufficient
 from vet3d.identity import (
     ArtifactId, ArtifactIdentity, AttemptId, AttemptIdentity, JobId, JobIdentity,
@@ -25,39 +25,6 @@ from vet3d.modeling import (
     GenerationPlan, PreparedView, PreparedViews, ReconstructionPort, ReconstructionRequest,
     TaskReferences, ViewDirection,
 )
-
-
-class _MetadataWithRealFiles(ArtifactAccess):
-    """仅在测试内提供明确的元数据索引，文件观察始终交给真实宿主。"""
-
-    def __init__(self, records: tuple[LocatedArtifact, ...], files: WorkspaceFiles) -> None:
-        """接收测试声明和真实文件入口，不扫描目录或生成持久登记。
-
-        :param records: 测试明确提供的元数据，不能由磁盘存在反推。
-        :param files: Bootstrap 已绑定工作区的真实观察入口。
-        """
-        self._records = {record.artifact.id: record for record in records}
-        self._files = files
-
-    async def resolve(self, artifact_id: ArtifactId) -> LocatedArtifact | None:
-        """只返回本测试显式声明的登记替身，不查询或扫描文件。
-
-        :param artifact_id: 生成消费方请求的原产物身份。
-        :returns: 明确声明的元数据，未声明时为空。
-        """
-        return self._records.get(artifact_id)
-
-    async def observe(self, location: WorkspaceFileLocation) -> FileObservation:
-        """用声明中的原归属调用真实文件观察，不使用保存时的旧回执。
-
-        :param location: 消费方从本测试元数据取得的确切位置。
-        :returns: 宿主本次实际读取的文件观察。
-        :raises ArtifactContractError: 观察请求与测试提供的元数据不一致。
-        """
-        record = self._records.get(location.artifact_id)
-        if record is None or record.location != location:
-            raise ArtifactContractError("测试观察请求没有对应的显式元数据")
-        return await self._files.observe(record.artifact, location)
 
 
 class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
@@ -79,10 +46,11 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
         self._files = await runtime.files(
             self._workspace_id, input_root=input_root, max_file_bytes=1024 * 1024
         )
+        self._catalog = await runtime.artifacts(self._workspace_id, max_file_bytes=1024 * 1024)
         records: list[LocatedArtifact] = []
         views: list[PreparedView] = []
         for direction in ViewDirection:
-            payload = f"L1-02 byte fixture for {direction.value}; not an image\n".encode("utf-8")
+            payload = f"L1-04 byte fixture for {direction.value}; not an image\n".encode("utf-8")
             input_name = f"{direction.value}.bin"
             source = input_root / input_name
             source.write_bytes(payload)
@@ -120,20 +88,21 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
             files=tuple(record.reference for record in self._records),
         )
 
-    def _service(
+    async def _service(
         self, generator: ReconstructionPort, repository: MemoryReconstructionRepository,
         records: tuple[LocatedArtifact, ...] | None = None,
     ) -> ReconstructionService:
-        """显式装配既有生成服务，元数据替身只存在于本测试文件。
+        """逐件完成真实目录登记，再装配既有生成服务。
 
         :param generator: 既有的五向或四向生成替身。
         :param repository: 当前用例的内存生成仓储。
-        :param records: 可选的明确元数据缺失夹具。
+        :param records: 可选的实际部分登记集合；未登记项仍保留磁盘文件。
         :returns: 真实文件观察已经接通的生成消费方。
         """
-        access = _MetadataWithRealFiles(self._records if records is None else records, self._files)
+        for record in self._records if records is None else records:
+            await self._catalog.register(record.artifact, record.reference)
         return ReconstructionService(
-            task=self._task, artifacts=access, generator=generator, repository=repository
+            task=self._task, artifacts=self._catalog, generator=generator, repository=repository
         )
 
     def _path(self, record: LocatedArtifact) -> Path:
@@ -148,7 +117,7 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
         """真实字节逐项通过既有匹配守卫后，仅调用一次五向生成替身。"""
         generator = FiveViewGenerator()
         repository = MemoryReconstructionRepository()
-        service = self._service(generator, repository)
+        service = await self._service(generator, repository)
         request = self._request()
         result = await service.start(request)
         self.assertIsInstance(result, ReconstructionRecord)
@@ -161,7 +130,7 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
         """完整五向真实文件可支持明确四图计划，顶图不被偷偷删除或提交。"""
         generator = FourViewGenerator()
         repository = MemoryReconstructionRepository()
-        service = self._service(generator, repository)
+        service = await self._service(generator, repository)
         request = self._request(four_inputs=True)
         started = await service.start(request)
         assert isinstance(started, ReconstructionRecord)
@@ -180,12 +149,12 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_actual_missing_file_prevents_claim_and_submission(self) -> None:
         """元数据仍在但真实文件已删除时，不登记尝试或调用生成端口。"""
+        generator = FiveViewGenerator()
+        repository = MemoryReconstructionRepository()
+        service = await self._service(generator, repository)
         missing = self._records[0]
         self._path(missing).unlink()
         self.assertEqual(await self._files.observe(missing.artifact, missing.location), FileMissing(missing.location))
-        generator = FiveViewGenerator()
-        repository = MemoryReconstructionRepository()
-        service = self._service(generator, repository)
         request = self._request()
         with self.assertRaises(ArtifactContractError):
             await service.start(request)
@@ -194,6 +163,9 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_actual_changed_hash_prevents_claim_and_submission(self) -> None:
         """同长度字节被改写后实际观察保留新摘要，旧引用不能通过生成守卫。"""
+        generator = FiveViewGenerator()
+        repository = MemoryReconstructionRepository()
+        service = await self._service(generator, repository)
         changed = self._records[0]
         path = self._path(changed)
         original = path.read_bytes()
@@ -204,9 +176,6 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
         assert isinstance(observation, FilePresent)
         self.assertEqual(observation.observed.byte_size, changed.reference.content.byte_size)
         self.assertNotEqual(observation.observed.sha256, changed.reference.content.sha256)
-        generator = FiveViewGenerator()
-        repository = MemoryReconstructionRepository()
-        service = self._service(generator, repository)
         request = self._request()
         with self.assertRaises(ArtifactContractError):
             await service.start(request)
@@ -222,7 +191,7 @@ class RealFileGenerationTests(unittest.IsolatedAsyncioTestCase):
         )
         generator = FiveViewGenerator()
         repository = MemoryReconstructionRepository()
-        service = self._service(generator, repository, self._records[1:])
+        service = await self._service(generator, repository, self._records[1:])
         request = self._request()
         self.assertIsInstance(await service.start(request), InputInsufficient)
         self.assertEqual(generator.submitted_requests, ())
