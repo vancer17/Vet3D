@@ -3,7 +3,7 @@
 边界：本决定不选择执行隔离后端、模型供应商、Agent SDK 或 BFF 协议。 -->
 # ADR 0011：固定资源要求与受信环境探针
 
-- 状态：已采纳，实施验收范围见 [L2-01](../implementation/work-items/L2-01.md)。
+- 状态：已采纳，实施验收范围见 [L2-01](../implementation/work-items/L2-01.md)；后续通用执行及账本的职责由 [ADR 0012](0012-native-agent-runtime-integration.md)局部修订。
 - 背景：L1-03 已保存描述性解释器要求，L1-05 已定位候选；两者都不能证明实际程序、内嵌 Python 或 CPU 自检成功。Vet3D 面向 BFF 的正常业务链需要可程序化消费的事实，而不是每次人工审核或部署配置定义业务能力。
 
 采用原 `ResourceReference` 与 `InterpreterRequirement`，在 Operations 建立有限消费者语义。只有真实可替换的探针使用 Protocol，规则服务保持具体实现。观察、未取得观察的原因和原声明是事实源，结果与缺口单向派生，不增设 `ready/available/supported` 多份状态或用一致性测试维护它们。
@@ -17,3 +17,5 @@
 每次检查重新取得证据，同次闭包按 runtime 共享一次观察；没有已存在的持久消费者要求，故不建设缓存有效期、巡检服务、PID 恢复库或兼容投影。SIGKILL 后不能保证裸宿主清理，该边界明确交给部署监督与后续执行设计，不用日志或新进程冒充原尝试恢复。
 
 参考官方进程语义：[Python 3.14 异步子进程](https://docs.python.org/3.14/library/asyncio-subprocess.html)、[Blender 4.5 命令参数](https://docs.blender.org/manual/en/4.5/advanced/command_line/arguments.html)。进程组、关闭 autoexec 和现有应用容器都不等于不可信执行隔离；后续隔离部署必须重新取得对应环境证据。
+
+2026-11-24 的 [ADR 0012](0012-native-agent-runtime-integration.md)将后续 Agent 路线收敛为成熟运行时的完整原生循环接入，不沿本项受信探针扩建通用执行内核或另一套进程账本。本 ADR 的有限自检、资源声明和已有验证继续有效；进入实际任务环境时复用检查语义并按环境变化取得证据，原生工具与反馈的选型验证由 [L2-02](../implementation/work-items/L2-02.md)维护。
