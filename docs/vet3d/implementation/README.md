@@ -10,7 +10,7 @@
 
 当前 `src/vet3d/infrastructure/hi3d_inventory/`、`src/vet3d/infrastructure/hi3d_reference/`、`scripts/hi3d/` 和 `tests/hi3d/` 提供发行盘点、ASAR 读取、抽离、优先级派生、参考包及证据核查。它们不证明 Vet3D 产品工作区、执行器、LLM 网关、上下文或业务编排已实现。
 
-[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)、[L0-02 身份与关联](work-items/L0-02.md)、[L0-03 文件、来源、单位与视图契约](work-items/L0-03.md)和 [L0-04 独立事实、结果与交接守卫](work-items/L0-04.md)及 [L0-05 最小生成端口与装配探针](work-items/L0-05.md)为 **已完成**，包括准备语义修订。[L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)、[L1-04](work-items/L1-04.md)和 [L1-05](work-items/L1-05.md)已完成各卡限定的本期范围，[L2-01](work-items/L2-01.md)已完成有限 CPU 环境探测范围；其他产品条目保持 **未实施**。接口、运行方式和验证记录由各实施卡维护。设计理由分别见 [ADR 0001](../adr/0001-service-host-and-composition.md)、[ADR 0002](../adr/0002-identity-and-relations.md)、[ADR 0003](../adr/0003-content-and-view-contracts.md)、[ADR 0004](../adr/0004-independent-facts-and-outcomes.md)及 [ADR 0005](../adr/0005-preparation-and-generation-ports.md)；ADR 0003 的视图参与语义由 ADR 0005 修订。
+[L0-01 最小应用入口与装配骨架](work-items/L0-01.md)、[L0-02 身份与关联](work-items/L0-02.md)、[L0-03 文件、来源、单位与视图契约](work-items/L0-03.md)和 [L0-04 独立事实、结果与交接守卫](work-items/L0-04.md)及 [L0-05 最小生成端口与装配探针](work-items/L0-05.md)为 **已完成**，包括准备语义修订。[L1-01](work-items/L1-01.md)、[L1-02](work-items/L1-02.md)、[L1-03](work-items/L1-03.md)、[L1-04](work-items/L1-04.md)和 [L1-05](work-items/L1-05.md)已完成各卡限定的本期范围，[L2-01](work-items/L2-01.md)已完成有限 CPU 环境探测范围；[L2-02](work-items/L2-02.md)为 **阶段 A 已开展，产品接入未完成**，具体证据与限制见该卡；其他产品条目保持 **未实施**。接口、运行方式和验证记录由各实施卡维护。设计理由分别见 [ADR 0001](../adr/0001-service-host-and-composition.md)、[ADR 0002](../adr/0002-identity-and-relations.md)、[ADR 0003](../adr/0003-content-and-view-contracts.md)、[ADR 0004](../adr/0004-independent-facts-and-outcomes.md)及 [ADR 0005](../adr/0005-preparation-and-generation-ports.md)；ADR 0003 的视图参与语义由 ADR 0005 修订。
 
 | 文档 | 维护内容 |
 | --- | --- |
@@ -28,7 +28,7 @@
 | [L1-04 实施卡](work-items/L1-04.md) | 当前单资产持久目录、真实 ArtifactAccess、独立有界文件 I/O 与短元数据调用、恢复及验证记录；理由见 [ADR 0009](../adr/0009-single-artifact-catalog.md)。 |
 | [L1-05 实施卡](work-items/L1-05.md) | 当前统一配置、关联诊断、Docker 宿主、恢复和真实验证；理由见 [ADR 0010](../adr/0010-settings-diagnostics-and-docker.md)。 |
 | [L2-01 实施卡](work-items/L2-01.md) | 当前固定资源环境核对、真实进程观察、恢复和实测交接；理由见 [ADR 0011](../adr/0011-bounded-environment-probes.md)。 |
-| [L2-02 实施卡](work-items/L2-02.md) | 未实施；维护原生 Agent 运行时接入的范围、选型前真实闭环、职责、恢复与验收计划；方向与取舍见 [ADR 0012](../adr/0012-native-agent-runtime-integration.md)。 |
+| [L2-02 实施卡](work-items/L2-02.md) | 阶段 A 已开展，产品接入未完成；维护实验入口、真实闭环证据、职责、恢复及未决项；方向与取舍见 [ADR 0012](../adr/0012-native-agent-runtime-integration.md)。 |
 | [架构决策记录](../adr/0001-service-host-and-composition.md) | 已接受的设计选择、原因、替代方案与历史决策；不重复维护当前接口。 |
 | `docs/hi3d/` | 固定版本参考行为、工具原文、资源和证据边界；产品改进在 Vet3D 文档中维护。 |
 
@@ -44,7 +44,7 @@ Vet3D 的目标是供 BFF 调用的后端服务。正常链路由后端自主执
 
 持久工作区与执行环境分别管理。L1-01 的当前实现及后续首次开放不可信代码所需的权限、并行和接收边界，统一见[工作区实施卡](work-items/L1-01.md#8-完成与上层放行)；本总纲不把目录创建或工具可见性当作执行隔离证明。
 
-Agent 集成方向已按 [ADR 0012](../adr/0012-native-agent-runtime-integration.md)确定：Vet3D Agent 由成熟运行时直接承载，原生 Agent 唯一负责建模规划、工具选择、错误理解、视觉观察与修订，运行时管理会话上下文；具体接入尚未实施或验收。Vet3D 接入层负责业务接入与协议连接，L8 保留验收、返工准入、预算及发布规则；继续输入和建模决策权边界统一见 [L2-02](work-items/L2-02.md#继续输入与建模决策权)。当前 Agent 路径不要求代码冻结、输入快照或字节追溯。
+Agent 集成方向已按 [ADR 0012](../adr/0012-native-agent-runtime-integration.md)确定：Vet3D Agent 由成熟运行时直接承载，原生 Agent 唯一负责建模规划、工具选择、错误理解、视觉观察与修订，运行时管理会话上下文；阶段 A 已开展，产品接入未完成，实验观察不代表整体验收。Vet3D 接入层负责业务接入与协议连接，L8 保留验收、返工准入、预算及发布规则；继续输入和建模决策权边界统一见 [L2-02](work-items/L2-02.md#继续输入与建模决策权)。当前 Agent 路径不要求代码冻结、输入快照或字节追溯。
 
 ### 三种关系分别维护
 

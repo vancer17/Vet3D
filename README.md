@@ -19,7 +19,7 @@ Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小�
 
 [L2-01 固定资源要求与有限环境探测](docs/vet3d/implementation/work-items/L2-01.md)已完成本期范围；当前接口、恢复和实测范围由该卡维护。决定理由见 [ADR 0011](docs/vet3d/adr/0011-bounded-environment-probes.md)。
 
-[L2-02 原生 Agent 运行时接入](docs/vet3d/implementation/work-items/L2-02.md)仍未实施；优先验证完整 Codex app-server 线程／轮次及原生工具反馈，具体运行时、模型与隔离设施尚待真实闭环验证。此次职责收敛与撤销执行内容冻结／字节追溯的决定见 [ADR 0012](docs/vet3d/adr/0012-native-agent-runtime-integration.md)，不改变已完成条目的历史验收范围。
+[L2-02 原生 Agent 运行时接入](docs/vet3d/implementation/work-items/L2-02.md)阶段 A 已开展，产品接入未完成；实验入口、已有真实证据、恢复边界及待验证项由该卡维护。生产运行时、模型与隔离设施尚未完成选型。此次职责收敛与撤销执行内容冻结／字节追溯的决定见 [ADR 0012](docs/vet3d/adr/0012-native-agent-runtime-integration.md)，不改变已完成条目的历史验收范围。
 
 [宿主与装配决策](docs/vet3d/adr/0001-service-host-and-composition.md)记录技术选择及边界。Hi3D 参考工具与产品实现分别维护。
 
