@@ -12,7 +12,7 @@ Agent 接入方向按 [ADR 0012](../adr/0012-native-agent-runtime-integration.md
 
 **职责与边界。** 定义各层共同使用的身份、引用、状态和能力端口。先明确“需要提供什么”，再选择存储、解释器和模型适配器。公共内核只承载稳定语义；供应商参数、模型提示词、桌面组件及具体数据库类型由各自适配层维护。
 
-**开始依赖。** 明确首条验证链的用户输入与交付目标；利用已有逆向材料列出需要借鉴的边界。LLM、生图、3D 模型及持久化产品仍可待选；首期宿主与包布局见 [ADR 0001](../adr/0001-service-host-and-composition.md)。
+**开始依赖。** 明确首条验证链的用户输入与交付目标；利用已有逆向材料列出需要借鉴的边界。LLM 具体型号与连接、生图、3D 模型及持久化产品随对应消费者确定；首期宿主与包布局见 [ADR 0001](../adr/0001-service-host-and-composition.md)。
 
 | 条目 | 实施与交付 | 前置 |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Agent 接入方向按 [ADR 0012](../adr/0012-native-agent-runtime-integration.md
 
 **完成与恢复。** L2-02 先取得真实原生建模反馈闭环证据，再确定接入方式与公开接口；正常与中断验证、隔离和资源门槛由该卡维护。会话历史恢复、工作文件接续和原进程继续分别验证，取消受理不等于已停止；结果不明不盲目重发。独立远端任务沿原受理身份查询；无幂等或找回接口时明确限制，不以替身测试宣称平台能找回未知任务。
 
-**参考与待定。** [Hi3D 原生与扩展工具](../../hi3d/tools/README.md)、[原生上下文与反馈](../../hi3d/infrastructure/workspace/llm-context.md)、[图像反馈](../../hi3d/tools/view-image.md)、[Blender 执行包装](../../hi3d/resources/blender-execute.md)、[Hi3D 作业契约](../../hi3d/tools/hi3d-api.md)、[MDF 契约](../../hi3d/tools/mdf-api.md)。实验版本、模型连接、环境及已测边界见 L2-02；生产运行时、模型和隔离设施尚未完成选型，未测的资源限制与恢复范围不据有限实验推定。
+**参考与待定。** [Hi3D 原生与扩展工具](../../hi3d/tools/README.md)、[原生上下文与反馈](../../hi3d/infrastructure/workspace/llm-context.md)、[图像反馈](../../hi3d/tools/view-image.md)、[Blender 执行包装](../../hi3d/resources/blender-execute.md)、[Hi3D 作业契约](../../hi3d/tools/hi3d-api.md)、[MDF 契约](../../hi3d/tools/mdf-api.md)。实验实例、共享认证、原生与外部工具的实际边界见 L2-02；后续基模家族已确定为 Qwen，具体型号／直连接入仍待实测，生产运行时和隔离设施尚未完成选型。历史登录模型及有限路径的证据不能外推其他模型、扩展工具或未测恢复范围。
 
 ## L3 通用能力服务层
 
