@@ -19,6 +19,8 @@ Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小�
 
 [L2-01 固定资源要求与有限环境探测](docs/vet3d/implementation/work-items/L2-01.md)已完成本期范围；当前接口、恢复和实测范围由该卡维护。决定理由见 [ADR 0011](docs/vet3d/adr/0011-bounded-environment-probes.md)。
 
+[L2-02 阶段 A](docs/vet3d/implementation/work-items/L2-02.md)已有有限实验实现和证据，当前实施范围仅验证模型、成熟运行时与任务环境组合的小型自主任务、原生反馈、连续性及运行边界；产品接入另行规划。基模家族已确定为 Qwen，`qwen3.7-plus` 直连样本仍有未完成任务，历史结果不因范围收敛改判。正式资产交接、真实动物质量和生产验收不属于阶段 A。决定理由及保留的原生唯一循环、撤销执行冻结／字节追溯边界见 [ADR 0012](docs/vet3d/adr/0012-native-agent-runtime-integration.md)。
+
 [宿主与装配决策](docs/vet3d/adr/0001-service-host-and-composition.md)记录技术选择及边界。Hi3D 参考工具与产品实现分别维护。
 
 ## Documentation
