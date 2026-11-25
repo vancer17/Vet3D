@@ -8,7 +8,7 @@ from collections import Counter
 from dataclasses import dataclass
 import math
 
-from .native_agent_protocol import (
+from vet3d.adapters import (
     AppServerStdioClient, NativeMessage, NativeProtocolError, NativeSessionBinding,
 )
 

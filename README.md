@@ -15,11 +15,13 @@ Vet3D 的目标是供 BFF 调用的后端服务。当前已完成 [L0-01 最小�
 
 [L1-04 单资产持久目录与真实 ArtifactAccess](docs/vet3d/implementation/work-items/L1-04.md)已完成本期范围，登记、重开对账及文件 I/O 与短元数据调用的并发边界由该卡维护；实际验证见该卡第 7 节，M1 尚未放行。选择理由见 [ADR 0009](docs/vet3d/adr/0009-single-artifact-catalog.md)。
 
-[L1-05 统一配置、关联诊断与 Docker 宿主](docs/vet3d/implementation/work-items/L1-05.md)已完成本期范围。当前配置、读取与恢复契约见实施卡；[Docker 运行导航](docker/README.md)提供仅开发／生产两套编排及有限命令。选择理由见 [ADR 0010](docs/vet3d/adr/0010-settings-diagnostics-and-docker.md)，BFF 与通用脚本执行仍由后续条目接入。
+[L1-05 统一配置、关联诊断与 Docker 宿主](docs/vet3d/implementation/work-items/L1-05.md)已完成本期范围。当前配置、读取与恢复契约见实施卡；[Docker 运行导航](docker/README.md)提供仅开发／生产两套编排及有限命令。选择理由见 [ADR 0010](docs/vet3d/adr/0010-settings-diagnostics-and-docker.md)，常驻 BFF 与完整产品服务仍由后续条目接入。
 
 [L2-01 固定资源要求与有限环境探测](docs/vet3d/implementation/work-items/L2-01.md)已完成本期范围；当前接口、恢复和实测范围由该卡维护。决定理由见 [ADR 0011](docs/vet3d/adr/0011-bounded-environment-probes.md)。
 
-[L2-02 阶段 A](docs/vet3d/implementation/work-items/L2-02.md)已有有限实验实现和证据，当前实施范围仅验证模型、成熟运行时与任务环境组合的小型自主任务、原生反馈、连续性及运行边界；产品接入另行规划。基模家族已确定为 Qwen，`qwen3.7-plus` 直连样本仍有未完成任务，历史结果不因范围收敛改判。正式资产交接、真实动物质量和生产验收不属于阶段 A。决定理由及保留的原生唯一循环、撤销执行冻结／字节追溯边界见 [ADR 0012](docs/vet3d/adr/0012-native-agent-runtime-integration.md)。
+[L2-02 阶段 A](docs/vet3d/implementation/work-items/L2-02.md)已有有限实验实现和证据，该卡维护模型、成熟运行时与任务环境组合的小型自主任务、原生反馈、连续性及运行边界。基模家族已确定为 Qwen，`qwen3.7-plus` 直连样本仍有未完成任务，历史结果不因范围收敛改判。正式资产交接、真实动物质量和生产验收不属于阶段 A。决定理由及保留的原生唯一循环、撤销执行冻结／字节追溯边界见 [ADR 0012](docs/vet3d/adr/0012-native-agent-runtime-integration.md)。
+
+[L2-02 阶段 B](docs/vet3d/implementation/work-items/L2-02-B.md)接通可信有限宿主、原任务与原生会话关联、进度、继续、取消及环境所有权，新增有限命令 `vet3d-agent-probe`；实际验证和恢复边界由该卡维护。没有 BFF HTTP、持久任务服务、正式资产发布或第二套 Agent 循环，M1 尚未放行。
 
 [宿主与装配决策](docs/vet3d/adr/0001-service-host-and-composition.md)记录技术选择及边界。Hi3D 参考工具与产品实现分别维护。
 

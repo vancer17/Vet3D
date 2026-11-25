@@ -20,6 +20,7 @@ from .diagnostics import (
     DiagnosticBusyError, DiagnosticClosedError, DiagnosticRuntime, is_diagnostics_active, open_diagnostics,
 )
 from .operations import OperationsRuntime, initialize_operations, open_operations
+from .agent import AgentRuntime
 
 __all__ = [
     "InvocationTimeoutError", "assemble_application", "build_demo_application",
@@ -33,4 +34,5 @@ __all__ = [
     "Settings", "load_settings", "DiagnosticRuntime", "open_diagnostics",
     "DiagnosticBusyError", "DiagnosticClosedError", "is_diagnostics_active",
     "OperationsRuntime", "initialize_operations", "open_operations",
+    "AgentRuntime",
 ]

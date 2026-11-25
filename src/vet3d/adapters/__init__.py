@@ -16,6 +16,12 @@ from .resource_build import build_resource_bundle
 from .resource_files import LocalResourceReader, LocalResourceStore
 from .diagnostic_files import LocalDiagnosticFiles
 from .environment_probe import LocalEnvironmentProbe
+from .codex_protocol import (
+    AppServerStdioClient, JsonValue, NativeMessage, NativeProtocolError,
+    NativeResponseError, NativeSessionBinding, validate_model_selection,
+)
+from .codex_session import CodexAgentSession
+from .codex_environment import CodexDockerEnvironment, CodexEnvironmentCreationError
 
 __all__ = [
     "DemoAdapter", "FiveViewGenerator", "FourViewGenerator",
@@ -27,4 +33,7 @@ __all__ = [
     "ResourceLimits", "build_resource_bundle",
     "LocalResourceReader", "LocalResourceStore",
     "LocalDiagnosticFiles", "LocalEnvironmentProbe",
+    "AppServerStdioClient", "JsonValue", "NativeMessage", "NativeProtocolError",
+    "NativeResponseError", "NativeSessionBinding", "validate_model_selection",
+    "CodexAgentSession", "CodexDockerEnvironment", "CodexEnvironmentCreationError",
 ]

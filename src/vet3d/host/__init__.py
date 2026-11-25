@@ -6,5 +6,6 @@
 from .cli import main
 from .probe import probe_main
 from .operations import operations_main
+from .agent import agent_main
 
-__all__ = ["main", "probe_main", "operations_main"]
+__all__ = ["main", "probe_main", "operations_main", "agent_main"]

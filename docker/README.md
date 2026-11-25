@@ -61,3 +61,5 @@ docker compose -f docker/compose.dev.yaml run --rm vet3d \
 宿主当前尚未接入多副本存储，不能同时启动多个实例写同一个受管根。单实例的根所有权不限制后续不同执行环境的建模并行。
 
 构建使用按摘要固定的官方 CPython、uv 镜像与 Blender 归档，身份统一维护在 Dockerfile；Debian 原生动态库通过官方仓库安装。升级由显式修改制品身份和重新验证完成。参考：[Blender 官方发布目录及校验文件](https://download.blender.org/release/Blender4.5/)、[uv 的 Docker 安装方式](https://docs.astral.sh/uv/guides/integration/docker/)、[Compose 绑定目录参数](https://docs.docker.com/reference/compose-file/container-spec/#volumes)、[Docker local 日志驱动](https://docs.docker.com/engine/logging/drivers/local/)。具体本机验证结果统一记录在实施卡，不将容器配置视为不可信代码隔离证明。
+
+[L2-02 阶段 B](../docs/vet3d/implementation/work-items/L2-02-B.md)的 `vet3d-agent-probe` 当前从受信 Debian 宿主运行，按需创建有限任务容器，并使用明确的既有本地镜像与 Codex 发行目录。上述开发／生产 Compose 没有 Docker 管理接口及该入口所需部署资料，不能据其启动成功宣称 Agent 已托管；本期未增加第三套 Compose，也未把管理 socket 挂进应用或任务容器。

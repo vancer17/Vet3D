@@ -3,16 +3,16 @@
 # 边界：不是产品 Agent 端口；实验结果不能替代业务验收或生产选型。
 """提供范围受限的原生 Agent 接入实验组件。"""
 
-from .native_agent_environment import NativeAgentDockerEnvironment
+from vet3d.adapters import CodexDockerEnvironment
 from .native_agent_resources import TaskMaterials, prepare_task_materials
-from .native_agent_protocol import (
+from vet3d.adapters import (
     AppServerStdioClient, JsonValue, NativeMessage, NativeProtocolError,
     NativeResponseError, NativeSessionBinding, validate_model_selection,
 )
 from .native_agent_run import TurnObservation, run_native_turn
 
 __all__ = [
-    "NativeAgentDockerEnvironment", "AppServerStdioClient", "JsonValue", "NativeMessage", "NativeProtocolError",
+    "CodexDockerEnvironment", "AppServerStdioClient", "JsonValue", "NativeMessage", "NativeProtocolError",
     "NativeResponseError", "NativeSessionBinding", "TaskMaterials", "prepare_task_materials",
     "TurnObservation", "run_native_turn", "validate_model_selection",
 ]

@@ -1,7 +1,7 @@
-# 文件信息：L2-02 实验装配的模型凭证注入边界测试。
+# 文件信息：L2-02 原生任务环境的模型凭证注入边界测试。
 # 作用：验证凭证只由控制容器按变量名接收，错误输入在 Docker 资源创建前被拒绝。
 # 边界：仅核对受信启动参数，不运行 Docker 或模型，不证明真实网络、认证及容器隔离。
-"""以机械替身检查控制侧凭证交接，不宣称真实模型接入通过。"""
+"""保留阶段 A 凭证边界用例，并验证提取后的唯一环境实现。"""
 
 import os
 from pathlib import Path
@@ -10,7 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from vet3d.experiments import NativeAgentDockerEnvironment
+from vet3d.adapters import CodexDockerEnvironment
 
 
 class NativeAgentEnvironmentTests(unittest.TestCase):
@@ -28,7 +28,7 @@ class NativeAgentEnvironmentTests(unittest.TestCase):
             :returns: 足够完成装配的机械命令结果。
             """
             calls.append((args, kwargs))
-            stdout = "172.28.0.2" if args[:2] == ("docker", "inspect") else ""
+            stdout = "172.28.0.2" if args[3:4] == ("inspect",) else ""
             return subprocess.CompletedProcess(args, 0, stdout, "")
 
         with tempfile.TemporaryDirectory() as directory:
@@ -39,15 +39,16 @@ class NativeAgentEnvironmentTests(unittest.TestCase):
             home.mkdir()
             materials.mkdir()
             with patch.dict(os.environ, {"VET3D_TEST_API_KEY": "synthetic-model-key"}), patch(
-                "vet3d.experiments.native_agent_environment.subprocess.run", side_effect=run_command,
-            ):
-                NativeAgentDockerEnvironment.create(
+                "vet3d.adapters.codex_environment.subprocess.run", side_effect=run_command,
+            ), patch.object(CodexDockerEnvironment, "require_running"):
+
+                CodexDockerEnvironment.create(
                     image_id="synthetic-image", codex_package=package,
                     control_home=home, task_materials=materials,
                     model_api_key_env="VET3D_TEST_API_KEY",
                 )
 
-        created = [(args, options) for args, options in calls if args[:2] == ("docker", "create")]
+        created = [(args, options) for args, options in calls if args[3:4] == ("create",)]
         self.assertEqual(len(created), 2)
         for args, options in created:
             name = args[args.index("--name") + 1]
@@ -66,14 +67,14 @@ class NativeAgentEnvironmentTests(unittest.TestCase):
     def test_invalid_or_missing_key_is_rejected_before_resource_creation(self) -> None:
         """缺失凭证、非法变量及宿主配置名不能触发任何 Docker 操作。"""
         with patch.dict(os.environ, {"EMPTY_API_KEY": ""}, clear=True), patch(
-            "vet3d.experiments.native_agent_environment.subprocess.run",
+            "vet3d.adapters.codex_environment.subprocess.run",
         ) as run:
             for name in (
                 "MISSING_API_KEY", "EMPTY_API_KEY", "HOME", "CODEX_HOME", "PATH",
                 "HTTPS_PROXY", "NO_PROXY", "BAD-NAME_API_KEY", "KEY_API_KEY=value", "1_API_KEY",
             ):
                 with self.subTest(name=name), self.assertRaises(ValueError):
-                    NativeAgentDockerEnvironment.create(
+                    CodexDockerEnvironment.create(
                         image_id="synthetic-image", codex_package=Path("not-created"),
                         control_home=Path("not-created"), task_materials=Path("not-created"),
                         model_api_key_env=name,

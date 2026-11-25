@@ -12,14 +12,14 @@ import subprocess
 from uuid import uuid4
 
 from vet3d.experiments import (
-    AppServerStdioClient, NativeAgentDockerEnvironment, NativeMessage,
+    AppServerStdioClient, CodexDockerEnvironment, NativeMessage,
     NativeProtocolError, NativeResponseError, NativeSessionBinding, prepare_task_materials, run_native_turn,
     validate_model_selection,
 )
 from vet3d.identity import TaskId, TaskIdentity, WorkspaceId
 
 
-async def connect_environment(environment: NativeAgentDockerEnvironment, root: Path) -> AppServerStdioClient:
+async def connect_environment(environment: CodexDockerEnvironment, root: Path) -> AppServerStdioClient:
     """连接同一原生环境；重新连接不重新提交任务或复制历史。
 
     :param environment: 已落实隔离边界的本次实验环境。
@@ -84,13 +84,13 @@ async def run_experiment(args: argparse.Namespace) -> None:
         "requested_provider": args.model_provider,
         "initial_goal": initial_goal, "task_only": args.task_only,
     }
-    environment: NativeAgentDockerEnvironment | None = None
+    environment: CodexDockerEnvironment | None = None
     client: AppServerStdioClient | None = None
     task_environments: list[NativeMessage] = [
         {"environmentId": "stage-a", "cwd": "/work", "runtimeWorkspaceRoots": ["/work"]},
     ]
     try:
-        environment = NativeAgentDockerEnvironment.create(
+        environment = CodexDockerEnvironment.create(
             image_id=args.image_id, codex_package=args.codex_package,
             control_home=args.control_home, task_materials=materials.task_dir,
             model_http_proxy=args.model_http_proxy,

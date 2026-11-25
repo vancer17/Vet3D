@@ -191,6 +191,30 @@ class InterpreterLocation(BaseModel):
         return value
 
 
+class AgentSettings(BaseModel):
+    """保存有限原生会话的部署位置，不声明建模能力或业务资格。
+
+    :param codex_package: 已安装的原生运行时发行目录。
+    :param native_config: 专用原生 TOML；模型、provider 和凭证变量名只在此维护。
+    :param control_root: 本宿主独占的临时控制状态父目录。
+    :param image_id: 已存在的确切执行镜像身份，不自动拉取。
+    :param docker_context: 所有环境管理与连接使用的同一 Docker context。
+    :param lifetime_seconds: 每个环境的最长存活时间，不随轮次或重连续期。
+    :param max_sessions: 本宿主实际拥有的环境数上限，没有等待队列。
+    :param model_http_proxy: 控制侧显式代理，不传给代码执行侧。
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    codex_package: _ConfigurationPath
+    native_config: _ConfigurationPath
+    control_root: _ConfigurationPath
+    image_id: str
+    docker_context: str = "default"
+    lifetime_seconds: _PositiveInteger = 1200
+    max_sessions: _PositiveInteger = 2
+    model_http_proxy: str | None = None
+
+
 class Settings(BaseSettings):
     """由 load_settings 生成的冻结装配配置，不传入业务内核。
 
@@ -200,6 +224,7 @@ class Settings(BaseSettings):
     :param diagnostics: 运维诊断输出及读取的装配参数。
     :param interpreters: 按原运行环境名称查询的候选位置元组。
     :param environment_probe: 固定受信探针的部署预算，不定义业务能力。
+    :param agent: 有实际有限宿主消费者时使用的原生会话部署配置。
     """
 
     model_config = SettingsConfigDict(
@@ -213,6 +238,7 @@ class Settings(BaseSettings):
     diagnostics: DiagnosticSettings
     interpreters: tuple[InterpreterLocation, ...] = ()
     environment_probe: Annotated[ProbeLimits, PlainValidator(_probe_limits)] = Field(default_factory=ProbeLimits)
+    agent: AgentSettings | None = None
 
     @classmethod
     def settings_customise_sources(
@@ -298,6 +324,23 @@ class Settings(BaseSettings):
         base = cls._base_directory()
         return tuple(item.model_copy(update={"path": _absolute(item.path, base)}) for item in value)
 
+    @field_validator("agent")
+    @classmethod
+    def _agent_paths(cls, value: AgentSettings | None) -> AgentSettings | None:
+        """固定原生接入的部署路径，不启动运行时或读取认证。
+
+        :param value: 显式配置的有限接入位置，未配置时为空。
+        :returns: 以同一 YAML 目录解析后的配置。
+        """
+        if value is None:
+            return None
+        base = cls._base_directory()
+        return value.model_copy(update={
+            "codex_package": _absolute(value.codex_package, base),
+            "native_config": _absolute(value.native_config, base),
+            "control_root": _absolute(value.control_root, base),
+        })
+
     @model_validator(mode="after")
     def _separate_roots(self) -> Self:
         """在产生任何目录副作用前拒绝配置、输入和受管数据相互覆盖。
@@ -305,10 +348,12 @@ class Settings(BaseSettings):
         :returns: 目录职责互不嵌套的本配置。
         :raises ValueError: 数据根相同、嵌套、指向系统根或覆盖配置文件。
         """
-        roots = (
+        roots: tuple[Path, ...] = (
             self.workspaces.root, self.files.input_root, self.resources.root,
             self.resources.source_root, self.diagnostics.root,
         )
+        if self.agent is not None:
+            roots += (self.agent.control_root,)
         for index, root in enumerate(roots):
             if root == Path(root.anchor):
                 raise ValueError("部署数据根不得是文件系统根")
@@ -318,6 +363,10 @@ class Settings(BaseSettings):
             for source in (type(self).model_config.get("yaml_file"), type(self).model_config.get("env_file")):
                 if isinstance(source, Path) and (source.is_relative_to(root) or root.is_relative_to(source)):
                     raise ValueError("数据根不得覆盖配置文件位置")
+            if self.agent is not None:
+                for source in (self.agent.native_config, self.agent.codex_package):
+                    if source.is_relative_to(root) or root.is_relative_to(source):
+                        raise ValueError("数据根不得覆盖原生配置或运行时发行目录")
         return self
 
 
