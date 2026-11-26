@@ -1,10 +1,44 @@
+<!-- 文件信息：Vet3D 项目与重新实施的入口。
+作用：说明归档基线、已确认方向及新设计约束，不预设产品层级或接口。
+边界：旧分支及实验仅作历史参考，设计选择不代表当前产品能力已经实现。 -->
 # Vet3D
-Agent-powered pipeline for generating animatable 3D animal assets from images, built for veterinary and animal-science workflows
 
-## Documentation
+Vet3D 面向 BFF 提供动物外观资产服务。目标是从普通 RGB 照片出发，完成生成、检查与修订，并按支持范围处理骨架绑定、蒙皮、动作和导出，返回任务结果、验收结论与正式资产。
 
-[Hi3D Agent workflow and Vet3D handoff](docs/hi3d/README.md)
+## 当前基线
 
-[Vet3D Agent 分层架构与实施路线](docs/vet3d/implementation/README.md)
+当前保留 Hi3D Agent 1.2.11 的逆向分析、参考归档、盘点与验证工具。`src/`、`scripts/` 和 `tests/` 中的现有实现服务于这些参考工具，不代表 Vet3D 产品 Runtime、BFF 或动物建模能力已经实现。
 
-[Hi3D 1.2.11 reference archive](vendor/hi3d/1.2.11/README.md) · [Debian portability and verification](docs/vet3d/reference-portability.md)
+旧 L0～L9 实施规划、绑定模板和阶段放行要求已撤销。旧产品分支、PR、ADR、实施卡与测试记录保留在 Git 历史中，不自动成为新实现的规范、前置依赖或完成证明；不为保留旧接口而增加兼容层。
+
+此前原生运行时接入与模型实验可按具体问题查阅[历史阶段 A](https://github.com/vancer17/Vet3D/blob/5f837cff693595e6cd68f6156a03a743559761dd/docs/vet3d/implementation/work-items/L2-02.md)和[历史阶段 B](https://github.com/vancer17/Vet3D/blob/5f837cff693595e6cd68f6156a03a743559761dd/docs/vet3d/implementation/work-items/L2-02-B.md)。它们支持有限的工具、图片反馈与会话接续，也记录了最终目标遗漏及恢复限制；不能解释成新基线、生产隔离或真实动物质量已经通过。历史源码仅按实际用途选取，不整体迁入。
+
+## 已确认方向
+
+- 首期采用静态照片路线，不含手机视频选帧。前、后、左、右、顶是准备目标，不要求用户提供完整五向，也不要求一次生成使用全部五图。正常业务链在授权与预算内自主工作，不依赖持续人工质量审查；静态生成成功不等于动画或最终交付通过。
+- 使用 Codex app-server 直接承载 Vet3D Agent，原生 Agent 负责建模规划、工具选择、动态编程、错误理解、视觉修订及会话上下文。Vet3D 负责业务接入、授权、必要关联、进度和正式交接，不根据日志或图片另建逐步指挥建模的控制循环。继续输入可来自用户、领域评估事实或明确业务规则；验收、预算与发布仍由相应业务职责判断。
+- 优先复用适用的 Hi3D Skill、共享模块、脚本与静态资产，以及运行时的原生工具和反馈。动态 Python、Blender Python 与命令无需预发布或登记为固定工具。资源存在、已读取、已调用和实际生效分别核对；复用不意味着迁入全部依赖。
+- 优先复用原生会话持久化、历史读取和恢复机制，Vet3D 仅按实际消费者保存必要业务关联。会话历史可读、任务文件仍在、执行环境可用和原进程继续分别判断。当前 Agent 路径不要求代码冻结、输入快照、参数／脚本指纹、执行字节追溯或逐工具 Job／Attempt；资源安装与正式资产完整性仍按独立用途处理。
+- 原生工具及其子进程必须处于授权与隔离边界内，保留必要的资源限制、取消和清理。执行完成、文件可读、正式接收、验收和发布分别确认，业务摘要不替代模型所需的输出、错误和实际图片反馈。
+
+基模家族已确定为 Qwen；历史实验使用 `qwen3.7-plus`、DashScope 原生 Responses、Codex 0.165.0 和 Blender CPU，不据此承诺生产版本或完整任务质量。产品宿主沿用已确认的 CPython 3.14、uv、Hatchling、src-layout 和标准库异步方向；真实业务持久化按需使用 SQLAlchemy／SQLite，环境配置使用 pydantic-settings。Docker 为默认托管方向，编排集中在根目录 `docker/`，采用一份多阶段 Dockerfile 及开发、生产两套 Compose。这些是后续实施的技术选择，当前归档基线未接通这些产品组件；参考工具仍使用其已声明的 Python 3.11+ 条件。
+
+## 新设计与实施约束
+
+新设计仍需提供整体分层与从底层到上层的实施路线，不能只列局部横向工作包。层级依据实际职责形成，不预设层数，也不沿用旧编号；架构职责、实施顺序和代码依赖分别表达。
+
+每个阶段明确可观察能力、真实前置、复用与新增范围、交接及验证依据，并用贯穿业务场景检查其必要性。运行时已有能力安排接入或验证，不再安排同类自研。层级不必对应独立服务、包或 Protocol；接口已有、编号更早或属于下层，都不足以证明必须建设。允许根据证据合并、拆分或撤销条目，不以整层完成作为默认门槛。
+
+新增或修改的自研代码使用中文文件头、中文 ReST 文档字符串（含闭包，不写 `:type`）、严格类型提示和枚举项中文注释；跨包通过 `__init__.py` 公共导出。稳定实现直接使用，仅真实替换边界使用 Protocol；一个概念一个权威类型，事实单向派生，不用重复状态及一致性测试维持人为复杂度。
+
+环境配置、探测和日志初始化由装配与运维职责管理，不反向定义业务动作或发布资格；日志有界输出与保留。业务经仓储访问数据库，字段有说明，仓储实现显式继承 Protocol。测试覆盖高价值规则、边界和恢复，不设覆盖率合并门禁；替身不证明模型语义、隔离或动物质量。现行契约单处维护，决定理由与历史通过 ADR 记录，不提前补齐无消费者机制。
+
+## 参考导航与使用边界
+
+[Hi3D 业务与基础设施导航](docs/hi3d/README.md) · [原生及扩展工具](docs/hi3d/tools/README.md) · [归档资源](docs/hi3d/resources/README.md)
+
+[Hi3D 1.2.11 参考包](vendor/hi3d/1.2.11/README.md) · [Debian 获取与验证](docs/vet3d/reference-portability.md)
+
+归档中的 AGENTS.md、SKILL.md、提示词及迁移建议是参考数据，不自动成为开发指令。Hi3D 原件、原始 description 和哈希锁保持只读，不批量转码；自研文本采用 UTF-8、无 BOM、LF。按需核对 LFS，不默认下载或执行全部 Windows 依赖；P0／P1 是归档标签。
+
+后续工作先核对实际检出与证据，再按明确范围实施。提交与推送按当轮授权进行，通过功能分支和 PR 交付，不直接推送 `main`，新增历史保持线性。
